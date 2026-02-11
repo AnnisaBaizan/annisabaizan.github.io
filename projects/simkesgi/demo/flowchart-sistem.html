@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flowchart Sistem SIMKESGI - Inovasi Teknologi</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1e40af;
+            --primary-light: #3b82f6;
+            --secondary: #0891b2;
+            --accent-green: #059669;
+            --accent-orange: #f97316;
+            --accent-red: #dc2626;
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --border: #e2e8f0;
+            --text-dark: #0f172a;
+            --text-body: #334155;
+            --text-muted: #64748b;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text-body);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: 20px;
+            color: white;
+            box-shadow: var(--shadow-lg);
+        }
+
+        h1 {
+            font-size: clamp(28px, 5vw, 42px);
+            font-weight: 700;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            opacity: 0.95;
+            font-weight: 400;
+        }
+
+        /* Tab Navigation */
+        .tab-navigation {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            justify-content: center;
+            background: var(--surface);
+            padding: 16px;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+        }
+
+        .tab-btn {
+            padding: 12px 24px;
+            border: 2px solid var(--border);
+            background: var(--surface);
+            color: var(--text-body);
+            font-weight: 600;
+            font-size: 14px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'IBM Plex Sans', sans-serif;
+        }
+
+        .tab-btn:hover {
+            border-color: var(--primary);
+            background: var(--bg);
+        }
+
+        .tab-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* Flowchart Container */
+        .flowchart-container {
+            display: none;
+            background: var(--surface);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: var(--shadow-lg);
+            border: 2px solid var(--border);
+        }
+
+        .flowchart-container.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .flowchart-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 32px;
+            text-align: center;
+            padding-bottom: 16px;
+            border-bottom: 3px solid var(--primary);
+        }
+
+        /* Flowchart Elements */
+        .flow-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        /* Node Styles */
+        .flow-node {
+            position: relative;
+            padding: 20px 32px;
+            border-radius: 12px;
+            font-weight: 600;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            max-width: 400px;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .flow-node:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Start/End Nodes */
+        .node-start, .node-end {
+            background: linear-gradient(135deg, var(--accent-green) 0%, #10b981 100%);
+            color: white;
+            border-radius: 50px;
+            font-size: 18px;
+        }
+
+        .node-end {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+        }
+
+        /* Process Nodes */
+        .node-process {
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            color: var(--primary);
+            border: 2px solid var(--primary-light);
+        }
+
+        /* Decision Nodes */
+        .node-decision {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            color: #92400e;
+            border: 2px solid #fbbf24;
+            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+            padding: 30px 40px;
+            min-width: 250px;
+        }
+
+        /* Input/Output Nodes */
+        .node-io {
+            background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%);
+            color: #9f1239;
+            border: 2px solid #ec4899;
+            clip-path: polygon(10% 0%, 100% 0%, 90% 100%, 0% 100%);
+        }
+
+        /* Database Nodes */
+        .node-database {
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            color: var(--accent-green);
+            border: 2px solid var(--accent-green);
+            border-radius: 12px 12px 50% 50%;
+        }
+
+        /* User Role Nodes */
+        .node-role {
+            background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%);
+            color: #6b21a8;
+            border: 2px solid #a855f7;
+            font-size: 14px;
+        }
+
+        /* Connector Arrow */
+        .flow-arrow {
+            width: 3px;
+            height: 40px;
+            background: linear-gradient(to bottom, var(--primary-light), var(--primary));
+            position: relative;
+            margin: 0 auto;
+        }
+
+        .flow-arrow::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 12px solid var(--primary);
+        }
+
+        .flow-arrow.short {
+            height: 20px;
+        }
+
+        .flow-arrow.long {
+            height: 60px;
+        }
+
+        /* Horizontal Flow */
+        .flow-row {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .flow-arrow-h {
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary-light), var(--primary));
+            position: relative;
+        }
+
+        .flow-arrow-h::after {
+            content: '';
+            position: absolute;
+            right: -8px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 0;
+            height: 0;
+            border-top: 8px solid transparent;
+            border-bottom: 8px solid transparent;
+            border-left: 12px solid var(--primary);
+        }
+
+        /* Label */
+        .flow-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 8px 0;
+            text-align: center;
+        }
+
+        /* Module Badge */
+        .module-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            background: rgba(30, 64, 175, 0.1);
+            color: var(--primary);
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            margin: 4px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Grid Layout for Modules */
+        .module-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin: 20px 0;
+        }
+
+        .module-card {
+            background: var(--bg);
+            padding: 16px;
+            border-radius: 10px;
+            border: 2px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .module-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .module-card-title {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .module-card-desc {
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* Legend */
+        .legend {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 40px;
+            padding: 20px;
+            background: var(--bg);
+            border-radius: 12px;
+            border: 2px solid var(--border);
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .legend-color {
+            width: 30px;
+            height: 20px;
+            border-radius: 4px;
+            box-shadow: var(--shadow);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 10px;
+            }
+
+            .flowchart-container {
+                padding: 20px;
+            }
+
+            .flow-node {
+                max-width: 100%;
+                font-size: 14px;
+                padding: 16px 20px;
+            }
+
+            .node-decision {
+                min-width: 200px;
+                padding: 25px 30px;
+            }
+
+            .module-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tab-btn {
+                font-size: 12px;
+                padding: 10px 16px;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+            }
+
+            .tab-navigation {
+                display: none;
+            }
+
+            .flowchart-container {
+                display: block !important;
+                page-break-after: always;
+                box-shadow: none;
+                border: 1px solid #ccc;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1>🦷 SIMKESGI System Flowchart</h1>
+            <p class="subtitle">Sistem Informasi Kesehatan Gigi - Flowchart Inovasi Teknologi</p>
+            <p class="subtitle" style="margin-top: 8px; font-size: 14px; opacity: 0.9;">
+                Poltekkes Kemenkes Palembang
+            </p>
+        </header>
+
+        <!-- Tab Navigation -->
+        <div class="tab-navigation">
+            <button class="tab-btn active" onclick="showTab('overview')">📊 System Overview</button>
+            <button class="tab-btn" onclick="showTab('user-flow')">👥 User Flow</button>
+            <button class="tab-btn" onclick="showTab('data-flow')">💾 Data Flow</button>
+            <button class="tab-btn" onclick="showTab('workflow')">🔄 Workflow Process</button>
+            <button class="tab-btn" onclick="showTab('architecture')">🏗️ Architecture</button>
+        </div>
+
+        <!-- Flowchart 1: System Overview -->
+        <div id="overview" class="flowchart-container active">
+            <h2 class="flowchart-title">System Overview - Alur Kerja Sistem SIMKESGI</h2>
+            
+            <div class="flow-wrapper">
+                <div class="flow-node node-start">START - Akses Sistem</div>
+                <div class="flow-arrow"></div>
+                
+                <div class="flow-node node-io">Login Authentication</div>
+                <div class="flow-label">Validasi Email & Password</div>
+                <div class="flow-arrow"></div>
+                
+                <div class="flow-node node-decision">User Role?</div>
+                <div class="flow-arrow"></div>
+                
+                <div class="flow-row">
+                    <div class="flow-node node-role">Admin<br><small>Management</small></div>
+                    <div class="flow-node node-role">Mahasiswa<br><small>Data Entry</small></div>
+                    <div class="flow-node node-role">Pembimbing<br><small>Supervisor</small></div>
+                </div>
+                
+                <div class="flow-arrow long"></div>
+                
+                <div class="flow-node node-process">Dashboard<br>Statistik & Monitoring</div>
+                <div class="flow-arrow"></div>
+                
+                <div class="flow-node node-process" style="max-width: 600px;">
+                    <strong>Modul Utama (15+)</strong>
+                    <div class="module-grid" style="margin-top: 12px;">
+                        <div class="module-badge">Kartu Pasien</div>
+                        <div class="module-badge">Anamnesa</div>
+                        <div class="module-badge">Pemeriksaan</div>
+                        <div class="module-badge">Odontogram</div>
+                        <div class="module-badge">OHI-S</div>
+                        <div class="module-badge">Vitalitas</div>
+                        <div class="module-badge">Diagnosa</div>
+                        <div class="module-badge">Perencanaan</div>
+                        <div class="module-badge">Pelaksanaan</div>
+                    </div>
+                </div>
+                
+                <div class="flow-arrow"></div>
+                
+                <div class="flow-node node-database">MySQL Database<br>Data Storage & Retrieval</div>
+                <div class="flow-arrow"></div>
+                
+                <div class="flow-node node-process">Approval Workflow<br>ACC dengan TTE</div>
+                <div class="flow-label">Tanda Tangan Elektronik</div>
+                <div class="flow-arrow"></div>
+                
+                <div class="flow-node node-io">Output: Rekam Medis<br>Print & Export PDF</div>
+                <div class="flow-arrow"></div>
+                
+                <div class="flow-node node-end">END - Logout</div>
+            </div>
+        </div>
+
+        <!-- Flowchart 2: User Flow -->
+        <div id="user-flow" class="flowchart-container">
+            <h2 class="flowchart-title">User Flow - Alur Kerja Pengguna Berdasarkan Role</h2>
+            
+            <div class="flow-wrapper">
+                <div class="flow-node node-start">User Login</div>
+                <div class="flow-arrow"></div>
+                
+                <div class="flow-node node-decision">Identifikasi Role</div>
+                <div class="flow-arrow short"></div>
+                
+                <!-- Mahasiswa Flow -->
+                <div style="padding: 20px; background: rgba(59, 130, 246, 0.05); border-radius: 12px; margin: 20px 0;">
+                    <h3 style="color: var(--primary); text-align: center; margin-bottom: 20px;">👨‍🎓 Mahasiswa Flow</h3>
+                    <div class="flow-wrapper">
+                        <div class="flow-node node-process">Pilih Pasien</div>
+                        <div class="flow-arrow"></div>
+                        <div class="flow-node node-io">Input Data Pasien<br>(Kartu Pasien, Anamnesa)</div>
+                        <div class="flow-arrow"></div>
+                        <div class="flow-node node-process">Pemeriksaan Lengkap<br>(Odontogram, OHI-S, Vitalitas)</div>
+                        <div class="flow-arrow"></div>
+                        <div class="flow-node node-process">Input Diagnosa & Perencanaan</div>
+                        <div class="flow-arrow"></div>
+                        <div class="flow-node node-process">Catat Pelaksanaan Tindakan</div>
+                        <div class="flow-arrow"></div>
+                        <div class="flow-node node-io">Submit untuk ACC<br>ke Pembimbing</div>
+                    </div>
+                </div>
+                
+                <div class="flow-arrow short"></div>
+                
+                <!-- Pembimbing Flow -->
+                <div style="padding: 20px; background: rgba(5, 150, 105, 0.05); border-radius: 12px; margin: 20px 0;">
+                    <h3 style="color: var(--accent-green); text-align: center; margin-bottom: 20px;">👨‍⚕️ Pembimbing Flow</h3>
+                    <div class="flow-wrapper">
+                        <div class="flow-node node-process">Review Data Mahasiswa</div>
+                        <div class="flow-arrow"></div>
+                        <div class="flow-node node-decision">Data Valid?</div>
+                        <div class="flow-arrow"></div>
+                        <div class="flow-row">
+                            <div style="text-align: center;">
+                                <div class="flow-node node-process" style="background: #fef2f2; color: #dc2626; border-color: #dc2626;">
+                                    ❌ Reject<br><small>Revisi oleh Mahasiswa</small>
+                                </div>
+                            </div>
+                            <div style="text-align: center;">
+                                <div class="flow-node node-process" style="background: #f0fdf4; color: #059669; border-color: #059669;">
+                                    ✅ Approve (ACC)<br><small>+ TTE Digital</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flow-arrow"></div>
+                        <div class="flow-node node-io">Rekam Medis Final<br>Siap Print/Export</div>
+                    </div>
+                </div>
+                
+                <div class="flow-arrow short"></div>
+                
+                <!-- Admin Flow -->
+                <div style="padding: 20px; background: rgba(249, 115, 22, 0.05); border-radius: 12px; margin: 20px 0;">
+                    <h3 style="color: var(--accent-orange); text-align: center; margin-bottom: 20px;">⚙️ Admin Flow</h3>
+                    <div class="flow-wrapper">
+                        <div class="flow-node node-process">Manajemen User<br>(Admin, Mahasiswa, Pembimbing)</div>
+                        <div class="flow-arrow"></div>
+                        <div class="flow-node node-process">Manajemen Data Master<br>(Diagnosa, Penyebab, Gejala)</div>
+                        <div class="flow-arrow"></div>
+                        <div class="flow-node node-process">Monitoring Sistem<br>Dashboard & Analytics</div>
+                        <div class="flow-arrow"></div>
+                        <div class="flow-node node-database">Backup & Maintenance Data</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Flowchart 3: Data Flow -->
+        <div id="data-flow" class="flowchart-container">
+            <h2 class="flowchart-title">Data Flow - Alur Pergerakan Data dalam Sistem</h2>
+            
+            <div class="flow-wrapper">
+                <div class="flow-node node-start">Data Entry Point</div>
+                <div class="flow-arrow"></div>
+                
+                <div class="flow-node node-io">Input Layer<br>Form Validation & Sanitization</div>
+                <div class="flow-label">Laravel Validation Rules</div>
+                <div class="flow-arrow"></div>
+                
+                <div class="flow-node node-process">Controller Layer<br>Business Logic Processing</div>
+                <div class="flow-label">Laravel Controllers</div>
+                <div class="flow-arrow"></div>
+                
+                <div class="flow-node node-process">Model Layer<br>Data Mapping & ORM</div>
+                <div class="flow-label">Eloquent ORM</div>
+                <div class="flow-arrow"></div>
+                
+                <div class="flow-node node-database">Database Layer<br>MySQL 8.0 Storage</div>
+                
+                <div style="margin: 30px 0; padding: 20px; background: var(--bg); border-radius: 12px;">
+                    <h4 style="text-align: center; color: var(--primary); margin-bottom: 20px;">Database Tables Structure</h4>
+                    <div class="module-grid">
+                        <div class="module-card">
+                            <div class="module-card-title">👥 users</div>
+                            <div class="module-card-desc">User authentication & roles</div>
+                        </div>
+                        <div class="module-card">
+                            <div class="module-card-title">🧑‍⚕️ kartu_pasien</div>
+                            <div class="module-card-desc">Patient master data</div>
+                        </div>
+                        <div class="module-card">
+                            <div class="module-card-title">📋 anamnesa</div>
+                            <div class="module-card-desc">Medical history</div>
+                        </div>
+                        <div class="module-card">
+                            <div class="module-card-title">🦷 odontogram</div>
+                            <div class="module-card-desc">Dental chart records</div>
+                        </div>
+                        <div class="module-card">
+                            <div class="module-card-title">📊 ohi_s</div>
+                            <div class="module-card-desc">Oral hygiene index</div>
+                        </div>
+                        <div class="module-card">
+                            <div class="module-card-title">🔬 vitalitas</div>
+                            <div class="module-card-desc">Vitality test results</div>
+                        </div>
+                        <div class="module-card">
+                            <div class="module-card-title">💉 diagnosa</div>
+                            <div class="module-card-desc">Diagnosis records</div>
+                        </div>
+                        <div class="module-card">
+                            <div class="module-card-title">📝 perencanaan</div>
+                            <div class="module-card-desc">Treatment planning</div>
+                        </div>
+                        <div class="module-card">
+                            <div class="module-card-title">✅ pelaksanaan</div>
+                            <div class="module-card-desc">Treatment execution</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flow-arrow"></div>
+                
+                <div class="flow-node node-process">View Layer<br>Blade Templates Rendering</div>
+                <div class="flow-label">Frontend Display</div>
+                <div class="flow-arrow"></div>
+                
+                <div class="flow-node node-io">Output to User<br>HTML, PDF, Export</div>
+                <div class="flow-arrow"></div>
+                
+                <div class="flow-node node-end">Data Delivery Complete</div>
+            </div>
+        </div>
+
+        <!-- Flowchart 4: Workflow Process -->
+        <div id="workflow" class="flowchart-container">
+            <h2 class="flowchart-title">Workflow Process - Alur Proses Rekam Medis Lengkap</h2>
+            
+            <div class="flow-wrapper">
+                <div class="flow-node node-start">Pasien Baru Datang</div>
+                <div class="flow-arrow"></div>
+                
+                <div class="flow-node node-process" style="max-width: 500px;">
+                    <strong>📝 TAHAP 1: Identifikasi Pasien</strong><br>
+                    <small>Input: No. Kartu, Nama, NIK, Data Demografis</small>
+                </div>
+                <div class="flow-arrow"></div>
+                
+                <div class="flow-node node-process" style="max-width: 500px;">
+                    <strong>📋 TAHAP 2: Anamnesa & Riwayat</strong><br>
+                    <small>Keluhan, Riwayat Penyakit, Alergi, Vital Sign</small>
+                </div>
+                <div class="flow-arrow"></div>
+                
+                <div class="flow-node node-process" style="max-width: 500px;">
+                    <strong>🔍 TAHAP 3: Pemeriksaan Awal</strong><br>
+                    <small>Eksternal Oral, Plak & Kalkulus, OHI-S</small>
+                </div>
+                <div class="flow-label">Auto-Calculate: Plaque Score, OHI-S Index</div>
+                <div class="flow-arrow"></div>
+                
+                <div class="flow-node node-process" style="max-width: 500px;">
+                    <strong>🦷 TAHAP 4: Odontogram Digital</strong><br>
+                    <small>Status setiap gigi, Kondisi karies</small>
+                </div>
+                <div class="flow-label">Auto-Calculate: DMF-T, def-t Score</div>
+                <div class="flow-arrow"></div>
+                
+                <div class="flow-node node-decision">Ada Gigi Karies?</div>
+                <div class="flow-arrow"></div>
+                
+                <div class="flow-row" style="max-width: 600px;">
+                    <div class="flow-node node-process" style="background: #f0fdf4; border-color: #059669;">
+                        ✅ Ya<br>
+                        <small>Lanjut Tes Vitalitas</small>
+                    </div>
+                    <div class="flow-arrow-h"></div>
+                    <div class="flow-node node-process" style="background: #fef2f2; border-color: #dc2626;">
+                        ❌ Tidak<br>
+                        <small>Skip Vitalitas</small>
+                    </div>
+                </div>
+                
+                <div class="flow-arrow"></div>
+                
+                <div class="flow-node node-process" style="max-width: 500px;">
+                    <strong>🔬 TAHAP 5: Pemeriksaan Lanjutan</strong><br>
+                    <small>Vitalitas, Periodontal, Anomali Mukosa</small>
+                </div>
+                <div class="flow-label">Auto-Diagnosis: KME, KMD, KMP</div>
+                <div class="flow-arrow"></div>
+                
+                <div class="flow-node node-process" style="max-width: 500px;">
+                    <strong>💉 TAHAP 6: Diagnosa Askepgilut</strong><br>
+                    <small>Diagnosis, Penyebab, Gejala</small>
+                </div>
+                <div class="flow-arrow"></div>
+                
+                <div class="flow-node node-process" style="max-width: 500px;">
+                    <strong>📝 TAHAP 7: Perencanaan Perawatan</strong><br>
+                    <small>Rasional, Tujuan, Indikator, Evaluasi</small>
+                </div>
+                <div class="flow-arrow"></div>
+                
+                <div class="flow-node node-process" style="max-width: 500px;">
+                    <strong>✅ TAHAP 8: Pelaksanaan Tindakan</strong><br>
+                    <small>Intervensi, Hasil, Rencana Tindak Lanjut</small>
+                </div>
+                <div class="flow-arrow"></div>
+                
+                <div class="flow-node node-io">Submit ke Pembimbing<br>Menunggu ACC</div>
+                <div class="flow-arrow"></div>
+                
+                <div class="flow-node node-decision">ACC oleh Pembimbing?</div>
+                <div class="flow-arrow"></div>
+                
+                <div class="flow-row">
+                    <div style="text-align: center;">
+                        <div class="flow-node node-process" style="background: #fef2f2; color: #dc2626; border-color: #dc2626;">
+                            ❌ Ditolak<br>
+                            <small>Kembali ke Mahasiswa untuk Revisi</small>
+                        </div>
+                        <div class="flow-arrow short"></div>
+                        <div style="font-size: 24px;">🔄</div>
+                    </div>
+                    
+                    <div style="text-align: center;">
+                        <div class="flow-node node-process" style="background: #f0fdf4; color: #059669; border-color: #059669;">
+                            ✅ Disetujui<br>
+                            <small>TTE Pembimbing Ditambahkan</small>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flow-arrow"></div>
+                
+                <div class="flow-node node-io">🖨️ Rekam Medis Final<br>Print/Export PDF</div>
+                <div class="flow-arrow"></div>
+                
+                <div class="flow-node node-end">Proses Selesai</div>
+            </div>
+        </div>
+
+        <!-- Flowchart 5: System Architecture -->
+        <div id="architecture" class="flowchart-container">
+            <h2 class="flowchart-title">System Architecture - Arsitektur Teknologi</h2>
+            
+            <div class="flow-wrapper">
+                <!-- Presentation Layer -->
+                <div style="width: 100%; padding: 20px; background: linear-gradient(135deg, #eff6ff, #dbeafe); border-radius: 12px; margin: 10px 0;">
+                    <h3 style="color: var(--primary); text-align: center; margin-bottom: 15px;">🎨 Presentation Layer</h3>
+                    <div class="flow-row">
+                        <div class="module-card">
+                            <div class="module-card-title">HTML5</div>
+                            <div class="module-card-desc">Semantic markup</div>
+                        </div>
+                        <div class="module-card">
+                            <div class="module-card-title">CSS3/Bootstrap 5</div>
+                            <div class="module-card-desc">Responsive UI</div>
+                        </div>
+                        <div class="module-card">
+                            <div class="module-card-title">JavaScript</div>
+                            <div class="module-card-desc">Client-side logic</div>
+                        </div>
+                        <div class="module-card">
+                            <div class="module-card-title">Blade Templates</div>
+                            <div class="module-card-desc">View rendering</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flow-arrow short"></div>
+                
+                <!-- Application Layer -->
+                <div style="width: 100%; padding: 20px; background: linear-gradient(135deg, #f0fdf4, #dcfce7); border-radius: 12px; margin: 10px 0;">
+                    <h3 style="color: var(--accent-green); text-align: center; margin-bottom: 15px;">⚙️ Application Layer</h3>
+                    <div class="flow-row">
+                        <div class="module-card">
+                            <div class="module-card-title">Laravel 10.x</div>
+                            <div class="module-card-desc">MVC Framework</div>
+                        </div>
+                        <div class="module-card">
+                            <div class="module-card-title">Controllers</div>
+                            <div class="module-card-desc">Business logic</div>
+                        </div>
+                        <div class="module-card">
+                            <div class="module-card-title">Models</div>
+                            <div class="module-card-desc">Data entities</div>
+                        </div>
+                        <div class="module-card">
+                            <div class="module-card-title">Middleware</div>
+                            <div class="module-card-desc">Authentication</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flow-arrow short"></div>
+                
+                <!-- Business Logic -->
+                <div style="width: 100%; padding: 20px; background: linear-gradient(135deg, #fef3c7, #fde68a); border-radius: 12px; margin: 10px 0;">
+                    <h3 style="color: #92400e; text-align: center; margin-bottom: 15px;">🧮 Business Logic Layer</h3>
+                    <div class="module-grid">
+                        <div class="module-card">
+                            <div class="module-card-title">Auto-Calculate</div>
+                            <div class="module-card-desc">OHI-S, DMF-T, def-t, Plaque Score</div>
+                        </div>
+                        <div class="module-card">
+                            <div class="module-card-title">Validation Rules</div>
+                            <div class="module-card-desc">Form & data validation</div>
+                        </div>
+                        <div class="module-card">
+                            <div class="module-card-title">Workflow Engine</div>
+                            <div class="module-card-desc">ACC & approval logic</div>
+                        </div>
+                        <div class="module-card">
+                            <div class="module-card-title">PDF Generation</div>
+                            <div class="module-card-desc">Report export</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flow-arrow short"></div>
+                
+                <!-- Data Access Layer -->
+                <div style="width: 100%; padding: 20px; background: linear-gradient(135deg, #fce7f3, #fbcfe8); border-radius: 12px; margin: 10px 0;">
+                    <h3 style="color: #9f1239; text-align: center; margin-bottom: 15px;">💾 Data Access Layer</h3>
+                    <div class="flow-row">
+                        <div class="module-card">
+                            <div class="module-card-title">Eloquent ORM</div>
+                            <div class="module-card-desc">Object-relational mapping</div>
+                        </div>
+                        <div class="module-card">
+                            <div class="module-card-title">Query Builder</div>
+                            <div class="module-card-desc">Database queries</div>
+                        </div>
+                        <div class="module-card">
+                            <div class="module-card-title">Migrations</div>
+                            <div class="module-card-desc">Schema management</div>
+                        </div>
+                        <div class="module-card">
+                            <div class="module-card-title">Seeders</div>
+                            <div class="module-card-desc">Test data</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flow-arrow short"></div>
+                
+                <!-- Database Layer -->
+                <div style="width: 100%; padding: 20px; background: linear-gradient(135deg, #f3e8ff, #e9d5ff); border-radius: 12px; margin: 10px 0;">
+                    <h3 style="color: #6b21a8; text-align: center; margin-bottom: 15px;">🗄️ Database Layer</h3>
+                    <div class="flow-node node-database" style="width: 100%; max-width: 100%;">
+                        <strong>MySQL 8.0 Database</strong><br>
+                        <small>Relational data storage with InnoDB engine</small><br>
+                        <small>15+ Tables | Foreign Keys | Indexes | Transactions</small>
+                    </div>
+                </div>
+                
+                <div class="flow-arrow short"></div>
+                
+                <!-- Infrastructure -->
+                <div style="width: 100%; padding: 20px; background: linear-gradient(135deg, #f5f5f5, #e5e5e5); border-radius: 12px; margin: 10px 0;">
+                    <h3 style="color: var(--text-dark); text-align: center; margin-bottom: 15px;">🖥️ Infrastructure Layer</h3>
+                    <div class="flow-row">
+                        <div class="module-card">
+                            <div class="module-card-title">Web Server</div>
+                            <div class="module-card-desc">Apache/Nginx</div>
+                        </div>
+                        <div class="module-card">
+                            <div class="module-card-title">PHP 8.1+</div>
+                            <div class="module-card-desc">Runtime environment</div>
+                        </div>
+                        <div class="module-card">
+                            <div class="module-card-title">Composer</div>
+                            <div class="module-card-desc">Dependency manager</div>
+                        </div>
+                        <div class="module-card">
+                            <div class="module-card-title">Linux Server</div>
+                            <div class="module-card-desc">Ubuntu/CentOS</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Legend -->
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-color" style="background: linear-gradient(135deg, #059669, #10b981);"></div>
+                <span>Start/End</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: linear-gradient(135deg, #eff6ff, #dbeafe); border: 2px solid #3b82f6;"></div>
+                <span>Process</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: linear-gradient(135deg, #fef3c7, #fde68a); border: 2px solid #fbbf24;"></div>
+                <span>Decision</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: linear-gradient(135deg, #fce7f3, #fbcfe8); border: 2px solid #ec4899;"></div>
+                <span>Input/Output</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: linear-gradient(135deg, #f0fdf4, #dcfce7); border: 2px solid #059669; border-radius: 50%;"></div>
+                <span>Database</span>
+            </div>
+        </div>
+
+        <!-- Footer Info -->
+        <div style="text-align: center; margin-top: 40px; padding: 30px; background: var(--surface); border-radius: 16px; box-shadow: var(--shadow);">
+            <p style="font-weight: 600; color: var(--text-dark); margin-bottom: 8px;">📄 SIMKESGI System Flowchart</p>
+            <p style="font-size: 14px; color: var(--text-muted);">
+                Dokumentasi Inovasi Teknologi • Sistem Informasi Kesehatan Gigi
+            </p>
+            <p style="font-size: 13px; color: var(--text-muted); margin-top: 12px;">
+                © 2025 Poltekkes Kemenkes Palembang • Jurusan Kesehatan Gigi
+            </p>
+            <p style="font-size: 12px; color: var(--text-muted); margin-top: 8px;">
+                Tech Stack: Laravel 10 • PHP 8.1+ • MySQL 8.0 • Bootstrap 5
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching functionality
+        function showTab(tabName) {
+            // Hide all flowcharts
+            const flowcharts = document.querySelectorAll('.flowchart-container');
+            flowcharts.forEach(chart => {
+                chart.classList.remove('active');
+            });
+
+            // Remove active class from all buttons
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Show selected flowchart
+            document.getElementById(tabName).classList.add('active');
+
+            // Add active class to clicked button
+            event.target.classList.add('active');
+
+            // Scroll to top of flowchart
+            document.querySelector('.flowchart-container.active').scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+
+        // Add hover effects to module cards
+        document.querySelectorAll('.module-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.05)';
+            });
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+            });
+        });
+
+        // Print functionality
+        function printFlowchart() {
+            window.print();
+        }
+
+        // Add keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            const tabs = ['overview', 'user-flow', 'data-flow', 'workflow', 'architecture'];
+            const currentTab = document.querySelector('.flowchart-container.active').id;
+            const currentIndex = tabs.indexOf(currentTab);
+
+            if (e.key === 'ArrowRight' && currentIndex < tabs.length - 1) {
+                const nextTab = tabs[currentIndex + 1];
+                document.getElementById(nextTab).classList.add('active');
+                document.getElementById(currentTab).classList.remove('active');
+                
+                // Update button states
+                document.querySelectorAll('.tab-btn').forEach((btn, index) => {
+                    btn.classList.toggle('active', index === currentIndex + 1);
+                });
+            } else if (e.key === 'ArrowLeft' && currentIndex > 0) {
+                const prevTab = tabs[currentIndex - 1];
+                document.getElementById(prevTab).classList.add('active');
+                document.getElementById(currentTab).classList.remove('active');
+                
+                // Update button states
+                document.querySelectorAll('.tab-btn').forEach((btn, index) => {
+                    btn.classList.toggle('active', index === currentIndex - 1);
+                });
+            }
+        });
+
+        // Add animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.flow-node').forEach(node => {
+            observer.observe(node);
+        });
+    </script>
+</body>
+
+</html>

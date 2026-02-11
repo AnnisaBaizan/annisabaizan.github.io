@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Connect with Annisa Baizan - Links & Contact">
+    <title>Links - Annisa Baizan</title>
+    
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" href="assets/css/theme.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    
+    <style>
+        /* Page-specific styles for links.html */
+        .links-hero {
+            padding-top: 120px;
+            padding-bottom: 60px;
+            text-align: center;
+        }
+        
+        .links-avatar {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 1.5rem;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            border: 4px solid var(--bg-dark);
+            box-shadow: var(--shadow-glow);
+        }
+        
+        .links-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 0 var(--space-8);
+        }
+        
+        .link-item {
+            display: block;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem 2rem;
+            margin-bottom: 1rem;
+            text-decoration: none;
+            transition: all var(--transition-base);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .link-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--gradient-primary);
+            transform: scaleY(0);
+            transition: transform var(--transition-base);
+        }
+        
+        .link-item:hover {
+            border-color: var(--accent-blue);
+            transform: translateX(8px);
+            box-shadow: var(--shadow-glow);
+        }
+        
+        .link-item:hover::before {
+            transform: scaleY(1);
+        }
+        
+        .link-content {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .link-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+        
+        .link-text {
+            flex: 1;
+        }
+        
+        .link-title {
+            font-size: var(--text-lg);
+            font-weight: var(--font-semibold);
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+        
+        .link-description {
+            font-size: var(--text-sm);
+            color: var(--text-secondary);
+        }
+        
+        .link-arrow {
+            color: var(--accent-cyan);
+            font-size: 1.5rem;
+            transition: transform var(--transition-base);
+        }
+        
+        .link-item:hover .link-arrow {
+            transform: translateX(4px);
+        }
+        
+        .section-divider {
+            display: flex;
+            align-items: center;
+            margin: 3rem 0 2rem;
+            gap: 1rem;
+        }
+        
+        .section-divider::before,
+        .section-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border-color);
+        }
+        
+        .section-divider span {
+            color: var(--text-secondary);
+            font-size: var(--text-sm);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: var(--font-semibold);
+        }
+        
+        .social-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .social-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem 1rem;
+            text-align: center;
+            text-decoration: none;
+            transition: all var(--transition-base);
+        }
+        
+        .social-item:hover {
+            border-color: var(--accent-blue);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .social-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .social-name {
+            font-size: var(--text-sm);
+            font-weight: var(--font-medium);
+            color: var(--text-primary);
+        }
+        
+        .contact-info {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .contact-item:last-child {
+            border-bottom: none;
+        }
+        
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+        
+        .contact-details h4 {
+            font-size: var(--text-sm);
+            color: var(--text-secondary);
+            margin-bottom: 0.25rem;
+        }
+        
+        .contact-details p {
+            font-size: var(--text-base);
+            color: var(--text-primary);
+        }
+        
+        .contact-details a {
+            color: var(--accent-cyan);
+            text-decoration: none;
+            transition: color var(--transition-base);
+        }
+        
+        .contact-details a:hover {
+            color: var(--accent-blue);
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-brand">AB</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="projects/index.html">Projects</a></li>
+                <li><a href="blog/index.html">Blog</a></li>
+                <li><a href="links.html" class="active">Links</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Links Hero -->
+    <section class="links-hero">
+        <div class="links-container">
+            <div class="links-avatar">👤</div>
+            <h1 style="font-size: var(--text-4xl); font-weight: var(--font-extrabold); margin-bottom: 0.5rem;">
+                Annisa Baizan
+            </h1>
+            <p style="color: var(--text-secondary); font-size: var(--text-lg); margin-bottom: 1rem;">
+                System Thinker | Analytical Developer
+            </p>
+            <div class="tags" style="justify-content: center;">
+                <span class="tag tag-sm">Evidence-Based</span>
+                <span class="tag tag-sm">Framework Thinking</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Links -->
+    <section class="section-sm">
+        <div class="links-container">
+            <div class="section-divider">
+                <span>Quick Access</span>
+            </div>
+            
+            <a href="projects/index.html" class="link-item">
+                <div class="link-content">
+                    <div class="link-icon">💼</div>
+                    <div class="link-text">
+                        <div class="link-title">Projects Portfolio</div>
+                        <div class="link-description">Explore my professional work & case studies</div>
+                    </div>
+                    <div class="link-arrow">→</div>
+                </div>
+            </a>
+            
+            <a href="about.html" class="link-item">
+                <div class="link-content">
+                    <div class="link-icon">👤</div>
+                    <div class="link-text">
+                        <div class="link-title">About Me</div>
+                        <div class="link-description">Learn about my thinking process & approach</div>
+                    </div>
+                    <div class="link-arrow">→</div>
+                </div>
+            </a>
+            
+            <a href="blog/index.html" class="link-item">
+                <div class="link-content">
+                    <div class="link-icon">✍️</div>
+                    <div class="link-text">
+                        <div class="link-title">Tech Blog</div>
+                        <div class="link-description">Technical notes & learning documentation</div>
+                    </div>
+                    <div class="link-arrow">→</div>
+                </div>
+            </a>
+            
+            <a href="labs/index.html" class="link-item">
+                <div class="link-content">
+                    <div class="link-icon">🧪</div>
+                    <div class="link-text">
+                        <div class="link-title">Labs & Experiments</div>
+                        <div class="link-description">Code experiments & UI playground</div>
+                    </div>
+                    <div class="link-arrow">→</div>
+                </div>
+            </a>
+            
+            <a href="docs/cv.pdf" class="link-item">
+                <div class="link-content">
+                    <div class="link-icon">📄</div>
+                    <div class="link-text">
+                        <div class="link-title">Download CV</div>
+                        <div class="link-description">Professional resume & credentials</div>
+                    </div>
+                    <div class="link-arrow">→</div>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- Social Media -->
+    <section class="section-sm">
+        <div class="links-container">
+            <div class="section-divider">
+                <span>Connect</span>
+            </div>
+            
+            <div class="social-grid">
+                <a href="https://github.com/annisabaizan" class="social-item" target="_blank" rel="noopener noreferrer">
+                    <div class="social-icon">💻</div>
+                    <div class="social-name">GitHub</div>
+                </a>
+                
+                <a href="https://linkedin.com/in/annisabaizan" class="social-item" target="_blank" rel="noopener noreferrer">
+                    <div class="social-icon">💼</div>
+                    <div class="social-name">LinkedIn</div>
+                </a>
+                
+                <a href="mailto:annisa.baizan@example.com" class="social-item">
+                    <div class="social-icon">✉️</div>
+                    <div class="social-name">Email</div>
+                </a>
+                
+                <a href="https://twitter.com/annisabaizan" class="social-item" target="_blank" rel="noopener noreferrer">
+                    <div class="social-icon">🐦</div>
+                    <div class="social-name">Twitter</div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Information -->
+    <section class="section-sm">
+        <div class="links-container">
+            <div class="section-divider">
+                <span>Contact Info</span>
+            </div>
+            
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-icon">✉️</div>
+                    <div class="contact-details">
+                        <h4>Email</h4>
+                        <p><a href="mailto:annisa.baizan@example.com">annisa.baizan@example.com</a></p>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">📍</div>
+                    <div class="contact-details">
+                        <h4>Location</h4>
+                        <p>Palembang, South Sumatra, Indonesia</p>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">💬</div>
+                    <div class="contact-details">
+                        <h4>Languages</h4>
+                        <p>Indonesian (Native), English (Fluent)</p>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">🕐</div>
+                    <div class="contact-details">
+                        <h4>Timezone</h4>
+                        <p>WIB (UTC+7)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Availability Section -->
+    <section class="section-sm">
+        <div class="links-container">
+            <div class="card" style="background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(6, 182, 212, 0.1)); text-align: center; padding: 3rem 2rem;">
+                <h2 style="font-size: var(--text-3xl); margin-bottom: 1rem;">Open for Collaboration</h2>
+                <p style="color: var(--text-secondary); margin-bottom: 2rem; max-width: 400px; margin-left: auto; margin-right: auto;">
+                    Terbuka untuk diskusi tentang web development, system design, atau analytical approaches to problem-solving.
+                </p>
+                <div class="tags" style="justify-content: center; margin-bottom: 2rem;">
+                    <span class="tag tag-green">Available</span>
+                    <span class="tag">Remote</span>
+                    <span class="tag">Contract</span>
+                </div>
+                <a href="mailto:annisa.baizan@example.com" class="btn btn-primary">Send Message</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="about.html">About</a>
+                <a href="projects/index.html">Projects</a>
+                <a href="blog/index.html">Blog</a>
+                <a href="labs/index.html">Labs</a>
+                <a href="links.html">Contact</a>
+            </div>
+            <p>&copy; 2026 Annisa Baizan. Built with analytical precision.</p>
+        </div>
+    </footer>
+</body>
+</html>

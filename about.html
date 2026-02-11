@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="About Annisa Baizan - System Thinker, Analytical Developer">
+    <title>About - Annisa Baizan</title>
+    
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" href="assets/css/theme.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    
+    <style>
+        /* Page-specific styles for about.html */
+        .about-hero {
+            padding-top: 120px;
+            padding-bottom: 80px;
+        }
+        
+        .profile-section {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+            align-items: start;
+        }
+        
+        .profile-image {
+            width: 100%;
+            aspect-ratio: 1;
+            background: var(--gradient-primary);
+            border-radius: var(--radius-xl);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 8rem;
+            position: sticky;
+            top: 120px;
+        }
+        
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 2rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+        }
+        
+        .stat-number {
+            font-size: var(--text-4xl);
+            font-weight: var(--font-bold);
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .stat-label {
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+        }
+        
+        .timeline {
+            position: relative;
+            padding-left: 3rem;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--border-color);
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -3.5rem;
+            top: 0.5rem;
+            width: 1rem;
+            height: 1rem;
+            background: var(--accent-blue);
+            border-radius: 50%;
+            border: 3px solid var(--bg-dark);
+        }
+        
+        .timeline-date {
+            color: var(--accent-cyan);
+            font-weight: var(--font-semibold);
+            font-size: var(--text-sm);
+            margin-bottom: 0.5rem;
+        }
+        
+        .skill-category {
+            margin-bottom: 2rem;
+        }
+        
+        .skill-category h4 {
+            color: var(--accent-cyan);
+            margin-bottom: 1rem;
+            font-size: var(--text-lg);
+        }
+        
+        .skill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+        
+        .characteristic-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        
+        .characteristic-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            transition: all var(--transition-base);
+        }
+        
+        .characteristic-item:hover {
+            border-color: var(--accent-blue);
+            transform: translateY(-5px);
+        }
+        
+        .characteristic-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .characteristic-title {
+            font-size: var(--text-xl);
+            font-weight: var(--font-bold);
+            margin-bottom: 0.75rem;
+            color: var(--text-primary);
+        }
+        
+        .characteristic-description {
+            color: var(--text-secondary);
+            line-height: var(--leading-relaxed);
+            font-size: var(--text-sm);
+        }
+        
+        .quote-block {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(6, 182, 212, 0.1));
+            border-left: 4px solid var(--accent-blue);
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            margin: 2rem 0;
+            font-style: italic;
+            color: var(--text-secondary);
+        }
+        
+        @media (max-width: 768px) {
+            .profile-section {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .profile-image {
+                position: static;
+                max-width: 300px;
+                margin: 0 auto;
+            }
+            
+            .timeline {
+                padding-left: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-brand">AB</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html" class="active">About</a></li>
+                <li><a href="projects/index.html">Projects</a></li>
+                <li><a href="blog/index.html">Blog</a></li>
+                <li><a href="links.html">Links</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- About Hero -->
+    <section class="about-hero container">
+        <div class="profile-section">
+            <div class="profile-image">
+                👤
+            </div>
+            
+            <div>
+                <div class="hero-label">The Systematic Skeptic</div>
+                <h1 style="font-size: var(--text-5xl); font-weight: var(--font-extrabold); margin: 1rem 0;">
+                    Annisa Baizan
+                </h1>
+                <p style="font-size: var(--text-xl); color: var(--text-secondary); margin-bottom: 2rem;">
+                    System Thinker | Analytical Developer | Evidence-Based Builder
+                </p>
+                
+                <div class="quote-block">
+                    "Mengutamakan ketepatan berpikir dibanding kenyamanan psikologis. 
+                    Lebih percaya pada struktur dan batasan eksplisit daripada asumsi implisit."
+                </div>
+                
+                <p style="color: var(--text-secondary); line-height: var(--leading-relaxed); margin-bottom: 2rem;">
+                    Lulusan komputer dengan orientasi analitis sangat kuat dan standar epistemik tinggi. 
+                    Berpikir dalam sistem, framework, dan struktur. Menghargai kejujuran intelektual 
+                    lebih dari kenyamanan, dan menolak self-deception atau idealisme kosong.
+                </p>
+                
+                <div class="tags">
+                    <span class="tag">Analytical Rigor</span>
+                    <span class="tag">Systems Thinking</span>
+                    <span class="tag">Meta-Cognitive</span>
+                    <span class="tag">Evidence-Based</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="section">
+        <div class="container">
+            <div class="stat-grid">
+                <div class="stat-item">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Data-Driven</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">95%</div>
+                    <div class="stat-label">Keyakinan Epistemik</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">∞</div>
+                    <div class="stat-label">Learning Mindset</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">0</div>
+                    <div class="stat-label">False Positives Tolerance</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Characteristics Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Core Characteristics</div>
+                <h2 class="section-title">How I Think & Work</h2>
+                <p class="section-description">
+                    Analytical-systemic thinker dengan preferensi terhadap struktur eksplisit dibanding intuisi bebas
+                </p>
+            </div>
+            
+            <div class="characteristic-grid">
+                <div class="characteristic-item">
+                    <div class="characteristic-icon">🎯</div>
+                    <h3 class="characteristic-title">Analytical Rigor</h3>
+                    <p class="characteristic-description">
+                        Mampu membangun framework kompleks dengan analytical thinking yang ketat. 
+                        Setiap kesimpulan harus berbasis data dan dapat dipertanggungjawabkan. 
+                        Menghindari asumsi tak berdasar dan spekulasi.
+                    </p>
+                </div>
+                
+                <div class="characteristic-item">
+                    <div class="characteristic-icon">⚙️</div>
+                    <h3 class="characteristic-title">Systems Thinking</h3>
+                    <p class="characteristic-description">
+                        Melihat pola dan interkoneksi dalam sistem yang kompleks. 
+                        Mengidentifikasi input, output, bottleneck, dan failure modes 
+                        untuk mencapai optimization yang efektif.
+                    </p>
+                </div>
+                
+                <div class="characteristic-item">
+                    <div class="characteristic-icon">🧠</div>
+                    <h3 class="characteristic-title">Meta-Cognitive Awareness</h3>
+                    <p class="characteristic-description">
+                        Sadar akan keterbatasan pengetahuan sendiri dan aktif mencari blind spots. 
+                        Self-reflection oriented dengan kesadaran tinggi terhadap potensi bias kognitif.
+                    </p>
+                </div>
+                
+                <div class="characteristic-item">
+                    <div class="characteristic-icon">📊</div>
+                    <h3 class="characteristic-title">Evidence-Based Decision</h3>
+                    <p class="characteristic-description">
+                        Data-driven approach dalam mengambil keputusan. 
+                        Sistematis dalam mengumpulkan informasi dan menggunakan 
+                        framework/mental models untuk decision-making.
+                    </p>
+                </div>
+                
+                <div class="characteristic-item">
+                    <div class="characteristic-icon">✅</div>
+                    <h3 class="characteristic-title">Intellectual Honesty</h3>
+                    <p class="characteristic-description">
+                        Menghargai truth over comfort. Lebih memilih "tidak tahu" 
+                        daripada memberikan jawaban yang salah. Transparansi dalam 
+                        menyatakan tingkat keyakinan dan ketidakpastian.
+                    </p>
+                </div>
+                
+                <div class="characteristic-item">
+                    <div class="characteristic-icon">📐</div>
+                    <h3 class="characteristic-title">Structured Communication</h3>
+                    <p class="characteristic-description">
+                        Direct, terstruktur, dan efisien. Heavy use of formatting, 
+                        numbering, categorization. Clear boundary setting dengan 
+                        fokus pada substansi dibanding pleasantries.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Skills Section -->
+    <section class="section" style="background: var(--bg-card);">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Technical Expertise</div>
+                <h2 class="section-title">Tech Stack & Tools</h2>
+                <p class="section-description">
+                    Pengalaman praktis dalam pengembangan web full-stack dengan fokus pada sistem yang robust
+                </p>
+            </div>
+            
+            <div class="grid grid-auto">
+                <div class="card">
+                    <div class="skill-category">
+                        <h4>Frontend Development</h4>
+                        <div class="skill-list">
+                            <span class="tag">React</span>
+                            <span class="tag">Vite</span>
+                            <span class="tag">TypeScript</span>
+                            <span class="tag">HTML/CSS</span>
+                            <span class="tag">JavaScript</span>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-category">
+                        <h4>Backend Development</h4>
+                        <div class="skill-list">
+                            <span class="tag">Python</span>
+                            <span class="tag">FastAPI</span>
+                            <span class="tag">Flask</span>
+                            <span class="tag">PostgreSQL</span>
+                            <span class="tag">REST API</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="skill-category">
+                        <h4>DevOps & Tools</h4>
+                        <div class="skill-list">
+                            <span class="tag">Docker</span>
+                            <span class="tag">docker-compose</span>
+                            <span class="tag">Git</span>
+                            <span class="tag">XAMPP</span>
+                            <span class="tag">Linux</span>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-category">
+                        <h4>Soft Skills</h4>
+                        <div class="skill-list">
+                            <span class="tag tag-green">Problem Solving</span>
+                            <span class="tag tag-green">System Design</span>
+                            <span class="tag tag-green">Documentation</span>
+                            <span class="tag tag-green">Critical Thinking</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Thinking Process Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Approach</div>
+                <h2 class="section-title">Decision-Making Process</h2>
+            </div>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">STEP 1</div>
+                    <h3 style="margin-bottom: 0.5rem;">Define Problem Space</h3>
+                    <p style="color: var(--text-secondary);">
+                        Mendefinisikan ruang masalah dengan jelas, mengidentifikasi constraint, 
+                        dan menetapkan batasan eksplisit sebelum mencari solusi.
+                    </p>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-date">STEP 2</div>
+                    <h3 style="margin-bottom: 0.5rem;">Gather Evidence</h3>
+                    <p style="color: var(--text-secondary);">
+                        Mengumpulkan data dan informasi yang terverifikasi. Sistematis dalam 
+                        verification dan memisahkan fakta dari inferensi.
+                    </p>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-date">STEP 3</div>
+                    <h3 style="margin-bottom: 0.5rem;">Framework Analysis</h3>
+                    <p style="color: var(--text-secondary);">
+                        Menggunakan framework dan mental models untuk menganalisis data. 
+                        Rule-based approach dengan fokus pada logical consistency.
+                    </p>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-date">STEP 4</div>
+                    <h3 style="margin-bottom: 0.5rem;">Verification & Testing</h3>
+                    <p style="color: var(--text-secondary);">
+                        Multiple verification layers sebelum menerima output. 
+                        Conservative dalam membuat assumptions, toleransi rendah terhadap logical error.
+                    </p>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-date">STEP 5</div>
+                    <h3 style="margin-bottom: 0.5rem;">Continuous Optimization</h3>
+                    <p style="color: var(--text-secondary);">
+                        Melihat sistem sebagai sesuatu yang bisa terus dioptimasi. 
+                        Aktif mencari blind spots dan area improvement.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="section" style="background: var(--bg-card);">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Core Values</div>
+                <h2 class="section-title">What I Stand For</h2>
+            </div>
+            
+            <div class="grid grid-2">
+                <div>
+                    <h3 style="color: var(--accent-cyan); margin-bottom: 1rem;">Prioritas Tinggi</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="padding: 1rem 0; border-bottom: 1px solid var(--border-color);">
+                            <strong>Correctness > Speed</strong>
+                            <p style="color: var(--text-secondary); margin-top: 0.5rem; font-size: var(--text-sm);">
+                                Lebih baik lambat tapi benar daripada cepat tapi salah
+                            </p>
+                        </li>
+                        <li style="padding: 1rem 0; border-bottom: 1px solid var(--border-color);">
+                            <strong>Truth > Comfort</strong>
+                            <p style="color: var(--text-secondary); margin-top: 0.5rem; font-size: var(--text-sm);">
+                                Kejujuran intelektual lebih dari kenyamanan psikologis
+                            </p>
+                        </li>
+                        <li style="padding: 1rem 0;">
+                            <strong>Structure > Ambiguity</strong>
+                            <p style="color: var(--text-secondary); margin-top: 0.5rem; font-size: var(--text-sm);">
+                                Definisi jelas dan batasan eksplisit
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 style="color: var(--accent-cyan); margin-bottom: 1rem;">Growth Areas</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="padding: 1rem 0; border-bottom: 1px solid var(--border-color);">
+                            <strong>Bounded Decision-Making</strong>
+                            <p style="color: var(--text-secondary); margin-top: 0.5rem; font-size: var(--text-sm);">
+                                Keputusan dengan threshold minimal yang disengaja
+                            </p>
+                        </li>
+                        <li style="padding: 1rem 0; border-bottom: 1px solid var(--border-color);">
+                            <strong>Adaptive Heuristics</strong>
+                            <p style="color: var(--text-secondary); margin-top: 0.5rem; font-size: var(--text-sm);">
+                                Balance antara analisis dan action
+                            </p>
+                        </li>
+                        <li style="padding: 1rem 0;">
+                            <strong>Comfort with Ambiguity</strong>
+                            <p style="color: var(--text-secondary); margin-top: 0.5rem; font-size: var(--text-sm);">
+                                Decision-making under uncertainty
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section">
+        <div class="container">
+            <div class="card" style="background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(6, 182, 212, 0.1)); text-align: center; padding: 4rem 2rem;">
+                <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Interested in Collaboration?</h2>
+                <p style="font-size: 1.2rem; color: var(--text-secondary); margin-bottom: 2rem;">
+                    Terbuka untuk diskusi tentang sistem thinking, web development, atau analytical approaches.
+                </p>
+                <div class="hero-cta">
+                    <a href="links.html" class="btn btn-primary">Get in Touch</a>
+                    <a href="projects/index.html" class="btn btn-secondary">View Projects</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="about.html">About</a>
+                <a href="projects/index.html">Projects</a>
+                <a href="blog/index.html">Blog</a>
+                <a href="labs/index.html">Labs</a>
+                <a href="links.html">Contact</a>
+            </div>
+            <p>&copy; 2026 Annisa Baizan. Built with analytical precision.</p>
+        </div>
+    </footer>
+</body>
+</html>

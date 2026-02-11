@@ -1,0 +1,2260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIMKESGI - Technical Architecture Presentation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0f172a;
+            --secondary: #1e293b;
+            --accent-teal: #14b8a6;
+            --accent-emerald: #10b981;
+            --accent-cyan: #06b6d4;
+            --accent-amber: #f59e0b;
+            --accent-rose: #f43f5e;
+            --accent-violet: #8b5cf6;
+            --light: #f8fafc;
+            --muted: #94a3b8;
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--primary);
+            color: var(--light);
+            overflow: hidden;
+            cursor: default;
+        }
+
+        /* Animated Background */
+        .bg-pattern {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .bg-pattern::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(20, 184, 166, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.12) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(6, 182, 212, 0.08) 0%, transparent 40%);
+            animation: bgFloat 20s ease-in-out infinite;
+        }
+
+        @keyframes bgFloat {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(2%, 2%) rotate(1deg); }
+            66% { transform: translate(-1%, 1%) rotate(-1deg); }
+        }
+
+        /* Grid Pattern Overlay */
+        .grid-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 1;
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+        }
+
+        /* Floating Orbs */
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.4;
+            z-index: 0;
+            animation: orbFloat 15s ease-in-out infinite;
+        }
+
+        .orb-1 {
+            width: 400px;
+            height: 400px;
+            background: var(--accent-teal);
+            top: -100px;
+            right: -100px;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 300px;
+            height: 300px;
+            background: var(--accent-violet);
+            bottom: -50px;
+            left: -50px;
+            animation-delay: -5s;
+        }
+
+        .orb-3 {
+            width: 200px;
+            height: 200px;
+            background: var(--accent-cyan);
+            top: 50%;
+            left: 50%;
+            animation-delay: -10s;
+        }
+
+        @keyframes orbFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(30px, -30px) scale(1.1); }
+        }
+
+        /* Presentation Container */
+        .presentation {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 10;
+            padding: 40px;
+        }
+
+        /* Slide Styles */
+        .slide {
+            width: 100%;
+            max-width: 1400px;
+            height: calc(100vh - 120px);
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 32px;
+            padding: 60px 70px;
+            display: none;
+            flex-direction: column;
+            position: relative;
+            overflow-y: auto;
+            overflow-x: hidden;
+            animation: slideIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .slide.active {
+            display: flex;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(40px) scale(0.98);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Custom Scrollbar */
+        .slide::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .slide::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+
+        .slide::-webkit-scrollbar-thumb {
+            background: rgba(20, 184, 166, 0.5);
+            border-radius: 10px;
+        }
+
+        .slide::-webkit-scrollbar-thumb:hover {
+            background: rgba(20, 184, 166, 0.7);
+        }
+
+        /* Slide Corner Decorations */
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, rgba(20, 184, 166, 0.1) 0%, transparent 60%);
+            border-radius: 32px 0 0 0;
+        }
+
+        .slide::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(-45deg, rgba(139, 92, 246, 0.08) 0%, transparent 60%);
+            border-radius: 0 0 32px 0;
+        }
+
+        /* Slide Number Badge */
+        .slide-number {
+            position: absolute;
+            bottom: 30px;
+            right: 40px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--muted);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            z-index: 10;
+        }
+
+        .slide-number .current {
+            color: var(--accent-teal);
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        /* Cover Slide */
+        .slide-cover {
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 80px;
+            margin-bottom: 20px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Typography */
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(40px, 5vw, 64px);
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--light) 0%, var(--accent-teal) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(28px, 3.5vw, 42px);
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: var(--light);
+            position: relative;
+            z-index: 5;
+        }
+
+        h3 {
+            font-size: clamp(20px, 2.5vw, 28px);
+            font-weight: 600;
+            margin: 25px 0 15px 0;
+            color: var(--accent-teal);
+        }
+
+        h4 {
+            font-size: clamp(16px, 2vw, 20px);
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--light);
+        }
+
+        p {
+            font-size: clamp(14px, 1.5vw, 17px);
+            line-height: 1.7;
+            color: var(--muted);
+            margin-bottom: 15px;
+        }
+
+        .tagline {
+            font-size: clamp(16px, 2vw, 22px);
+            color: var(--muted);
+            margin-top: 20px;
+            line-height: 1.6;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--accent-teal), var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Content Area */
+        .content {
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
+            position: relative;
+            z-index: 5;
+            padding-right: 10px;
+        }
+
+        /* Grid Layouts */
+        .two-column {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin: 20px 0;
+        }
+
+        .three-column {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .column {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 25px;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .feature-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-5px);
+        }
+
+        .feature-card .icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        /* Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .stat-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .stat-card .value {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(32px, 4vw, 48px);
+            font-weight: 700;
+            color: var(--accent-teal);
+            margin-bottom: 8px;
+        }
+
+        .stat-card .label {
+            font-size: clamp(12px, 1.5vw, 15px);
+            color: var(--muted);
+        }
+
+        .stat-card .emoji {
+            font-size: 40px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        /* Badges */
+        .badge {
+            display: inline-block;
+            padding: 8px 16px;
+            background: rgba(20, 184, 166, 0.15);
+            border: 1px solid rgba(20, 184, 166, 0.3);
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--accent-teal);
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+
+        .badge-emerald {
+            background: rgba(16, 185, 129, 0.15);
+            border-color: rgba(16, 185, 129, 0.3);
+            color: var(--accent-emerald);
+        }
+
+        .badge-violet {
+            background: rgba(139, 92, 246, 0.15);
+            border-color: rgba(139, 92, 246, 0.3);
+            color: var(--accent-violet);
+        }
+
+        .badge-amber {
+            background: rgba(245, 158, 11, 0.15);
+            border-color: rgba(245, 158, 11, 0.3);
+            color: var(--accent-amber);
+        }
+
+        /* Code Block */
+        .code-block {
+            background: var(--secondary);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: clamp(11px, 1.2vw, 14px);
+            line-height: 1.6;
+            overflow-x: auto;
+            color: #e2e8f0;
+            white-space: pre-wrap;
+        }
+
+        .code-block .comment {
+            color: var(--muted);
+        }
+
+        .code-block .keyword {
+            color: var(--accent-violet);
+        }
+
+        .code-block .string {
+            color: var(--accent-emerald);
+        }
+
+        .code-block .function {
+            color: var(--accent-cyan);
+        }
+
+        .code-block .number {
+            color: var(--accent-amber);
+        }
+
+        /* Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: clamp(12px, 1.3vw, 15px);
+        }
+
+        thead {
+            background: rgba(20, 184, 166, 0.15);
+        }
+
+        th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            color: var(--accent-teal);
+            border-bottom: 2px solid rgba(20, 184, 166, 0.3);
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid var(--glass-border);
+            color: var(--muted);
+        }
+
+        tr:hover {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        /* Highlight Box */
+        .highlight {
+            background: linear-gradient(135deg, rgba(20, 184, 166, 0.1) 0%, rgba(6, 182, 212, 0.05) 100%);
+            border-left: 4px solid var(--accent-teal);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .highlight strong {
+            color: var(--accent-teal);
+        }
+
+        .warning {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(251, 191, 36, 0.05) 100%);
+            border-left: 4px solid var(--accent-amber);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .warning strong {
+            color: var(--accent-amber);
+        }
+
+        /* URL Box */
+        .url-box {
+            display: inline-block;
+            padding: 15px 30px;
+            background: var(--secondary);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: clamp(13px, 1.5vw, 16px);
+            color: var(--accent-teal);
+            margin: 20px 0;
+        }
+
+        /* List Styles */
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        ul li {
+            padding: 8px 0 8px 28px;
+            position: relative;
+            color: var(--muted);
+            font-size: clamp(13px, 1.4vw, 16px);
+            line-height: 1.6;
+        }
+
+        ul li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--accent-teal);
+            font-weight: bold;
+        }
+
+        /* Navigation */
+        .navigation {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            z-index: 100;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            padding: 12px 25px;
+        }
+
+        .nav-btn {
+            background: transparent;
+            border: none;
+            color: var(--light);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 15px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover:not(:disabled) {
+            background: rgba(20, 184, 166, 0.15);
+            color: var(--accent-teal);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .nav-btn span {
+            font-size: 18px;
+        }
+
+        .nav-dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .nav-dot {
+            width: 8px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-dot.active {
+            background: var(--accent-teal);
+            width: 24px;
+            border-radius: 4px;
+        }
+
+        .nav-dot:hover {
+            background: rgba(20, 184, 166, 0.5);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .two-column,
+            .three-column {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .presentation {
+                padding: 20px;
+            }
+
+            .slide {
+                padding: 40px 30px;
+                height: calc(100vh - 80px);
+            }
+
+            .slide-number {
+                bottom: 20px;
+                right: 25px;
+                font-size: 11px;
+            }
+
+            .slide-number .current {
+                font-size: 14px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .navigation {
+                bottom: 20px;
+                padding: 10px 20px;
+                gap: 15px;
+            }
+
+            .nav-btn {
+                font-size: 12px;
+                padding: 6px 10px;
+            }
+
+            .nav-btn span {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Background Effects -->
+    <div class="bg-pattern"></div>
+    <div class="grid-overlay"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
+    <!-- Presentation Container -->
+    <div class="presentation">
+        
+        <!-- Slide 1: Title -->
+        <div class="slide slide-cover active">
+            <div class="logo">🦷</div>
+            <h1>SIMKESGI</h1>
+            <p class="tagline">
+                Dental Nursing Information System
+                <strong class="gradient-text">Technical Architecture & Engineering Deep Dive</strong>
+            </p>
+            <div class="stats-grid" style="margin: 40px auto; max-width: 800px;">
+                <div class="stat-card">
+                    <span class="emoji">💻</span>
+                    <div class="value">Laravel</div>
+                    <div class="label">Full-Stack Framework</div>
+                </div>
+                <div class="stat-card">
+                    <span class="emoji">🗄️</span>
+                    <div class="value">MySQL</div>
+                    <div class="label">Relational Database</div>
+                </div>
+                <div class="stat-card">
+                    <span class="emoji">🏥</span>
+                    <div class="value">15+</div>
+                    <div class="label">Clinical Modules</div>
+                </div>
+            </div>
+            <div style="margin-top: 30px;">
+                <span class="badge">HAKI Registered</span>
+                <span class="badge badge-emerald">Production Ready</span>
+                <span class="badge badge-violet">90%+ User Satisfaction</span>
+            </div>
+            <p style="margin-top: 30px; color: var(--muted); font-size: 14px;">
+                <strong>System Architect & Lead Engineer</strong>
+                Poltekkes Kemenkes Palembang - Jurusan Kesehatan Gigi
+            </p>
+            <div class="slide-number"><span class="current">1</span> / 15</div>
+        </div>
+
+        <!-- Slide 2: Project Context -->
+        <div class="slide">
+            <h2>Project Context & Scope</h2>
+            <div class="content">
+                <div class="highlight">
+                    <strong>🎯 Core Mission:</strong>
+                    <p>Transform manual paper-based dental nursing documentation into a centralized, digital Electronic Health Record (EHR) system that supports evidence-based learning and standardized clinical workflows.</p>
+                </div>
+
+                <h3>The Problem We Solved</h3>
+                <div class="two-column">
+                    <div class="column" style="border-left: 4px solid var(--accent-rose);">
+                        <h4 style="color: var(--accent-rose);">Manual Documentation Challenges</h4>
+                        <ul>
+                            <li>Handwritten records prone to errors and loss</li>
+                            <li>Inconsistent data formats across students</li>
+                            <li>Time-consuming manual calculations (DMF-T, OHI-S)</li>
+                            <li>Delayed supervisor feedback loops</li>
+                            <li>Difficult data retrieval for patient history</li>
+                            <li>No audit trail for quality control</li>
+                        </ul>
+                    </div>
+                    <div class="column" style="border-left: 4px solid var(--accent-emerald);">
+                        <h4 style="color: var(--accent-emerald);">Digital Solution Delivered</h4>
+                        <ul>
+                            <li>Structured data entry with real-time validation</li>
+                            <li>Standardized clinical assessment forms</li>
+                            <li>Automated diagnostic calculations (zero errors)</li>
+                            <li>Electronic approval workflow (ACC + TTE)</li>
+                            <li>Instant access to complete patient records</li>
+                            <li>Full traceability with timestamps + user logs</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>Technical Scope</h3>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="value">3</div>
+                        <div class="label">User Roles</div>
+                        <p style="font-size: 12px; margin-top: 8px;">Admin, Student, Supervisor</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="value">15+</div>
+                        <div class="label">Interconnected Modules</div>
+                        <p style="font-size: 12px; margin-top: 8px;">Cascading dependencies</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="value">7</div>
+                        <div class="label">Auto Calculations</div>
+                        <p style="font-size: 12px; margin-top: 8px;">Clinical scoring algorithms</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number"><span class="current">2</span> / 15</div>
+        </div>
+
+        <!-- Slide 3: System Architecture -->
+        <div class="slide">
+            <h2>System Architecture Overview</h2>
+            <div class="content">
+                <p>Multi-tier MVC architecture with strict separation of concerns, role-based access control, and centralized business logic layer.</p>
+
+                <div class="code-block">
+<span class="comment">// Architecture Stack</span>
+
+<span class="keyword">┌─</span> Presentation Layer
+│  ├─ Blade Templates (Laravel's templating engine)
+│  ├─ DataTables.js (server-side pagination)
+│  ├─ Chart.js (clinical metrics visualization)
+│  └─ Vanilla JS (dynamic form interactions)
+
+<span class="keyword">┌─</span> Application Layer
+│  ├─ Laravel Controllers (request handling)
+│  ├─ Middleware (auth, RBAC, CSRF protection)
+│  ├─ Form Requests (validation rules)
+│  └─ Resource Controllers (RESTful endpoints)
+
+<span class="keyword">┌─</span> Business Logic Layer
+│  ├─ Eloquent Models (ORM entities)
+│  ├─ Service Classes (rule engines, calculations)
+│  ├─ Observers (lifecycle hooks, cascade operations)
+│  └─ Custom Algorithms (DMF-T, OHI-S, Vitalitas diagnosis)
+
+<span class="keyword">┌─</span> Data Layer
+│  ├─ MySQL 8.0 with InnoDB engine
+│  ├─ Foreign Key Constraints (referential integrity)
+│  ├─ Cascade Delete Operations (orphan prevention)
+│  └─ Indexed Columns (performance optimization)
+                </div>
+
+                <h3>Deployment Infrastructure</h3>
+                <div class="two-column">
+                    <div class="card">
+                        <h4>🌐 Production Environment</h4>
+                        <ul>
+                            <li><strong>URL:</strong> simkesgi.poltekkespalembang.ac.id</li>
+                            <li><strong>Web Server:</strong> Apache/Nginx</li>
+                            <li><strong>PHP Version:</strong> 8.1+</li>
+                            <li><strong>SSL/TLS:</strong> HTTPS enforced</li>
+                            <li><strong>Session Management:</strong> Laravel Sanctum</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>🔐 Security Layers</h4>
+                        <ul>
+                            <li>Bcrypt password hashing (cost: 10)</li>
+                            <li>CSRF token validation on mutations</li>
+                            <li>SQL injection prevention (Eloquent ORM)</li>
+                            <li>XSS protection (Blade auto-escaping)</li>
+                            <li>Mass assignment guards (fillable/guarded)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>Route Structure & Middleware Stack</h3>
+                <div class="code-block">
+<span class="comment">// web.php - Resource routes with RBAC middleware</span>
+
+<span class="comment">// Public routes</span>
+Route::<span class="function">get</span>(<span class="string">'/login'</span>, [LoginController::<span class="keyword">class</span>, <span class="string">'show'</span>]);
+Route::<span class="function">post</span>(<span class="string">'/login'</span>, [LoginController::<span class="keyword">class</span>, <span class="string">'login'</span>]);
+
+<span class="comment">// Auth-protected routes</span>
+Route::<span class="function">group</span>([<span class="string">'middleware'</span> => <span class="string">'auth'</span>], <span class="keyword">function</span>() {
+    
+    <span class="comment">// Admin-only: User management</span>
+    Route::<span class="function">resource</span>(<span class="string">'/user'</span>, UserController::<span class="keyword">class</span>)
+         -><span class="function">middleware</span>(<span class="string">'admin'</span>);
+    
+    <span class="comment">// Mahasiswa-only: Patient creation/editing</span>
+    Route::<span class="function">get</span>(<span class="string">'/kartupasien/create'</span>, [KartupasienController::<span class="keyword">class</span>, <span class="string">'create'</span>])
+         -><span class="function">middleware</span>(<span class="string">'mahasiswa'</span>);
+    Route::<span class="function">post</span>(<span class="string">'/kartupasien'</span>, [KartupasienController::<span class="keyword">class</span>, <span class="string">'store'</span>])
+         -><span class="function">middleware</span>(<span class="string">'mahasiswa'</span>);
+    
+    <span class="comment">// Pembimbing-only: ACC approval</span>
+    Route::<span class="function">put</span>(<span class="string">'/diagnosa/acc/{id}'</span>, [DiagnosaController::<span class="keyword">class</span>, <span class="string">'acc'</span>])
+         -><span class="function">middleware</span>(<span class="string">'pembimbing'</span>);
+    
+    <span class="comment">// AJAX routes for dynamic dropdowns (auth required)</span>
+    Route::<span class="function">post</span>(<span class="string">'/getPenyebabs'</span>, <span class="keyword">function</span>(Request $request) {
+        $askepgilut = $request-><span class="function">input</span>(<span class="string">'askepgilut'</span>);
+        $penyebabOptions = <span class="function">getPenyebabs</span>($askepgilut);
+        <span class="keyword">return</span> <span class="function">response</span>()-><span class="function">json</span>($penyebabOptions);
+    });
+    
+    Route::<span class="function">post</span>(<span class="string">'/getGejalas'</span>, <span class="keyword">function</span>(Request $request) {
+        $askepgilut = $request-><span class="function">input</span>(<span class="string">'askepgilut'</span>);
+        $gejalaOptions = <span class="function">getGejalas</span>($askepgilut);
+        <span class="keyword">return</span> <span class="function">response</span>()-><span class="function">json</span>($gejalaOptions);
+    });
+});
+                </div>
+
+                <h3>Middleware Hierarchy</h3>
+                <div class="three-column">
+                    <div class="feature-card">
+                        <span class="icon">👨‍💼</span>
+                        <h4>admin</h4>
+                        <p><strong>Role 1 ONLY</strong></p>
+                        <p>Strict access. User management, system config.</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="icon">👨‍🏫</span>
+                        <h4>pembimbing</h4>
+                        <p><strong>Role 1 OR 2</strong></p>
+                        <p>Admin + Supervisor. ACC approval, oversight.</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="icon">👨‍🎓</span>
+                        <h4>mahasiswa</h4>
+                        <p><strong>Role 1 OR 3</strong></p>
+                        <p>Admin + Student. Data entry, editing.</p>
+                    </div>
+                </div>
+
+                <h3>Gates (Authorization)</h3>
+                <div class="code-block">
+<span class="comment">// AppServiceProvider.php - Gate definitions</span>
+
+Gate::<span class="function">define</span>(<span class="string">'admin'</span>, <span class="keyword">function</span>(User $user) {
+    <span class="keyword">return</span> $user->role === <span class="number">1</span>;
+});
+
+Gate::<span class="function">define</span>(<span class="string">'pembimbing'</span>, <span class="keyword">function</span>(User $user) {
+    <span class="keyword">return</span> $user->role === <span class="number">2</span>;
+});
+
+Gate::<span class="function">define</span>(<span class="string">'mahasiswa'</span>, <span class="keyword">function</span>(User $user) {
+    <span class="keyword">return</span> $user->role === <span class="number">3</span>;
+});
+
+<span class="comment">// Combined gates for flexible access</span>
+Gate::<span class="function">define</span>(<span class="string">'adminpembimbing'</span>, <span class="keyword">function</span>(User $user) {
+    <span class="keyword">return</span> <span class="function">in_array</span>($user->role, [<span class="number">1</span>, <span class="number">2</span>]);
+});
+
+Gate::<span class="function">define</span>(<span class="string">'adminmahasiswa'</span>, <span class="keyword">function</span>(User $user) {
+    <span class="keyword">return</span> <span class="function">in_array</span>($user->role, [<span class="number">1</span>, <span class="number">3</span>]);
+});
+
+Gate::<span class="function">define</span>(<span class="string">'pembimbingmahasiswa'</span>, <span class="keyword">function</span>(User $user) {
+    <span class="keyword">return</span> <span class="function">in_array</span>($user->role, [<span class="number">2</span>, <span class="number">3</span>]);
+});
+                </div>
+            </div>
+            <div class="slide-number"><span class="current">3</span> / 15</div>
+        </div>
+
+        <!-- Slide 4: Database Schema -->
+        <div class="slide">
+            <h2>Database Schema Design</h2>
+            <div class="content">
+                <p>Normalized relational schema (3NF) with strategic use of delimited strings for flexibility. <strong>Note: Foreign key constraints enforced at application layer, not database level.</strong></p>
+
+                <div class="code-block">
+<span class="comment">// Core Entity Relationships (from migrations)</span>
+
+<span class="keyword">users</span> (id, nim_nip, name, email, role)
+  ├─ <span class="function">hasMany</span> → kartupasiens
+  ├─ <span class="function">hasMany</span> → diagnosas
+  ├─ <span class="function">hasMany</span> → vitalitas
+  └─ <span class="function">hasMany</span> → periodontals, pelaksanaans, perencanaans...
+
+<span class="keyword">kartupasiens</span> (id, user_id, pembimbing, no_kartu <span class="string">UNIQUE</span>, nik <span class="string">UNIQUE</span>, ...)
+  ├─ <span class="function">hasOne</span> → anamripasien
+  ├─ <span class="function">hasOne</span> → pengsiperi
+  ├─ <span class="function">hasOne</span> → eksplakkal
+  ├─ <span class="function">hasOne</span> → ohis
+  ├─ <span class="function">hasOne</span> → odontogram
+  ├─ <span class="function">hasOne</span> → anomalimukosa
+  ├─ <span class="function">hasMany</span> → diagnosas
+  ├─ <span class="function">hasMany</span> → vitalitas
+  ├─ <span class="function">hasMany</span> → periodontals
+  ├─ <span class="function">hasMany</span> → perencanaans
+  └─ <span class="function">hasMany</span> → pelaksanaans
+
+<span class="keyword">eksplakkals</span> (id, kartupasien_id, plak <span class="string">TEXT</span>, supragingiva <span class="string">TEXT</span>, ...)
+  └─ <span class="function">hasMany</span> → periodontals
+
+<span class="keyword">odontograms</span> (id, kartupasien_id, kode_11..kode_85, gigi_karies <span class="string">TEXT</span>, ...)
+  └─ <span class="function">hasMany</span> → vitalitas
+
+<span class="keyword">diagnosas</span> (id, kartupasien_id, gigi, masalah, 
+            askepgilut <span class="string">STRING</span>, penyebab <span class="string">STRING</span>, gejala <span class="string">STRING</span>)
+  └─ <span class="function">hasOne</span> → pelaksanaan
+
+<span class="keyword">vitalitas</span> (id, odontogram_id, elemen_gigi, inspeksi..mobility, masalah)
+
+<span class="keyword">periodontals</span> (id, eksplakkal_id, elemen_permukaan_gigi, ...)
+
+<span class="keyword">perencanaans</span> (id, kartupasien_id, gigi, rasional, kompetensi, ...)
+
+<span class="keyword">pelaksanaans</span> (id, kartupasien_id, diagnosa_id <span class="string">STRING</span>, gigi, ...)
+                </div>
+
+                <div class="warning">
+                    <strong>⚠️ Application-Level Referential Integrity:</strong>
+                    <p><strong>NO database-level foreign key constraints!</strong> Migrations use `foreignId()` without `->constrained()`. This means:</p>
+                    <ul>
+                        <li>Database won't prevent orphaned records automatically</li>
+                        <li>All cascade deletes handled manually in controllers</li>
+                        <li>Referential integrity enforced by Eloquent relationships + controller logic</li>
+                        <li>Benefit: Flexibility. Trade-off: Must be disciplined in controller code.</li>
+                    </ul>
+                </div>
+
+                <h3>Manual Cascade Delete Strategy (Controller-Level)</h3>
+                <div class="code-block">
+<span class="comment">// NO database-level cascade constraints!</span>
+<span class="comment">// Migrations use foreignId() WITHOUT ->constrained()</span>
+
+<span class="comment">// Example from migration:</span>
+Schema::<span class="function">create</span>(<span class="string">'vitalitas'</span>, <span class="keyword">function</span>(Blueprint $table) {
+    $table-><span class="function">id</span>();
+    $table-><span class="function">foreignId</span>(<span class="string">'odontogram_id'</span>); <span class="comment">// No ->constrained()!</span>
+    <span class="comment">// ... other columns</span>
+});
+
+<span class="comment">// Controller enforces cascade manually (belt-and-suspenders approach)</span>
+<span class="keyword">public function</span> <span class="function">destroy</span>(Eksplakkal $eksplakkal) {
+    Eksplakkal::<span class="function">destroy</span>($eksplakkal->id);
+    Periodontal::<span class="function">where</span>(<span class="string">'eksplakkal_id'</span>, $eksplakkal->id)-><span class="function">delete</span>();
+    <span class="keyword">return</span> <span class="function">back</span>()-><span class="function">with</span>(<span class="string">'success'</span>, <span class="string">'Data dan terkait berhasil dihapus'</span>);
+}
+
+<span class="comment">// Same pattern for Odontogram → Vitalitas</span>
+Odontogram::<span class="function">destroy</span>($odontogram->id);
+Vitalitas::<span class="function">where</span>(<span class="string">'odontogram_id'</span>, $odontogram->id)-><span class="function">delete</span>();
+                </div>
+
+                <h3>Why No Database Constraints?</h3>
+                <div class="two-column">
+                    <div class="card">
+                        <h4>🟢 Benefits</h4>
+                        <ul>
+                            <li><strong>Flexibility:</strong> Can soft-delete or change strategy later</li>
+                            <li><strong>No DB lock conflicts:</strong> Easier to manage complex deletes</li>
+                            <li><strong>Explicit control:</strong> Developers see cascade logic in code</li>
+                            <li><strong>Testing:</strong> Can test cascade behavior in isolation</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>🔴 Trade-offs</h4>
+                        <ul>
+                            <li><strong>Discipline required:</strong> Must remember manual cascades</li>
+                            <li><strong>No automatic protection:</strong> DB won't prevent orphans</li>
+                            <li><strong>Race conditions:</strong> Possible if concurrent deletes</li>
+                            <li><strong>More code:</strong> Cascade logic repeated in controllers</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>Computed Columns & ACC Pattern</h3>
+                <div class="code-block">
+<span class="comment">// Computed values stored in database (not calculated on-the-fly)</span>
+
+<span class="comment">// Odontogram: Pre-calculated indices</span>
+$table-><span class="function">tinyInteger</span>(<span class="string">'dmf_t'</span>);         <span class="comment">// D + M + F (stored)</span>
+$table-><span class="function">tinyInteger</span>(<span class="string">'def_t'</span>);         <span class="comment">// d + e + f (stored)</span>
+
+<span class="comment">// OHI-S: Stored scores & criteria</span>
+$table-><span class="function">string</span>(<span class="string">'score_di'</span>);           <span class="comment">// Debris Index (stored as decimal string)</span>
+$table-><span class="function">string</span>(<span class="string">'kriteria_ohis'</span>);      <span class="comment">// "Baik"/"Sedang"/"Buruk"</span>
+
+<span class="comment">// Eksplakkal: Plaque calculations</span>
+$table-><span class="function">string</span>(<span class="string">'plaque_score'</span>);       <span class="comment">// Percentage (stored)</span>
+
+<span class="comment">// ACC column (approval status) in 10+ tables</span>
+$table-><span class="function">boolean</span>(<span class="string">'acc'</span>)-><span class="function">default</span>(<span class="number">0</span>);  <span class="comment">// 0=pending, 1=approved by supervisor</span>
+                </div>
+
+                <div class="highlight">
+                    <strong>💡 Design Decision:</strong>
+                    <p>Storing computed values trades storage for query performance. Client-side JS calculates instantly → stored → validated server-side → used in reports without recalculation.</p>
+                </div>
+            </div>
+            <div class="slide-number"><span class="current">4</span> / 15</div>
+        </div>
+
+        <!-- Slide 5: Clinical Algorithms DMF-T -->
+        <div class="slide">
+            <h2>Clinical Algorithms: DMF-T & OHI-S</h2>
+            <div class="content">
+                <p>Real-time calculation engines eliminating manual computation errors.</p>
+
+                <h3>1. DMF-T & def-t (Real-Time JavaScript Calculation)</h3>
+                <div class="code-block">
+<span class="comment">// Odontogram view - Updates on every dropdown change</span>
+<span class="keyword">function</span> <span class="function">updateCounts</span>() {
+    <span class="keyword">let</span> jumlah_tetap_d = <span class="number">0</span>, jumlah_tetap_m = <span class="number">0</span>, jumlah_tetap_f = <span class="number">0</span>;
+    <span class="keyword">let</span> jumlah_susu_d = <span class="number">0</span>, jumlah_susu_e = <span class="number">0</span>, jumlah_susu_f = <span class="number">0</span>;
+    <span class="keyword">let</span> gigi_karies = [];
+    
+    <span class="comment">// Iterate 32 permanent teeth (18-28, 48-38)</span>
+    [<span class="string">'18'</span>,<span class="string">'17'</span>,<span class="string">'16'</span>,<span class="string">'15'</span>,<span class="string">'14'</span>,<span class="string">'13'</span>,<span class="string">'12'</span>,<span class="string">'11'</span>,<span class="string">'21'</span>,<span class="string">'22'</span>,<span class="string">'23'</span>,<span class="string">'24'</span>,<span class="string">'25'</span>,<span class="string">'26'</span>,<span class="string">'27'</span>,<span class="string">'28'</span>,
+     <span class="string">'48'</span>,<span class="string">'47'</span>,<span class="string">'46'</span>,<span class="string">'45'</span>,<span class="string">'44'</span>,<span class="string">'43'</span>,<span class="string">'42'</span>,<span class="string">'41'</span>,<span class="string">'31'</span>,<span class="string">'32'</span>,<span class="string">'33'</span>,<span class="string">'34'</span>,<span class="string">'35'</span>,<span class="string">'36'</span>,<span class="string">'37'</span>,<span class="string">'38'</span>
+    ].<span class="function">forEach</span>(<span class="keyword">function</span>(kode) {
+        <span class="keyword">let</span> val = <span class="function">document</span>.<span class="function">getElementById</span>(<span class="string">'kode_'</span> + kode).value;
+        
+        <span class="keyword">if</span> (val === <span class="string">'1'</span> || val === <span class="string">'2'</span>) jumlah_tetap_d++;
+        <span class="keyword">else if</span> (val === <span class="string">'4'</span>) jumlah_tetap_m++;
+        <span class="keyword">else if</span> (val === <span class="string">'3'</span>) jumlah_tetap_f++;
+        
+        <span class="keyword">if</span> (val === <span class="string">'1'</span> || val === <span class="string">'2'</span>) gigi_karies.<span class="function">push</span>(kode);
+    });
+    
+    <span class="comment">// Iterate 20 deciduous teeth (55-65, 85-75)</span>
+    [<span class="string">'55'</span>,<span class="string">'54'</span>,<span class="string">'53'</span>,<span class="string">'52'</span>,<span class="string">'51'</span>,<span class="string">'61'</span>,<span class="string">'62'</span>,<span class="string">'63'</span>,<span class="string">'64'</span>,<span class="string">'65'</span>,
+     <span class="string">'85'</span>,<span class="string">'84'</span>,<span class="string">'83'</span>,<span class="string">'82'</span>,<span class="string">'81'</span>,<span class="string">'71'</span>,<span class="string">'72'</span>,<span class="string">'73'</span>,<span class="string">'74'</span>,<span class="string">'75'</span>
+    ].<span class="function">forEach</span>(<span class="keyword">function</span>(kode) {
+        <span class="keyword">let</span> val = <span class="function">document</span>.<span class="function">getElementById</span>(<span class="string">'kode_'</span> + kode).value;
+        
+        <span class="keyword">if</span> (val === <span class="string">'B'</span> || val === <span class="string">'C'</span>) jumlah_susu_d++;
+        <span class="keyword">else if</span> (val === <span class="string">'E'</span>) jumlah_susu_e++;
+        <span class="keyword">else if</span> (val === <span class="string">'D'</span>) jumlah_susu_f++;
+        
+        <span class="keyword">if</span> (val === <span class="string">'B'</span> || val === <span class="string">'C'</span>) gigi_karies.<span class="function">push</span>(kode);
+    });
+    
+    <span class="comment">// Calculate indices</span>
+    <span class="keyword">let</span> dmf_t = jumlah_tetap_d + jumlah_tetap_m + jumlah_tetap_f;
+    <span class="keyword">let</span> def_t = jumlah_susu_d + jumlah_susu_e + jumlah_susu_f;
+    
+    <span class="comment">// Update DOM</span>
+    <span class="function">document</span>.<span class="function">getElementById</span>(<span class="string">'dmf_t'</span>).value = dmf_t;
+    <span class="function">document</span>.<span class="function">getElementById</span>(<span class="string">'def_t'</span>).value = def_t;
+    <span class="function">document</span>.<span class="function">getElementById</span>(<span class="string">'gigi_karies'</span>).value = gigi_karies.<span class="function">join</span>(<span class="string">','</span>);
+}
+
+<span class="comment">// Attach to all dropdowns</span>
+<span class="function">document</span>.<span class="function">querySelectorAll</span>(<span class="string">'select'</span>).<span class="function">forEach</span>(<span class="keyword">function</span>(dropdown) {
+    dropdown.<span class="function">addEventListener</span>(<span class="string">'change'</span>, updateCounts);
+});
+                </div>
+
+                <h3>2. OHI-S (Debris Index + Calculus Index)</h3>
+                <div class="code-block">
+<span class="comment">// Calculate Debris Index-Simplified</span>
+<span class="keyword">function</span> <span class="function">calculateDI</span>() {
+    <span class="keyword">let</span> jumlahNilaiDI = <span class="number">0</span>, jumlahGigiDI = <span class="number">0</span>;
+    
+    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">1</span>; i <= <span class="number">6</span>; i++) {
+        <span class="keyword">let</span> diValue = <span class="function">document</span>.<span class="function">getElementById</span>(<span class="string">'di_'</span> + i).value;
+        <span class="keyword">if</span> (diValue !== <span class="string">""</span>) {
+            jumlahNilaiDI += <span class="function">parseInt</span>(diValue);
+            jumlahGigiDI++;
+        }
+    }
+    
+    <span class="keyword">let</span> scoreDI = (jumlahGigiDI !== <span class="number">0</span>) ? (jumlahNilaiDI / jumlahGigiDI) : <span class="number">0</span>;
+    <span class="function">document</span>.<span class="function">getElementById</span>(<span class="string">'score_di'</span>).value = scoreDI.<span class="function">toFixed</span>(<span class="number">2</span>);
+    
+    <span class="function">calculateOHIS</span>();
+}
+
+<span class="comment">// Calculate Calculus Index-Simplified</span>
+<span class="keyword">function</span> <span class="function">calculateCI</span>() {
+    <span class="keyword">let</span> jumlahNilaiCI = <span class="number">0</span>, jumlahGigiCI = <span class="number">0</span>;
+    
+    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">1</span>; i <= <span class="number">6</span>; i++) {
+        <span class="keyword">let</span> ciValue = <span class="function">document</span>.<span class="function">getElementById</span>(<span class="string">'ci_'</span> + i).value;
+        <span class="keyword">if</span> (ciValue !== <span class="string">""</span>) {
+            jumlahNilaiCI += <span class="function">parseInt</span>(ciValue);
+            jumlahGigiCI++;
+        }
+    }
+    
+    <span class="keyword">let</span> scoreCI = (jumlahGigiCI !== <span class="number">0</span>) ? (jumlahNilaiCI / jumlahGigiCI) : <span class="number">0</span>;
+    <span class="function">document</span>.<span class="function">getElementById</span>(<span class="string">'score_ci'</span>).value = scoreCI.<span class="function">toFixed</span>(<span class="number">2</span>);
+    
+    <span class="function">calculateOHIS</span>();
+}
+
+<span class="comment">// Calculate total OHI-S with color coding</span>
+<span class="keyword">function</span> <span class="function">calculateOHIS</span>() {
+    <span class="keyword">let</span> scoreDI = <span class="function">parseFloat</span>(<span class="function">document</span>.<span class="function">getElementById</span>(<span class="string">'score_di'</span>).value);
+    <span class="keyword">let</span> scoreCI = <span class="function">parseFloat</span>(<span class="function">document</span>.<span class="function">getElementById</span>(<span class="string">'score_ci'</span>).value);
+    <span class="keyword">let</span> kriteriaOHIS = scoreDI + scoreCI;
+    
+    <span class="function">document</span>.<span class="function">getElementById</span>(<span class="string">'nilai_kriteria_ohis'</span>).value = kriteriaOHIS.<span class="function">toFixed</span>(<span class="number">2</span>);
+    
+    <span class="keyword">let</span> elem = <span class="function">document</span>.<span class="function">getElementById</span>(<span class="string">'kriteria_ohis'</span>);
+    <span class="keyword">if</span> (kriteriaOHIS >= <span class="number">0</span> && kriteriaOHIS <= <span class="number">1.2</span>) {
+        elem.value = <span class="string">'Baik'</span>;
+        elem.style.backgroundColor = <span class="string">'green'</span>;
+    } <span class="keyword">else if</span> (kriteriaOHIS > <span class="number">1.2</span> && kriteriaOHIS <= <span class="number">3.0</span>) {
+        elem.value = <span class="string">'Sedang'</span>;
+        elem.style.backgroundColor = <span class="string">'yellow'</span>;
+    } <span class="keyword">else if</span> (kriteriaOHIS > <span class="number">3.0</span>) {
+        elem.value = <span class="string">'Buruk'</span>;
+        elem.style.backgroundColor = <span class="string">'red'</span>;
+    }
+}
+                </div>
+
+                <h3>3. Plaque Score (Eksplakkal)</h3>
+                <div class="code-block">
+<span class="keyword">function</span> <span class="function">hitungPlak</span>() {
+    <span class="keyword">var</span> jumlahPlak = $(<span class="string">"#plak"</span>).<span class="function">val</span>().length;
+    <span class="keyword">var</span> jumlahPermukaan = <span class="function">parseInt</span>($(<span class="string">"#jumlah_permukaan"</span>).<span class="function">val</span>()) || <span class="number">0</span>;
+    <span class="keyword">var</span> jumlahTidakPlak = jumlahPermukaan - jumlahPlak;
+    <span class="keyword">var</span> plaqueScore = (jumlahTidakPlak / jumlahPermukaan) * <span class="number">100</span> || <span class="number">0</span>;
+    
+    $(<span class="string">"#jumlah_plak"</span>).<span class="function">val</span>(jumlahPlak);
+    $(<span class="string">"#jumlah_tidak_plak"</span>).<span class="function">val</span>(jumlahTidakPlak);
+    $(<span class="string">"#plaque_score"</span>).<span class="function">val</span>(plaqueScore.<span class="function">toFixed</span>(<span class="number">2</span>));
+    
+    <span class="keyword">if</span> (plaqueScore >= <span class="number">85</span>) {
+        $(<span class="string">"#kriteria"</span>).<span class="function">val</span>(<span class="string">'Baik'</span>)
+                     .<span class="function">removeClass</span>(<span class="string">'bg-danger'</span>).<span class="function">addClass</span>(<span class="string">'bg-success'</span>);
+    } <span class="keyword">else</span> {
+        $(<span class="string">"#kriteria"</span>).<span class="function">val</span>(<span class="string">'Buruk'</span>)
+                     .<span class="function">removeClass</span>(<span class="string">'bg-success'</span>).<span class="function">addClass</span>(<span class="string">'bg-danger'</span>);
+    }
+}
+
+$(<span class="string">"#plak"</span>).<span class="function">on</span>(<span class="string">'change'</span>, hitungPlak);
+$(<span class="string">"#jumlah_permukaan"</span>).<span class="function">on</span>(<span class="string">'input'</span>, hitungPlak);
+                </div>
+
+                <div class="highlight">
+                    <strong>💡 Implementation:</strong>
+                    <p>Client-side (JS) for instant feedback, validated server-side (Laravel) before persistence. Results stored as computed columns for efficient reporting.</p>
+                </div>
+            </div>
+            <div class="slide-number"><span class="current">5</span> / 15</div>
+        </div>
+
+        <!-- Slide 6: Vitalitas Rule Engine -->
+        <div class="slide">
+            <h2>Vitalitas Diagnosis Rule Engine</h2>
+            <div class="content">
+                <p>Complex clinical decision trees translated into executable diagnostic logic.</p>
+
+                <h3>6-Test Combination Matrix (JavaScript)</h3>
+                <div class="code-block">
+<span class="comment">// Real-time diagnosis based on 6 clinical tests</span>
+<span class="keyword">function</span> <span class="function">tentukanMasalah</span>() {
+    <span class="keyword">var</span> inspeksi = <span class="function">document</span>.<span class="function">getElementById</span>(<span class="string">"inspeksi"</span>).value;
+    <span class="keyword">var</span> thermis = <span class="function">document</span>.<span class="function">getElementById</span>(<span class="string">"thermis"</span>).value;
+    <span class="keyword">var</span> sondasi = <span class="function">document</span>.<span class="function">getElementById</span>(<span class="string">"sondasi"</span>).value;
+    <span class="keyword">var</span> perkusi = <span class="function">document</span>.<span class="function">getElementById</span>(<span class="string">"perkusi"</span>).value;
+    <span class="keyword">var</span> druk = <span class="function">document</span>.<span class="function">getElementById</span>(<span class="string">"druk"</span>).value;
+    <span class="keyword">var</span> mobility = <span class="function">document</span>.<span class="function">getElementById</span>(<span class="string">"mobility"</span>).value;
+    <span class="keyword">var</span> masalahElement = <span class="function">document</span>.<span class="function">getElementById</span>(<span class="string">"masalah"</span>);
+    
+    <span class="comment">// KME: Inspeksi + Sondasi only</span>
+    <span class="keyword">if</span> (inspeksi == <span class="number">1</span> && thermis == <span class="number">0</span> && sondasi == <span class="number">1</span> && 
+        perkusi == <span class="number">0</span> && druk == <span class="number">0</span> && mobility == <span class="number">0</span>) {
+        masalahElement.value = <span class="string">"Karies Mencapai Email (KME)"</span>;
+        masalahElement.style.backgroundColor = <span class="string">""</span>;
+    }
+    <span class="comment">// KMD: + Thermis</span>
+    <span class="keyword">else if</span> (inspeksi == <span class="number">1</span> && thermis == <span class="number">1</span> && sondasi == <span class="number">1</span> && 
+             perkusi == <span class="number">0</span> && druk == <span class="number">0</span> && mobility == <span class="number">0</span>) {
+        masalahElement.value = <span class="string">"Karies Mencapai Dentin (KMD)"</span>;
+        masalahElement.style.backgroundColor = <span class="string">""</span>;
+    }
+    <span class="comment">// KMP: + Perkusi</span>
+    <span class="keyword">else if</span> (inspeksi == <span class="number">1</span> && thermis == <span class="number">1</span> && sondasi == <span class="number">1</span> && 
+             perkusi == <span class="number">1</span> && druk == <span class="number">0</span> && mobility == <span class="number">0</span>) {
+        masalahElement.value = <span class="string">"Karies Mencapai Pulpa (KMP)"</span>;
+        masalahElement.style.backgroundColor = <span class="string">""</span>;
+    }
+    <span class="comment">// KMP Vital: Multiple combinations with Druk OR Mobility</span>
+    <span class="keyword">else if</span> ((inspeksi == <span class="number">1</span> && thermis == <span class="number">1</span> && sondasi == <span class="number">1</span> && 
+              perkusi == <span class="number">1</span> && druk == <span class="number">1</span> && mobility == <span class="number">0</span>) ||
+             (inspeksi == <span class="number">1</span> && thermis == <span class="number">1</span> && sondasi == <span class="number">1</span> && 
+              perkusi == <span class="number">1</span> && druk == <span class="number">0</span> && mobility == <span class="number">1</span>) ||
+             (inspeksi == <span class="number">1</span> && thermis == <span class="number">1</span> && sondasi == <span class="number">1</span> && 
+              perkusi == <span class="number">1</span> && druk == <span class="number">1</span> && mobility == <span class="number">1</span>)) {
+        masalahElement.value = <span class="string">"Karies Mencapai Pulpa Vital (KMP Vital)"</span>;
+        masalahElement.style.backgroundColor = <span class="string">""</span>;
+    }
+    <span class="comment">// Sisa Akar: Inspeksi only + various combinations</span>
+    <span class="keyword">else if</span> ((inspeksi == <span class="number">1</span> && thermis == <span class="number">0</span> && sondasi == <span class="number">0</span> && 
+              perkusi == <span class="number">0</span> && druk == <span class="number">0</span> && mobility == <span class="number">0</span>) ||
+             (inspeksi == <span class="number">1</span> && thermis == <span class="number">0</span> && sondasi == <span class="number">0</span> && 
+              perkusi == <span class="number">0</span> && druk == <span class="number">0</span> && mobility == <span class="number">1</span>) ||
+             (inspeksi == <span class="number">1</span> && thermis == <span class="number">0</span> && sondasi == <span class="number">0</span> && 
+              perkusi == <span class="number">0</span> && druk == <span class="number">1</span> && mobility == <span class="number">0</span>) ||
+             (inspeksi == <span class="number">1</span> && thermis == <span class="number">0</span> && sondasi == <span class="number">0</span> && 
+              perkusi == <span class="number">0</span> && druk == <span class="number">1</span> && mobility == <span class="number">1</span>) ||
+             (inspeksi == <span class="number">1</span> && thermis == <span class="number">0</span> && sondasi == <span class="number">0</span> && 
+              perkusi == <span class="number">1</span> && druk == <span class="number">0</span> && mobility == <span class="number">1</span>) ||
+             (inspeksi == <span class="number">1</span> && thermis == <span class="number">0</span> && sondasi == <span class="number">0</span> && 
+              perkusi == <span class="number">1</span> && druk == <span class="number">1</span> && mobility == <span class="number">1</span>)) {
+        masalahElement.value = <span class="string">"Sisa Akar"</span>;
+        masalahElement.style.backgroundColor = <span class="string">""</span>;
+    }
+    <span class="comment">// KMP Non Vital: Inspeksi + Perkusi (no Thermis/Sondasi)</span>
+    <span class="keyword">else if</span> ((inspeksi == <span class="number">1</span> && thermis == <span class="number">0</span> && sondasi == <span class="number">0</span> && 
+              perkusi == <span class="number">1</span> && druk == <span class="number">0</span> && mobility == <span class="number">0</span>) ||
+             (inspeksi == <span class="number">1</span> && thermis == <span class="number">0</span> && sondasi == <span class="number">0</span> && 
+              perkusi == <span class="number">1</span> && druk == <span class="number">1</span> && mobility == <span class="number">0</span>)) {
+        masalahElement.value = <span class="string">"Karies Mencapai Pulpa Non Vital (KMP Non Vital)"</span>;
+        masalahElement.style.backgroundColor = <span class="string">""</span>;
+    }
+    <span class="comment">// Peradangan: Mobility only</span>
+    <span class="keyword">else if</span> (inspeksi == <span class="number">0</span> && thermis == <span class="number">0</span> && sondasi == <span class="number">0</span> && 
+             perkusi == <span class="number">0</span> && druk == <span class="number">0</span> && mobility == <span class="number">1</span>) {
+        masalahElement.value = <span class="string">"Peradangan"</span>;
+        masalahElement.style.backgroundColor = <span class="string">""</span>;
+    }
+    <span class="keyword">else</span> {
+        masalahElement.value = <span class="string">"Tidak ditemukan"</span>;
+        masalahElement.style.backgroundColor = <span class="string">"red"</span>;
+    }
+}
+
+<span class="comment">// Attach change listeners to all test dropdowns</span>
+<span class="function">document</span>.<span class="function">querySelectorAll</span>(<span class="string">'select'</span>).<span class="function">forEach</span>(<span class="keyword">function</span>(dropdown) {
+    dropdown.<span class="function">addEventListener</span>(<span class="string">'change'</span>, tentukanMasalah);
+});
+
+<span class="comment">// Initial calculation on page load</span>
+<span class="function">tentukanMasalah</span>();
+                </div>
+
+                <h3>Workflow Dependencies & Dynamic Dropdowns</h3>
+                <div class="two-column">
+                    <div class="card">
+                        <h4>Sequential Module Flow</h4>
+                        <ul>
+                            <li><strong>Odontogram first:</strong> Generates gigi_karies JSON array</li>
+                            <li><strong>Vitalitas:</strong> Auto-populated from gigi_karies</li>
+                            <li><strong>Eksplakkal:</strong> Records calculus presence</li>
+                            <li><strong>Periodontal:</strong> Pulls calculus data from Eksplakkal</li>
+                            <li><strong>Diagnosa → Perencanaan → Pelaksanaan:</strong> Care workflow</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>Duplicate Prevention Logic</h4>
+                        <ul>
+                            <li><strong>Query-based filtering:</strong> Only show unused items in dropdowns</li>
+                            <li><strong>Conditional rendering:</strong> Check exists() before adding to options</li>
+                            <li><strong>Edit exception:</strong> Current record always appears in own dropdown</li>
+                            <li><strong>Example:</strong> Tooth 21 with Vitalitas → won't appear for NEW Vitalitas</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>Dynamic Availability Filtering</h3>
+                <div class="code-block">
+<span class="comment">// VitalitasController - Only show available teeth in dropdown</span>
+$gigiArray = <span class="function">explode</span>(<span class="string">","</span>, $elemengigi->gigi_karies);
+
+<span class="keyword">foreach</span> ($gigiArray <span class="keyword">as</span> $gigi) {
+    <span class="comment">// Check if tooth already has Vitalitas record</span>
+    $existingVitalitas = Vitalitas::<span class="function">where</span>(<span class="string">'elemen_gigi'</span>, $gigi)
+        -><span class="function">where</span>(<span class="string">'odontogram_id'</span>, $odontogram_id)
+        -><span class="function">exists</span>();
+    
+    <span class="comment">// Add to dropdown if unused OR is current record (for edit)</span>
+    <span class="keyword">if</span> (!$existingVitalitas || $vitalitas->elemen_gigi == $gigi) {
+        $gigis[] = $gigi;
+    }
+}
+
+<span class="comment">// Same pattern: Periodontal, Pelaksanaan, Perencanaan</span>
+<span class="comment">// Prevents duplicate entries + ensures data integrity</span>
+                </div>
+
+                <div class="highlight">
+                    <strong>💡 Smart Form UX:</strong>
+                    <p>Helper functions dynamically filter dropdown options based on existing data. Prevents users from creating duplicate records while allowing edits. Enforces "one record per tooth" business rule at UI level before validation.</p>
+                </div>
+            </div>
+            <div class="slide-number"><span class="current">6</span> / 15</div>
+        </div>
+
+        <!-- Slide 7: Diagnosa Hierarchical System -->
+        <div class="slide">
+            <h2>Diagnosa: 3-Tier Hierarchical Data Model</h2>
+            <div class="content">
+                <p>Complex clinical diagnosis system with cascading dropdown dependencies and delimited string storage.</p>
+
+                <h3>Data Hierarchy Structure</h3>
+                <div class="code-block">
+<span class="comment">// Three-level hierarchical relationship</span>
+
+<span class="keyword">Level 1:</span> Askepgilut (Diagnosis Category)
+    └─ <span class="keyword">Level 2:</span> Penyebab (Causes) - <span class="function">belongsTo</span> Askepgilut
+        └─ <span class="keyword">Level 3:</span> Gejala (Symptoms) - <span class="function">belongsTo</span> Askepgilut
+
+<span class="comment">// Example: One diagnosis can have multiple Askepgilut entries,
+// each with its own set of causes and symptoms</span>
+                </div>
+
+                <h3>Database Storage Strategy</h3>
+                <div class="two-column">
+                    <div class="card">
+                        <h4>📊 Delimited String Approach</h4>
+                        <div class="code-block" style="margin-top: 10px;">
+<span class="comment">// Storing in diagnosa table</span>
+askepgilut: <span class="string">"1|3|7"</span>
+penyebab:   <span class="string">"2,5|1,3,4|6"</span>
+gejala:     <span class="string">"1,2|4,5,6|2,7"</span>
+
+<span class="comment">// Separator logic:</span>
+<span class="string">"|"</span> = separates different Askepgilut entries
+<span class="string">","</span> = separates multiple causes/symptoms per entry
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h4>🔍 Why This Approach?</h4>
+                        <ul>
+                            <li><strong>Flexibility:</strong> Variable number of diagnoses per patient</li>
+                            <li><strong>Simplicity:</strong> Single row per patient-problem</li>
+                            <li><strong>Performance:</strong> Fewer JOINs on retrieval</li>
+                            <li><strong>Trade-off:</strong> Parsing required but manageable</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>Dynamic Form Generation (AJAX + jQuery)</h3>
+                <div class="code-block">
+<span class="comment">// Client-side: Add dynamic diagnosis form with cascade dropdowns</span>
+<span class="keyword">var</span> a = <span class="number">0</span>;
+$(<span class="string">'#addDiagnosas'</span>).<span class="function">on</span>(<span class="string">'click'</span>, <span class="keyword">function</span>() {
+    <span class="keyword">var</span> container = $(<span class="string">'#diagnosas'</span>);
+    <span class="keyword">var</span> diagnosaDiv = $(<span class="string">'&lt;div class="diagnosa"&gt;&lt;/div&gt;'</span>);
+    
+    diagnosaDiv.<span class="function">html</span>(<span class="string">`
+        &lt;label for="askepgilut_`</span> + a + <span class="string">`"&gt;Diagnosis Askepgilut:&lt;/label&gt;
+        &lt;select class="js-example-basic-single form-control" 
+                id="askepgilut_`</span> + a + <span class="string">`" 
+                name="diagnosa[`</span> + a + <span class="string">`][askepgilut][]" required&gt;
+            &lt;option value="" selected disabled&gt;Pilih Askepgilut&lt;/option&gt;
+            @foreach ($askepgiluts as $askepgilut)
+                &lt;option value="{{ $askepgilut-&gt;id }}"&gt;
+                    {{ $askepgilut-&gt;askepgilut }}
+                &lt;/option&gt;
+            @endforeach
+        &lt;/select&gt;
+        
+        &lt;label for="penyebab_`</span> + a + <span class="string">`"&gt;Penyebab:&lt;/label&gt;
+        &lt;select class="js-example-basic-multiple form-control" 
+                id="penyebab_`</span> + a + <span class="string">`" 
+                name="diagnosa[`</span> + a + <span class="string">`][penyebab][]" 
+                multiple required&gt;
+        &lt;/select&gt;
+        
+        &lt;label for="gejala_`</span> + a + <span class="string">`"&gt;Gejala:&lt;/label&gt;
+        &lt;select class="js-example-basic-multiple form-control" 
+                id="gejala_`</span> + a + <span class="string">`" 
+                name="diagnosa[`</span> + a + <span class="string">`][gejala][]" 
+                multiple required&gt;
+        &lt;/select&gt;
+    `</span>);
+    
+    container.<span class="function">append</span>(diagnosaDiv);
+    
+    <span class="comment">// Initialize Select2 for dropdowns</span>
+    $(<span class="string">'.js-example-basic-single'</span>).<span class="function">select2</span>();
+    $(<span class="string">'.js-example-basic-multiple'</span>).<span class="function">select2</span>();
+    
+    <span class="comment">// AJAX cascade on Askepgilut change</span>
+    $(<span class="string">'#askepgilut_'</span> + a).<span class="function">on</span>(<span class="string">'change'</span>, <span class="keyword">function</span>() {
+        <span class="keyword">var</span> askepgilut = $(<span class="keyword">this</span>).<span class="function">val</span>();
+        <span class="keyword">var</span> index = $(<span class="keyword">this</span>).<span class="function">attr</span>(<span class="string">'id'</span>).<span class="function">split</span>(<span class="string">'_'</span>)[<span class="number">1</span>];
+        
+        $.<span class="function">ajax</span>({
+            url: <span class="string">'/getPenyebabs'</span>,
+            type: <span class="string">'POST'</span>,
+            data: { askepgilut: askepgilut },
+            cache: <span class="keyword">false</span>,
+            success: <span class="keyword">function</span>(msg) {
+                $(<span class="string">"#penyebab_"</span> + index).<span class="function">html</span>(msg).<span class="function">select2</span>();
+            },
+            error: <span class="keyword">function</span>(data) {
+                <span class="function">console</span>.<span class="function">log</span>(<span class="string">'error:'</span>, data);
+            }
+        });
+        
+        $.<span class="function">ajax</span>({
+            url: <span class="string">'/getGejalas'</span>,
+            type: <span class="string">'POST'</span>,
+            data: { askepgilut: askepgilut },
+            cache: <span class="keyword">false</span>,
+            success: <span class="keyword">function</span>(msg) {
+                $(<span class="string">"#gejala_"</span> + index).<span class="function">html</span>(msg).<span class="function">select2</span>();
+            },
+            error: <span class="keyword">function</span>(data) {
+                <span class="function">console</span>.<span class="function">log</span>(<span class="string">'error:'</span>, data);
+            }
+        });
+    });
+    
+    <span class="comment">// Delete button functionality</span>
+    <span class="keyword">var</span> deleteButton = $(<span class="string">`&lt;button type="button" class="btn btn-danger"&gt;
+                                 Hapus Diagnosis&lt;/button&gt;`</span>);
+    deleteButton.<span class="function">on</span>(<span class="string">'click'</span>, <span class="keyword">function</span>() {
+        diagnosaDiv.<span class="function">remove</span>();
+    });
+    diagnosaDiv.<span class="function">append</span>(deleteButton);
+    
+    ++a;
+});
+                </div>
+
+                <h3>Server-Side Helper (PHP)</h3>
+                <div class="code-block">
+<span class="comment">// helper.php - Returns HTML options for AJAX</span>
+<span class="keyword">function</span> <span class="function">getPenyebabs</span>($askepgilut) {
+    $penyebabs = Penyebab::<span class="function">where</span>(<span class="string">'askepgilut_id'</span>, $askepgilut)-><span class="function">get</span>();
+    
+    $penyebabOptions = <span class="string">'&lt;option value="" disabled&gt;Pilih Penyebab&lt;/option&gt;'</span>;
+    <span class="keyword">foreach</span> ($penyebabs <span class="keyword">as</span> $penyebab) {
+        $penyebabOptions .= <span class="string">'&lt;option value="'</span> . $penyebab->id . <span class="string">'"&gt;'</span> 
+                          . $penyebab->penyebab . <span class="string">'&lt;/option&gt;'</span>;
+    }
+    <span class="keyword">return</span> $penyebabOptions;
+}
+
+<span class="keyword">function</span> <span class="function">getGejalas</span>($askepgilut) {
+    $gejalas = Gejala::<span class="function">where</span>(<span class="string">'askepgilut_id'</span>, $askepgilut)-><span class="function">get</span>();
+    
+    $gejalaOptions = <span class="string">'&lt;option value="" disabled&gt;Pilih gejala&lt;/option&gt;'</span>;
+    <span class="keyword">foreach</span> ($gejalas <span class="keyword">as</span> $gejala) {
+        $gejalaOptions .= <span class="string">'&lt;option value="'</span> . $gejala->id . <span class="string">'"&gt;'</span> 
+                        . $gejala->gejala . <span class="string">'&lt;/option&gt;'</span>;
+    }
+    <span class="keyword">return</span> $gejalaOptions;
+}
+                </div>
+
+                <h3>Storage & Retrieval Logic</h3>
+                <div class="code-block">
+<span class="comment">// STORE: Serialize multiple diagnoses</span>
+<span class="keyword">foreach</span> ($request-><span class="function">input</span>(<span class="string">'diagnosa'</span>) <span class="keyword">as</span> $item) {
+    $askepgilutArray[] = $item[<span class="string">'askepgilut'</span>][<span class="number">0</span>];
+    $penyebabArray[] = <span class="function">implode</span>(<span class="string">','</span>, $item[<span class="string">'penyebab'</span>]);
+    $gejalaArray[] = <span class="function">implode</span>(<span class="string">','</span>, $item[<span class="string">'gejala'</span>]);
+}
+
+$diagnosa->askepgilut = <span class="function">implode</span>(<span class="string">'|'</span>, $askepgilutArray);
+$diagnosa->penyebab = <span class="function">implode</span>(<span class="string">'|'</span>, $penyebabArray);
+$diagnosa->gejala = <span class="function">implode</span>(<span class="string">'|'</span>, $gejalaArray);
+
+<span class="comment">// RETRIEVE: Parse delimited strings</span>
+$penyebabs = <span class="function">explode</span>(<span class="string">'|'</span>, $diagnosa->penyebab);
+$gejalas = <span class="function">explode</span>(<span class="string">'|'</span>, $diagnosa->gejala);
+
+<span class="keyword">foreach</span> ($penyebabs <span class="keyword">as</span> $key => $penyebabPair) {
+    $penyebab = <span class="function">explode</span>(<span class="string">','</span>, $penyebabPair);
+    $gejala = <span class="function">explode</span>(<span class="string">','</span>, $gejalas[$key]);
+    <span class="comment">// Process each diagnosis set...</span>
+}
+                </div>
+
+                <div class="highlight">
+                    <strong>💡 Key Innovation:</strong>
+                    <p>This semi-normalized approach balances relational integrity (master tables for Askepgilut/Penyebab/Gejala) with flexible many-to-many relationships (delimited strings in diagnosa). Enables dynamic diagnosis entry without complex junction tables while maintaining referential lookup capability.</p>
+                </div>
+
+                <div class="warning">
+                    <strong>⚠️ Trade-off Acknowledged:</strong>
+                    <p>Not fully normalized (violates 1NF). Future refactor could use pivot tables, but current approach meets clinical workflow needs with acceptable query complexity.</p>
+                </div>
+            </div>
+            <div class="slide-number"><span class="current">7</span> / 16</div>
+        </div>
+
+        <!-- Slide 8: Multi-User Workflow -->
+        <div class="slide">
+            <h2>Multi-User Workflow & ACC System</h2>
+            <div class="content">
+                <p>Concurrent clinical documentation with supervisor verification.</p>
+
+                <div class="two-column">
+                    <div class="column" style="border-left: 4px solid var(--accent-cyan);">
+                        <h4 style="color: var(--accent-cyan);">👨‍🎓 Student Workflow</h4>
+                        <ul>
+                            <li>Create patient records</li>
+                            <li>Complete assessments sequentially</li>
+                            <li>Submit for supervisor review</li>
+                            <li>Edit locked post-ACC</li>
+                            <li>View own patients only</li>
+                        </ul>
+                    </div>
+                    <div class="column" style="border-left: 4px solid var(--accent-violet);">
+                        <h4 style="color: var(--accent-violet);">👨‍⚕️ Supervisor Workflow</h4>
+                        <ul>
+                            <li>Dashboard: all supervised students</li>
+                            <li>Review submitted assessments</li>
+                            <li>ACC generates TTE signature</li>
+                            <li>Batch ACC for related modules</li>
+                            <li>Read-only post-approval</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>ACC System Logic</h3>
+                <div class="code-block">
+<span class="comment">// Middleware enforcement</span>
+Route::<span class="function">post</span>(<span class="string">'/acc/{module}/{id}'</span>, <span class="keyword">function</span>() {
+    <span class="keyword">if</span> (Auth::<span class="function">user</span>()->role !== <span class="number">2</span>) <span class="function">abort</span>(<span class="number">403</span>);
+    
+    $diagnosa = Diagnosa::<span class="function">findOrFail</span>($id);
+    
+    <span class="comment">// Verify supervisor assignment</span>
+    <span class="keyword">if</span> ($diagnosa->pembimbing !== Auth::<span class="function">user</span>()->nimnip) {
+        <span class="function">abort</span>(<span class="number">403</span>, <span class="string">'Not your student'</span>);
+    }
+    
+    <span class="comment">// BATCH ACC: Toggle all related records atomically</span>
+    $newValue = $diagnosa->acc == <span class="number">0</span> ? <span class="number">1</span> : <span class="number">0</span>;
+    
+    Diagnosa::<span class="function">where</span>(<span class="string">'user_id'</span>, $diagnosa->user_id)
+        -><span class="function">where</span>(<span class="string">'pembimbing'</span>, $diagnosa->pembimbing)
+        -><span class="function">where</span>(<span class="string">'kartupasien_id'</span>, $diagnosa->kartupasien_id)
+        -><span class="function">where</span>(<span class="string">'acc'</span>, $diagnosa->acc)
+        -><span class="function">update</span>([<span class="string">'acc'</span> => $newValue]);
+    
+    <span class="comment">// Individual record update</span>
+    $diagnosa-><span class="function">update</span>([<span class="string">'acc'</span> => $newValue]);
+    
+    <span class="comment">// Same pattern for Vitalitas, Periodontal, Perencanaan, Pelaksanaan</span>
+});
+                </div>
+
+                <h3>ACC Lock Enforcement</h3>
+                <div class="code-block">
+<span class="comment">// Prevent editing after ACC approval (immutable data)</span>
+<span class="keyword">public function</span> <span class="function">edit</span>(Diagnosa $diagnosa) {
+    <span class="keyword">if</span> ($diagnosa->acc !== <span class="number">1</span>) {
+        <span class="comment">// Allow editing</span>
+        <span class="keyword">return</span> <span class="function">view</span>(<span class="string">'pages.diagnosa.edit'</span>, <span class="function">compact</span>(<span class="string">'diagnosa'</span>));
+    } <span class="keyword">else</span> {
+        <span class="function">abort</span>(<span class="number">403</span>, <span class="string">'status telah ACC'</span>);
+    }
+}
+
+<span class="comment">// Same enforcement in destroy()</span>
+<span class="keyword">public function</span> <span class="function">destroy</span>(Diagnosa $diagnosa) {
+    <span class="keyword">if</span> ($diagnosa->acc !== <span class="number">1</span>) {
+        Diagnosa::<span class="function">destroy</span>($diagnosa->id);
+    } <span class="keyword">else</span> {
+        <span class="function">abort</span>(<span class="number">403</span>, <span class="string">'Data ACC tidak dapat dihapus'</span>);
+    }
+}
+                </div>
+
+                <div class="highlight">
+                    <strong>💡 Smart Batch Update:</strong>
+                    <p>Single ACC click updates ALL related records for that patient (Diagnosa, Vitalitas, Periodontal, etc.) ensuring atomic state transitions. Prevents partial approval states.</p>
+                </div>
+
+                <div class="warning">
+                    <strong>⚠️ Concurrency Control:</strong>
+                    <p>Application-level constraints prevent conflicts. No explicit row-locking. Students cannot edit ACC-approved data. ACC toggle is atomic per patient-supervisor pair.</p>
+                </div>
+            </div>
+            <div class="slide-number"><span class="current">8</span> / 16</div>
+        </div>
+
+        <!-- Slide 9: Data Validation -->
+        <div class="slide">
+            <h2>Multi-Layer Data Validation</h2>
+            <div class="content">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Layer</th>
+                            <th>Technology</th>
+                            <th>Purpose</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Client-Side</strong></td>
+                            <td>HTML5 + JavaScript</td>
+                            <td>Immediate feedback, UX</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Request Validation</strong></td>
+                            <td>Laravel Form Requests</td>
+                            <td>Type checking, business rules</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Model Validation</strong></td>
+                            <td>Eloquent Observers</td>
+                            <td>Pre-save hooks</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Database Constraints</strong></td>
+                            <td>MySQL CHECK, UNIQUE, FK</td>
+                            <td>Final enforcement</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Example: NIK Validation</h3>
+                <div class="code-block">
+<span class="comment">// Laravel Form Request</span>
+<span class="keyword">public function</span> <span class="function">rules</span>() {
+    <span class="keyword">return</span> [
+        <span class="string">'nik'</span> => [
+            <span class="string">'required'</span>,
+            <span class="string">'digits_between:14,16'</span>,
+            <span class="string">'numeric'</span>,
+            Rule::<span class="function">unique</span>(<span class="string">'kartu_pasien'</span>)-><span class="function">ignore</span>($this->id),
+        ],
+    ];
+}
+
+<span class="keyword">public function</span> <span class="function">messages</span>() {
+    <span class="keyword">return</span> [
+        <span class="string">'nik.unique'</span> => <span class="string">'NIK sudah terdaftar'</span>,
+        <span class="string">'nik.digits_between'</span> => <span class="string">'NIK harus 14-16 digit'</span>,
+    ];
+}
+                </div>
+
+                <h3>Post-MVP Fixes (2024)</h3>
+                <div class="two-column">
+                    <div class="card">
+                        <h4>Edge Cases Handled</h4>
+                        <ul>
+                            <li>Null exceptions for missing relations</li>
+                            <li>Duplicate NIK with clear errors</li>
+                            <li>Conditional required fields</li>
+                            <li>File upload validation</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>Timeline</h4>
+                        <ul>
+                            <li><strong>Nov 18:</strong> Odontogram fix</li>
+                            <li><strong>Nov 26:</strong> Cascade deletes</li>
+                            <li><strong>Nov 26:</strong> Null-exception handler</li>
+                            <li><strong>Dec 4:</strong> Pembimbing relation fix</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number"><span class="current">9</span> / 16</div>
+        </div>
+
+        <!-- Slide 9: Performance -->
+        <div class="slide">
+            <h2>Performance & Scalability</h2>
+            <div class="content">
+                <div class="three-column">
+                    <div class="feature-card">
+                        <span class="icon">🗃️</span>
+                        <h4>Query Optimization</h4>
+                        <p>Eager loading, indexed FKs, pagination</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="icon">⚡</span>
+                        <h4>Frontend</h4>
+                        <p>DataTables server-side, AJAX, debouncing</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="icon">💾</span>
+                        <h4>Caching</h4>
+                        <p>Config cache, route cache, views</p>
+                    </div>
+                </div>
+
+                <h3>DataTables Server-Side Processing</h3>
+                <div class="code-block">
+<span class="comment">// Scalable pagination</span>
+Route::<span class="function">get</span>(<span class="string">'/api/kartu-pasien'</span>, <span class="keyword">function</span>(Request $request) {
+    $query = KartuPasien::<span class="function">with</span>(<span class="string">'user'</span>, <span class="string">'anamnesa'</span>)
+        -><span class="function">where</span>(<span class="string">'user_id'</span>, Auth::<span class="function">id</span>());
+    
+    <span class="keyword">return</span> DataTables::<span class="function">of</span>($query)
+        -><span class="function">addColumn</span>(<span class="string">'action'</span>, <span class="keyword">function</span>($row) {
+            <span class="keyword">return</span> <span class="function">view</span>(<span class="string">'partials.actions'</span>, <span class="function">compact</span>(<span class="string">'row'</span>));
+        })
+        -><span class="function">filter</span>(<span class="keyword">function</span>($query) <span class="keyword">use</span> ($request) {
+            <span class="keyword">if</span> ($request->search) {
+                $query-><span class="function">where</span>(<span class="string">'nama'</span>, <span class="string">'like'</span>, <span class="string">"%{$request->search}%"</span>);
+            }
+        })
+        -><span class="function">make</span>(<span class="keyword">true</span>);
+});
+                </div>
+
+                <div class="warning">
+                    <strong>⚠️ Current Bottleneck:</strong>
+                    <p>Bulk data entry for Plak/Kalkulus identified as UX friction. Refactoring planned Q1 2025 with multi-select UI.</p>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="value">&lt;2s</div>
+                        <div class="label">Avg Page Load</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="value">50+</div>
+                        <div class="label">Concurrent Users</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="value">99.5%</div>
+                        <div class="label">Uptime</div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number"><span class="current">10</span> / 16</div>
+        </div>
+
+        <!-- Slide 10: Security -->
+        <div class="slide">
+            <h2>Security Implementation</h2>
+            <div class="content">
+                <div class="two-column">
+                    <div class="card">
+                        <h4>🔐 Authentication</h4>
+                        <ul>
+                            <li>Bcrypt hashing (cost: 10)</li>
+                            <li>Laravel Sanctum sessions</li>
+                            <li>CSRF token validation</li>
+                            <li>Auto session timeout</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>🛡️ Authorization</h4>
+                        <ul>
+                            <li>Role-Based Access Control</li>
+                            <li>Middleware-protected routes</li>
+                            <li>Row-level security</li>
+                            <li>Policy-based actions</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>Middleware Stack</h3>
+                <div class="code-block">
+<span class="comment">// Route protection</span>
+Route::<span class="function">middleware</span>([<span class="string">'auth'</span>, <span class="string">'role:Mahasiswa'</span>])-><span class="function">group</span>(<span class="keyword">function</span>() {
+    Route::<span class="function">resource</span>(<span class="string">'kartu-pasien'</span>, KartuPasienController::<span class="keyword">class</span>);
+});
+
+Route::<span class="function">middleware</span>([<span class="string">'auth'</span>, <span class="string">'role:Pembimbing'</span>])-><span class="function">group</span>(<span class="keyword">function</span>() {
+    Route::<span class="function">post</span>(<span class="string">'/acc/{module}/{id}'</span>, [ACCController::<span class="keyword">class</span>, <span class="string">'approve'</span>]);
+});
+
+Route::<span class="function">middleware</span>([<span class="string">'auth'</span>, <span class="string">'role:Admin'</span>])-><span class="function">group</span>(<span class="keyword">function</span>() {
+    Route::<span class="function">resource</span>(<span class="string">'users'</span>, UserController::<span class="keyword">class</span>);
+});
+                </div>
+
+                <h3>Data Protection & Audit</h3>
+                <div class="two-column">
+                    <div class="card">
+                        <h4>Protection</h4>
+                        <ul>
+                            <li>SQL injection prevention (ORM)</li>
+                            <li>XSS protection (Blade escaping)</li>
+                            <li>File upload validation</li>
+                            <li>Mass assignment guards</li>
+                            <li>HTTPS enforcement</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>Audit Trail</h4>
+                        <ul>
+                            <li>ACC operations logged</li>
+                            <li>TTE signature generation</li>
+                            <li>Timestamps on all tables</li>
+                            <li>Soft deletes for recovery</li>
+                            <li>User action logging</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number"><span class="current">11</span> / 16</div>
+        </div>
+
+        <!-- Slide 11: Challenges -->
+        <div class="slide">
+            <h2>Challenges & Solutions</h2>
+            <div class="content">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 35%;">Challenge</th>
+                            <th style="width: 50%;">Solution</th>
+                            <th style="width: 15%;">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Data Persistence Failure</strong>Save errors</td>
+                            <td>Refactored validation, fixed FK relations, improved error handling</td>
+                            <td style="color: var(--accent-emerald);">✓ Resolved</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Orphaned Data</strong>Child records persisting</td>
+                            <td>ON DELETE CASCADE + Eloquent observers</td>
+                            <td style="color: var(--accent-emerald);">✓ Resolved</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Workflow Confusion</strong>Users skipping dependencies</td>
+                            <td>Dependency checks + error messages + user manual</td>
+                            <td style="color: var(--accent-emerald);">✓ Resolved</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Bulk Input Inefficiency</strong>Repetitive data entry</td>
+                            <td>Planned: Multi-select UI + Vue.js components</td>
+                            <td style="color: var(--accent-amber);">⧗ Q1 2025</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Dynamic Odontogram</strong>Status transitions</td>
+                            <td>Planned: State machine implementation</td>
+                            <td style="color: var(--accent-amber);">⧗ Q2 2025</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Mobile Accessibility</strong>Web-only limitation</td>
+                            <td>Planned: REST API + React Native app</td>
+                            <td style="color: var(--accent-amber);">⧗ Q3 2025</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Git Commit History (Nov-Dec 2024)</h3>
+                <div class="code-block">
+<span class="string">2024-11-18</span>: fix Odontogram - resolved save blocking
+<span class="string">2024-11-26</span>: remove length validation for keluhan fields
+<span class="string">2024-11-26</span>: cascade delete for child entities
+<span class="string">2024-11-26</span>: null-exception handler
+<span class="string">2024-12-04</span>: KartuPasien + pembimbing fix
+                </div>
+            </div>
+            <div class="slide-number"><span class="current">12</span> / 16</div>
+        </div>
+
+        <!-- Slide 12: Evaluation Metrics -->
+        <div class="slide">
+            <h2>System Evaluation Metrics</h2>
+            <div class="content">
+                <p>Formal evaluation: 16 stakeholders, 39 incident reports analyzed.</p>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="value">3.75</div>
+                        <div class="label">UI Design (1-4)</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="value">4.38</div>
+                        <div class="label">UI Design (1-5)</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="value">3.63</div>
+                        <div class="label">Overall UX (1-4)</div>
+                    </div>
+                </div>
+
+                <h3>Issue Distribution</h3>
+                <div class="two-column">
+                    <div class="column" style="border-left: 4px solid var(--accent-rose);">
+                        <h4 style="color: var(--accent-rose);">Critical Issues (28%)</h4>
+                        <ul>
+                            <li>Data persistence failures: 11 reports</li>
+                            <li><strong>Resolution: 100%</strong> (fixed Nov-Dec)</li>
+                        </ul>
+                    </div>
+                    <div class="column" style="border-left: 4px solid var(--accent-amber);">
+                        <h4 style="color: var(--accent-amber);">Infrastructure (21%)</h4>
+                        <ul>
+                            <li>Server stability: 8 reports</li>
+                            <li><strong>Status:</strong> Ongoing monitoring</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>Role Satisfaction Disparity</h3>
+                <div class="code-block">
+<span class="comment">// Usability scores by role</span>
+
+Dosen:      <span class="number">4.2</span> / <span class="number">5.0</span>  → <span class="string">High satisfaction</span>
+Mahasiswa:  <span class="number">2.0</span> / <span class="number">5.0</span>  → <span class="string">Pain points identified</span>
+
+<span class="keyword">Root cause:</span> Repetitive data entry workflows
+<span class="keyword">Action:</span> Bulk input refactoring (Q1 2025)
+                </div>
+
+                <div class="highlight">
+                    <strong>💡 Most Valued Features:</strong>
+                    <ul style="margin-top: 10px;">
+                        <li><strong>Auto calculations:</strong> Eliminated errors (85% supervisors)</li>
+                        <li><strong>Centralized data:</strong> Improved continuity (90% users)</li>
+                        <li><strong>ACC workflow:</strong> 70% faster approval time</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="slide-number"><span class="current">13</span> / 16</div>
+        </div>
+
+        <!-- Slide 13: Roadmap -->
+        <div class="slide">
+            <h2>Development Roadmap 2025</h2>
+            <div class="content">
+                <h3>Q1 2025 - High Priority</h3>
+                <div class="two-column">
+                    <div class="card">
+                        <h4>1️⃣ Bulk Data Entry</h4>
+                        <p><strong>Problem:</strong> Repetitive input causing UX friction</p>
+                        <p><strong>Solution:</strong></p>
+                        <ul>
+                            <li>Multi-select checkboxes</li>
+                            <li>Region-based selection</li>
+                            <li>Vue.js dynamic forms</li>
+                            <li>Batch processing endpoints</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>2️⃣ Server Stability Audit</h4>
+                        <p><strong>Problem:</strong> 8 downtime reports</p>
+                        <p><strong>Solution:</strong></p>
+                        <ul>
+                            <li>Laravel Telescope monitoring</li>
+                            <li>Sentry integration</li>
+                            <li>Query optimization audit</li>
+                            <li>Load testing (100+ users)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>Q2 2025 - Medium Priority</h3>
+                <div class="card">
+                    <h4>3️⃣ Dynamic Odontogram State Machine</h4>
+                    <p>Tooth status transitions (D→F post-intervention). Requires schema extension + business logic refactor.</p>
+                </div>
+
+                <h3>Q3-Q4 2025 - Feature Expansion</h3>
+                <div class="three-column">
+                    <div class="feature-card">
+                        <span class="icon">📷</span>
+                        <h4>Multimedia</h4>
+                        <p>Patient photo upload with S3/local storage</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="icon">📱</span>
+                        <h4>Mobile API</h4>
+                        <p>REST API for React Native app</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="icon">📊</span>
+                        <h4>Analytics</h4>
+                        <p>Data prioritization module</p>
+                    </div>
+                </div>
+
+                <div class="warning">
+                    <strong>⚠️ Resource Constraint:</strong>
+                    <p>Sole engineer. Timeline subject to institutional priorities.</p>
+                </div>
+            </div>
+            <div class="slide-number"><span class="current">14</span> / 16</div>
+        </div>
+
+        <!-- Slide 14: Lessons Learned -->
+        <div class="slide">
+            <h2>Engineering Lessons Learned</h2>
+            <div class="content">
+                <div class="two-column">
+                    <div class="column" style="border-left: 4px solid var(--accent-emerald);">
+                        <h4 style="color: var(--accent-emerald);">✓ What Worked</h4>
+                        <ul>
+                            <li><strong>Laravel ecosystem:</strong> Rapid development</li>
+                            <li><strong>Rule-based architecture:</strong> Easy maintenance</li>
+                            <li><strong>MVP → feedback → iterate:</strong> Effective cycle</li>
+                            <li><strong>3NF schema:</strong> Prevented anomalies</li>
+                            <li><strong>Auto calculations:</strong> Immediate value</li>
+                            <li><strong>Faculty collaboration:</strong> Clinical accuracy</li>
+                        </ul>
+                    </div>
+                    <div class="column" style="border-left: 4px solid var(--accent-amber);">
+                        <h4 style="color: var(--accent-amber);">⚠ Areas to Improve</h4>
+                        <ul>
+                            <li><strong>Earlier user testing:</strong> Catch friction pre-launch</li>
+                            <li><strong>Better error messages:</strong> Too technical initially</li>
+                            <li><strong>Docs upfront:</strong> Manual created post-MVP</li>
+                            <li><strong>Performance testing:</strong> Should precede production</li>
+                            <li><strong>Mobile-first:</strong> Web-only limits usability</li>
+                            <li><strong>Automated testing:</strong> PHPUnit from start</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>Technical Debt</h3>
+                <div class="code-block">
+<span class="comment">// Known limitations to address</span>
+
+<span class="number">1.</span> No row-level locking → <span class="string">app-level constraints</span>
+<span class="number">2.</span> Limited automated testing → <span class="string">PHPUnit + Dusk planned</span>
+<span class="number">3.</span> Hardcoded clinical rules → <span class="string">externalize to config</span>
+<span class="number">4.</span> Monolithic controllers → <span class="string">service layer refactor</span>
+<span class="number">5.</span> Manual deployment → <span class="string">CI/CD pipeline (GitHub Actions)</span>
+<span class="number">6.</span> No API versioning → <span class="string">implement for mobile</span>
+                </div>
+
+                <div class="highlight">
+                    <strong>💡 Key Takeaway:</strong>
+                    <p>Healthcare software requires balancing clinical accuracy, compliance, and engineering best practices. Domain expert collaboration was critical. Iterative feedback loops essential for aligning system with clinical practice.</p>
+                </div>
+            </div>
+            <div class="slide-number"><span class="current">15</span> / 16</div>
+        </div>
+
+        <!-- Slide 15: Contact & Demo -->
+        <div class="slide slide-cover">
+            <div class="logo">🦷</div>
+            <h1 style="font-size: clamp(36px, 5vw, 56px);">Thank You</h1>
+            <p class="tagline">
+                SIMKESGI - Dental Nursing Information System
+                <strong class="gradient-text">Live Production System & Technical Deep Dive</strong>
+            </p>
+            
+            <div class="stats-grid" style="margin: 40px auto; max-width: 900px;">
+                <div class="stat-card">
+                    <span class="emoji">✅</span>
+                    <div class="label">Production Ready</div>
+                </div>
+                <div class="stat-card">
+                    <span class="emoji">🔄</span>
+                    <div class="label">Continuous Updates</div>
+                </div>
+                <div class="stat-card">
+                    <span class="emoji">📊</span>
+                    <div class="label">Data-Driven Iteration</div>
+                </div>
+            </div>
+
+            <div class="url-box">simkesgi.poltekkespalembang.ac.id</div>
+
+            <div style="margin-top: 40px; max-width: 800px;">
+                <h3 style="margin-bottom: 15px;">For Technical Discussions & Collaboration</h3>
+                <div style="text-align: left; display: inline-block;">
+                    <ul style="color: var(--muted); font-size: clamp(14px, 1.5vw, 17px);">
+                        <li>Full-stack development (Laravel + MySQL + JavaScript)</li>
+                        <li>System architecture & database design</li>
+                        <li>Healthcare domain modeling & clinical rule implementation</li>
+                        <li>Multi-user workflow orchestration</li>
+                        <li>Production deployment & iterative improvement</li>
+                    </ul>
+                </div>
+            </div>
+
+            <p style="margin-top: 30px; color: var(--muted); font-size: clamp(13px, 1.3vw, 16px);">
+                <strong style="color: var(--accent-teal);">Open to discussions on:</strong>
+                Healthcare system architecture | Clinical data modeling | Laravel enterprise patterns
+                <span style="font-size: 12px;">Connect via LinkedIn or institutional email for code reviews, architecture discussions, or collaboration opportunities.</span>
+            </p>
+
+            <div style="margin-top: 30px; padding: 20px; background: var(--glass); border: 1px solid var(--glass-border); border-radius: 16px; max-width: 700px; margin-left: auto; margin-right: auto;">
+                <p style="font-size: 13px; color: var(--muted);">
+                    <strong>Institution:</strong> Poltekkes Kemenkes Palembang - Jurusan Kesehatan Gigi
+                    <strong>IP Registration:</strong> HAKI - Health Intellectual Property (Indonesia)
+                    <strong>Role:</strong> Sole System Architect & Software Engineer
+                </p>
+            </div>
+
+            <div class="slide-number"><span class="current">16</span> / 16</div>
+        </div>
+
+    </div>
+
+    <!-- Navigation -->
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">
+            <span>←</span> Prev
+        </button>
+        <div class="nav-dots" id="navDots"></div>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">
+            Next <span>→</span>
+        </button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        const navDots = document.getElementById('navDots');
+
+        // Create navigation dots
+        for (let i = 0; i < totalSlides; i++) {
+            const dot = document.createElement('div');
+            dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
+            dot.onclick = () => goToSlide(i);
+            navDots.appendChild(dot);
+        }
+
+        function updateDots() {
+            document.querySelectorAll('.nav-dot').forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+        }
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+
+            // Scroll slide content to top
+            slides[currentSlide].scrollTop = 0;
+
+            // Update button states
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+            
+            updateDots();
+        }
+
+        function changeSlide(direction) {
+            showSlide(currentSlide + direction);
+        }
+
+        function goToSlide(index) {
+            showSlide(index);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft' && currentSlide > 0) {
+                changeSlide(-1);
+            } else if (e.key === 'ArrowRight' && currentSlide < totalSlides - 1) {
+                changeSlide(1);
+            } else if (e.key === 'Home') {
+                goToSlide(0);
+            } else if (e.key === 'End') {
+                goToSlide(totalSlides - 1);
+            }
+        });
+
+        // Touch/Swipe support
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        document.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            const diff = touchStartX - touchEndX;
+            
+            if (Math.abs(diff) > swipeThreshold) {
+                if (diff > 0 && currentSlide < totalSlides - 1) {
+                    changeSlide(1); // Swipe left = next
+                } else if (diff < 0 && currentSlide > 0) {
+                    changeSlide(-1); // Swipe right = prev
+                }
+            }
+        }
+
+        // Initialize
+        showSlide(0);
+    </script>
+</body>
+
+</html>

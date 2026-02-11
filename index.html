@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Annisa Baizan - System Thinker & Analytical Developer">
+    <title>Annisa Baizan - Portfolio</title>
+    
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" href="assets/css/theme.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    
+    <style>
+        /* Page-specific styles for index.html */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-indicator::after {
+            content: '↓';
+            font-size: 2rem;
+            color: var(--accent-cyan);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-brand">AB</a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="projects/index.html">Projects</a></li>
+                <li><a href="blog/index.html">Blog</a></li>
+                <li><a href="links.html">Links</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-background"></div>
+        <div class="hero-content">
+            <div class="hero-label">System Thinker & Developer</div>
+            <h1>
+                Hi, I'm <span class="hero-gradient-text">Annisa Baizan</span>
+            </h1>
+            <p class="hero-subtitle">Analytical Optimizer | Evidence-Based Builder</p>
+            <p class="hero-description">
+                Lulusan komputer dengan pendekatan sistematis dalam problem-solving. 
+                Membangun solusi berbasis data dengan framework thinking dan analytical rigor. 
+                Fokus pada clarity, accuracy, dan optimization.
+            </p>
+            <div class="hero-cta">
+                <a href="projects/index.html" class="btn btn-primary">View Projects</a>
+                <a href="about.html" class="btn btn-secondary">About Me</a>
+            </div>
+        </div>
+        <div class="scroll-indicator"></div>
+    </section>
+
+    <!-- About Preview Section -->
+    <section class="section">
+        <div class="section-header">
+            <div class="section-label">Introduction</div>
+            <h2 class="section-title">The Systematic Skeptic</h2>
+            <p class="section-description">
+                Berpikir dalam sistem, framework, dan struktur. Menghargai kejujuran intelektual lebih dari kenyamanan.
+            </p>
+        </div>
+
+        <div class="grid grid-auto">
+            <div class="card">
+                <div class="card-icon">🎯</div>
+                <h3 class="card-title">Analytical Rigor</h3>
+                <p class="card-content">
+                    Framework thinking dengan pendekatan evidence-based. Membangun solusi berdasarkan data dan analisis sistematis, 
+                    bukan asumsi atau idealisme kosong.
+                </p>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">⚙️</div>
+                <h3 class="card-title">Systems Thinking</h3>
+                <p class="card-content">
+                    Melihat masalah sebagai sistem yang saling terkait. Identifikasi bottleneck, 
+                    optimization goals, dan failure modes untuk mencapai solusi yang efektif.
+                </p>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">🧠</div>
+                <h3 class="card-title">Meta-Cognitive Awareness</h3>
+                <p class="card-content">
+                    Sadar akan keterbatasan pengetahuan sendiri dan aktif mencari blind spots. 
+                    Self-reflection oriented dengan standar epistemik tinggi.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Projects Section -->
+    <section class="section">
+        <div class="section-header">
+            <div class="section-label">Featured Work</div>
+            <h2 class="section-title">Selected Projects</h2>
+            <p class="section-description">
+                Implementasi sistem berbasis web dengan fokus pada efficiency, accuracy, dan user experience.
+            </p>
+        </div>
+
+        <div class="grid grid-auto-lg">
+            <a href="projects/simkesgi/index.html" class="card card-clickable">
+                <div class="card-image">📊</div>
+                <div>
+                    <h3 class="card-title">SIMKESGI</h3>
+                    <p class="card-content">
+                        Sistem Informasi Manajemen Kesehatan Gigi berbasis web untuk optimasi pelayanan kesehatan gigi di puskesmas.
+                    </p>
+                    <div class="tags" style="margin-top: 1.5rem;">
+                        <span class="tag">React</span>
+                        <span class="tag">TypeScript</span>
+                        <span class="tag">FastAPI</span>
+                        <span class="tag">PostgreSQL</span>
+                    </div>
+                </div>
+            </a>
+
+            <a href="projects/workplaceeval/index.html" class="card card-clickable">
+                <div class="card-image">📈</div>
+                <div>
+                    <h3 class="card-title">Workplace Evaluation System</h3>
+                    <p class="card-content">
+                        Platform evaluasi kinerja karyawan dengan analytics dan reporting system yang comprehensive.
+                    </p>
+                    <div class="tags" style="margin-top: 1.5rem;">
+                        <span class="tag">React</span>
+                        <span class="tag">Vite</span>
+                        <span class="tag">Python</span>
+                        <span class="tag">Flask</span>
+                    </div>
+                </div>
+            </a>
+
+            <a href="projects/index.html" class="card card-clickable">
+                <div class="card-image">💼</div>
+                <div>
+                    <h3 class="card-title">More Projects</h3>
+                    <p class="card-content">
+                        Eksplorasi lebih banyak project dan eksperimen dalam pengembangan sistem berbasis web.
+                    </p>
+                    <div class="tags" style="margin-top: 1.5rem;">
+                        <span class="tag">View All</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section">
+        <div class="card" style="background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(6, 182, 212, 0.1)); text-align: center; padding: 4rem 2rem;">
+            <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Interested in Collaboration?</h2>
+            <p style="font-size: 1.2rem; color: var(--text-secondary); margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+                Terbuka untuk diskusi tentang sistem thinking, web development, atau project collaboration.
+            </p>
+            <div class="hero-cta">
+                <a href="links.html" class="btn btn-primary">Get in Touch</a>
+                <a href="blog/index.html" class="btn btn-secondary">Read Blog</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="about.html">About</a>
+                <a href="projects/index.html">Projects</a>
+                <a href="blog/index.html">Blog</a>
+                <a href="labs/index.html">Labs</a>
+                <a href="links.html">Contact</a>
+            </div>
+            <p>&copy; 2026 Annisa Baizan. Built with analytical precision.</p>
+        </div>
+    </footer>
+</body>
+</html>

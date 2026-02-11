@@ -1,0 +1,1739 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIMKESGI - Sistem Informasi Manajemen Keperawatan Gigi</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Professional Medical Colors */
+            --primary-blue: #1e40af;
+            --secondary-blue: #3b82f6;
+            --light-blue: #dbeafe;
+            --accent-teal: #0891b2;
+            --accent-green: #059669;
+            --warm-gray: #f9fafb;
+            --medium-gray: #6b7280;
+            --dark-gray: #1f2937;
+            --white: #ffffff;
+            --border: #e5e7eb;
+            --shadow: rgba(0, 0, 0, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--white);
+            color: var(--dark-gray);
+            overflow-x: hidden;
+        }
+
+        /* Background Pattern */
+        .bg-pattern {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            background-image: 
+                radial-gradient(circle at 20% 20%, rgba(30, 64, 175, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(8, 145, 178, 0.03) 0%, transparent 50%);
+        }
+
+        .dot-pattern {
+            position: fixed;
+            inset: 0;
+            z-index: 1;
+            opacity: 0.4;
+            background-image: radial-gradient(circle, var(--border) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+
+        /* Presentation Container */
+        .presentation {
+            position: relative;
+            z-index: 10;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+        }
+
+        /* Slide Container */
+        .slide {
+            width: 100%;
+            max-width: 1400px;
+            height: calc(100vh - 120px);
+            background: var(--white);
+            border-radius: 32px;
+            box-shadow: 
+                0 20px 60px rgba(0, 0, 0, 0.08),
+                0 0 0 1px var(--border);
+            padding: 60px 70px;
+            display: none;
+            flex-direction: column;
+            position: relative;
+            overflow-y: auto;
+            overflow-x: hidden;
+            animation: slideIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .slide.active {
+            display: flex;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Slide Header */
+        .slide-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 2.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid var(--light-blue);
+        }
+
+        .slide-header .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .slide-header .logo-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            box-shadow: 0 8px 16px rgba(30, 64, 175, 0.2);
+        }
+
+        .slide-header .logo-text h1 {
+            font-family: 'Manrope', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary-blue);
+            line-height: 1.2;
+        }
+
+        .slide-header .logo-text p {
+            font-size: 0.9rem;
+            color: var(--medium-gray);
+            font-weight: 500;
+        }
+
+        .slide-number {
+            position: absolute;
+            bottom: 30px;
+            right: 40px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--medium-gray);
+            font-size: 13px;
+            font-weight: 600;
+            z-index: 10;
+        }
+
+        .slide-number .current {
+            color: var(--primary-blue);
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        /* Typography */
+        h2 {
+            font-family: 'Manrope', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        h3 {
+            font-family: 'Manrope', sans-serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--dark-gray);
+            margin: 2.5rem 0 1.5rem;
+        }
+
+        h4 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+        }
+
+        p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--medium-gray);
+            margin-bottom: 1rem;
+        }
+
+        .lead {
+            font-size: 1.3rem;
+            line-height: 1.6;
+            color: var(--dark-gray);
+            font-weight: 500;
+        }
+
+        /* Cover Slide */
+        .slide-cover {
+            justify-content: center;
+            text-align: center;
+            padding: 4rem 6rem;
+        }
+
+        .slide-cover .logo-large {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-teal));
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            margin: 0 auto 2rem;
+            box-shadow: 0 20px 40px rgba(30, 64, 175, 0.3);
+        }
+
+        .slide-cover h1 {
+            font-family: 'Manrope', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+            line-height: 1.1;
+        }
+
+        .slide-cover .subtitle {
+            font-size: 1.5rem;
+            color: var(--medium-gray);
+            font-weight: 500;
+            margin-bottom: 2rem;
+        }
+
+        .slide-cover .institution {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2rem;
+            background: var(--light-blue);
+            border-radius: 50px;
+            font-weight: 600;
+            color: var(--primary-blue);
+            margin-top: 2rem;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, var(--light-blue) 0%, rgba(219, 234, 254, 0.4) 100%);
+            border: 2px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px var(--shadow);
+            border-color: var(--secondary-blue);
+        }
+
+        .stat-card .number {
+            font-family: 'Manrope', sans-serif;
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--primary-blue);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-card .label {
+            font-size: 1rem;
+            color: var(--medium-gray);
+            font-weight: 600;
+        }
+
+        .stat-card .detail {
+            font-size: 0.875rem;
+            color: var(--medium-gray);
+            margin-top: 0.5rem;
+        }
+
+        /* Benefits Grid */
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .benefit-card {
+            background: var(--white);
+            border: 2px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .benefit-card:hover {
+            border-color: var(--secondary-blue);
+            box-shadow: 0 8px 24px var(--shadow);
+            transform: translateY(-2px);
+        }
+
+        .benefit-card .icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--light-blue), rgba(219, 234, 254, 0.5));
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin-bottom: 1.25rem;
+        }
+
+        .benefit-card h4 {
+            font-size: 1.25rem;
+            color: var(--primary-blue);
+            margin-bottom: 0.75rem;
+        }
+
+        .benefit-card p {
+            font-size: 1rem;
+            color: var(--medium-gray);
+            line-height: 1.6;
+            margin-bottom: 0;
+        }
+
+        /* Features List */
+        .features-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1.25rem;
+            background: var(--warm-gray);
+            border-radius: 12px;
+            border-left: 4px solid var(--accent-teal);
+        }
+
+        .feature-item .icon {
+            flex-shrink: 0;
+            width: 32px;
+            height: 32px;
+            background: var(--accent-teal);
+            color: white;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .feature-item .content h5 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--dark-gray);
+            margin-bottom: 0.25rem;
+        }
+
+        .feature-item .content p {
+            font-size: 0.95rem;
+            color: var(--medium-gray);
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        /* Comparison Table */
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .comparison-column {
+            background: var(--white);
+            border: 2px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+        }
+
+        .comparison-column.before {
+            border-color: #fee2e2;
+            background: linear-gradient(135deg, #fef2f2 0%, white 100%);
+        }
+
+        .comparison-column.after {
+            border-color: #d1fae5;
+            background: linear-gradient(135deg, #ecfdf5 0%, white 100%);
+        }
+
+        .comparison-column h4 {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+            font-size: 1.4rem;
+        }
+
+        .comparison-column.before h4 {
+            color: #dc2626;
+        }
+
+        .comparison-column.after h4 {
+            color: var(--accent-green);
+        }
+
+        .comparison-column ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .comparison-column ul li {
+            padding: 0.75rem 0;
+            padding-left: 2rem;
+            position: relative;
+            font-size: 1rem;
+            color: var(--dark-gray);
+            line-height: 1.6;
+        }
+
+        .comparison-column ul li::before {
+            position: absolute;
+            left: 0;
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .comparison-column.before ul li::before {
+            content: '✕';
+            color: #dc2626;
+        }
+
+        .comparison-column.after ul li::before {
+            content: '✓';
+            color: var(--accent-green);
+        }
+
+        /* Workflow Steps */
+        .workflow {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .workflow-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            background: var(--warm-gray);
+            border-radius: 16px;
+            border: 2px solid var(--border);
+            position: relative;
+        }
+
+        .workflow-step::after {
+            content: '↓';
+            position: absolute;
+            left: 3rem;
+            bottom: -2rem;
+            font-size: 1.5rem;
+            color: var(--secondary-blue);
+            font-weight: 700;
+        }
+
+        .workflow-step:last-child::after {
+            display: none;
+        }
+
+        .workflow-step .step-number {
+            flex-shrink: 0;
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            color: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 800;
+            box-shadow: 0 4px 12px rgba(30, 64, 175, 0.3);
+        }
+
+        .workflow-step .step-content h4 {
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .workflow-step .step-content p {
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        /* Highlight Box */
+        .highlight-box {
+            background: linear-gradient(135deg, var(--light-blue), rgba(219, 234, 254, 0.5));
+            border: 2px solid var(--secondary-blue);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .highlight-box h4 {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+        }
+
+        .highlight-box p {
+            color: var(--dark-gray);
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        .highlight-box.success {
+            background: linear-gradient(135deg, #ecfdf5, rgba(236, 253, 245, 0.5));
+            border-color: var(--accent-green);
+        }
+
+        .highlight-box.success h4 {
+            color: var(--accent-green);
+        }
+
+        /* Quote Box */
+        .quote-box {
+            background: var(--white);
+            border-left: 6px solid var(--accent-teal);
+            padding: 2rem;
+            margin: 2rem 0;
+            border-radius: 0 12px 12px 0;
+            box-shadow: 0 4px 12px var(--shadow);
+        }
+
+        .quote-box p {
+            font-size: 1.2rem;
+            font-style: italic;
+            color: var(--dark-gray);
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+
+        .quote-box .author {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1rem;
+            color: var(--medium-gray);
+            font-weight: 600;
+        }
+
+        .quote-box .author::before {
+            content: '—';
+            color: var(--accent-teal);
+        }
+
+        /* Two Column Layout */
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 3rem;
+            margin: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0.75rem;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, var(--secondary-blue), var(--accent-teal));
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 2rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.3rem;
+            top: 0.25rem;
+            width: 16px;
+            height: 16px;
+            background: var(--white);
+            border: 4px solid var(--secondary-blue);
+            border-radius: 50%;
+            box-shadow: 0 0 0 4px var(--light-blue);
+        }
+
+        .timeline-item h5 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-item p {
+            font-size: 1rem;
+            color: var(--medium-gray);
+            margin: 0;
+        }
+
+        /* Navigation */
+        .navigation {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 2px solid var(--border);
+            border-radius: 50px;
+            padding: 12px 25px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-btn {
+            background: transparent;
+            border: none;
+            color: var(--primary-blue);
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 15px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover:not(:disabled) {
+            background: var(--light-blue);
+            color: var(--secondary-blue);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .nav-btn span {
+            font-size: 18px;
+        }
+
+        .nav-dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .nav-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--border);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-dot:hover {
+            background: var(--secondary-blue);
+        }
+
+        .nav-dot.active {
+            background: var(--primary-blue);
+            width: 24px;
+            border-radius: 4px;
+        }
+
+        /* Scrollbar */
+        .slide::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .slide::-webkit-scrollbar-track {
+            background: var(--warm-gray);
+            border-radius: 4px;
+        }
+
+        .slide::-webkit-scrollbar-thumb {
+            background: var(--secondary-blue);
+            border-radius: 4px;
+        }
+
+        /* Badge */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: var(--light-blue);
+            color: var(--primary-blue);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin: 0.25rem;
+        }
+
+        .badge.success {
+            background: #d1fae5;
+            color: var(--accent-green);
+        }
+
+        .badge.info {
+            background: #e0f2fe;
+            color: var(--accent-teal);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .slide {
+                padding: 2rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            .comparison,
+            .two-column {
+                grid-template-columns: 1fr;
+            }
+
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-pattern"></div>
+    <div class="dot-pattern"></div>
+
+    <div class="presentation">
+        
+        <!-- Slide 1: Cover -->
+        <div class="slide slide-cover active">
+            <div class="logo-large">🦷</div>
+            <h1>SIMKESGI</h1>
+            <p class="subtitle">Sistem Informasi Manajemen Keperawatan Gigi</p>
+            <p class="lead" style="max-width: 700px; margin: 0 auto 2rem;">
+                Transformasi digital untuk pendidikan keperawatan gigi yang lebih efisien, terstandar, dan berkualitas
+            </p>
+            <div class="institution">
+                🏛️ Poltekkes Kemenkes Palembang
+            </div>
+        </div>
+
+        <!-- Slide 2: Masalah yang Dihadapi -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="logo">
+                    <div class="logo-icon">🦷</div>
+                    <div class="logo-text">
+                        <h1>SIMKESGI</h1>
+                        <p>Solusi Digital Pendidikan Klinis</p>
+                    </div>
+                </div>
+                <div class="slide-number">2 / 12</div>
+            </div>
+
+            <h2>Tantangan Dokumentasi Manual</h2>
+            <p class="lead">Sistem dokumentasi berbasis kertas menimbulkan berbagai kendala dalam proses pembelajaran klinis</p>
+
+            <div class="comparison">
+                <div class="comparison-column before">
+                    <h4>❌ Sebelum SIMKESGI</h4>
+                    <ul>
+                        <li>Dokumentasi klinis ditulis tangan, rentan hilang dan rusak</li>
+                        <li>Perhitungan indeks klinis (DMF-T, OHI-S) manual, memakan waktu 5-10 menit per pasien</li>
+                        <li>Format pencatatan tidak konsisten antar mahasiswa</li>
+                        <li>Pembimbing sulit memantau perkembangan real-time</li>
+                        <li>Proses ACC (persetujuan) membutuhkan tatap muka</li>
+                        <li>Riwayat pasien sulit ditelusuri</li>
+                        <li>Tidak ada jejak audit untuk kontrol kualitas</li>
+                    </ul>
+                </div>
+                <div class="comparison-column after">
+                    <h4>✓ Sesudah SIMKESGI</h4>
+                    <ul>
+                        <li>Dokumentasi digital permanen, aman, dan mudah diakses</li>
+                        <li>Perhitungan otomatis instant dengan akurasi 100%</li>
+                        <li>Template terstandar sesuai protokol pendidikan</li>
+                        <li>Dashboard pembimbing untuk monitoring real-time</li>
+                        <li>ACC digital tanpa perlu tatap muka langsung</li>
+                        <li>Riwayat lengkap satu klik</li>
+                        <li>Audit trail otomatis untuk semua aktivitas</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="highlight-box success">
+                <h4>💡 Dampak Nyata</h4>
+                <p>Waktu dokumentasi berkurang 50%, akurasi data 100%, dan pembimbing dapat fokus pada kualitas pembelajaran bukan administrasi</p>
+            </div>
+
+            <div class="slide-footer">
+                <div class="nav-buttons">
+                    <button class="nav-button" onclick="prevSlide()" disabled>‹</button>
+                    <button class="nav-button" onclick="nextSlide()">›</button>
+                </div>
+                <div class="progress-indicator">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Apa itu SIMKESGI -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="logo">
+                    <div class="logo-icon">🦷</div>
+                    <div class="logo-text">
+                        <h1>SIMKESGI</h1>
+                        <p>Solusi Digital Pendidikan Klinis</p>
+                    </div>
+                </div>
+                <div class="slide-number">3 / 12</div>
+            </div>
+
+            <h2>Apa itu SIMKESGI?</h2>
+            <p class="lead">Platform digital terpadu untuk mendukung seluruh alur kerja pendidikan klinis keperawatan gigi</p>
+
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="icon">📋</div>
+                    <h4>Dokumentasi Klinis Digital</h4>
+                    <p>Rekam medis elektronik lengkap dengan 15+ modul assessment: anamnesa, odontogram, diagnosis, perencanaan, hingga pelaksanaan perawatan</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="icon">🔢</div>
+                    <h4>Perhitungan Otomatis</h4>
+                    <p>Indeks klinis (DMF-T, OHI-S, Plak Skor, Vitalitas) dihitung secara otomatis dan real-time, menghilangkan kesalahan manual</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="icon">✅</div>
+                    <h4>Sistem Persetujuan Digital</h4>
+                    <p>Workflow ACC (persetujuan pembimbing) terintegrasi dengan notifikasi otomatis dan audit trail lengkap</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="icon">👥</div>
+                    <h4>Multi-Role Access</h4>
+                    <p>Tiga level akses: Admin (manajemen sistem), Pembimbing (supervisi), dan Mahasiswa (dokumentasi klinis)</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="icon">📊</div>
+                    <h4>Dashboard & Reporting</h4>
+                    <p>Visualisasi data real-time untuk monitoring progress mahasiswa, statistik klinik, dan evaluasi pembelajaran</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="icon">🔐</div>
+                    <h4>Keamanan Data</h4>
+                    <p>Enkripsi data, role-based access control, dan backup otomatis untuk menjaga privasi dan integritas informasi pasien</p>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <h4>🎯 Tujuan Utama</h4>
+                <p>Meningkatkan kualitas pendidikan klinis melalui standardisasi proses, efisiensi waktu, dan akurasi data—sehingga mahasiswa dan pembimbing dapat fokus pada aspek pembelajaran bukan administrasi</p>
+            </div>
+
+            <div class="slide-footer">
+                <div class="nav-buttons">
+                    <button class="nav-button" onclick="prevSlide()">‹</button>
+                    <button class="nav-button" onclick="nextSlide()">›</button>
+                </div>
+                <div class="progress-indicator">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Fitur Utama -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="logo">
+                    <div class="logo-icon">🦷</div>
+                    <div class="logo-text">
+                        <h1>SIMKESGI</h1>
+                        <p>Solusi Digital Pendidikan Klinis</p>
+                    </div>
+                </div>
+                <div class="slide-number">4 / 12</div>
+            </div>
+
+            <h2>15+ Modul Klinis Terintegrasi</h2>
+            <p class="lead">Sistem komprehensif mencakup seluruh aspek dokumentasi keperawatan gigi</p>
+
+            <div class="features-list">
+                <div class="feature-item">
+                    <div class="icon">1</div>
+                    <div class="content">
+                        <h5>Kartu Pasien</h5>
+                        <p>Data identitas, riwayat alergi, kontak darurat</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="icon">2</div>
+                    <div class="content">
+                        <h5>Anamnesa</h5>
+                        <p>Keluhan utama, riwayat penyakit, obat yang dikonsumsi</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="icon">3</div>
+                    <div class="content">
+                        <h5>Odontogram Digital</h5>
+                        <p>Visual mapping 52 gigi dengan perhitungan DMF-T dan def-t otomatis</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="icon">4</div>
+                    <div class="content">
+                        <h5>Vitalitas Gigi</h5>
+                        <p>6 tes klinis dengan diagnosis otomatis berdasarkan hasil kombinasi</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="icon">5</div>
+                    <div class="content">
+                        <h5>Eksplakkal (Plak)</h5>
+                        <p>Mapping plak supragingiva/subgingiva dengan plaque score otomatis</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="icon">6</div>
+                    <div class="content">
+                        <h5>OHI-S (Oral Hygiene Index)</h5>
+                        <p>Debris Index + Calculus Index dengan kriteria warna-kode</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="icon">7</div>
+                    <div class="content">
+                        <h5>Periodontal</h5>
+                        <p>Pocket depth, kalkulus per permukaan gigi</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="icon">8</div>
+                    <div class="content">
+                        <h5>Anomali Mukosa</h5>
+                        <p>Inspeksi jaringan lunak rongga mulut</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="icon">9</div>
+                    <div class="content">
+                        <h5>Diagnosis Hierarkis</h5>
+                        <p>Askepgilut → Penyebab → Gejala (AJAX cascade)</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="icon">10</div>
+                    <div class="content">
+                        <h5>Perencanaan Perawatan</h5>
+                        <p>Rasional, kompetensi, tujuan, indikator keberhasilan</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="icon">11</div>
+                    <div class="content">
+                        <h5>Pelaksanaan</h5>
+                        <p>Intervensi, hasil, rencana tindak lanjut</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="icon">12</div>
+                    <div class="content">
+                        <h5>Pengsiperi (Edukasi)</h5>
+                        <p>Assessment pengetahuan, keterampilan, dan perilaku pasien</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide-footer">
+                <div class="nav-buttons">
+                    <button class="nav-button" onclick="prevSlide()">‹</button>
+                    <button class="nav-button" onclick="nextSlide()">›</button>
+                </div>
+                <div class="progress-indicator">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Workflow Mahasiswa -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="logo">
+                    <div class="logo-icon">🦷</div>
+                    <div class="logo-text">
+                        <h1>SIMKESGI</h1>
+                        <p>Solusi Digital Pendidikan Klinis</p>
+                    </div>
+                </div>
+                <div class="slide-number">5 / 12</div>
+            </div>
+
+            <h2>Alur Kerja Mahasiswa</h2>
+            <p class="lead">Proses dokumentasi klinis yang terstruktur dan mudah diikuti</p>
+
+            <div class="workflow">
+                <div class="workflow-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Registrasi Pasien</h4>
+                        <p>Mahasiswa membuat kartu pasien baru dengan data identitas lengkap, nomor kartu unik otomatis</p>
+                    </div>
+                </div>
+                <div class="workflow-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Assessment Klinis</h4>
+                        <p>Mengisi anamnesa, odontogram, eksplakkal, OHI-S, periodontal, dan vitalitas—sistem menghitung semua indeks secara otomatis</p>
+                    </div>
+                </div>
+                <div class="workflow-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Diagnosis & Perencanaan</h4>
+                        <p>Input diagnosis hierarkis (Askepgilut → Penyebab → Gejala) dan buat rencana perawatan berdasarkan temuan klinis</p>
+                    </div>
+                </div>
+                <div class="workflow-step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h4>Submit untuk ACC</h4>
+                        <p>Setelah selesai, data di-submit ke pembimbing untuk review dan persetujuan (ACC)</p>
+                    </div>
+                </div>
+                <div class="workflow-step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h4>Pelaksanaan Perawatan</h4>
+                        <p>Setelah ACC disetujui, mahasiswa melakukan intervensi dan mendokumentasikan hasil beserta evaluasi</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <h4>⏱️ Efisiensi Waktu</h4>
+                <p>Proses dokumentasi yang sebelumnya memakan 30-45 menit per pasien kini dapat diselesaikan dalam 15-20 menit berkat perhitungan otomatis dan template terstandar</p>
+            </div>
+
+            <div class="slide-footer">
+                <div class="nav-buttons">
+                    <button class="nav-button" onclick="prevSlide()">‹</button>
+                    <button class="nav-button" onclick="nextSlide()">›</button>
+                </div>
+                <div class="progress-indicator">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Workflow Pembimbing -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="logo">
+                    <div class="logo-icon">🦷</div>
+                    <div class="logo-text">
+                        <h1>SIMKESGI</h1>
+                        <p>Solusi Digital Pendidikan Klinis</p>
+                    </div>
+                </div>
+                <div class="slide-number">6 / 12</div>
+            </div>
+
+            <h2>Alur Kerja Pembimbing</h2>
+            <p class="lead">Dashboard supervisi untuk quality assurance dan monitoring progress real-time</p>
+
+            <div class="two-column">
+                <div>
+                    <h3>📊 Dashboard Pembimbing</h3>
+                    <div class="features-list">
+                        <div class="feature-item">
+                            <div class="icon">👥</div>
+                            <div class="content">
+                                <h5>Daftar Mahasiswa Binaan</h5>
+                                <p>Lihat semua mahasiswa yang di-supervisi dengan progress masing-masing</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="icon">⏳</div>
+                            <div class="content">
+                                <h5>Pending ACC</h5>
+                                <p>Notifikasi assessment yang menunggu persetujuan, diurutkan berdasarkan waktu submit</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="icon">✅</div>
+                            <div class="content">
+                                <h5>Riwayat ACC</h5>
+                                <p>Audit trail lengkap semua approval dengan timestamp dan user log</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="icon">📈</div>
+                            <div class="content">
+                                <h5>Statistik Kinerja</h5>
+                                <p>Analisis produktivitas mahasiswa, trend diagnosis, dan kualitas dokumentasi</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h3>✅ Proses ACC (Approval)</h3>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <h5>Review Assessment</h5>
+                            <p>Pembimbing membuka data pasien yang di-submit mahasiswa, memeriksa kelengkapan dan akurasi</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h5>Batch Approval</h5>
+                            <p>Satu klik untuk ACC seluruh modul terkait (odontogram, diagnosis, periodontal, dll) secara bersamaan</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h5>Data Lock</h5>
+                            <p>Setelah ACC, data menjadi immutable (tidak dapat diedit/hapus) untuk menjaga integritas audit trail</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h5>Notifikasi Otomatis</h5>
+                            <p>Mahasiswa menerima notifikasi approval dan dapat melanjutkan ke tahap pelaksanaan</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="highlight-box success">
+                <h4>⚡ Produktivitas Meningkat</h4>
+                <p>Pembimbing dapat meng-ACC 10-15 assessment per jam (sebelumnya 3-5 per jam dengan review manual), meningkatkan throughput supervisi hingga 3x lipat</p>
+            </div>
+
+            <div class="slide-footer">
+                <div class="nav-buttons">
+                    <button class="nav-button" onclick="prevSlide()">‹</button>
+                    <button class="nav-button" onclick="nextSlide()">›</button>
+                </div>
+                <div class="progress-indicator">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Keunggulan Utama -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="logo">
+                    <div class="logo-icon">🦷</div>
+                    <div class="logo-text">
+                        <h1>SIMKESGI</h1>
+                        <p>Solusi Digital Pendidikan Klinis</p>
+                    </div>
+                </div>
+                <div class="slide-number">7 / 12</div>
+            </div>
+
+            <h2>Keunggulan SIMKESGI</h2>
+            <p class="lead">Nilai tambah yang membedakan dari sistem dokumentasi konvensional</p>
+
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="icon">🎯</div>
+                    <h4>Akurasi 100%</h4>
+                    <p>Perhitungan klinis otomatis menghilangkan human error dalam penghitungan DMF-T, OHI-S, plak skor, dan indeks lainnya</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="icon">⚡</div>
+                    <h4>Efisiensi Waktu</h4>
+                    <p>Dokumentasi 50% lebih cepat, mahasiswa dan dosen dapat fokus pada pembelajaran bukan paperwork</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="icon">📐</div>
+                    <h4>Standardisasi</h4>
+                    <p>Template seragam memastikan konsistensi data dan memenuhi standar kompetensi keperawatan gigi</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="icon">🔍</div>
+                    <h4>Traceability</h4>
+                    <p>Audit trail lengkap untuk semua perubahan data—siapa, kapan, apa yang diubah—penting untuk quality control</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="icon">📱</div>
+                    <h4>Akses Real-Time</h4>
+                    <p>Data dapat diakses kapan saja, di mana saja melalui web browser—mendukung supervisi jarak jauh</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="icon">📊</div>
+                    <h4>Data Analytics</h4>
+                    <p>Dashboard dan laporan untuk evaluasi pembelajaran, monitoring kompetensi, dan pengambilan keputusan berbasis data</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="icon">🔐</div>
+                    <h4>Keamanan Data</h4>
+                    <p>Enkripsi, role-based access, dan backup otomatis melindungi privasi pasien dan integritas data institusi</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="icon">♻️</div>
+                    <h4>Ramah Lingkungan</h4>
+                    <p>Paperless documentation mengurangi konsumsi kertas hingga 90%, mendukung sustainability goals institusi</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="icon">🚀</div>
+                    <h4>Scalable</h4>
+                    <p>Dapat menampung ratusan mahasiswa dan ribuan pasien, siap untuk ekspansi institusi di masa depan</p>
+                </div>
+            </div>
+
+            <div class="slide-footer">
+                <div class="nav-buttons">
+                    <button class="nav-button" onclick="prevSlide()">‹</button>
+                    <button class="nav-button" onclick="nextSlide()">›</button>
+                </div>
+                <div class="progress-indicator">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Dampak Implementasi -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="logo">
+                    <div class="logo-icon">🦷</div>
+                    <div class="logo-text">
+                        <h1>SIMKESGI</h1>
+                        <p>Solusi Digital Pendidikan Klinis</p>
+                    </div>
+                </div>
+                <div class="slide-number">8 / 12</div>
+            </div>
+
+            <h2>Dampak Implementasi</h2>
+            <p class="lead">Hasil nyata yang terukur sejak penggunaan di Poltekkes Palembang</p>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="number">200+</div>
+                    <div class="label">Pengguna Aktif</div>
+                    <div class="detail">Mahasiswa & Dosen</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">500+</div>
+                    <div class="label">Pasien Terdata</div>
+                    <div class="detail">Per Tahun Akademik</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">50%</div>
+                    <div class="label">Penghematan Waktu</div>
+                    <div class="detail">Dokumentasi Klinis</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">100%</div>
+                    <div class="label">Akurasi Data</div>
+                    <div class="detail">Zero Calculation Error</div>
+                </div>
+            </div>
+
+            <h3>📈 Feedback Pengguna</h3>
+            <div class="quote-box">
+                <p>"SIMKESGI sangat membantu dalam proses dokumentasi klinis. Mahasiswa tidak lagi menghabiskan waktu menghitung manual, sehingga bisa fokus pada pembelajaran teknik perawatan."</p>
+                <div class="author">Pembimbing Klinik, Poltekkes Palembang</div>
+            </div>
+
+            <div class="quote-box">
+                <p>"Sistem ini user-friendly dan intuitif. Kami dapat dengan mudah melacak progress mahasiswa dan memberikan feedback lebih cepat dibandingkan dengan dokumentasi kertas."</p>
+                <div class="author">Koordinator Program Studi</div>
+            </div>
+
+            <div class="two-column">
+                <div class="highlight-box">
+                    <h4>✅ Manfaat untuk Mahasiswa</h4>
+                    <p>Pembelajaran lebih efisien, instant feedback dari perhitungan otomatis, dan portofolio digital yang rapi untuk evaluasi kompetensi</p>
+                </div>
+                <div class="highlight-box success">
+                    <h4>✅ Manfaat untuk Institusi</h4>
+                    <p>Standardisasi proses pendidikan, data analytics untuk continuous improvement, dan peningkatan reputasi sebagai institusi berbasis teknologi</p>
+                </div>
+            </div>
+
+            <div class="slide-footer">
+                <div class="nav-buttons">
+                    <button class="nav-button" onclick="prevSlide()">‹</button>
+                    <button class="nav-button" onclick="nextSlide()">›</button>
+                </div>
+                <div class="progress-indicator">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Kemudahan Penggunaan -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="logo">
+                    <div class="logo-icon">🦷</div>
+                    <div class="logo-text">
+                        <h1>SIMKESGI</h1>
+                        <p>Solusi Digital Pendidikan Klinis</p>
+                    </div>
+                </div>
+                <div class="slide-number">9 / 12</div>
+            </div>
+
+            <h2>Mudah Digunakan</h2>
+            <p class="lead">Interface intuitif yang dirancang untuk kemudahan adopsi tanpa training ekstensif</p>
+
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="icon">🖱️</div>
+                    <h4>User-Friendly Interface</h4>
+                    <p>Design bersih, navigasi jelas, dan workflow yang mengikuti alur klinis natural—mahasiswa dapat langsung menggunakan setelah demo singkat 30 menit</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="icon">🎨</div>
+                    <h4>Visual Feedback</h4>
+                    <p>Color-coded indicators (hijau/kuning/merah) untuk OHI-S, plak skor, dan status ACC memberikan feedback visual instant</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="icon">⌨️</div>
+                    <h4>Minimal Typing</h4>
+                    <p>Dropdown, multi-select, dan auto-complete mengurangi kebutuhan mengetik manual—lebih cepat dan mengurangi typo</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="icon">💾</div>
+                    <h4>Auto-Save</h4>
+                    <p>Perubahan data tersimpan otomatis, tidak ada risiko kehilangan progress jika koneksi terputus</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="icon">🔍</div>
+                    <h4>Search & Filter</h4>
+                    <p>Cari pasien berdasarkan nama, nomor kartu, atau NIK dengan instant search—tidak perlu bolak-balik folder</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="icon">📋</div>
+                    <h4>Template Pre-filled</h4>
+                    <p>Opsi dropdown sudah berisi pilihan standar sesuai protokol klinis, tinggal pilih tanpa perlu hafal kode</p>
+                </div>
+            </div>
+
+            <h3>🎓 Onboarding Cepat</h3>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <h5>Hari 1: Demo Sistem (30 menit)</h5>
+                    <p>Penjelasan navigasi dasar, role masing-masing, dan overview workflow</p>
+                </div>
+                <div class="timeline-item">
+                    <h5>Hari 2-3: Hands-On Practice</h5>
+                    <p>Mahasiswa praktik dengan data dummy, supervised oleh admin</p>
+                </div>
+                <div class="timeline-item">
+                    <h5>Hari 4: Go-Live</h5>
+                    <p>Mulai gunakan dengan pasien real, admin standby untuk support</p>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <h4>💡 Adoption Rate Tinggi</h4>
+                <p>95% mahasiswa dapat menggunakan sistem secara mandiri dalam 3 hari pertama—tidak ada resistensi karena learning curve yang landai</p>
+            </div>
+
+            <div class="slide-footer">
+                <div class="nav-buttons">
+                    <button class="nav-button" onclick="prevSlide()">‹</button>
+                    <button class="nav-button" onclick="nextSlide()">›</button>
+                </div>
+                <div class="progress-indicator">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Scalability -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="logo">
+                    <div class="logo-icon">🦷</div>
+                    <div class="logo-text">
+                        <h1>SIMKESGI</h1>
+                        <p>Solusi Digital Pendidikan Klinis</p>
+                    </div>
+                </div>
+                <div class="slide-number">10 / 12</div>
+            </div>
+
+            <h2>Skalabilitas & Adaptabilitas</h2>
+            <p class="lead">Sistem yang dapat tumbuh bersama institusi dan beradaptasi dengan kebutuhan lokal</p>
+
+            <div class="two-column">
+                <div>
+                    <h3>📈 Kapasitas & Performa</h3>
+                    <div class="features-list">
+                        <div class="feature-item">
+                            <div class="icon">👥</div>
+                            <div class="content">
+                                <h5>Multi-Campus Ready</h5>
+                                <p>Arsitektur mendukung deployment multi-campus dengan data segregation per lokasi</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="icon">📊</div>
+                            <div class="content">
+                                <h5>High Concurrency</h5>
+                                <p>Dapat menangani 50+ pengguna simultan tanpa lag—tested di lab klinik peak hours</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="icon">💾</div>
+                            <div class="content">
+                                <h5>Data Growth</h5>
+                                <p>Database dapat menyimpan hingga 10,000+ pasien dan 100,000+ assessment tanpa degradasi performa</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="icon">🔄</div>
+                            <div class="content">
+                                <h5>Future-Proof</h5>
+                                <p>Built dengan framework modern yang mudah di-update dan di-extend dengan fitur baru</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h3>🔧 Kustomisasi</h3>
+                    <div class="features-list">
+                        <div class="feature-item">
+                            <div class="icon">🎨</div>
+                            <div class="content">
+                                <h5>Branding Institusi</h5>
+                                <p>Logo, warna, dan nama institusi dapat dikustomisasi sesuai identitas masing-masing</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="icon">📋</div>
+                            <div class="content">
+                                <h5>Master Data Fleksibel</h5>
+                                <p>Daftar diagnosis, kompetensi, dan dropdown lainnya dapat disesuaikan dengan kurikulum lokal</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="icon">⚙️</div>
+                            <div class="content">
+                                <h5>Workflow Configuration</h5>
+                                <p>Urutan modul dan permission level dapat disesuaikan dengan SOP institusi</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="icon">📄</div>
+                            <div class="content">
+                                <h5>Report Templates</h5>
+                                <p>Format laporan dan export dapat disesuaikan dengan kebutuhan akreditasi atau monitoring</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>🌐 Deployment Options</h3>
+            <div class="comparison">
+                <div class="comparison-column">
+                    <h4>☁️ Cloud Hosting</h4>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li style="padding-left: 0;">✓ Zero hardware investment</li>
+                        <li style="padding-left: 0;">✓ Auto-backup & disaster recovery</li>
+                        <li style="padding-left: 0;">✓ Akses dari mana saja</li>
+                        <li style="padding-left: 0;">✓ Maintenance by provider</li>
+                    </ul>
+                </div>
+                <div class="comparison-column">
+                    <h4>🖥️ On-Premise Server</h4>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li style="padding-left: 0;">✓ Full data control</li>
+                        <li style="padding-left: 0;">✓ No monthly subscription</li>
+                        <li style="padding-left: 0;">✓ Custom integration</li>
+                        <li style="padding-left: 0;">✓ Sesuai regulasi internal</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="slide-footer">
+                <div class="nav-buttons">
+                    <button class="nav-button" onclick="prevSlide()">‹</button>
+                    <button class="nav-button" onclick="nextSlide()">›</button>
+                </div>
+                <div class="progress-indicator">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: Roadmap -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="logo">
+                    <div class="logo-icon">🦷</div>
+                    <div class="logo-text">
+                        <h1>SIMKESGI</h1>
+                        <p>Solusi Digital Pendidikan Klinis</p>
+                    </div>
+                </div>
+                <div class="slide-number">11 / 12</div>
+            </div>
+
+            <h2>Roadmap Pengembangan</h2>
+            <p class="lead">Komitmen continuous improvement untuk meningkatkan value sistem</p>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <h5>Q1-Q2 2025: Mobile App (iOS/Android)</h5>
+                    <p>Akses melalui smartphone untuk fleksibilitas dokumentasi di lapangan, mendukung offline mode dengan auto-sync</p>
+                </div>
+                <div class="timeline-item">
+                    <h5>Q3 2025: Advanced Analytics Dashboard</h5>
+                    <p>Machine learning untuk prediksi trend kesehatan mulut, benchmark antar mahasiswa, dan early warning untuk case anomali</p>
+                </div>
+                <div class="timeline-item">
+                    <h5>Q4 2025: Integration dengan Sistem Akademik</h5>
+                    <p>Single sign-on (SSO) dengan SIAKAD, sinkronisasi data mahasiswa, dan integrasi nilai kompetensi klinis</p>
+                </div>
+                <div class="timeline-item">
+                    <h5>2026: Telehealth & Teleconsultation</h5>
+                    <p>Fitur konsultasi jarak jauh antara mahasiswa-pembimbing atau pasien-mahasiswa, mendukung ekspansi layanan ke daerah terpencil</p>
+                </div>
+                <div class="timeline-item">
+                    <h5>Long-term: AI-Assisted Diagnosis</h5>
+                    <p>Computer vision untuk analisis odontogram dari foto intraoral, NLP untuk suggestion diagnosis berdasarkan anamnesa</p>
+                </div>
+            </div>
+
+            <h3>🎯 Fokus Pengembangan</h3>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="icon">📱</div>
+                    <h4>Mobile-First</h4>
+                    <p>Prioritas pada akses mobile untuk meningkatkan fleksibilitas penggunaan</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="icon">🤖</div>
+                    <h4>AI & Automation</h4>
+                    <p>Leverage AI untuk decision support dan otomasi task repetitif</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="icon">🔗</div>
+                    <h4>Interoperability</h4>
+                    <p>API terbuka untuk integrasi dengan sistem institusi lainnya</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="icon">🌍</div>
+                    <h4>Multi-Language</h4>
+                    <p>Support bahasa Inggris untuk institusi internasional</p>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <h4>💡 User-Driven Development</h4>
+                <p>Roadmap disusun berdasarkan feedback pengguna dan kebutuhan institusi—setiap quarter ada release fitur baru yang diminta oleh komunitas pengguna</p>
+            </div>
+
+            <div class="slide-footer">
+                <div class="nav-buttons">
+                    <button class="nav-button" onclick="prevSlide()">‹</button>
+                    <button class="nav-button" onclick="nextSlide()">›</button>
+                </div>
+                <div class="progress-indicator">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: Closing -->
+        <div class="slide slide-cover">
+            <div class="logo-large">🦷</div>
+            <h1>Mari Bersama Transformasi Digital</h1>
+            <p class="lead" style="max-width: 700px; margin: 0 auto 2rem;">
+                SIMKESGI siap mendukung institusi pendidikan keperawatan gigi menuju standar internasional melalui digitalisasi proses pembelajaran klinis
+            </p>
+
+            <div class="stats-grid" style="max-width: 800px; margin: 2rem auto;">
+                <div class="stat-card">
+                    <div class="number">✓</div>
+                    <div class="label">Efisiensi Terbukti</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">✓</div>
+                    <div class="label">Mudah Digunakan</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">✓</div>
+                    <div class="label">Scalable</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">✓</div>
+                    <div class="label">Support Terjamin</div>
+                </div>
+            </div>
+
+            <div style="margin-top: 3rem;">
+                <div class="badge info">📧 Email: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ec9f858187899f8b85ac9c838098898787899f9c8d8089818e8d828bc28d8fc28588">[email&#160;protected]</a></div>
+                <div class="badge info">🌐 Web: simkesgi.poltekkespalembang.ac.id</div>
+                <div class="badge info">📱 WhatsApp: +62 812-xxxx-xxxx</div>
+            </div>
+
+            <div class="institution" style="margin-top: 2rem;">
+                🏛️ Dikembangkan oleh Poltekkes Kemenkes Palembang
+            </div>
+
+            <div class="slide-footer">
+                <div class="nav-buttons">
+                    <button class="nav-button" onclick="prevSlide()">‹</button>
+                    <button class="nav-button" onclick="nextSlide()" disabled>›</button>
+                </div>
+                <div class="progress-indicator">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- Navigation -->
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">
+            <span>←</span> Prev
+        </button>
+        <div class="nav-dots" id="navDots"></div>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">
+            Next <span>→</span>
+        </button>
+    </div>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        const navDots = document.getElementById('navDots');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+
+        // Create navigation dots
+        for (let i = 0; i < totalSlides; i++) {
+            const dot = document.createElement('div');
+            dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
+            dot.onclick = () => goToSlide(i);
+            navDots.appendChild(dot);
+        }
+
+        function updateDots() {
+            document.querySelectorAll('.nav-dot').forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+        }
+
+        function updateButtons() {
+            prevBtn.disabled = currentSlide === 0;
+            nextBtn.disabled = currentSlide === totalSlides - 1;
+        }
+
+        function showSlide(n) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            
+            if (n >= totalSlides) currentSlide = totalSlides - 1;
+            if (n < 0) currentSlide = 0;
+            else currentSlide = n;
+            
+            slides[currentSlide].classList.add('active');
+            slides[currentSlide].scrollTop = 0;
+            
+            updateDots();
+            updateButtons();
+        }
+
+        function changeSlide(direction) {
+            showSlide(currentSlide + direction);
+        }
+
+        function goToSlide(n) {
+            showSlide(n);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') changeSlide(1);
+            if (e.key === 'ArrowLeft') changeSlide(-1);
+        });
+
+        // Initialize
+        showSlide(0);
+    </script>
+</body>
+
+</html>
