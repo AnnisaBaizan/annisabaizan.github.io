@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Projects Portfolio - Annisa Baizan">
+    <title>Projects - Annisa Baizan</title>
+    
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="../assets/css/reset.css">
+    <link rel="stylesheet" href="../assets/css/theme.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    
+    <style>
+        /* Page-specific styles for projects/index.html */
+        .projects-hero {
+            padding-top: 120px;
+            padding-bottom: 60px;
+            background: var(--gradient-bg);
+        }
+        
+        .filter-bar {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .filter-btn {
+            padding: 0.75rem 1.5rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-full);
+            color: var(--text-secondary);
+            font-weight: var(--font-medium);
+            cursor: pointer;
+            transition: all var(--transition-base);
+        }
+        
+        .filter-btn:hover {
+            border-color: var(--accent-blue);
+            color: var(--text-primary);
+        }
+        
+        .filter-btn.active {
+            background: var(--gradient-primary);
+            border-color: transparent;
+            color: var(--text-primary);
+        }
+        
+        .project-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            transition: all var(--transition-base);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .project-card:hover {
+            border-color: var(--accent-blue);
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-glow);
+        }
+        
+        .project-thumbnail {
+            width: 100%;
+            height: 220px;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(6, 182, 212, 0.2));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .project-status {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.5rem 1rem;
+            background: rgba(10, 10, 10, 0.9);
+            border-radius: var(--radius-full);
+            font-size: var(--text-xs);
+            font-weight: var(--font-semibold);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .status-completed {
+            color: var(--accent-green);
+            border: 1px solid var(--accent-green);
+        }
+        
+        .status-inprogress {
+            color: var(--accent-orange);
+            border: 1px solid var(--accent-orange);
+        }
+        
+        .status-planned {
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+        }
+        
+        .project-body {
+            padding: 2rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .project-meta {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            font-size: var(--text-sm);
+            color: var(--text-secondary);
+        }
+        
+        .project-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .project-title {
+            font-size: var(--text-2xl);
+            font-weight: var(--font-bold);
+            color: var(--text-primary);
+            margin-bottom: 0.75rem;
+        }
+        
+        .project-description {
+            color: var(--text-secondary);
+            line-height: var(--leading-relaxed);
+            margin-bottom: 1.5rem;
+            flex: 1;
+        }
+        
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .project-footer {
+            display: flex;
+            gap: 1rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: var(--text-5xl);
+            font-weight: var(--font-extrabold);
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: var(--text-sm);
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--text-secondary);
+        }
+        
+        .empty-state-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="../index.html" class="nav-brand">AB</a>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="index.html" class="active">Projects</a></li>
+                <li><a href="../blog/index.html">Blog</a></li>
+                <li><a href="../links.html">Links</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Projects Hero -->
+    <section class="projects-hero">
+        <div class="container" style="text-align: center;">
+            <div class="hero-label">Portfolio</div>
+            <h1 style="font-size: var(--text-6xl); font-weight: var(--font-extrabold); margin-bottom: 1rem;">
+                Projects
+            </h1>
+            <p style="font-size: var(--text-xl); color: var(--text-secondary); max-width: 700px; margin: 0 auto;">
+                Implementasi sistem berbasis web dengan fokus pada analytical rigor, 
+                systems thinking, dan evidence-based development.
+            </p>
+        </div>
+    </section>
+
+    <!-- Stats Overview -->
+    <section class="section-sm">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">2+</div>
+                    <div class="stat-label">Completed Projects</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">8+</div>
+                    <div class="stat-label">Technologies Used</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Data-Driven Approach</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">∞</div>
+                    <div class="stat-label">Continuous Learning</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filter Bar -->
+    <section class="section-sm">
+        <div class="container">
+            <div class="filter-bar">
+                <button class="filter-btn active" data-filter="all">All Projects</button>
+                <button class="filter-btn" data-filter="web">Web App</button>
+                <button class="filter-btn" data-filter="system">System</button>
+                <button class="filter-btn" data-filter="completed">Completed</button>
+                <button class="filter-btn" data-filter="inprogress">In Progress</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Grid -->
+    <section class="section">
+        <div class="container">
+            <div class="grid grid-auto-lg" id="projectsGrid">
+                
+                <!-- SIMKESGI Project -->
+                <a href="simkesgi/index.html" class="project-card" data-category="web system completed" style="text-decoration: none; color: inherit;">
+                    <div class="project-thumbnail">
+                        <span>📊</span>
+                        <div class="project-status status-completed">Completed</div>
+                    </div>
+                    <div class="project-body">
+                        <div class="project-meta">
+                            <div class="project-meta-item">
+                                <span>📅</span>
+                                <span>2025</span>
+                            </div>
+                            <div class="project-meta-item">
+                                <span>🏥</span>
+                                <span>Healthcare</span>
+                            </div>
+                        </div>
+                        <h3 class="project-title">SIMKESGI</h3>
+                        <p class="project-description">
+                            Sistem Informasi Manajemen Kesehatan Gigi berbasis web untuk optimasi 
+                            pelayanan kesehatan gigi di puskesmas dengan fokus pada efficiency dan data accuracy.
+                        </p>
+                        <div class="project-tags">
+                            <span class="tag tag-sm">React</span>
+                            <span class="tag tag-sm">TypeScript</span>
+                            <span class="tag tag-sm">FastAPI</span>
+                            <span class="tag tag-sm">PostgreSQL</span>
+                        </div>
+                        <div class="project-footer">
+                            <span class="btn btn-sm btn-primary" style="flex: 1; text-align: center;">View Details</span>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Workplace Evaluation System -->
+                <a href="workplaceeval/index.html" class="project-card" data-category="web system completed" style="text-decoration: none; color: inherit;">
+                    <div class="project-thumbnail">
+                        <span>📈</span>
+                        <div class="project-status status-completed">Completed</div>
+                    </div>
+                    <div class="project-body">
+                        <div class="project-meta">
+                            <div class="project-meta-item">
+                                <span>📅</span>
+                                <span>2025</span>
+                            </div>
+                            <div class="project-meta-item">
+                                <span>💼</span>
+                                <span>HR Tech</span>
+                            </div>
+                        </div>
+                        <h3 class="project-title">Workplace Evaluation System</h3>
+                        <p class="project-description">
+                            Platform evaluasi kinerja karyawan dengan analytics dan reporting system yang comprehensive. 
+                            Evidence-based approach untuk performance assessment.
+                        </p>
+                        <div class="project-tags">
+                            <span class="tag tag-sm">React</span>
+                            <span class="tag tag-sm">Vite</span>
+                            <span class="tag tag-sm">Python</span>
+                            <span class="tag tag-sm">Flask</span>
+                        </div>
+                        <div class="project-footer">
+                            <span class="btn btn-sm btn-primary" style="flex: 1; text-align: center;">View Details</span>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Placeholder Project 1 -->
+                <div class="project-card" data-category="web inprogress" style="opacity: 0.7;">
+                    <div class="project-thumbnail">
+                        <span>🔧</span>
+                        <div class="project-status status-inprogress">In Progress</div>
+                    </div>
+                    <div class="project-body">
+                        <div class="project-meta">
+                            <div class="project-meta-item">
+                                <span>📅</span>
+                                <span>2026</span>
+                            </div>
+                            <div class="project-meta-item">
+                                <span>🚀</span>
+                                <span>Web App</span>
+                            </div>
+                        </div>
+                        <h3 class="project-title">Project Name</h3>
+                        <p class="project-description">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                            Analytical approach to solving complex problems with systematic methodology.
+                        </p>
+                        <div class="project-tags">
+                            <span class="tag tag-sm">React</span>
+                            <span class="tag tag-sm">Node.js</span>
+                            <span class="tag tag-sm">MongoDB</span>
+                        </div>
+                        <div class="project-footer">
+                            <span class="btn btn-sm btn-ghost" style="flex: 1; text-align: center;">Coming Soon</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Placeholder Project 2 -->
+                <div class="project-card" data-category="system planned" style="opacity: 0.5;">
+                    <div class="project-thumbnail">
+                        <span>💡</span>
+                        <div class="project-status status-planned">Planned</div>
+                    </div>
+                    <div class="project-body">
+                        <div class="project-meta">
+                            <div class="project-meta-item">
+                                <span>📅</span>
+                                <span>2026</span>
+                            </div>
+                            <div class="project-meta-item">
+                                <span>⚙️</span>
+                                <span>System</span>
+                            </div>
+                        </div>
+                        <h3 class="project-title">System Project</h3>
+                        <p class="project-description">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                            Framework-based development with focus on scalability and maintainability.
+                        </p>
+                        <div class="project-tags">
+                            <span class="tag tag-sm">Python</span>
+                            <span class="tag tag-sm">Docker</span>
+                            <span class="tag tag-sm">PostgreSQL</span>
+                        </div>
+                        <div class="project-footer">
+                            <span class="btn btn-sm btn-ghost" style="flex: 1; text-align: center;">In Planning</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section">
+        <div class="container">
+            <div class="card" style="background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(6, 182, 212, 0.1)); text-align: center; padding: 4rem 2rem;">
+                <h2 style="font-size: var(--text-4xl); margin-bottom: 1rem;">Interested in Collaboration?</h2>
+                <p style="font-size: var(--text-lg); color: var(--text-secondary); margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+                    Have a project idea or want to discuss system architecture? Let's talk about evidence-based solutions.
+                </p>
+                <div class="hero-cta">
+                    <a href="../links.html" class="btn btn-primary">Get in Touch</a>
+                    <a href="../about.html" class="btn btn-secondary">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="../about.html">About</a>
+                <a href="index.html">Projects</a>
+                <a href="../blog/index.html">Blog</a>
+                <a href="../labs/index.html">Labs</a>
+                <a href="../links.html">Contact</a>
+            </div>
+            <p>&copy; 2026 Annisa Baizan. Built with analytical precision.</p>
+        </div>
+    </footer>
+
+    <!-- Filter Script -->
+    <script>
+        // Simple filter functionality
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const projectCards = document.querySelectorAll('.project-card');
+        
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Update active state
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                const filter = btn.dataset.filter;
+                
+                // Filter projects
+                projectCards.forEach(card => {
+                    if (filter === 'all') {
+                        card.style.display = 'flex';
+                    } else {
+                        const categories = card.dataset.category || '';
+                        if (categories.includes(filter)) {
+                            card.style.display = 'flex';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
