@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Documentation - Annisa Baizan - CV, Portfolio, and Professional Documents">
+    <title>Documentation - Annisa Baizan</title>
+    
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="../assets/css/reset.css">
+    <link rel="stylesheet" href="../assets/css/theme.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    
+    <style>
+        /* Page-specific styles for docs/index.html */
+        .docs-hero {
+            padding-top: 120px;
+            padding-bottom: 60px;
+            background: var(--gradient-bg);
+        }
+        
+        .doc-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            transition: all var(--transition-base);
+            display: flex;
+            gap: 2rem;
+            align-items: start;
+        }
+        
+        .doc-card:hover {
+            border-color: var(--accent-blue);
+            transform: translateX(8px);
+            box-shadow: var(--shadow-glow);
+        }
+        
+        .doc-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-primary);
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            flex-shrink: 0;
+        }
+        
+        .doc-content {
+            flex: 1;
+        }
+        
+        .doc-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .doc-title {
+            font-size: var(--text-2xl);
+            font-weight: var(--font-bold);
+            color: var(--text-primary);
+        }
+        
+        .doc-meta {
+            display: flex;
+            gap: 1rem;
+            font-size: var(--text-sm);
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+        
+        .doc-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .doc-description {
+            color: var(--text-secondary);
+            line-height: var(--leading-relaxed);
+            margin-bottom: 1.5rem;
+        }
+        
+        .doc-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .doc-section {
+            margin-bottom: 4rem;
+        }
+        
+        .section-divider {
+            display: flex;
+            align-items: center;
+            margin: 3rem 0 2rem;
+            gap: 1rem;
+        }
+        
+        .section-divider::before,
+        .section-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border-color);
+        }
+        
+        .section-divider span {
+            color: var(--accent-cyan);
+            font-size: var(--text-sm);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: var(--font-semibold);
+        }
+        
+        .quick-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .stat-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .stat-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .stat-value {
+            font-size: var(--text-4xl);
+            font-weight: var(--font-extrabold);
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: var(--text-sm);
+        }
+        
+        .version-badge {
+            padding: 0.5rem 1rem;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid var(--accent-blue);
+            border-radius: var(--radius-full);
+            font-size: var(--text-xs);
+            font-weight: var(--font-semibold);
+            color: var(--accent-cyan);
+        }
+        
+        .placeholder-notice {
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid var(--accent-orange);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .placeholder-notice .icon {
+            font-size: 2rem;
+        }
+        
+        .placeholder-notice .content {
+            flex: 1;
+        }
+        
+        .placeholder-notice h4 {
+            color: var(--accent-orange);
+            font-weight: var(--font-semibold);
+            margin-bottom: 0.25rem;
+        }
+        
+        .placeholder-notice p {
+            color: var(--text-secondary);
+            font-size: var(--text-sm);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="../index.html" class="nav-brand">AB</a>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../projects/index.html">Projects</a></li>
+                <li><a href="../blog/index.html">Blog</a></li>
+                <li><a href="../links.html">Links</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Docs Hero -->
+    <section class="docs-hero">
+        <div class="container" style="text-align: center;">
+            <div class="hero-label">Professional Documents</div>
+            <h1 style="font-size: var(--text-6xl); font-weight: var(--font-extrabold); margin-bottom: 1rem;">
+                Documentation
+            </h1>
+            <p style="font-size: var(--text-xl); color: var(--text-secondary); max-width: 700px; margin: 0 auto;">
+                CV, portfolio, dan dokumentasi profesional dalam berbagai format. 
+                Ready untuk download dan review.
+            </p>
+        </div>
+    </section>
+
+    <!-- Quick Stats -->
+    <section class="section-sm">
+        <div class="container">
+            <div class="quick-stats">
+                <div class="stat-box">
+                    <div class="stat-icon">📄</div>
+                    <div class="stat-value">3</div>
+                    <div class="stat-label">Documents</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-icon">🔄</div>
+                    <div class="stat-value">2026</div>
+                    <div class="stat-label">Latest Update</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-icon">📊</div>
+                    <div class="stat-value">2+</div>
+                    <div class="stat-label">Projects Documented</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Placeholder Notice -->
+    <section class="section-sm">
+        <div class="container">
+            <div class="placeholder-notice">
+                <div class="icon">⚠️</div>
+                <div class="content">
+                    <h4>Placeholder Documents</h4>
+                    <p>Dokumen-dokumen di bawah ini adalah template/placeholder. Silakan update dengan dokumen aktual Anda (CV.pdf, portfolio.pdf, dll).</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Primary Documents -->
+    <section class="section">
+        <div class="container">
+            <div class="section-divider">
+                <span>Primary Documents</span>
+            </div>
+
+            <div class="doc-section">
+                <div class="doc-card">
+                    <div class="doc-icon">📄</div>
+                    <div class="doc-content">
+                        <div class="doc-header">
+                            <h3 class="doc-title">Curriculum Vitae (CV)</h3>
+                            <span class="version-badge">v2026.02</span>
+                        </div>
+                        <div class="doc-meta">
+                            <div class="doc-meta-item">
+                                <span>📅</span>
+                                <span>Updated: February 2026</span>
+                            </div>
+                            <div class="doc-meta-item">
+                                <span>📏</span>
+                                <span>Format: PDF</span>
+                            </div>
+                            <div class="doc-meta-item">
+                                <span>📦</span>
+                                <span>Size: ~200KB</span>
+                            </div>
+                        </div>
+                        <p class="doc-description">
+                            Professional CV dengan detail lengkap tentang education, technical skills, 
+                            project experience, dan professional background. Formatted untuk ATS-friendly parsing.
+                        </p>
+                        <div class="doc-actions">
+                            <a href="cv.pdf" class="btn btn-primary" download>
+                                ⬇️ Download PDF
+                            </a>
+                            <a href="#" class="btn btn-secondary">
+                                👁️ Preview
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="doc-section">
+                <div class="doc-card">
+                    <div class="doc-icon">📊</div>
+                    <div class="doc-content">
+                        <div class="doc-header">
+                            <h3 class="doc-title">Portfolio Document</h3>
+                            <span class="version-badge">v2026.02</span>
+                        </div>
+                        <div class="doc-meta">
+                            <div class="doc-meta-item">
+                                <span>📅</span>
+                                <span>Updated: February 2026</span>
+                            </div>
+                            <div class="doc-meta-item">
+                                <span>📏</span>
+                                <span>Format: PDF</span>
+                            </div>
+                            <div class="doc-meta-item">
+                                <span>📦</span>
+                                <span>Size: ~2MB</span>
+                            </div>
+                        </div>
+                        <p class="doc-description">
+                            Comprehensive portfolio document dengan screenshots, technical documentation, 
+                            dan case studies dari projects utama (SIMKESGI, Workplace Evaluation System). 
+                            Includes system architecture dan implementation details.
+                        </p>
+                        <div class="doc-actions">
+                            <a href="portfolio.pdf" class="btn btn-primary" download>
+                                ⬇️ Download PDF
+                            </a>
+                            <a href="#" class="btn btn-secondary">
+                                👁️ Preview
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="doc-section">
+                <div class="doc-card">
+                    <div class="doc-icon">🎓</div>
+                    <div class="doc-content">
+                        <div class="doc-header">
+                            <h3 class="doc-title">Academic Transcript</h3>
+                            <span class="version-badge">Official</span>
+                        </div>
+                        <div class="doc-meta">
+                            <div class="doc-meta-item">
+                                <span>📅</span>
+                                <span>Graduation: [Year]</span>
+                            </div>
+                            <div class="doc-meta-item">
+                                <span>📏</span>
+                                <span>Format: PDF</span>
+                            </div>
+                            <div class="doc-meta-item">
+                                <span>🏫</span>
+                                <span>Computer Science</span>
+                            </div>
+                        </div>
+                        <p class="doc-description">
+                            Official academic transcript dari program studi ilmu komputer. 
+                            Dokumen ini berisi detail course work, grades, dan academic achievements.
+                        </p>
+                        <div class="doc-actions">
+                            <a href="transcript.pdf" class="btn btn-primary" download>
+                                ⬇️ Download PDF
+                            </a>
+                            <a href="#" class="btn btn-secondary">
+                                👁️ Preview
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Documentation -->
+    <section class="section">
+        <div class="container">
+            <div class="section-divider">
+                <span>Technical Documentation</span>
+            </div>
+
+            <div class="grid grid-auto">
+                <a href="../projects/simkesgi/index.html" class="card card-clickable">
+                    <div class="card-icon">📚</div>
+                    <h3 class="card-title">SIMKESGI Documentation</h3>
+                    <p class="card-content">
+                        Complete technical documentation, user guides, dan developer docs untuk 
+                        Sistem Informasi Manajemen Kesehatan Gigi.
+                    </p>
+                    <div class="tags" style="margin-top: 1rem;">
+                        <span class="tag tag-sm">User Guide</span>
+                        <span class="tag tag-sm">API Docs</span>
+                        <span class="tag tag-sm">Technical</span>
+                    </div>
+                </a>
+
+                <a href="../projects/workplaceeval/index.html" class="card card-clickable">
+                    <div class="card-icon">📖</div>
+                    <h3 class="card-title">Workplace Eval Documentation</h3>
+                    <p class="card-content">
+                        System documentation dan implementation guide untuk Workplace Evaluation 
+                        platform dengan comprehensive user manual.
+                    </p>
+                    <div class="tags" style="margin-top: 1rem;">
+                        <span class="tag tag-sm">User Guide</span>
+                        <span class="tag tag-sm">Dev Docs</span>
+                        <span class="tag tag-sm">Analytics</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Additional Resources -->
+    <section class="section">
+        <div class="container">
+            <div class="section-divider">
+                <span>Additional Resources</span>
+            </div>
+
+            <div class="grid grid-2">
+                <div class="card">
+                    <h3 class="card-title">📝 Writing Samples</h3>
+                    <p class="card-content" style="margin-bottom: 1rem;">
+                        Technical blog posts dan documentation samples yang menunjukkan 
+                        communication clarity dan structured thinking.
+                    </p>
+                    <a href="../blog/index.html" class="btn btn-sm btn-secondary">View Blog →</a>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title">💻 Code Samples</h3>
+                    <p class="card-content" style="margin-bottom: 1rem;">
+                        Live code demonstrations dan technical implementations dari 
+                        various projects dan experiments.
+                    </p>
+                    <a href="../labs/index.html" class="btn btn-sm btn-secondary">View Labs →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section">
+        <div class="container">
+            <div class="card" style="background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(6, 182, 212, 0.1)); text-align: center; padding: 4rem 2rem;">
+                <h2 style="font-size: var(--text-4xl); margin-bottom: 1rem;">Need Additional Information?</h2>
+                <p style="font-size: var(--text-lg); color: var(--text-secondary); margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+                    Jika Anda memerlukan dokumen tambahan, references, atau specific documentation, 
+                    silakan hubungi saya.
+                </p>
+                <div class="hero-cta">
+                    <a href="../links.html" class="btn btn-primary">Contact Me</a>
+                    <a href="../about.html" class="btn btn-secondary">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="../about.html">About</a>
+                <a href="../projects/index.html">Projects</a>
+                <a href="../blog/index.html">Blog</a>
+                <a href="../labs/index.html">Labs</a>
+                <a href="../links.html">Contact</a>
+            </div>
+            <p>&copy; 2026 Annisa Baizan. Built with analytical precision.</p>
+        </div>
+    </footer>
+</body>
+</html>

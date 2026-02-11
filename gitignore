@@ -1,0 +1,283 @@
+# .gitignore for annisabaizan.github.io
+
+# ============================================
+# Operating System Files
+# ============================================
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# Linux
+*~
+.directory
+.Trash-*
+.nfs*
+
+# ============================================
+# IDE & Editor Files
+# ============================================
+
+# Visual Studio Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+.history/
+
+# JetBrains IDEs
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+.idea_modules/
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+*.tmlanguage.cache
+*.tmPreferences.cache
+*.stTheme.cache
+*.sublime_metrics
+*.sublime_session
+sftp-config.json
+sftp-config-alt*.json
+
+# Vim
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+[._]s[a-rt-v][a-z]
+[._]ss[a-gi-z]
+[._]sw[a-p]
+Session.vim
+Sessionx.vim
+.netrwhist
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+# ============================================
+# Development Files
+# ============================================
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+package-lock.json
+yarn.lock
+.npm
+.eslintcache
+.node_repl_history
+*.tgz
+.yarn-integrity
+.env
+.env.test
+.env.production
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+pip-log.txt
+pip-delete-this-directory.txt
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+htmlcov/
+
+# ============================================
+# Build & Distribution Files
+# ============================================
+
+# Build outputs
+dist/
+build/
+*.min.js
+*.min.css
+*.map
+
+# Compiled files
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+# ============================================
+# Temporary & Cache Files
+# ============================================
+
+# General temporary files
+*.tmp
+*.temp
+*.swp
+*.swo
+*.log
+*.pid
+*.seed
+*.pid.lock
+
+# Cache directories
+.cache/
+.sass-cache/
+.parcel-cache/
+
+# ============================================
+# Backup Files
+# ============================================
+
+*.bak
+*.backup
+*.old
+*.orig
+*~.nib
+*.gho
+*.ori
+*.~*
+
+# ============================================
+# Large Media Files (optional - comment out if needed)
+# ============================================
+
+# Uncomment these if you want to exclude large files
+# *.mp4
+# *.mov
+# *.avi
+# *.psd
+# *.ai
+
+# ============================================
+# Sensitive Information
+# ============================================
+
+# API keys and secrets
+.env
+.env.*
+!.env.example
+secrets.json
+config.json
+*.key
+*.pem
+
+# Personal notes
+TODO.txt
+NOTES.md
+notes/
+scratch/
+
+# ============================================
+# GitHub Pages Specific
+# ============================================
+
+# GitHub Pages build directory (if using Jekyll)
+_site/
+.jekyll-cache/
+.jekyll-metadata
+
+# Gemfile (if not using Jekyll)
+Gemfile
+Gemfile.lock
+
+# ============================================
+# Project Specific
+# ============================================
+
+# Draft files
+drafts/
+WIP/
+work-in-progress/
+
+# Test files (if not part of deployment)
+test/
+tests/
+__tests__/
+*.test.js
+*.spec.js
+
+# Development only folders
+dev/
+development/
+
+# Personal workspace
+workspace/
+playground/
+
+# ============================================
+# Keep These Files (Force Include)
+# ============================================
+
+# Even if ignored above, force include these
+!.gitkeep
+!.htaccess
