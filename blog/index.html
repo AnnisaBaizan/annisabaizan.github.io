@@ -3,238 +3,380 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Tech Blog - Annisa Baizan - Technical notes & learning documentation">
-    <title>Blog - Annisa Baizan</title>
-    
-    <!-- Global CSS -->
+    <title>Blog | Annisa Baizan</title>
+    <meta name="description" content="Reflections on attachment, growth, and the human experience.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&family=Fira+Code:wght@300;400;500&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="../assets/css/reset.css">
     <link rel="stylesheet" href="../assets/css/theme.css">
     <link rel="stylesheet" href="../assets/css/components.css">
-    
+    <link rel="stylesheet" href="../assets/css/galaxy.css">
+
     <style>
-        /* Page-specific styles for blog/index.html */
+        /* ════════════════════════════════════════
+           BLOG INDEX — GALAXY THEME
+           ════════════════════════════════════════ */
+
+        /* ── HERO ── */
         .blog-hero {
-            padding-top: 120px;
-            padding-bottom: 60px;
-            background: var(--gradient-bg);
-        }
-        
-        .blog-layout {
-            display: grid;
-            grid-template-columns: 1fr 300px;
-            gap: 3rem;
-            align-items: start;
-        }
-        
-        .blog-main {
-            min-width: 0;
-        }
-        
-        .blog-sidebar {
-            position: sticky;
-            top: 120px;
-        }
-        
-        .post-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-lg);
-            padding: 2rem;
-            margin-bottom: 2rem;
-            transition: all var(--transition-base);
-        }
-        
-        .post-card:hover {
-            border-color: var(--accent-blue);
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-lg);
-        }
-        
-        .post-meta {
+            min-height: 80vh;
             display: flex;
-            gap: 1.5rem;
-            margin-bottom: 1rem;
-            font-size: var(--text-sm);
-            color: var(--text-secondary);
-            flex-wrap: wrap;
-        }
-        
-        .post-meta-item {
-            display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 0.5rem;
+            justify-content: center;
+            text-align: center;
+            padding: 120px 2rem 5rem;
+            position: relative;
+            z-index: 1;
         }
-        
-        .post-title {
-            font-size: var(--text-3xl);
-            font-weight: var(--font-bold);
-            color: var(--text-primary);
-            margin-bottom: 1rem;
-            line-height: var(--leading-tight);
+
+        .blog-hero-badge {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: #f0c040;
+            background: rgba(240,192,64,0.07);
+            border: 1px solid rgba(240,192,64,0.25);
+            border-radius: 100px;
+            padding: 0.4rem 1.2rem;
+            margin-bottom: 2rem;
+            display: inline-block;
         }
-        
-        .post-title a {
-            color: inherit;
-            text-decoration: none;
-            transition: color var(--transition-base);
+
+        .blog-hero-title {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(3.5rem, 9vw, 7rem);
+            font-weight: 700;
+            line-height: 1.05;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #f5f0ff 30%, #f0c040 70%, #00d4ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-        
-        .post-title a:hover {
-            color: var(--accent-cyan);
-        }
-        
-        .post-excerpt {
-            color: var(--text-secondary);
-            line-height: var(--leading-relaxed);
+
+        .blog-hero-sub {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.72rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: #7a7095;
             margin-bottom: 1.5rem;
         }
-        
-        .post-tags {
+
+        .blog-hero-desc {
+            font-family: 'Crimson Text', serif;
+            font-size: 1.15rem;
+            color: #a89fc0;
+            line-height: 1.85;
+            max-width: 560px;
+            margin: 0 auto;
+        }
+
+        /* ── QUOTE SECTION ── */
+        .blog-quote-section {
+            padding: 4rem 0;
+            background: rgba(13,10,46,0.5);
+            border-top: 1px solid rgba(240,192,64,0.1);
+            border-bottom: 1px solid rgba(240,192,64,0.1);
+            position: relative;
+            z-index: 1;
+        }
+
+        .blog-quote-label {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.6rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: rgba(240,192,64,0.45);
+            margin-bottom: 2rem;
+            text-align: center;
+            padding: 0 2rem;
+        }
+
+        /* ── QUOTE DISPLAY ── */
+        #quote-display {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            text-align: center;
+        }
+
+        #quote-display .quote-text {
+            display: block;
+            font-family: 'Crimson Text', serif;
+            font-size: 1.2rem;
+            font-style: italic;
+            color: #c0b8d8;
+            line-height: 1.9;
+            margin-bottom: 1.5rem;
+        }
+
+        #quote-display .quote-context {
+            display: block;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.6rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: rgba(240,192,64,0.4);
+            margin-bottom: 1.5rem;
+            font-style: normal;
+        }
+
+        #quote-display .quote-refresh-btn {
+            display: inline-block;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.72rem;
+            font-style: normal;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            color: #07050f;
+            background: #f0c040;
+            border: none;
+            border-radius: 100px;
+            padding: 0.65rem 1.75rem;
+            cursor: pointer;
+            box-shadow: 0 0 16px rgba(240,192,64,0.35);
+            margin-top: 0.5rem;
+            transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
+        }
+
+        #quote-display .quote-refresh-btn:hover {
+            background: #f5d060;
+            box-shadow: 0 0 28px rgba(240,192,64,0.6);
+            transform: translateY(-2px);
+        }
+
+        #quote-display .quote-refresh-btn:active {
+            transform: translateY(0);
+        }
+
+        /* ── POSTS SECTION ── */
+        .blog-posts-section {
+            padding: 6rem 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .blog-section-header {
+            margin-bottom: 1.5rem;
+        }
+
+        .blog-section-label {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: #f0c040;
+            margin-bottom: 0.6rem;
+        }
+
+        .blog-section-title {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(1.6rem, 3vw, 2.2rem);
+            color: #f5f0ff;
+            margin-bottom: 2.5rem;
+        }
+
+        /* ── FILTER TABS ── */
+        .blog-filters {
             display: flex;
             flex-wrap: wrap;
             gap: 0.5rem;
-            margin-bottom: 1.5rem;
-        }
-        
-        .post-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-top: 1.5rem;
-            border-top: 1px solid var(--border-color);
-        }
-        
-        .read-time {
-            color: var(--text-tertiary);
-            font-size: var(--text-sm);
-        }
-        
-        .sidebar-section {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-lg);
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-        }
-        
-        .sidebar-title {
-            font-size: var(--text-lg);
-            font-weight: var(--font-bold);
-            margin-bottom: 1rem;
-            color: var(--text-primary);
-        }
-        
-        .category-list {
-            list-style: none;
-        }
-        
-        .category-item {
-            padding: 0.75rem 0;
-            border-bottom: 1px solid var(--border-color);
-        }
-        
-        .category-item:last-child {
-            border-bottom: none;
-        }
-        
-        .category-link {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: color var(--transition-base);
-        }
-        
-        .category-link:hover {
-            color: var(--accent-cyan);
-        }
-        
-        .category-count {
-            background: rgba(59, 130, 246, 0.1);
-            color: var(--accent-cyan);
-            padding: 0.25rem 0.75rem;
-            border-radius: var(--radius-full);
-            font-size: var(--text-xs);
-            font-weight: var(--font-semibold);
-        }
-        
-        .featured-post {
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(6, 182, 212, 0.1));
-            border: 1px solid var(--accent-blue);
-            border-radius: var(--radius-lg);
-            padding: 2rem;
             margin-bottom: 3rem;
         }
-        
-        .featured-badge {
-            display: inline-block;
-            padding: 0.5rem 1rem;
-            background: var(--gradient-primary);
-            color: var(--text-primary);
-            border-radius: var(--radius-full);
-            font-size: var(--text-xs);
-            font-weight: var(--font-bold);
+
+        .blog-filter-btn {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.62rem;
+            letter-spacing: 0.1em;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            padding: 0.4rem 1rem;
+            border: 1px solid rgba(240,192,64,0.2);
+            color: #7a7095;
+            border-radius: 100px;
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .blog-filter-btn:hover {
+            border-color: rgba(240,192,64,0.5);
+            color: #a89fc0;
+        }
+
+        .blog-filter-btn.active {
+            border-color: #f0c040;
+            color: #f0c040;
+            background: rgba(240,192,64,0.07);
+        }
+
+        /* ── POST CARDS ── */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .blog-card {
+            background: rgba(13,10,46,0.65);
+            border: 1px solid rgba(240,192,64,0.1);
+            border-radius: 16px;
+            padding: 2.5rem;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+            backdrop-filter: blur(12px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .blog-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #f0c040, transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .blog-card:hover {
+            border-color: rgba(240,192,64,0.35);
+            transform: translateY(-5px);
+            box-shadow: 0 16px 48px rgba(240,192,64,0.08);
+        }
+
+        .blog-card:hover::before {
+            opacity: 1;
+        }
+
+        .blog-card-category {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.62rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #f0c040;
             margin-bottom: 1rem;
         }
-        
-        .search-box {
-            width: 100%;
-            padding: 0.75rem 1rem;
-            background: var(--bg-dark);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-md);
-            color: var(--text-primary);
-            font-size: var(--text-base);
-            transition: border-color var(--transition-base);
+
+        .blog-card-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #f5f0ff;
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
         }
-        
-        .search-box:focus {
-            outline: none;
-            border-color: var(--accent-blue);
+
+        .blog-card-subtitle {
+            font-family: 'Crimson Text', serif;
+            font-size: 0.95rem;
+            font-style: italic;
+            color: #7a7095;
+            margin-bottom: 1.25rem;
         }
-        
-        .search-box::placeholder {
-            color: var(--text-tertiary);
+
+        .blog-card-excerpt {
+            font-family: 'Crimson Text', serif;
+            font-size: 1rem;
+            color: #a89fc0;
+            line-height: 1.8;
+            flex: 1;
+            margin-bottom: 1.5rem;
         }
-        
-        .tag-cloud {
+
+        .blog-card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 1.25rem;
+            border-top: 1px solid rgba(240,192,64,0.08);
+        }
+
+        .blog-card-meta {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.62rem;
+            color: #5a5070;
+            letter-spacing: 0.05em;
+        }
+
+        .blog-card-tags {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.5rem;
+            gap: 0.4rem;
         }
-        
-        .tag-cloud-item {
-            padding: 0.5rem 1rem;
-            background: rgba(59, 130, 246, 0.05);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-full);
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: var(--text-sm);
-            transition: all var(--transition-base);
+
+        .blog-tag {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.55rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 0.2rem 0.6rem;
+            border-radius: 100px;
+            border: 1px solid rgba(240,192,64,0.15);
+            color: #7a7095;
         }
-        
-        .tag-cloud-item:hover {
-            border-color: var(--accent-blue);
-            color: var(--accent-cyan);
-            background: rgba(59, 130, 246, 0.1);
+
+        .blog-card-arrow {
+            font-size: 0.75rem;
+            color: rgba(240,192,64,0.4);
+            transition: color 0.2s, transform 0.2s;
         }
-        
-        @media (max-width: 1024px) {
-            .blog-layout {
-                grid-template-columns: 1fr;
-            }
-            
-            .blog-sidebar {
-                position: static;
-            }
+
+        .blog-card:hover .blog-card-arrow {
+            color: #f0c040;
+            transform: translateX(3px);
+        }
+
+        /* ── ABOUT SPACE SECTION ── */
+        .blog-about-section {
+            padding: 5rem 2rem;
+            background: rgba(13,10,46,0.45);
+            border-top: 1px solid rgba(240,192,64,0.1);
+            border-bottom: 1px solid rgba(240,192,64,0.1);
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .blog-about-inner {
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        .blog-about-title {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(1.6rem, 3vw, 2.2rem);
+            color: #f5f0ff;
+            margin-bottom: 1.5rem;
+        }
+
+        .blog-about-text {
+            font-family: 'Crimson Text', serif;
+            font-size: 1.05rem;
+            color: #a89fc0;
+            line-height: 1.9;
+            margin-bottom: 1.25rem;
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 768px) {
+            .blog-grid { grid-template-columns: 1fr; }
+            .blog-posts-section { padding: 4rem 1.5rem; }
+            .blog-about-section { padding: 4rem 1.5rem; }
         }
     </style>
 </head>
 <body>
+
     <!-- Navigation -->
     <nav class="nav">
         <div class="nav-container">
@@ -244,255 +386,130 @@
                 <li><a href="../about.html">About</a></li>
                 <li><a href="../projects/index.html">Projects</a></li>
                 <li><a href="index.html" class="active">Blog</a></li>
-                <li><a href="../links.html">Links</a></li>
+                <li><a href="../links.html">Contact</a></li>
             </ul>
+            <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
         </div>
     </nav>
 
-    <!-- Blog Hero -->
+    <div class="nav-mobile-overlay" id="nav-mobile-overlay">
+        <div class="overlay-divider"></div>
+        <a href="../index.html">Home</a>
+        <a href="../about.html">About</a>
+        <a href="../projects/index.html">Projects</a>
+        <a href="index.html" class="active">Blog</a>
+        <a href="../links.html">Contact</a>
+        <div class="overlay-divider"></div>
+    </div>
+
+    <!-- ── HERO ── -->
     <section class="blog-hero">
-        <div class="container" style="text-align: center;">
-            <div class="hero-label">Technical Notes</div>
-            <h1 style="font-size: var(--text-6xl); font-weight: var(--font-extrabold); margin-bottom: 1rem;">
-                Blog
-            </h1>
-            <p style="font-size: var(--text-xl); color: var(--text-secondary); max-width: 700px; margin: 0 auto;">
-                Learning documentation, technical insights, dan analytical approaches to problem-solving.
-            </p>
-        </div>
+        <span class="blog-hero-badge">✦ Writing Space ✦</span>
+        <h1 class="blog-hero-title">Reflections</h1>
+        <p class="blog-hero-sub">Attachment · Transformation · The Human Experience</p>
+        <p class="blog-hero-desc">
+            Ini bukan blog biasa. Ini koleksi momen yang diterjemahkan ke dalam kata-kata —
+            pertanyaan tanpa jawaban mudah, perasaan yang menolak untuk disederhanakan.
+        </p>
     </section>
 
-    <!-- Blog Content -->
-    <section class="section">
-        <div class="container">
-            <div class="blog-layout">
-                <!-- Main Content -->
-                <div class="blog-main">
-                    
-                    <!-- Featured Post -->
-                    <article class="featured-post">
-                        <span class="featured-badge">⭐ Featured</span>
-                        <div class="post-meta">
-                            <div class="post-meta-item">
-                                <span>📅</span>
-                                <span>February 11, 2026</span>
-                            </div>
-                            <div class="post-meta-item">
-                                <span>📁</span>
-                                <span>Web Development</span>
-                            </div>
-                        </div>
-                        <h2 class="post-title">
-                            <a href="#">Building Modular GitHub Pages with Analytical Precision</a>
-                        </h2>
-                        <p class="post-excerpt">
-                            How I structured my GitHub Pages repository using systems thinking and modular design principles. 
-                            Deep dive into CSS architecture, component reusability, and evidence-based development approach.
-                        </p>
-                        <div class="post-tags">
-                            <span class="tag tag-sm">GitHub Pages</span>
-                            <span class="tag tag-sm">CSS Architecture</span>
-                            <span class="tag tag-sm">Systems Thinking</span>
-                            <span class="tag tag-sm">Web Dev</span>
-                        </div>
-                        <div class="post-footer">
-                            <span class="read-time">⏱️ 8 min read</span>
-                            <a href="#" class="btn btn-sm btn-primary">Read More →</a>
-                        </div>
-                    </article>
+    <!-- ── QUOTE OF THE DAY ── -->
+    <section class="blog-quote-section">
+        <p class="blog-quote-label">✦ &nbsp; a thought for today</p>
+        <div id="quote-display"></div>
+    </section>
 
-                    <!-- Regular Posts -->
-                    <article class="post-card">
-                        <div class="post-meta">
-                            <div class="post-meta-item">
-                                <span>📅</span>
-                                <span>February 5, 2026</span>
-                            </div>
-                            <div class="post-meta-item">
-                                <span>📁</span>
-                                <span>React</span>
-                            </div>
-                        </div>
-                        <h2 class="post-title">
-                            <a href="#">React + TypeScript: Type-Safe Development Workflow</a>
-                        </h2>
-                        <p class="post-excerpt">
-                            Implementing type safety in React applications using TypeScript. 
-                            Analytical approach to reducing runtime errors and improving code maintainability through static typing.
-                        </p>
-                        <div class="post-tags">
-                            <span class="tag tag-sm">React</span>
-                            <span class="tag tag-sm">TypeScript</span>
-                            <span class="tag tag-sm">Type Safety</span>
-                        </div>
-                        <div class="post-footer">
-                            <span class="read-time">⏱️ 6 min read</span>
-                            <a href="#" class="btn btn-sm btn-secondary">Read More →</a>
-                        </div>
-                    </article>
+    <!-- ── POSTS ── -->
+    <div class="blog-posts-section">
+        <div class="blog-section-header">
+            <p class="blog-section-label">✦ Latest Posts</p>
+            <h2 class="blog-section-title">Recent Writing</h2>
+        </div>
 
-                    <article class="post-card">
-                        <div class="post-meta">
-                            <div class="post-meta-item">
-                                <span>📅</span>
-                                <span>January 28, 2026</span>
-                            </div>
-                            <div class="post-meta-item">
-                                <span>📁</span>
-                                <span>Python</span>
-                            </div>
-                        </div>
-                        <h2 class="post-title">
-                            <a href="#">FastAPI vs Flask: Evidence-Based Framework Selection</a>
-                        </h2>
-                        <p class="post-excerpt">
-                            Data-driven comparison of FastAPI and Flask for backend development. 
-                            Performance benchmarks, developer experience, and use case analysis based on actual project implementation.
-                        </p>
-                        <div class="post-tags">
-                            <span class="tag tag-sm">Python</span>
-                            <span class="tag tag-sm">FastAPI</span>
-                            <span class="tag tag-sm">Flask</span>
-                            <span class="tag tag-sm">Backend</span>
-                        </div>
-                        <div class="post-footer">
-                            <span class="read-time">⏱️ 10 min read</span>
-                            <a href="#" class="btn btn-sm btn-secondary">Read More →</a>
-                        </div>
-                    </article>
+        <!-- Filter tabs -->
+        <div class="blog-filters">
+            <button class="blog-filter-btn active" data-filter="all">All</button>
+            <button class="blog-filter-btn" data-filter="personal-essay">Personal Essay</button>
+            <button class="blog-filter-btn" data-filter="attachment">Attachment</button>
+            <button class="blog-filter-btn" data-filter="growth">Growth</button>
+        </div>
 
-                    <article class="post-card">
-                        <div class="post-meta">
-                            <div class="post-meta-item">
-                                <span>📅</span>
-                                <span>January 15, 2026</span>
-                            </div>
-                            <div class="post-meta-item">
-                                <span>📁</span>
-                                <span>System Design</span>
-                            </div>
-                        </div>
-                        <h2 class="post-title">
-                            <a href="#">Database Schema Design: Lessons from SIMKESGI</a>
-                        </h2>
-                        <p class="post-excerpt">
-                            Systematic approach to database schema design learned from building healthcare management system. 
-                            Normalization, indexing strategies, and performance optimization based on real-world constraints.
-                        </p>
-                        <div class="post-tags">
-                            <span class="tag tag-sm">PostgreSQL</span>
-                            <span class="tag tag-sm">Database</span>
-                            <span class="tag tag-sm">System Design</span>
-                        </div>
-                        <div class="post-footer">
-                            <span class="read-time">⏱️ 12 min read</span>
-                            <a href="#" class="btn btn-sm btn-secondary">Read More →</a>
-                        </div>
-                    </article>
+        <div class="blog-grid">
 
-                    <!-- Placeholder Posts -->
-                    <article class="post-card" style="opacity: 0.6;">
-                        <div class="post-meta">
-                            <div class="post-meta-item">
-                                <span>📅</span>
-                                <span>Coming Soon</span>
-                            </div>
-                            <div class="post-meta-item">
-                                <span>📁</span>
-                                <span>Docker</span>
-                            </div>
+            <!-- Post: On Letting One Thing Go -->
+            <a href="posts/on-letting-one-thing-go.html"
+               class="blog-card reveal"
+               data-categories="personal-essay attachment growth">
+                <div class="blog-card-category">Personal Essay</div>
+                <h3 class="blog-card-title">On Letting One Thing Go</h3>
+                <p class="blog-card-subtitle">while keeping everything else</p>
+                <p class="blog-card-excerpt">
+                    Tentang perasaan yang datang tanpa nama, pertanyaan yang bertahan tanpa jawaban,
+                    dan hati yang memilih untuk tinggal meski pergi lebih mudah.
+                    Satu hal dilepaskan — bukan dengan pahit, tapi dengan menerima.
+                </p>
+                <div class="blog-card-footer">
+                    <div>
+                        <div class="blog-card-meta">Feb 2026 · 12 min read</div>
+                        <div class="blog-card-tags" style="margin-top:0.5rem;">
+                            <span class="blog-tag">Attachment</span>
+                            <span class="blog-tag">Growth</span>
+                            <span class="blog-tag">Philosophy</span>
                         </div>
-                        <h2 class="post-title">
-                            <a href="#">Docker Compose for Local Development</a>
-                        </h2>
-                        <p class="post-excerpt">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                            Framework-based approach to containerization and development environment setup.
-                        </p>
-                        <div class="post-tags">
-                            <span class="tag tag-sm">Docker</span>
-                            <span class="tag tag-sm">DevOps</span>
-                        </div>
-                        <div class="post-footer">
-                            <span class="read-time">⏱️ 7 min read</span>
-                            <a href="#" class="btn btn-sm btn-ghost">Coming Soon</a>
-                        </div>
-                    </article>
-
+                    </div>
+                    <span class="blog-card-arrow">→</span>
                 </div>
+            </a>
 
-                <!-- Sidebar -->
-                <aside class="blog-sidebar">
-                    
-                    <!-- Search -->
-                    <div class="sidebar-section">
-                        <h3 class="sidebar-title">Search</h3>
-                        <input type="text" class="search-box" placeholder="Search articles...">
-                    </div>
-
-                    <!-- Categories -->
-                    <div class="sidebar-section">
-                        <h3 class="sidebar-title">Categories</h3>
-                        <ul class="category-list">
-                            <li class="category-item">
-                                <a href="#" class="category-link">
-                                    <span>Web Development</span>
-                                    <span class="category-count">3</span>
-                                </a>
-                            </li>
-                            <li class="category-item">
-                                <a href="#" class="category-link">
-                                    <span>React</span>
-                                    <span class="category-count">2</span>
-                                </a>
-                            </li>
-                            <li class="category-item">
-                                <a href="#" class="category-link">
-                                    <span>Python</span>
-                                    <span class="category-count">2</span>
-                                </a>
-                            </li>
-                            <li class="category-item">
-                                <a href="#" class="category-link">
-                                    <span>System Design</span>
-                                    <span class="category-count">1</span>
-                                </a>
-                            </li>
-                            <li class="category-item">
-                                <a href="#" class="category-link">
-                                    <span>DevOps</span>
-                                    <span class="category-count">1</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <!-- Popular Tags -->
-                    <div class="sidebar-section">
-                        <h3 class="sidebar-title">Popular Tags</h3>
-                        <div class="tag-cloud">
-                            <a href="#" class="tag-cloud-item">React</a>
-                            <a href="#" class="tag-cloud-item">TypeScript</a>
-                            <a href="#" class="tag-cloud-item">Python</a>
-                            <a href="#" class="tag-cloud-item">FastAPI</a>
-                            <a href="#" class="tag-cloud-item">PostgreSQL</a>
-                            <a href="#" class="tag-cloud-item">Docker</a>
-                            <a href="#" class="tag-cloud-item">Systems</a>
-                            <a href="#" class="tag-cloud-item">Architecture</a>
+            <!-- Post: When Fantasy Felt Safer -->
+            <a href="posts/when-fantasy-felt-safer.html"
+               class="blog-card reveal reveal-delay-1"
+               data-categories="personal-essay attachment growth">
+                <div class="blog-card-category">Personal Reflection</div>
+                <h3 class="blog-card-title">When Fantasy Felt Safer Than Reality</h3>
+                <p class="blog-card-subtitle">on workplace exclusion, manufactured happiness, and the mind's way of surviving</p>
+                <p class="blog-card-excerpt">
+                    Tentang pengucilan di tempat kerja, kebahagiaan yang dibuat-buat, dan bagaimana pikiran
+                    menciptakan dunia alternatif ketika realita terasa terlalu sempit untuk ditinggali.
+                </p>
+                <div class="blog-card-footer">
+                    <div>
+                        <div class="blog-card-meta">Feb 2026 · 10 min read</div>
+                        <div class="blog-card-tags" style="margin-top:0.5rem;">
+                            <span class="blog-tag">Attachment</span>
+                            <span class="blog-tag">Coping</span>
+                            <span class="blog-tag">Self-Worth</span>
                         </div>
                     </div>
+                    <span class="blog-card-arrow">→</span>
+                </div>
+            </a>
 
-                    <!-- About Blog -->
-                    <div class="sidebar-section" style="background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(6, 182, 212, 0.05));">
-                        <h3 class="sidebar-title">About This Blog</h3>
-                        <p style="color: var(--text-secondary); font-size: var(--text-sm); line-height: var(--leading-relaxed);">
-                            Technical documentation dan learning notes dengan pendekatan analytical dan evidence-based. 
-                            Fokus pada systems thinking, framework analysis, dan practical implementation.
-                        </p>
-                    </div>
+        </div>
+    </div>
 
-                </aside>
-            </div>
+    <!-- Cosmos Divider -->
+    <div class="cosmos-divider" style="padding:1.5rem 4rem;">
+        <div class="cosmos-divider-line"></div>
+        <div class="cosmos-divider-center"><span class="cosmos-divider-glyph">✦</span></div>
+        <div class="cosmos-divider-line"></div>
+    </div>
+
+    <!-- ── ABOUT THIS SPACE ── -->
+    <section class="blog-about-section reveal">
+        <div class="blog-about-inner">
+            <h2 class="blog-about-title">About This Space</h2>
+            <p class="blog-about-text">
+                Ini bukan tentang berbagi cerita saya. Ini tentang mengundang kamu ke dalam
+                perasaan di baliknya — disaring melalui filsafat, psikologi, dan ketulusan.
+            </p>
+            <p class="blog-about-text" style="font-size:0.95rem; color:#7a7095;">
+                Kalau kamu pernah merasakan sesuatu yang tidak bisa kamu beri nama,
+                mencintai seseorang yang tidak bisa kamu miliki, atau memilih untuk tetap tinggal
+                ketika pergi lebih mudah — tulisan-tulisan ini untuk kamu.
+            </p>
         </div>
     </section>
 
@@ -503,11 +520,44 @@
                 <a href="../about.html">About</a>
                 <a href="../projects/index.html">Projects</a>
                 <a href="index.html">Blog</a>
-                <a href="../labs/index.html">Labs</a>
                 <a href="../links.html">Contact</a>
             </div>
-            <p>&copy; 2026 Annisa Baizan. Built with analytical precision.</p>
+            <p style="color:#7a7095;">✦ &copy; 2026 Annisa Baizan — Built with analytical precision &amp; a touch of magic ✦</p>
         </div>
     </footer>
+
+    <canvas id="star-canvas"></canvas>
+
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/stars.js"></script>
+    <script src="../assets/js/cursor.js"></script>
+    <script src="../assets/js/effects.js"></script>
+    <script src="../assets/js/music-player.js"></script>
+    <script src="assets/quotes.js"></script>
+
+    <script>
+
+        // ── Category filter ──
+        const filterBtns = document.querySelectorAll('.blog-filter-btn');
+        const cards = document.querySelectorAll('.blog-card');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const filter = btn.dataset.filter;
+                cards.forEach(card => {
+                    if (filter === 'all') {
+                        card.style.display = 'flex';
+                        return;
+                    }
+                    const cats = card.dataset.categories || '';
+                    card.style.display = cats.includes(filter) ? 'flex' : 'none';
+                });
+            });
+        });
+    </script>
+
 </body>
 </html>

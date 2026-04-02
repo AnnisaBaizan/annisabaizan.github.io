@@ -1,0 +1,2808 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WorkPlaceEval - Panduan Pengguna Lengkap</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-cream: #faf8f5;
+            --bg-white: #ffffff;
+            --bg-soft: #f5f3f0;
+            --bg-card: #fefefe;
+            --primary: #2d5a4a;
+            --primary-light: #3d7a64;
+            --primary-dark: #1d4a3a;
+            --secondary: #8b6f47;
+            --accent-coral: #e07a5f;
+            --accent-blue: #3d84a8;
+            --accent-lavender: #9b8dc4;
+            --accent-mint: #81b29a;
+            --accent-yellow: #f2cc8f;
+            --accent-red: #e63946;
+            --text-dark: #1a1a2e;
+            --text-body: #4a4a5a;
+            --text-muted: #8a8a9a;
+            --shadow-soft: 0 4px 20px rgba(0,0,0,0.06);
+            --shadow-medium: 0 8px 30px rgba(0,0,0,0.1);
+            --shadow-strong: 0 12px 40px rgba(0,0,0,0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg-cream);
+            color: var(--text-body);
+            overflow: hidden;
+        }
+
+        .bg-shapes {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.4;
+        }
+
+        .shape-1 {
+            width: 600px;
+            height: 600px;
+            background: linear-gradient(135deg, #81b29a 0%, #3d84a8 100%);
+            top: -200px;
+            right: -150px;
+            filter: blur(80px);
+            animation: float1 20s ease-in-out infinite;
+        }
+
+        .shape-2 {
+            width: 400px;
+            height: 400px;
+            background: linear-gradient(135deg, #e07a5f 0%, #f2cc8f 100%);
+            bottom: -100px;
+            left: -100px;
+            filter: blur(60px);
+            animation: float2 15s ease-in-out infinite;
+        }
+
+        .shape-3 {
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(135deg, #9b8dc4 0%, #c9b1ff 100%);
+            top: 50%;
+            left: 30%;
+            filter: blur(70px);
+            animation: float3 18s ease-in-out infinite;
+        }
+
+        @keyframes float1 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-30px, 30px) scale(1.05); }
+        }
+
+        @keyframes float2 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(20px, -20px) scale(1.1); }
+        }
+
+        @keyframes float3 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-20px, -30px) scale(0.95); }
+        }
+
+        .presentation {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 10;
+            padding: 20px;
+        }
+
+        .slide {
+            width: 100%;
+            max-width: 1300px;
+            height: calc(100vh - 90px);
+            background: var(--bg-white);
+            border-radius: 32px;
+            padding: 40px 50px;
+            display: none;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-medium);
+            animation: slideIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .slide.active {
+            display: flex;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: scale(0.95) translateY(20px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(135deg, rgba(129, 178, 154, 0.15) 0%, rgba(61, 132, 168, 0.1) 100%);
+            border-radius: 50%;
+        }
+
+        h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: clamp(36px, 4.5vw, 54px);
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 12px;
+            letter-spacing: -1px;
+        }
+
+        h1 .accent {
+            color: var(--primary);
+        }
+
+        h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: clamp(24px, 3vw, 32px);
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            flex-shrink: 0;
+        }
+
+        h2 .emoji {
+            font-size: 36px;
+        }
+
+        h2 .section-tag {
+            font-size: 11px;
+            font-weight: 600;
+            background: var(--primary);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 100px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--primary);
+            margin: 20px 0 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        h4 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin: 14px 0 10px;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            color: var(--text-muted);
+            font-weight: 400;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+        }
+
+        .content {
+            flex: 1;
+            overflow-y: auto;
+            padding-right: 12px;
+        }
+
+        .content::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .content::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 10px;
+        }
+
+        p {
+            font-size: 15px;
+            line-height: 1.7;
+            color: var(--text-body);
+            margin-bottom: 12px;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 18px;
+            margin: 18px 0;
+        }
+
+        .card-grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+        .card-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+        .card-grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
+
+        .card {
+            background: var(--bg-soft);
+            border-radius: 20px;
+            padding: 24px;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent-mint));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .card-icon {
+            width: 54px;
+            height: 54px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            margin-bottom: 14px;
+            box-shadow: 0 6px 16px rgba(45, 90, 74, 0.2);
+        }
+
+        .card h4 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin: 0 0 8px 0;
+        }
+
+        .card p {
+            font-size: 13px;
+            color: var(--text-body);
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .role-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 24px 0;
+        }
+
+        .role-grid.cols-5 {
+            grid-template-columns: repeat(5, 1fr);
+        }
+
+        .role-card {
+            background: var(--bg-white);
+            border: 2px solid var(--bg-soft);
+            border-radius: 24px;
+            padding: 28px 20px;
+            text-align: center;
+            transition: all 0.4s ease;
+        }
+
+        .role-card:nth-child(1) { --role-color: var(--primary); }
+        .role-card:nth-child(2) { --role-color: var(--accent-coral); }
+        .role-card:nth-child(3) { --role-color: var(--accent-blue); }
+        .role-card:nth-child(4) { --role-color: var(--accent-lavender); }
+        .role-card:nth-child(5) { --role-color: var(--secondary); }
+
+        .role-card:hover {
+            border-color: var(--role-color);
+            transform: translateY(-6px);
+            box-shadow: 0 16px 32px rgba(0,0,0,0.08);
+        }
+
+        .role-avatar {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--role-color), rgba(255,255,255,0.3));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 38px;
+            margin: 0 auto 16px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+        }
+
+        .role-card h4 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin: 0 0 8px 0;
+        }
+
+        .role-card p {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .step-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin: 24px 0;
+        }
+
+        .step-grid.cols-3 {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .step-grid.cols-5 {
+            grid-template-columns: repeat(5, 1fr);
+        }
+
+        .step-card {
+            background: var(--bg-soft);
+            border-radius: 18px;
+            padding: 24px 18px;
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Outfit', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            margin: 0 auto 14px;
+        }
+
+        .step-card h5 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 6px;
+        }
+
+        .step-card p {
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .step-card::after {
+            content: '→';
+            position: absolute;
+            right: -12px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 20px;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .step-card:last-child::after {
+            display: none;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(129, 178, 154, 0.15) 0%, rgba(61, 132, 168, 0.1) 100%);
+            border-left: 4px solid var(--primary);
+            border-radius: 0 18px 18px 0;
+            padding: 20px 24px;
+            margin: 18px 0;
+        }
+
+        .highlight-box.warning {
+            background: linear-gradient(135deg, rgba(224, 122, 95, 0.15) 0%, rgba(242, 204, 143, 0.1) 100%);
+            border-left-color: var(--accent-coral);
+        }
+
+        .highlight-box.tip {
+            background: linear-gradient(135deg, rgba(155, 141, 196, 0.15) 0%, rgba(201, 177, 255, 0.1) 100%);
+            border-left-color: var(--accent-lavender);
+        }
+
+        .highlight-box.success {
+            background: linear-gradient(135deg, rgba(129, 178, 154, 0.2) 0%, rgba(45, 90, 74, 0.1) 100%);
+            border-left-color: var(--accent-mint);
+        }
+
+        .highlight-box.danger {
+            background: linear-gradient(135deg, rgba(230, 57, 70, 0.15) 0%, rgba(224, 122, 95, 0.1) 100%);
+            border-left-color: var(--accent-red);
+        }
+
+        .highlight-box strong {
+            color: var(--primary);
+            font-size: 15px;
+        }
+
+        .highlight-box.warning strong { color: var(--accent-coral); }
+        .highlight-box.tip strong { color: var(--accent-lavender); }
+        .highlight-box.success strong { color: var(--primary); }
+        .highlight-box.danger strong { color: var(--accent-red); }
+
+        .highlight-box p {
+            margin: 6px 0 0 0;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        li {
+            padding: 10px 0;
+            padding-left: 28px;
+            position: relative;
+            font-size: 14px;
+            color: var(--text-body);
+            border-bottom: 1px solid var(--bg-soft);
+            line-height: 1.6;
+        }
+
+        li:last-child { border-bottom: none; }
+
+        li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            top: 10px;
+            width: 20px;
+            height: 20px;
+            background: var(--accent-mint);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        li strong { color: var(--text-dark); }
+
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin: 18px 0;
+        }
+
+        .three-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+            margin: 18px 0;
+        }
+
+        .col {
+            background: var(--bg-soft);
+            border-radius: 20px;
+            padding: 22px;
+        }
+
+        .col h4 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--primary);
+            margin: 0 0 14px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .col p {
+            font-size: 13px;
+            margin: 0;
+        }
+
+        .col ul li {
+            padding: 8px 0 8px 24px;
+            font-size: 13px;
+        }
+
+        .col ul li::before {
+            width: 16px;
+            height: 16px;
+            font-size: 9px;
+            top: 9px;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 5px 12px;
+            border-radius: 100px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge.green { background: rgba(129, 178, 154, 0.2); color: var(--primary); }
+        .badge.coral { background: rgba(224, 122, 95, 0.2); color: var(--accent-coral); }
+        .badge.blue { background: rgba(61, 132, 168, 0.2); color: var(--accent-blue); }
+        .badge.lavender { background: rgba(155, 141, 196, 0.2); color: var(--accent-lavender); }
+        .badge.yellow { background: rgba(242, 204, 143, 0.3); color: var(--secondary); }
+
+        .stats-row {
+            display: flex;
+            gap: 16px;
+            margin: 24px 0;
+        }
+
+        .stat-box {
+            flex: 1;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            border-radius: 20px;
+            padding: 24px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 8px 24px rgba(45, 90, 74, 0.25);
+        }
+
+        .stat-box .emoji {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .stat-box .value {
+            font-family: 'Outfit', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .stat-box .label {
+            font-size: 12px;
+            opacity: 0.9;
+            margin-top: 4px;
+        }
+
+        .status-flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 24px 0;
+            flex-wrap: wrap;
+        }
+
+        .status-item {
+            background: var(--bg-soft);
+            border-radius: 14px;
+            padding: 16px 24px;
+            text-align: center;
+            min-width: 120px;
+        }
+
+        .status-item.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 8px 24px rgba(45, 90, 74, 0.25);
+        }
+
+        .status-item.warning {
+            background: var(--accent-coral);
+            color: white;
+        }
+
+        .status-item .status-name {
+            font-family: 'Outfit', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .status-item .status-desc {
+            font-size: 11px;
+            opacity: 0.8;
+            margin-top: 2px;
+        }
+
+        .status-arrow {
+            font-size: 22px;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .grade-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 14px;
+            margin: 20px 0;
+        }
+
+        .grade-item {
+            background: var(--bg-soft);
+            border-radius: 14px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .grade-item:nth-child(1) { background: linear-gradient(135deg, #81b29a 0%, #3d7a64 100%); color: white; }
+        .grade-item:nth-child(2) { background: linear-gradient(135deg, #3d84a8 0%, #2d6a88 100%); color: white; }
+        .grade-item:nth-child(3) { background: linear-gradient(135deg, #f2cc8f 0%, #e0b86f 100%); color: var(--text-dark); }
+        .grade-item:nth-child(4) { background: linear-gradient(135deg, #e07a5f 0%, #c45a3f 100%); color: white; }
+        .grade-item:nth-child(5) { background: linear-gradient(135deg, #9b8dc4 0%, #7b6da4 100%); color: white; }
+
+        .grade-item .grade {
+            font-family: 'Outfit', sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+        }
+
+        .grade-item .range {
+            font-size: 13px;
+            opacity: 0.9;
+            margin-top: 4px;
+        }
+
+        .grade-item .desc {
+            font-size: 11px;
+            opacity: 0.8;
+            margin-top: 2px;
+        }
+
+        .simple-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            border-radius: 14px;
+            overflow: hidden;
+        }
+
+        .simple-table th {
+            background: var(--primary);
+            color: white;
+            padding: 14px 18px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .simple-table td {
+            padding: 12px 18px;
+            border-bottom: 1px solid var(--bg-soft);
+            font-size: 13px;
+        }
+
+        .simple-table tr:nth-child(even) {
+            background: var(--bg-soft);
+        }
+
+        .simple-table tr:hover td {
+            background: rgba(129, 178, 154, 0.1);
+        }
+
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+            margin: 18px 0;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 16px;
+            background: var(--bg-soft);
+            border-radius: 14px;
+        }
+
+        .feature-item .icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--accent-mint));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .feature-item .text h5 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+        }
+
+        .feature-item .text p {
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            background: var(--bg-white);
+            border: 1px solid var(--bg-soft);
+            border-radius: 12px;
+            margin: 8px 0;
+            transition: all 0.3s ease;
+        }
+
+        .menu-item:hover {
+            border-color: var(--primary);
+            transform: translateX(4px);
+        }
+
+        .menu-item .menu-icon {
+            width: 36px;
+            height: 36px;
+            background: var(--bg-soft);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .menu-item .menu-text {
+            flex: 1;
+        }
+
+        .menu-item .menu-text h5 {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin: 0;
+        }
+
+        .menu-item .menu-text p {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin: 2px 0 0 0;
+        }
+
+        .screenshot-placeholder {
+            background: linear-gradient(135deg, var(--bg-soft) 0%, var(--bg-cream) 100%);
+            border: 2px dashed var(--primary);
+            border-radius: 16px;
+            padding: 40px;
+            text-align: center;
+            margin: 16px 0;
+        }
+
+        .screenshot-placeholder .icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+        }
+
+        .screenshot-placeholder p {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin: 0;
+        }
+
+        .slide-number {
+            position: absolute;
+            bottom: 20px;
+            right: 36px;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .slide-number .current {
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 1000;
+            background: var(--bg-white);
+            border: 1px solid var(--bg-soft);
+            padding: 8px 16px;
+            border-radius: 100px;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .nav-btn {
+            background: var(--bg-soft);
+            border: none;
+            color: var(--text-body);
+            padding: 10px 20px;
+            border-radius: 100px;
+            cursor: pointer;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .nav-btn:hover:not(:disabled) {
+            background: var(--primary);
+            color: white;
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .nav-dots {
+            display: flex;
+            gap: 6px;
+        }
+
+        .nav-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--bg-soft);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-dot.active {
+            background: var(--primary);
+            width: 24px;
+            border-radius: 8px;
+        }
+
+        .slide-cover {
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .slide-cover .logo {
+            width: 110px;
+            height: 110px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent-mint) 100%);
+            border-radius: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 52px;
+            margin: 0 auto 28px;
+            box-shadow: 0 20px 50px rgba(45, 90, 74, 0.3);
+            animation: logoFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes logoFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-8px) rotate(2deg); }
+        }
+
+        .slide-cover .tagline {
+            font-size: 17px;
+            color: var(--text-muted);
+            max-width: 500px;
+            margin: 20px auto 0;
+            line-height: 1.7;
+        }
+
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--bg-soft), transparent);
+            margin: 20px 0;
+        }
+
+        .numbered-list {
+            counter-reset: item;
+        }
+
+        .numbered-list li {
+            padding-left: 40px;
+        }
+
+        .numbered-list li::before {
+            content: counter(item);
+            counter-increment: item;
+            background: var(--primary);
+            font-size: 12px;
+            font-weight: 700;
+            width: 24px;
+            height: 24px;
+        }
+
+        .icon-list li::before {
+            content: '📌';
+            background: none;
+            width: auto;
+            height: auto;
+            font-size: 14px;
+        }
+
+        .faq-item {
+            background: var(--bg-soft);
+            border-radius: 16px;
+            padding: 20px;
+            margin: 12px 0;
+        }
+
+        .faq-item .question {
+            font-family: 'Outfit', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .faq-item .question::before {
+            content: 'Q';
+            background: var(--primary);
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .faq-item .answer {
+            font-size: 13px;
+            color: var(--text-body);
+            line-height: 1.6;
+            padding-left: 34px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+    </div>
+
+    <div class="presentation">
+        <!-- ==================== SLIDE 1: COVER ==================== -->
+        <div class="slide slide-cover active">
+            <div class="logo">📋</div>
+            <h1>Work<span class="accent">Place</span>Eval</h1>
+            <div class="subtitle">Panduan Pengguna Lengkap</div>
+            <p class="tagline">
+                Sistem penilaian praktek klinik yang mudah digunakan.<br>
+                Panduan lengkap untuk Admin, Pembimbing, dan Mahasiswa.
+            </p>
+            <div class="stats-row" style="max-width: 700px; margin-top: 36px;">
+                <div class="stat-box">
+                    <div class="emoji">🖥️</div>
+                    <div class="label">Berbasis Web</div>
+                </div>
+                <div class="stat-box">
+                    <div class="emoji">☁️</div>
+                    <div class="label">Cloud Based</div>
+                </div>
+                <div class="stat-box">
+                    <div class="emoji">📱</div>
+                    <div class="label">Responsive</div>
+                </div>
+                <div class="stat-box">
+                    <div class="emoji">🔒</div>
+                    <div class="label">Aman</div>
+                </div>
+            </div>
+            <p style="color: var(--text-muted); font-size: 13px; margin-top: 30px;">30 Slides • Panduan Lengkap</p>
+            <div class="slide-number"><span class="current">01</span> / 30</div>
+        </div>
+
+        <!-- ==================== SLIDE 2: DAFTAR ISI ==================== -->
+        <div class="slide">
+            <h2><span class="emoji">📑</span> Daftar Isi <span class="section-tag">Overview</span></h2>
+            <div class="content">
+                <div class="three-col">
+                    <div class="col">
+                        <h4>📖 Pengenalan</h4>
+                        <ul>
+                            <li>Tentang Aplikasi</li>
+                            <li>Siapa Pengguna</li>
+                            <li>Cara Login & Logout</li>
+                            <li>Navigasi Aplikasi</li>
+                        </ul>
+                    </div>
+                    <div class="col">
+                        <h4>👨‍💼 Panduan Admin</h4>
+                        <ul>
+                            <li>Dashboard Admin</li>
+                            <li>Kelola Program Studi</li>
+                            <li>Kelola Pengguna</li>
+                            <li>Kelola Template</li>
+                            <li>Kelola Penempatan PKL</li>
+                            <li>Approval Penilaian</li>
+                        </ul>
+                    </div>
+                    <div class="col">
+                        <h4>👨‍🏫 Panduan Pembimbing</h4>
+                        <ul>
+                            <li>Dashboard Pembimbing</li>
+                            <li>Melihat Mahasiswa</li>
+                            <li>Membuat Penilaian</li>
+                            <li>Mengisi Nilai</li>
+                            <li>Submit Penilaian</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="three-col">
+                    <div class="col">
+                        <h4>👨‍🎓 Panduan Mahasiswa</h4>
+                        <ul>
+                            <li>Dashboard Mahasiswa</li>
+                            <li>Melihat Penempatan</li>
+                            <li>Melihat Hasil Penilaian</li>
+                            <li>Download & Cetak</li>
+                        </ul>
+                    </div>
+                    <div class="col">
+                        <h4>📊 Sistem Penilaian</h4>
+                        <ul>
+                            <li>Struktur Template</li>
+                            <li>Tipe Nilai</li>
+                            <li>Perhitungan Nilai</li>
+                            <li>Sistem Grade</li>
+                        </ul>
+                    </div>
+                    <div class="col">
+                        <h4>❓ Bantuan</h4>
+                        <ul>
+                            <li>FAQ Umum</li>
+                            <li>FAQ per Role</li>
+                            <li>Troubleshooting</li>
+                            <li>Kontak Support</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number"><span class="current">02</span> / 30</div>
+        </div>
+
+        <!-- ==================== SLIDE 3: TENTANG APLIKASI ==================== -->
+        <div class="slide">
+            <h2><span class="emoji">📖</span> Tentang WorkPlaceEval <span class="section-tag">Pengenalan</span></h2>
+            <div class="content">
+                <div class="two-col">
+                    <div class="col">
+                        <h4>🎯 Apa Itu WorkPlaceEval?</h4>
+                        <p>WorkPlaceEval adalah aplikasi web untuk mengelola penilaian mahasiswa yang sedang menjalani <strong>Praktek Kerja Lapangan (PKL)</strong> di rumah sakit, puskesmas, klinik, atau fasilitas kesehatan lainnya.</p>
+                        <p>Aplikasi ini dirancang khusus untuk program studi kesehatan seperti <strong>Kebidanan</strong>, <strong>Keperawatan</strong>, dan <strong>Farmasi</strong>.</p>
+                    </div>
+                    <div class="col">
+                        <h4>✨ Mengapa Menggunakan Ini?</h4>
+                        <ul>
+                            <li><strong>Efisien</strong> — Tidak perlu berkas fisik</li>
+                            <li><strong>Terstruktur</strong> — Template penilaian standar</li>
+                            <li><strong>Transparan</strong> — Mahasiswa bisa lihat hasil</li>
+                            <li><strong>Akurat</strong> — Perhitungan otomatis</li>
+                            <li><strong>Aman</strong> — Data tersimpan di cloud</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>🌟 Fitur Utama</h3>
+                <div class="card-grid cols-4">
+                    <div class="card">
+                        <div class="card-icon">📋</div>
+                        <h4>Template Fleksibel</h4>
+                        <p>Buat template penilaian sesuai kebutuhan dengan berbagai tipe nilai</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">🔄</div>
+                        <h4>Alur Kerja Jelas</h4>
+                        <p>Draft → Submit → Approve dengan notifikasi status</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">🧮</div>
+                        <h4>Auto Calculate</h4>
+                        <p>Nilai total, grade, dan status lulus dihitung otomatis</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">🖨️</div>
+                        <h4>Print & Export</h4>
+                        <p>Cetak atau download hasil penilaian dalam format PDF</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number"><span class="current">03</span> / 30</div>
+        </div>
+
+        <!-- ==================== SLIDE 4: SIAPA PENGGUNA ==================== -->
+        <div class="slide">
+            <h2><span class="emoji">👥</span> Siapa yang Menggunakan? <span class="section-tag">Pengenalan</span></h2>
+            <div class="content">
+                <p>WorkPlaceEval memiliki <strong>5 jenis pengguna</strong> dengan hak akses yang berbeda-beda:</p>
+                
+                <div class="role-grid cols-5">
+                    <div class="role-card">
+                        <div class="role-avatar">👨‍💼</div>
+                        <h4>Admin</h4>
+                        <p>Mengelola seluruh sistem dan menyetujui penilaian</p>
+                    </div>
+                    <div class="role-card">
+                        <div class="role-avatar">👨‍🏫</div>
+                        <h4>Dosen</h4>
+                        <p>Dosen pembimbing yang menilai mahasiswa</p>
+                    </div>
+                    <div class="role-card">
+                        <div class="role-avatar">🏛️</div>
+                        <h4>Pembimbing Institusi</h4>
+                        <p>Pembimbing dari pihak kampus/institusi</p>
+                    </div>
+                    <div class="role-card">
+                        <div class="role-avatar">🏥</div>
+                        <h4>Pembimbing Klinik</h4>
+                        <p>Pembimbing dari tempat praktik (RS/Klinik)</p>
+                    </div>
+                    <div class="role-card">
+                        <div class="role-avatar">👨‍🎓</div>
+                        <h4>Mahasiswa</h4>
+                        <p>Melihat hasil penilaian yang sudah disetujui</p>
+                    </div>
+                </div>
+
+                <h3>📊 Perbandingan Hak Akses</h3>
+                <table class="simple-table">
+                    <thead>
+                        <tr>
+                            <th>Fitur</th>
+                            <th>Admin</th>
+                            <th>Dosen/PI/PK</th>
+                            <th>Mahasiswa</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Kelola Data Master</td>
+                            <td><span class="badge green">✓ Ya</span></td>
+                            <td><span class="badge coral">✗ Tidak</span></td>
+                            <td><span class="badge coral">✗ Tidak</span></td>
+                        </tr>
+                        <tr>
+                            <td>Membuat Penilaian</td>
+                            <td><span class="badge coral">✗ Tidak</span></td>
+                            <td><span class="badge green">✓ Ya</span></td>
+                            <td><span class="badge coral">✗ Tidak</span></td>
+                        </tr>
+                        <tr>
+                            <td>Approve/Reject</td>
+                            <td><span class="badge green">✓ Ya</span></td>
+                            <td><span class="badge coral">✗ Tidak</span></td>
+                            <td><span class="badge coral">✗ Tidak</span></td>
+                        </tr>
+                        <tr>
+                            <td>Lihat Semua Nilai</td>
+                            <td><span class="badge green">✓ Semua</span></td>
+                            <td><span class="badge blue">⚪ Milik Sendiri</span></td>
+                            <td><span class="badge lavender">⚪ Milik Sendiri (Approved)</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="slide-number"><span class="current">04</span> / 30</div>
+        </div>
+
+        <!-- ==================== SLIDE 5: CARA LOGIN ==================== -->
+        <div class="slide">
+            <h2><span class="emoji">🔐</span> Cara Login ke Aplikasi <span class="section-tag">Pengenalan</span></h2>
+            <div class="content">
+                <h3>📝 Langkah-langkah Login</h3>
+                <div class="step-grid">
+                    <div class="step-card">
+                        <div class="step-number">1</div>
+                        <h5>Buka Browser</h5>
+                        <p>Chrome, Firefox, atau Edge (hindari Internet Explorer)</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">2</div>
+                        <h5>Ketik Alamat</h5>
+                        <p>Masukkan URL aplikasi di address bar</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <h5>Isi Email & Password</h5>
+                        <p>Gunakan akun yang sudah didaftarkan</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">4</div>
+                        <h5>Klik Login</h5>
+                        <p>Anda akan masuk ke dashboard</p>
+                    </div>
+                </div>
+
+                <div class="two-col">
+                    <div class="col">
+                        <h4>🔑 Lupa Password?</h4>
+                        <ul class="numbered-list">
+                            <li>Klik link <strong>"Lupa Password?"</strong> di halaman login</li>
+                            <li>Masukkan alamat email Anda</li>
+                            <li>Cek inbox email (termasuk folder Spam)</li>
+                            <li>Klik link reset password dalam email</li>
+                            <li>Buat password baru (minimal 8 karakter)</li>
+                            <li>Login dengan password baru</li>
+                        </ul>
+                    </div>
+                    <div class="col">
+                        <h4>🚪 Cara Logout</h4>
+                        <ul class="numbered-list">
+                            <li>Klik nama/foto Anda di pojok kanan atas</li>
+                            <li>Pilih menu <strong>"Logout"</strong></li>
+                            <li>Anda akan kembali ke halaman login</li>
+                        </ul>
+                        <div class="highlight-box warning" style="margin-top: 16px;">
+                            <strong>⚠️ Tips Keamanan</strong>
+                            <p>Selalu logout setelah selesai, terutama di komputer umum. Jangan bagikan password Anda kepada siapapun.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number"><span class="current">05</span> / 30</div>
+        </div>
+
+        <!-- ==================== SLIDE 6: NAVIGASI APLIKASI ==================== -->
+        <div class="slide">
+            <h2><span class="emoji">🧭</span> Navigasi Aplikasi <span class="section-tag">Pengenalan</span></h2>
+            <div class="content">
+                <p>Setelah login, Anda akan melihat tampilan dashboard dengan beberapa elemen utama:</p>
+
+                <div class="card-grid cols-3">
+                    <div class="card">
+                        <div class="card-icon">📋</div>
+                        <h4>Sidebar (Menu Samping)</h4>
+                        <p>Berisi menu navigasi utama sesuai role Anda. Klik menu untuk berpindah halaman.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">🔝</div>
+                        <h4>Navbar (Menu Atas)</h4>
+                        <p>Berisi info user yang login, notifikasi, dan tombol logout.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">📊</div>
+                        <h4>Content Area</h4>
+                        <p>Area utama yang menampilkan konten halaman yang sedang dibuka.</p>
+                    </div>
+                </div>
+
+                <h3>📱 Menu Berdasarkan Role</h3>
+                <div class="three-col">
+                    <div class="col">
+                        <h4 style="color: var(--primary);">👨‍💼 Menu Admin</h4>
+                        <div class="menu-item">
+                            <div class="menu-icon">📊</div>
+                            <div class="menu-text"><h5>Dashboard</h5><p>Ringkasan sistem</p></div>
+                        </div>
+                        <div class="menu-item">
+                            <div class="menu-icon">📚</div>
+                            <div class="menu-text"><h5>Program Studi</h5><p>Kelola prodi</p></div>
+                        </div>
+                        <div class="menu-item">
+                            <div class="menu-icon">👥</div>
+                            <div class="menu-text"><h5>Pengguna</h5><p>Kelola user</p></div>
+                        </div>
+                        <div class="menu-item">
+                            <div class="menu-icon">📋</div>
+                            <div class="menu-text"><h5>Template</h5><p>Kelola template</p></div>
+                        </div>
+                        <div class="menu-item">
+                            <div class="menu-icon">📍</div>
+                            <div class="menu-text"><h5>Penempatan</h5><p>Data PKL</p></div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <h4 style="color: var(--accent-coral);">👨‍🏫 Menu Pembimbing</h4>
+                        <div class="menu-item">
+                            <div class="menu-icon">📊</div>
+                            <div class="menu-text"><h5>Dashboard</h5><p>Ringkasan penilaian</p></div>
+                        </div>
+                        <div class="menu-item">
+                            <div class="menu-icon">👨‍🎓</div>
+                            <div class="menu-text"><h5>Mahasiswa Saya</h5><p>Daftar bimbingan</p></div>
+                        </div>
+                        <div class="menu-item">
+                            <div class="menu-icon">📝</div>
+                            <div class="menu-text"><h5>Penilaian</h5><p>Buat & kelola nilai</p></div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <h4 style="color: var(--accent-blue);">👨‍🎓 Menu Mahasiswa</h4>
+                        <div class="menu-item">
+                            <div class="menu-icon">📊</div>
+                            <div class="menu-text"><h5>Dashboard</h5><p>Ringkasan nilai</p></div>
+                        </div>
+                        <div class="menu-item">
+                            <div class="menu-icon">📍</div>
+                            <div class="menu-text"><h5>Penempatan</h5><p>Info PKL saya</p></div>
+                        </div>
+                        <div class="menu-item">
+                            <div class="menu-icon">📋</div>
+                            <div class="menu-text"><h5>Hasil Penilaian</h5><p>Lihat nilai</p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number"><span class="current">06</span> / 30</div>
+        </div>
+
+        <!-- ==================== SLIDE 7: DASHBOARD ADMIN ==================== -->
+        <div class="slide">
+            <h2><span class="emoji">📊</span> Dashboard Admin <span class="section-tag">Admin</span></h2>
+            <div class="content">
+                <p>Setelah login sebagai Admin, Anda akan melihat ringkasan seluruh sistem:</p>
+                
+                <div class="stats-row">
+                    <div class="stat-box">
+                        <div class="emoji">👥</div>
+                        <div class="value">50+</div>
+                        <div class="label">Total Pengguna</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="emoji">📚</div>
+                        <div class="value">4</div>
+                        <div class="label">Program Studi</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="emoji">📋</div>
+                        <div class="value">6</div>
+                        <div class="label">Template Aktif</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="emoji">⏳</div>
+                        <div class="value">5</div>
+                        <div class="label">Menunggu Approval</div>
+                    </div>
+                </div>
+
+                <h3>📌 Tugas Utama Admin</h3>
+                <div class="feature-list">
+                    <div class="feature-item">
+                        <div class="icon">📚</div>
+                        <div class="text">
+                            <h5>Kelola Program Studi</h5>
+                            <p>Tambah, edit, atau nonaktifkan program studi (Kebidanan, Keperawatan, dll)</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="icon">👥</div>
+                        <div class="text">
+                            <h5>Kelola Pengguna</h5>
+                            <p>Daftarkan admin, pembimbing, dan mahasiswa baru ke sistem</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="icon">📋</div>
+                        <div class="text">
+                            <h5>Kelola Template Penilaian</h5>
+                            <p>Buat template dengan kategori, komponen, dan rubrik penilaian</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="icon">📍</div>
+                        <div class="text">
+                            <h5>Kelola Penempatan PKL</h5>
+                            <p>Atur dimana mahasiswa PKL dan siapa pembimbingnya</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="icon">✅</div>
+                        <div class="text">
+                            <h5>Approve/Reject Penilaian</h5>
+                            <p>Review dan setujui penilaian yang sudah disubmit pembimbing</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="icon">📊</div>
+                        <div class="text">
+                            <h5>Monitoring Sistem</h5>
+                            <p>Pantau statistik dan aktivitas seluruh sistem</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number"><span class="current">07</span> / 30</div>
+        </div>
+
+        <!-- ==================== SLIDE 8: KELOLA PROGRAM STUDI ==================== -->
+        <div class="slide">
+            <h2><span class="emoji">📚</span> Admin: Kelola Program Studi <span class="section-tag">Admin</span></h2>
+            <div class="content">
+                <p>Program studi adalah unit akademik yang memiliki mahasiswa dan template penilaian tersendiri.</p>
+
+                <h3>➕ Menambah Program Studi Baru</h3>
+                <div class="step-grid">
+                    <div class="step-card">
+                        <div class="step-number">1</div>
+                        <h5>Buka Menu</h5>
+                        <p>Klik "Program Studi" di sidebar</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">2</div>
+                        <h5>Klik Tambah</h5>
+                        <p>Klik tombol "+ Tambah Program"</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <h5>Isi Formulir</h5>
+                        <p>Lengkapi nama, kode, deskripsi</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">4</div>
+                        <h5>Simpan</h5>
+                        <p>Klik "Simpan" untuk menyimpan</p>
+                    </div>
+                </div>
+
+                <h3>📝 Data yang Perlu Diisi</h3>
+                <table class="simple-table">
+                    <thead>
+                        <tr><th>Field</th><th>Keterangan</th><th>Contoh</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Nama Program</strong></td>
+                            <td>Nama lengkap program studi</td>
+                            <td>D3 Kebidanan</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Kode</strong></td>
+                            <td>Kode unik (huruf/angka)</td>
+                            <td>D3-KEB</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Deskripsi</strong></td>
+                            <td>Penjelasan singkat (opsional)</td>
+                            <td>Program Diploma 3 Kebidanan</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Status</strong></td>
+                            <td>Aktif atau nonaktif</td>
+                            <td>Aktif ✓</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="highlight-box tip">
+                    <strong>💡 Tips</strong>
+                    <p>Gunakan kode yang mudah diingat dan konsisten, misalnya: D3-KEB (D3 Kebidanan), S1-KEP (S1 Keperawatan), D3-FAR (D3 Farmasi).</p>
+                </div>
+            </div>
+            <div class="slide-number"><span class="current">08</span> / 30</div>
+        </div>
+
+        <!-- ==================== SLIDE 9: KELOLA PENGGUNA ==================== -->
+        <div class="slide">
+            <h2><span class="emoji">👥</span> Admin: Kelola Pengguna <span class="section-tag">Admin</span></h2>
+            <div class="content">
+                <h3>➕ Menambah Pengguna Baru</h3>
+                <div class="step-grid">
+                    <div class="step-card">
+                        <div class="step-number">1</div>
+                        <h5>Buka Menu</h5>
+                        <p>Klik "Pengguna" di sidebar</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">2</div>
+                        <h5>Klik Tambah</h5>
+                        <p>Klik tombol "+ Tambah User"</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <h5>Isi Formulir</h5>
+                        <p>Lengkapi semua data wajib</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">4</div>
+                        <h5>Simpan</h5>
+                        <p>Klik "Simpan" untuk membuat akun</p>
+                    </div>
+                </div>
+
+                <h3>📝 Data yang Perlu Diisi</h3>
+                <div class="two-col">
+                    <div class="col">
+                        <h4>Data Wajib</h4>
+                        <ul>
+                            <li><strong>Nama Lengkap</strong> — Sesuai identitas</li>
+                            <li><strong>Email</strong> — Untuk login (harus unik)</li>
+                            <li><strong>Password</strong> — Minimal 8 karakter</li>
+                            <li><strong>Tipe User</strong> — Pilih role pengguna</li>
+                            <li><strong>Program Studi</strong> — Pilih prodi terkait</li>
+                        </ul>
+                    </div>
+                    <div class="col">
+                        <h4>Data Opsional</h4>
+                        <ul>
+                            <li><strong>NIM</strong> — Untuk mahasiswa</li>
+                            <li><strong>NIP/NIDN</strong> — Untuk dosen/staff</li>
+                            <li><strong>No. Telepon</strong> — Kontak</li>
+                            <li><strong>Alamat</strong> — Alamat lengkap</li>
+                            <li><strong>Foto</strong> — Foto profil</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="highlight-box warning">
+                    <strong>⚠️ Perhatian</strong>
+                    <p>Email tidak bisa diubah setelah akun dibuat. Pastikan email yang dimasukkan sudah benar dan aktif.</p>
+                </div>
+            </div>
+            <div class="slide-number"><span class="current">09</span> / 30</div>
+        </div>
+
+        <!-- ==================== SLIDE 10: KELOLA TEMPLATE ==================== -->
+        <div class="slide">
+            <h2><span class="emoji">📋</span> Admin: Kelola Template <span class="section-tag">Admin</span></h2>
+            <div class="content">
+                <p>Template penilaian adalah struktur form yang digunakan pembimbing untuk menilai mahasiswa.</p>
+
+                <h3>🏗️ Struktur Template Penilaian</h3>
+                <div class="highlight-box">
+                    <strong>📐 Hierarki Template</strong>
+                    <p><strong>Template</strong> → <strong>Kategori</strong> (dengan bobot %) → <strong>Komponen</strong> (item yang dinilai) → <strong>Rubrik</strong> (kriteria nilai)</p>
+                </div>
+
+                <div class="two-col">
+                    <div class="col">
+                        <h4>📁 Contoh: Template DOPS</h4>
+                        <ul>
+                            <li><strong>Kategori: Persiapan (20%)</strong>
+                                <br>• Persiapan Alat — Rubrik 1-4
+                                <br>• Persiapan Pasien — Rubrik 1-4
+                            </li>
+                            <li><strong>Kategori: Pelaksanaan (50%)</strong>
+                                <br>• Teknik Prosedur — Rubrik 1-4
+                                <br>• Komunikasi — Rubrik 1-4
+                                <br>• Kepatuhan SOP — Checklist
+                            </li>
+                            <li><strong>Kategori: Evaluasi (30%)</strong>
+                                <br>• Dokumentasi — Rubrik 1-4
+                                <br>• Refleksi — Angka 0-100
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col">
+                        <h4>📊 Pengaturan Template</h4>
+                        <table class="simple-table">
+                            <tr><td><strong>Nama</strong></td><td>DOPS Persalinan Normal</td></tr>
+                            <tr><td><strong>Kode</strong></td><td>DOPS-PN-001</td></tr>
+                            <tr><td><strong>Program</strong></td><td>D3 Kebidanan</td></tr>
+                            <tr><td><strong>Tipe</strong></td><td>Praktek</td></tr>
+                            <tr><td><strong>Penilai</strong></td><td>Pembimbing Klinik</td></tr>
+                            <tr><td><strong>Metode Hitung</strong></td><td>Weighted (berbobot)</td></tr>
+                            <tr><td><strong>Nilai Min</strong></td><td>0</td></tr>
+                            <tr><td><strong>Nilai Max</strong></td><td>100</td></tr>
+                            <tr><td><strong>Nilai Lulus</strong></td><td>70</td></tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number"><span class="current">10</span> / 30</div>
+        </div>
+
+        <!-- ==================== SLIDE 11: TIPE NILAI ==================== -->
+        <div class="slide">
+            <h2><span class="emoji">🎯</span> Admin: Tipe Nilai dalam Template <span class="section-tag">Admin</span></h2>
+            <div class="content">
+                <p>Setiap komponen dalam template dapat menggunakan salah satu dari 4 tipe nilai berikut:</p>
+
+                <div class="card-grid cols-2">
+                    <div class="card">
+                        <div class="card-icon">📊</div>
+                        <h4>Tipe: Rubrik</h4>
+                        <p>Pilihan dengan deskripsi detail untuk setiap level nilai.</p>
+                        <div class="highlight-box" style="margin-top: 12px; padding: 12px;">
+                            <p style="margin: 0; font-size: 12px;">
+                                <strong>1 = Tidak Kompeten:</strong> Tidak mampu melakukan<br>
+                                <strong>2 = Kurang Kompeten:</strong> Perlu bimbingan penuh<br>
+                                <strong>3 = Kompeten:</strong> Bisa dengan sedikit arahan<br>
+                                <strong>4 = Sangat Kompeten:</strong> Mandiri sempurna
+                            </p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">🔢</div>
+                        <h4>Tipe: Numerik</h4>
+                        <p>Input angka bebas dengan batas minimum dan maksimum.</p>
+                        <div class="highlight-box" style="margin-top: 12px; padding: 12px;">
+                            <p style="margin: 0; font-size: 12px;">
+                                <strong>Contoh:</strong><br>
+                                • Range 0-100 untuk nilai persentase<br>
+                                • Range 1-10 untuk skala pendek<br>
+                                • Bisa menggunakan desimal (75.5)
+                            </p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">☑️</div>
+                        <h4>Tipe: Checklist</h4>
+                        <p>Pilihan Ya atau Tidak untuk item yang bersifat dikerjakan/tidak.</p>
+                        <div class="highlight-box" style="margin-top: 12px; padding: 12px;">
+                            <p style="margin: 0; font-size: 12px;">
+                                <strong>Contoh penggunaan:</strong><br>
+                                • Cuci tangan sebelum tindakan — Ya/Tidak<br>
+                                • Informed consent — Ya/Tidak<br>
+                                • Dokumentasi lengkap — Ya/Tidak
+                            </p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">🅰️</div>
+                        <h4>Tipe: Grade</h4>
+                        <p>Input huruf grade langsung (A, B, C, D, E).</p>
+                        <div class="highlight-box" style="margin-top: 12px; padding: 12px;">
+                            <p style="margin: 0; font-size: 12px;">
+                                <strong>Konversi otomatis:</strong><br>
+                                A = 4 poin, B = 3 poin, C = 2 poin<br>
+                                D = 1 poin, E = 0 poin
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="highlight-box tip">
+                    <strong>💡 Kapan Menggunakan Tipe Mana?</strong>
+                    <p><strong>Rubrik:</strong> Untuk kompetensi dengan kriteria jelas. <strong>Numerik:</strong> Untuk nilai bebas. <strong>Checklist:</strong> Untuk item ya/tidak. <strong>Grade:</strong> Untuk penilaian langsung dengan huruf.</p>
+                </div>
+            </div>
+            <div class="slide-number"><span class="current">11</span> / 30</div>
+        </div>
+
+        <!-- ==================== SLIDE 12: KELOLA PENEMPATAN ==================== -->
+        <div class="slide">
+            <h2><span class="emoji">📍</span> Admin: Kelola Penempatan PKL <span class="section-tag">Admin</span></h2>
+            <div class="content">
+                <div class="highlight-box danger">
+                    <strong>🚨 SANGAT PENTING!</strong>
+                    <p>Penempatan PKL <strong>HARUS dibuat terlebih dahulu</strong> sebelum pembimbing bisa menilai mahasiswa. Tanpa penempatan, mahasiswa tidak akan muncul di daftar penilaian pembimbing.</p>
+                </div>
+
+                <h3>➕ Menambah Penempatan PKL</h3>
+                <div class="step-grid">
+                    <div class="step-card">
+                        <div class="step-number">1</div>
+                        <h5>Buka Menu</h5>
+                        <p>Klik "Penempatan PKL"</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">2</div>
+                        <h5>Klik Tambah</h5>
+                        <p>Klik "+ Tambah Penempatan"</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <h5>Pilih Mahasiswa</h5>
+                        <p>Pilih mahasiswa & lokasi</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">4</div>
+                        <h5>Pilih Pembimbing</h5>
+                        <p>Tentukan PI dan PK</p>
+                    </div>
+                </div>
+
+                <h3>📝 Data Penempatan</h3>
+                <table class="simple-table">
+                    <thead><tr><th>Field</th><th>Keterangan</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>Program Studi</strong></td><td>Pilih prodi terlebih dahulu (filter mahasiswa)</td></tr>
+                        <tr><td><strong>Mahasiswa</strong></td><td>Pilih mahasiswa yang akan ditempatkan</td></tr>
+                        <tr><td><strong>Lokasi PKL</strong></td><td>Nama tempat praktik (RS Hasan Sadikin, Puskesmas X, dll)</td></tr>
+                        <tr><td><strong>Alamat Lokasi</strong></td><td>Alamat lengkap tempat praktik</td></tr>
+                        <tr><td><strong>Tanggal Mulai</strong></td><td>Tanggal mulai PKL</td></tr>
+                        <tr><td><strong>Tanggal Selesai</strong></td><td>Tanggal berakhir PKL</td></tr>
+                        <tr><td><strong>Pembimbing Institusi</strong></td><td>Dosen/staff dari kampus</td></tr>
+                        <tr><td><strong>Pembimbing Klinik</strong></td><td>Staff dari tempat praktik</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="slide-number"><span class="current">12</span> / 30</div>
+        </div>
+
+        <!-- ==================== SLIDE 13: APPROVAL PENILAIAN ==================== -->
+        <div class="slide">
+            <h2><span class="emoji">✅</span> Admin: Approval Penilaian <span class="section-tag">Admin</span></h2>
+            <div class="content">
+                <p>Setelah pembimbing mengirimkan penilaian, Admin perlu mereview dan memberikan keputusan.</p>
+
+                <h3>🔄 Alur Approval</h3>
+                <div class="status-flow">
+                    <div class="status-item">
+                        <div class="status-name">DRAFT</div>
+                        <div class="status-desc">Pembimbing mengisi</div>
+                    </div>
+                    <span class="status-arrow">→</span>
+                    <div class="status-item active">
+                        <div class="status-name">SUBMITTED</div>
+                        <div class="status-desc">Menunggu review</div>
+                    </div>
+                    <span class="status-arrow">→</span>
+                    <div class="status-item" style="background: var(--accent-mint); color: white;">
+                        <div class="status-name">APPROVED</div>
+                        <div class="status-desc">Disetujui ✓</div>
+                    </div>
+                </div>
+
+                <div class="two-col">
+                    <div class="col">
+                        <h4>✅ Jika APPROVE</h4>
+                        <ul>
+                            <li>Status berubah menjadi <strong>"Approved"</strong></li>
+                            <li>Nilai menjadi <strong>final dan tidak bisa diubah</strong></li>
+                            <li>Mahasiswa <strong>bisa melihat</strong> hasil penilaiannya</li>
+                            <li>Penilaian <strong>bisa dicetak/download</strong></li>
+                            <li>Tercatat siapa yang approve dan kapan</li>
+                        </ul>
+                    </div>
+                    <div class="col">
+                        <h4>❌ Jika REJECT</h4>
+                        <ul>
+                            <li>Status berubah menjadi <strong>"Rejected"</strong></li>
+                            <li>Admin <strong>wajib mengisi alasan</strong> penolakan</li>
+                            <li>Pembimbing menerima notifikasi</li>
+                            <li>Pembimbing <strong>perlu memperbaiki</strong> dan submit ulang</li>
+                            <li>Mahasiswa <strong>belum bisa melihat</strong> nilai</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="highlight-box tip">
+                    <strong>💡 Tips Review Penilaian</strong>
+                    <p>Periksa: (1) Semua komponen wajib terisi, (2) Nilai sesuai dengan range, (3) Feedback sudah ditulis, (4) Tanggal penilaian wajar.</p>
+                </div>
+            </div>
+            <div class="slide-number"><span class="current">13</span> / 30</div>
+        </div>
+
+        <!-- ==================== SLIDE 14: DASHBOARD PEMBIMBING ==================== -->
+        <div class="slide">
+            <h2><span class="emoji">👨‍🏫</span> Dashboard Pembimbing <span class="section-tag">Pembimbing</span></h2>
+            <div class="content">
+                <p>Setelah login sebagai Pembimbing (Dosen, PI, atau PK), Anda akan melihat ringkasan penilaian Anda:</p>
+
+                <div class="stats-row">
+                    <div class="stat-box">
+                        <div class="emoji">👨‍🎓</div>
+                        <div class="value">12</div>
+                        <div class="label">Mahasiswa Bimbingan</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="emoji">📝</div>
+                        <div class="value">8</div>
+                        <div class="label">Total Penilaian</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="emoji">📄</div>
+                        <div class="value">2</div>
+                        <div class="label">Draft</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="emoji">✅</div>
+                        <div class="value">5</div>
+                        <div class="label">Approved</div>
+                    </div>
+                </div>
+
+                <h3>📌 Yang Bisa Anda Lakukan</h3>
+                <div class="feature-list">
+                    <div class="feature-item">
+                        <div class="icon">👨‍🎓</div>
+                        <div class="text">
+                            <h5>Lihat Mahasiswa Bimbingan</h5>
+                            <p>Daftar semua mahasiswa yang Anda bimbing berdasarkan penempatan PKL</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="icon">➕</div>
+                        <div class="text">
+                            <h5>Buat Penilaian Baru</h5>
+                            <p>Mulai menilai mahasiswa dengan template yang tersedia</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="icon">📝</div>
+                        <div class="text">
+                            <h5>Lanjutkan Draft</h5>
+                            <p>Selesaikan penilaian yang masih tersimpan sebagai draft</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="icon">📊</div>
+                        <div class="text">
+                            <h5>Lihat Riwayat</h5>
+                            <p>Semua penilaian yang pernah Anda buat beserta statusnya</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="highlight-box">
+                    <strong>📢 Catatan Penting</strong>
+                    <p>Anda hanya bisa menilai mahasiswa yang <strong>sudah memiliki penempatan PKL aktif</strong> dan Anda terdaftar sebagai pembimbingnya. Jika mahasiswa tidak muncul, hubungi Admin.</p>
+                </div>
+            </div>
+            <div class="slide-number"><span class="current">14</span> / 30</div>
+        </div>
+
+        <!-- ==================== SLIDE 15: MEMBUAT PENILAIAN ==================== -->
+        <div class="slide">
+            <h2><span class="emoji">✍️</span> Pembimbing: Membuat Penilaian <span class="section-tag">Pembimbing</span></h2>
+            <div class="content">
+                <h3>📝 Langkah Membuat Penilaian Baru</h3>
+                <div class="step-grid cols-5">
+                    <div class="step-card">
+                        <div class="step-number">1</div>
+                        <h5>Buka Menu</h5>
+                        <p>Klik "Penilaian" → "Buat Baru"</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">2</div>
+                        <h5>Pilih Mahasiswa</h5>
+                        <p>Pilih dari daftar bimbingan</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <h5>Pilih Template</h5>
+                        <p>Pilih jenis penilaian</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">4</div>
+                        <h5>Isi Info</h5>
+                        <p>Tanggal, topik, kompleksitas</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">5</div>
+                        <h5>Buat Draft</h5>
+                        <p>Klik "Buat Draft"</p>
+                    </div>
+                </div>
+
+                <h3>📋 Informasi yang Perlu Diisi</h3>
+                <div class="two-col">
+                    <div class="col">
+                        <h4>Data Wajib</h4>
+                        <ul>
+                            <li><strong>Mahasiswa</strong> — Pilih dari dropdown</li>
+                            <li><strong>Template</strong> — Jenis penilaian (DOPS, Mini-CEX, dll)</li>
+                            <li><strong>Tanggal Penilaian</strong> — Tanggal observasi dilakukan</li>
+                        </ul>
+                    </div>
+                    <div class="col">
+                        <h4>Data Opsional</h4>
+                        <ul>
+                            <li><strong>Topik/Prosedur</strong> — Apa yang dinilai</li>
+                            <li><strong>Kompleksitas Kasus</strong> — Low/Medium/High</li>
+                            <li><strong>Catatan Umum</strong> — Keterangan tambahan</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="highlight-box tip">
+                    <strong>💡 Tips</strong>
+                    <p>Setelah klik "Buat Draft", Anda akan diarahkan ke halaman pengisian nilai. Draft bisa disimpan dan dilanjutkan kapan saja.</p>
+                </div>
+            </div>
+            <div class="slide-number"><span class="current">15</span> / 30</div>
+        </div>
+
+        <!-- ==================== SLIDE 16: MENGISI NILAI ==================== -->
+        <div class="slide">
+            <h2><span class="emoji">📊</span> Pembimbing: Mengisi Nilai <span class="section-tag">Pembimbing</span></h2>
+            <div class="content">
+                <p>Setelah draft dibuat, Anda akan melihat form pengisian nilai sesuai template yang dipilih.</p>
+
+                <h3>🎯 Cara Mengisi Berdasarkan Tipe Nilai</h3>
+                <div class="card-grid cols-2">
+                    <div class="card">
+                        <h4>📊 Tipe Rubrik</h4>
+                        <ul>
+                            <li>Klik dropdown pada komponen</li>
+                            <li>Pilih level yang sesuai (1, 2, 3, atau 4)</li>
+                            <li>Klik tombol <strong>"Lihat Rubrik"</strong> untuk melihat deskripsi setiap level</li>
+                            <li>Pilih berdasarkan observasi Anda</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>🔢 Tipe Numerik</h4>
+                        <ul>
+                            <li>Klik kolom input angka</li>
+                            <li>Masukkan nilai sesuai observasi</li>
+                            <li>Perhatikan batas <strong>min dan max</strong></li>
+                            <li>Bisa menggunakan desimal (misal: 85.5)</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>☑️ Tipe Checklist</h4>
+                        <ul>
+                            <li>Klik dropdown Ya/Tidak</li>
+                            <li><strong>Ya</strong> = mahasiswa melakukan</li>
+                            <li><strong>Tidak</strong> = mahasiswa tidak melakukan</li>
+                            <li>Nilai otomatis: Ya = max, Tidak = 0</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>🅰️ Tipe Grade</h4>
+                        <ul>
+                            <li>Pilih huruf grade dari dropdown</li>
+                            <li>Pilihan: A, B, C, D, atau E</li>
+                            <li>Konversi otomatis ke nilai angka</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="highlight-box success">
+                    <strong>💾 Simpan Draft Berkala</strong>
+                    <p>Klik tombol <strong>"Simpan Draft"</strong> secara berkala untuk menyimpan progress. Anda bisa meninggalkan halaman dan melanjutkan nanti tanpa kehilangan data.</p>
+                </div>
+            </div>
+            <div class="slide-number"><span class="current">16</span> / 30</div>
+        </div>
+
+        <!-- ==================== SLIDE 17: SUBMIT PENILAIAN ==================== -->
+        <div class="slide">
+            <h2><span class="emoji">📤</span> Pembimbing: Submit Penilaian <span class="section-tag">Pembimbing</span></h2>
+            <div class="content">
+                <div class="highlight-box danger">
+                    <strong>🚨 PERHATIAN PENTING!</strong>
+                    <p>Setelah klik <strong>"Submit"</strong>, penilaian <strong>TIDAK BISA DIUBAH LAGI</strong>. Pastikan semua nilai sudah benar sebelum submit!</p>
+                </div>
+
+                <h3>✅ Checklist Sebelum Submit</h3>
+                <div class="two-col">
+                    <div class="col">
+                        <h4>Yang Harus Dipastikan:</h4>
+                        <ul>
+                            <li><strong>Semua komponen wajib terisi</strong> — Komponen bertanda (*) harus diisi</li>
+                            <li><strong>Nilai sesuai observasi</strong> — Review ulang setiap nilai yang diberikan</li>
+                            <li><strong>Tanggal benar</strong> — Sesuai tanggal observasi dilakukan</li>
+                            <li><strong>Feedback ditulis</strong> — Berikan catatan konstruktif untuk mahasiswa</li>
+                        </ul>
+                    </div>
+                    <div class="col">
+                        <h4>Setelah Submit:</h4>
+                        <ul>
+                            <li>Status berubah menjadi <strong>"Submitted"</strong></li>
+                            <li>Sistem <strong>menghitung nilai total</strong> otomatis</li>
+                            <li>Sistem <strong>menentukan grade</strong> (A/B/C/D/E)</li>
+                            <li>Sistem <strong>menentukan status lulus</strong>/tidak</li>
+                            <li>Penilaian masuk <strong>antrian approval</strong> Admin</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>🔄 Status Penilaian Anda</h3>
+                <div class="status-flow">
+                    <div class="status-item">
+                        <div class="status-name">DRAFT</div>
+                        <div class="status-desc">Sedang mengisi</div>
+                    </div>
+                    <span class="status-arrow">→</span>
+                    <div class="status-item active">
+                        <div class="status-name">SUBMITTED</div>
+                        <div class="status-desc">Menunggu Admin</div>
+                    </div>
+                    <span class="status-arrow">→</span>
+                    <div class="status-item" style="background: var(--accent-mint); color: white;">
+                        <div class="status-name">APPROVED</div>
+                        <div class="status-desc">Selesai ✓</div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number"><span class="current">17</span> / 30</div>
+        </div>
+
+        <!-- ==================== SLIDE 18: PENILAIAN DITOLAK ==================== -->
+        <div class="slide">
+            <h2><span class="emoji">↩️</span> Pembimbing: Jika Penilaian Ditolak <span class="section-tag">Pembimbing</span></h2>
+            <div class="content">
+                <p>Terkadang Admin mungkin mengembalikan penilaian Anda untuk diperbaiki. Ini normal dan bagian dari quality control.</p>
+
+                <h3>❌ Alasan Umum Penolakan</h3>
+                <div class="card-grid cols-3">
+                    <div class="card">
+                        <div class="card-icon">📝</div>
+                        <h4>Nilai Tidak Lengkap</h4>
+                        <p>Ada komponen wajib yang belum terisi atau masih kosong</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">📅</div>
+                        <h4>Tanggal Tidak Sesuai</h4>
+                        <p>Tanggal penilaian di luar periode penempatan mahasiswa</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">💬</div>
+                        <h4>Feedback Kurang</h4>
+                        <p>Catatan/feedback untuk mahasiswa belum diisi atau terlalu singkat</p>
+                    </div>
+                </div>
+
+                <h3>🔧 Cara Memperbaiki Penilaian yang Ditolak</h3>
+                <div class="step-grid">
+                    <div class="step-card">
+                        <div class="step-number">1</div>
+                        <h5>Lihat Notifikasi</h5>
+                        <p>Cek alasan penolakan dari Admin</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">2</div>
+                        <h5>Buka Penilaian</h5>
+                        <p>Klik penilaian yang ditolak</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <h5>Perbaiki</h5>
+                        <p>Lengkapi/perbaiki sesuai catatan</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">4</div>
+                        <h5>Submit Ulang</h5>
+                        <p>Submit kembali untuk direview</p>
+                    </div>
+                </div>
+
+                <div class="highlight-box tip">
+                    <strong>💡 Tips Mencegah Penolakan</strong>
+                    <p>• Isi semua komponen bertanda wajib (*)<br>
+                       • Tulis feedback minimal 2-3 kalimat konstruktif<br>
+                       • Pastikan tanggal sesuai dengan tanggal observasi sebenarnya<br>
+                       • Review ulang sebelum submit</p>
+                </div>
+            </div>
+            <div class="slide-number"><span class="current">18</span> / 30</div>
+        </div>
+
+        <!-- ==================== SLIDE 19: DASHBOARD MAHASISWA ==================== -->
+        <div class="slide">
+            <h2><span class="emoji">👨‍🎓</span> Dashboard Mahasiswa <span class="section-tag">Mahasiswa</span></h2>
+            <div class="content">
+                <p>Setelah login sebagai mahasiswa, Anda bisa melihat informasi PKL dan hasil penilaian Anda.</p>
+
+                <div class="stats-row">
+                    <div class="stat-box">
+                        <div class="emoji">📍</div>
+                        <div class="value">1</div>
+                        <div class="label">Penempatan Aktif</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="emoji">📋</div>
+                        <div class="value">5</div>
+                        <div class="label">Total Penilaian</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="emoji">📊</div>
+                        <div class="value">82.5</div>
+                        <div class="label">Rata-rata Nilai</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="emoji">🎓</div>
+                        <div class="value">B+</div>
+                        <div class="label">Grade Akhir</div>
+                    </div>
+                </div>
+
+                <h3>📌 Yang Bisa Anda Lakukan</h3>
+                <div class="feature-list">
+                    <div class="feature-item">
+                        <div class="icon">📍</div>
+                        <div class="text">
+                            <h5>Lihat Penempatan PKL</h5>
+                            <p>Informasi lokasi, periode, dan pembimbing Anda</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="icon">📊</div>
+                        <div class="text">
+                            <h5>Lihat Hasil Penilaian</h5>
+                            <p>Semua penilaian yang sudah disetujui (approved)</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="icon">📈</div>
+                        <div class="text">
+                            <h5>Lihat Progress</h5>
+                            <p>Grafik perkembangan nilai Anda dari waktu ke waktu</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="icon">🖨️</div>
+                        <div class="text">
+                            <h5>Cetak/Download</h5>
+                            <p>Download hasil penilaian dalam format PDF</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="highlight-box warning">
+                    <strong>⚠️ Catatan Penting</strong>
+                    <p>Anda <strong>hanya bisa melihat penilaian yang sudah disetujui (Approved)</strong> oleh Admin. Penilaian yang masih Draft atau Submitted belum bisa dilihat.</p>
+                </div>
+            </div>
+            <div class="slide-number"><span class="current">19</span> / 30</div>
+        </div>
+
+        <!-- ==================== SLIDE 20: MELIHAT PENEMPATAN ==================== -->
+        <div class="slide">
+            <h2><span class="emoji">📍</span> Mahasiswa: Melihat Penempatan <span class="section-tag">Mahasiswa</span></h2>
+            <div class="content">
+                <p>Di menu Penempatan, Anda bisa melihat detail informasi PKL Anda.</p>
+
+                <h3>📋 Informasi yang Ditampilkan</h3>
+                <div class="card-grid cols-2">
+                    <div class="card">
+                        <div class="card-icon">🏥</div>
+                        <h4>Lokasi PKL</h4>
+                        <p>Nama dan alamat lengkap tempat Anda praktik (rumah sakit, puskesmas, klinik, dll)</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">📅</div>
+                        <h4>Periode</h4>
+                        <p>Tanggal mulai dan selesai PKL Anda, serta durasi dalam minggu</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">🏛️</div>
+                        <h4>Pembimbing Institusi</h4>
+                        <p>Nama dosen/staff dari kampus yang membimbing Anda</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">🏥</div>
+                        <h4>Pembimbing Klinik</h4>
+                        <p>Nama bidan/perawat dari tempat praktik yang membimbing Anda</p>
+                    </div>
+                </div>
+
+                <h3>📊 Status Penempatan</h3>
+                <div class="status-flow">
+                    <div class="status-item active">
+                        <div class="status-name">ACTIVE</div>
+                        <div class="status-desc">Sedang berjalan</div>
+                    </div>
+                    <span class="status-arrow">→</span>
+                    <div class="status-item" style="background: var(--accent-mint); color: white;">
+                        <div class="status-name">COMPLETED</div>
+                        <div class="status-desc">Selesai</div>
+                    </div>
+                </div>
+
+                <div class="highlight-box tip">
+                    <strong>💡 Tips</strong>
+                    <p>Jika ada kesalahan data pada penempatan Anda (nama, lokasi, periode, atau pembimbing yang keliru), segera hubungi Admin untuk diperbaiki.</p>
+                </div>
+            </div>
+            <div class="slide-number"><span class="current">20</span> / 30</div>
+        </div>
+
+        <!-- ==================== SLIDE 21: MELIHAT HASIL PENILAIAN ==================== -->
+        <div class="slide">
+            <h2><span class="emoji">📊</span> Mahasiswa: Melihat Hasil Penilaian <span class="section-tag">Mahasiswa</span></h2>
+            <div class="content">
+                <h3>📋 Langkah Melihat Penilaian</h3>
+                <div class="step-grid cols-3">
+                    <div class="step-card">
+                        <div class="step-number">1</div>
+                        <h5>Buka Menu</h5>
+                        <p>Klik "Hasil Penilaian" di sidebar</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">2</div>
+                        <h5>Lihat Daftar</h5>
+                        <p>Semua penilaian approved ditampilkan</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <h5>Klik Detail</h5>
+                        <p>Klik baris untuk lihat rincian</p>
+                    </div>
+                </div>
+
+                <h3>📝 Informasi dalam Halaman Detail</h3>
+                <div class="two-col">
+                    <div class="col">
+                        <h4>Informasi Umum</h4>
+                        <ul>
+                            <li><strong>Jenis Penilaian</strong> — Template yang digunakan</li>
+                            <li><strong>Tanggal</strong> — Kapan dinilai</li>
+                            <li><strong>Penilai</strong> — Siapa yang menilai</li>
+                            <li><strong>Topik</strong> — Prosedur yang dinilai</li>
+                        </ul>
+                    </div>
+                    <div class="col">
+                        <h4>Hasil Penilaian</h4>
+                        <ul>
+                            <li><strong>Nilai per Komponen</strong> — Detail setiap item</li>
+                            <li><strong>Nilai Total</strong> — Hasil perhitungan</li>
+                            <li><strong>Grade</strong> — A, B, C, D, atau E</li>
+                            <li><strong>Status Lulus</strong> — Lulus/Tidak Lulus</li>
+                            <li><strong>Feedback</strong> — Catatan dari pembimbing</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="highlight-box success">
+                    <strong>💡 Manfaatkan Feedback</strong>
+                    <p>Baca feedback dari pembimbing dengan seksama. Ini adalah masukan berharga untuk meningkatkan kompetensi Anda di penilaian berikutnya.</p>
+                </div>
+            </div>
+            <div class="slide-number"><span class="current">21</span> / 30</div>
+        </div>
+
+        <!-- ==================== SLIDE 22: CETAK & DOWNLOAD ==================== -->
+        <div class="slide">
+            <h2><span class="emoji">🖨️</span> Mahasiswa: Cetak & Download <span class="section-tag">Mahasiswa</span></h2>
+            <div class="content">
+                <p>Anda bisa mencetak atau mendownload hasil penilaian yang sudah disetujui.</p>
+
+                <h3>📥 Cara Download/Cetak</h3>
+                <div class="step-grid">
+                    <div class="step-card">
+                        <div class="step-number">1</div>
+                        <h5>Buka Detail</h5>
+                        <p>Klik penilaian yang ingin dicetak</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">2</div>
+                        <h5>Klik Tombol</h5>
+                        <p>Klik ikon cetak/download</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <h5>Pilih Aksi</h5>
+                        <p>Print langsung atau Save as PDF</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">4</div>
+                        <h5>Simpan</h5>
+                        <p>File tersimpan di komputer</p>
+                    </div>
+                </div>
+
+                <h3>📄 Format Dokumen</h3>
+                <div class="two-col">
+                    <div class="col">
+                        <h4>Isi Dokumen Penilaian</h4>
+                        <ul>
+                            <li>Kop/Header institusi</li>
+                            <li>Data mahasiswa & pembimbing</li>
+                            <li>Informasi penempatan</li>
+                            <li>Tabel nilai per komponen</li>
+                            <li>Total nilai & grade</li>
+                            <li>Status kelulusan</li>
+                            <li>Tanda tangan digital penilai</li>
+                            <li>Tanggal approval</li>
+                        </ul>
+                    </div>
+                    <div class="col">
+                        <h4>Tips Mencetak</h4>
+                        <ul>
+                            <li>Gunakan kertas <strong>A4</strong></li>
+                            <li>Pilih orientasi <strong>Portrait</strong></li>
+                            <li>Margin: <strong>Normal</strong> (2.5 cm)</li>
+                            <li>Untuk arsip, simpan juga sebagai <strong>PDF</strong></li>
+                            <li>Pastikan printer tersambung</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="highlight-box warning">
+                    <strong>⚠️ Catatan</strong>
+                    <p>Dokumen yang dicetak hanya untuk keperluan dokumentasi pribadi. Untuk keperluan administrasi resmi, gunakan dokumen dari bagian akademik kampus.</p>
+                </div>
+            </div>
+            <div class="slide-number"><span class="current">22</span> / 30</div>
+        </div>
+
+        <!-- ==================== SLIDE 23: SISTEM PERHITUNGAN ==================== -->
+        <div class="slide">
+            <h2><span class="emoji">🧮</span> Sistem Perhitungan Nilai <span class="section-tag">Info</span></h2>
+            <div class="content">
+                <p>WorkPlaceEval mendukung 3 metode perhitungan nilai total:</p>
+
+                <div class="card-grid cols-3">
+                    <div class="card">
+                        <div class="card-icon">➗</div>
+                        <h4>Rata-rata (Average)</h4>
+                        <p>Semua nilai komponen dijumlah lalu dibagi jumlah komponen.</p>
+                        <div class="highlight-box" style="margin-top: 12px; padding: 12px;">
+                            <p style="font-size: 12px; margin: 0;">
+                                <strong>Contoh:</strong><br>
+                                (80 + 75 + 90) ÷ 3 = <strong>81.67</strong>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">⚖️</div>
+                        <h4>Berbobot (Weighted)</h4>
+                        <p>Setiap kategori memiliki bobot (%). Nilai dikalikan bobot.</p>
+                        <div class="highlight-box" style="margin-top: 12px; padding: 12px;">
+                            <p style="font-size: 12px; margin: 0;">
+                                <strong>Contoh:</strong><br>
+                                (80×30%) + (90×70%) = <br>24 + 63 = <strong>87</strong>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">➕</div>
+                        <h4>Penjumlahan (Sum)</h4>
+                        <p>Semua nilai komponen dijumlahkan secara langsung.</p>
+                        <div class="highlight-box" style="margin-top: 12px; padding: 12px;">
+                            <p style="font-size: 12px; margin: 0;">
+                                <strong>Contoh:</strong><br>
+                                15 + 18 + 12 = <strong>45</strong><br>
+                                (dari max 60)
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>🎓 Konversi ke Grade</h3>
+                <div class="grade-grid">
+                    <div class="grade-item">
+                        <div class="grade">A</div>
+                        <div class="range">≥ 85%</div>
+                        <div class="desc">Sangat Baik</div>
+                    </div>
+                    <div class="grade-item">
+                        <div class="grade">B</div>
+                        <div class="range">75 - 84%</div>
+                        <div class="desc">Baik</div>
+                    </div>
+                    <div class="grade-item">
+                        <div class="grade">C</div>
+                        <div class="range">65 - 74%</div>
+                        <div class="desc">Cukup</div>
+                    </div>
+                    <div class="grade-item">
+                        <div class="grade">D</div>
+                        <div class="range">55 - 64%</div>
+                        <div class="desc">Kurang</div>
+                    </div>
+                    <div class="grade-item">
+                        <div class="grade">E</div>
+                        <div class="range">< 55%</div>
+                        <div class="desc">Sangat Kurang</div>
+                    </div>
+                </div>
+
+                <div class="highlight-box">
+                    <strong>✅ Status Kelulusan</strong>
+                    <p>Mahasiswa dinyatakan <strong>LULUS</strong> jika nilai total ≥ Nilai Lulus yang ditetapkan di template (umumnya 70). Jika di bawah nilai lulus, status <strong>TIDAK LULUS</strong>.</p>
+                </div>
+            </div>
+            <div class="slide-number"><span class="current">23</span> / 30</div>
+        </div>
+
+        <!-- ==================== SLIDE 24: FAQ UMUM ==================== -->
+        <div class="slide">
+            <h2><span class="emoji">❓</span> FAQ - Pertanyaan Umum <span class="section-tag">Bantuan</span></h2>
+            <div class="content">
+                <div class="faq-item">
+                    <div class="question">Saya lupa password, bagaimana cara resetnya?</div>
+                    <div class="answer">Klik link "Lupa Password?" di halaman login, masukkan email Anda, lalu cek inbox email (termasuk folder Spam) untuk link reset password.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="question">Kenapa nilai saya belum muncul padahal sudah dinilai?</div>
+                    <div class="answer">Mahasiswa hanya bisa melihat penilaian yang statusnya <strong>"Approved"</strong>. Jika pembimbing baru submit, nilai masih menunggu persetujuan Admin. Hubungi Admin untuk informasi lebih lanjut.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="question">Apakah nilai bisa diubah setelah disubmit?</div>
+                    <div class="answer">Tidak. Setelah pembimbing klik Submit, nilai tidak bisa diubah. Jika Admin menolak (reject), pembimbing bisa memperbaiki dan submit ulang.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="question">Saya tidak muncul di daftar mahasiswa pembimbing, kenapa?</div>
+                    <div class="answer">Kemungkinan Admin belum membuat penempatan PKL untuk Anda. Hubungi Admin untuk memastikan data penempatan sudah diinput dengan benar.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="question">Apakah bisa diakses dari HP/tablet?</div>
+                    <div class="answer">Ya, aplikasi bersifat responsive dan bisa diakses dari browser di HP atau tablet. Namun untuk pengalaman terbaik, gunakan laptop/komputer.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="question">Bagaimana cara mencetak hasil penilaian?</div>
+                    <div class="answer">Buka detail penilaian (status Approved), klik ikon printer atau download, lalu pilih print atau save as PDF.</div>
+                </div>
+            </div>
+            <div class="slide-number"><span class="current">24</span> / 30</div>
+        </div>
+
+        <!-- ==================== SLIDE 25: FAQ ADMIN ==================== -->
+        <div class="slide">
+            <h2><span class="emoji">❓</span> FAQ - Untuk Admin <span class="section-tag">Bantuan</span></h2>
+            <div class="content">
+                <div class="faq-item">
+                    <div class="question">Bagaimana cara mengubah password user yang lupa?</div>
+                    <div class="answer">Buka menu Pengguna, cari user yang bersangkutan, klik Edit, lalu isi field password baru. Informasikan password baru ke user tersebut dan sarankan untuk segera menggantinya.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="question">Bagaimana jika bobot kategori tidak mencapai 100%?</div>
+                    <div class="answer">Sistem akan menampilkan peringatan. Pastikan total bobot semua kategori dalam satu template tepat 100%. Jika tidak, perhitungan weighted tidak akurat.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="question">Bisakah template yang sudah dipakai dihapus?</div>
+                    <div class="answer">Template yang sudah memiliki penilaian <strong>tidak bisa dihapus</strong> untuk menjaga integritas data. Anda hanya bisa menonaktifkannya agar tidak muncul di pilihan pembimbing.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="question">Bagaimana cara bulk import data pengguna?</div>
+                    <div class="answer">Fitur bulk import akan tersedia di versi mendatang. Saat ini, penambahan user dilakukan satu per satu melalui form. Untuk import banyak user sekaligus, hubungi tim teknis.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="question">Apa yang terjadi jika saya nonaktifkan program studi?</div>
+                    <div class="answer">Program yang dinonaktifkan tidak akan muncul di dropdown pilihan, namun data historis tetap tersimpan. Pengguna yang terkait dengan program tersebut masih bisa login dan melihat data lama.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="question">Bagaimana cara melihat log aktivitas sistem?</div>
+                    <div class="answer">Fitur audit log akan tersedia di versi mendatang. Saat ini, Anda bisa melihat aktivitas terbaru dari dashboard dan daftar penilaian.</div>
+                </div>
+            </div>
+            <div class="slide-number"><span class="current">25</span> / 30</div>
+        </div>
+
+        <!-- ==================== SLIDE 26: FAQ PEMBIMBING ==================== -->
+        <div class="slide">
+            <h2><span class="emoji">❓</span> FAQ - Untuk Pembimbing <span class="section-tag">Bantuan</span></h2>
+            <div class="content">
+                <div class="faq-item">
+                    <div class="question">Mahasiswa saya tidak muncul di daftar penilaian, kenapa?</div>
+                    <div class="answer">Kemungkinan besar Admin belum membuat penempatan PKL untuk mahasiswa tersebut, atau Anda belum ditugaskan sebagai pembimbingnya. Hubungi Admin untuk verifikasi data penempatan.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="question">Bisakah saya menilai satu mahasiswa lebih dari sekali?</div>
+                    <div class="answer">Ya, Anda bisa membuat beberapa penilaian untuk mahasiswa yang sama menggunakan template yang sama atau berbeda. Setiap penilaian adalah record terpisah.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="question">Bagaimana jika saya salah mengisi nilai tapi sudah submit?</div>
+                    <div class="answer">Hubungi Admin dan jelaskan kesalahannya. Admin bisa menolak (reject) penilaian tersebut agar Anda bisa memperbaikinya dan submit ulang.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="question">Apakah draft penilaian akan hilang jika saya logout?</div>
+                    <div class="answer">Tidak, draft tersimpan di database. Anda bisa logout dan login kembali kapan saja, draft akan tetap ada dan bisa dilanjutkan.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="question">Berapa lama proses approval oleh Admin?</div>
+                    <div class="answer">Tergantung kebijakan institusi, biasanya 1-3 hari kerja. Jika lebih lama, hubungi Admin untuk konfirmasi.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="question">Bisakah saya melihat penilaian yang dibuat pembimbing lain?</div>
+                    <div class="answer">Tidak, Anda hanya bisa melihat dan mengelola penilaian yang Anda buat sendiri. Ini untuk menjaga privasi dan akuntabilitas penilaian.</div>
+                </div>
+            </div>
+            <div class="slide-number"><span class="current">26</span> / 30</div>
+        </div>
+
+        <!-- ==================== SLIDE 27: FAQ MAHASISWA ==================== -->
+        <div class="slide">
+            <h2><span class="emoji">❓</span> FAQ - Untuk Mahasiswa <span class="section-tag">Bantuan</span></h2>
+            <div class="content">
+                <div class="faq-item">
+                    <div class="question">Kapan saya bisa melihat nilai saya?</div>
+                    <div class="answer">Anda bisa melihat nilai setelah pembimbing submit penilaian <strong>DAN</strong> Admin menyetujuinya (Approved). Jika status masih Draft atau Submitted, nilai belum bisa dilihat.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="question">Kenapa nilai saya tidak ada padahal sudah praktik?</div>
+                    <div class="answer">Kemungkinan: (1) Pembimbing belum membuat penilaian, (2) Penilaian masih draft/belum disubmit, (3) Admin belum approve. Hubungi pembimbing untuk konfirmasi.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="question">Apakah saya bisa komplain jika merasa nilai tidak adil?</div>
+                    <div class="answer">Anda bisa menghubungi pembimbing untuk diskusi. Jika diperlukan, bawa ke koordinator prodi atau bagian akademik sesuai prosedur kampus.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="question">Bagaimana jika data penempatan saya salah?</div>
+                    <div class="answer">Segera hubungi Admin dengan menyebutkan data yang salah dan koreksinya. Admin akan memperbaiki data penempatan Anda.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="question">Apakah hasil penilaian bisa digunakan untuk melamar kerja?</div>
+                    <div class="answer">Hasil penilaian dari aplikasi ini adalah untuk dokumentasi internal. Untuk keperluan resmi seperti melamar kerja, gunakan transkrip atau surat keterangan dari bagian akademik kampus.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="question">Bisakah saya melihat nilai teman saya?</div>
+                    <div class="answer">Tidak, setiap mahasiswa hanya bisa melihat nilai dirinya sendiri. Ini untuk menjaga privasi data akademik.</div>
+                </div>
+            </div>
+            <div class="slide-number"><span class="current">27</span> / 30</div>
+        </div>
+
+        <!-- ==================== SLIDE 28: TROUBLESHOOTING ==================== -->
+        <div class="slide">
+            <h2><span class="emoji">🔧</span> Troubleshooting <span class="section-tag">Bantuan</span></h2>
+            <div class="content">
+                <p>Berikut solusi untuk masalah umum yang mungkin Anda hadapi:</p>
+
+                <table class="simple-table">
+                    <thead>
+                        <tr><th style="width: 35%;">Masalah</th><th>Solusi</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Tidak bisa login</strong></td>
+                            <td>Pastikan email dan password benar. Cek Caps Lock. Coba reset password jika lupa.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Halaman error / blank</strong></td>
+                            <td>Refresh halaman (F5). Clear cache browser. Coba browser lain.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Loading sangat lama</strong></td>
+                            <td>Cek koneksi internet. Coba akses di waktu yang tidak sibuk.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Data tidak tersimpan</strong></td>
+                            <td>Pastikan klik tombol Simpan. Jangan menutup tab sebelum ada konfirmasi tersimpan.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Dropdown kosong</strong></td>
+                            <td>Refresh halaman. Jika tetap kosong, berarti data master belum diinput oleh Admin.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Tombol tidak berfungsi</strong></td>
+                            <td>Disable adblock/popup blocker. Coba browser Chrome terbaru.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Print tidak sesuai</strong></td>
+                            <td>Gunakan Chrome. Pilih kertas A4, orientasi Portrait. Hilangkan header/footer.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="highlight-box tip">
+                    <strong>💡 Tips Umum</strong>
+                    <p>
+                        • Gunakan browser <strong>Chrome</strong> atau <strong>Firefox</strong> versi terbaru<br>
+                        • Hindari menggunakan Internet Explorer<br>
+                        • Pastikan JavaScript diaktifkan di browser<br>
+                        • Jika masalah berlanjut, screenshot error dan hubungi Admin
+                    </p>
+                </div>
+            </div>
+            <div class="slide-number"><span class="current">28</span> / 30</div>
+        </div>
+
+        <!-- ==================== SLIDE 29: KONTAK SUPPORT ==================== -->
+        <div class="slide">
+            <h2><span class="emoji">📞</span> Kontak & Support <span class="section-tag">Bantuan</span></h2>
+            <div class="content">
+                <p>Jika Anda mengalami masalah atau memiliki pertanyaan yang tidak terjawab di panduan ini, silakan hubungi:</p>
+
+                <div class="card-grid cols-3">
+                    <div class="card">
+                        <div class="card-icon">👨‍💼</div>
+                        <h4>Administrator Sistem</h4>
+                        <p>Untuk masalah akun, data, penempatan, dan approval penilaian</p>
+                        <div class="highlight-box" style="margin-top: 12px; padding: 12px;">
+                            <p style="font-size: 12px; margin: 0;">
+                                📧 admin@workplaceeval.com<br>
+                                📱 0812-xxxx-xxxx
+                            </p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">🏫</div>
+                        <h4>Koordinator Prodi</h4>
+                        <p>Untuk masalah akademik, template penilaian, dan prosedur PKL</p>
+                        <div class="highlight-box" style="margin-top: 12px; padding: 12px;">
+                            <p style="font-size: 12px; margin: 0;">
+                                Hubungi koordinator prodi masing-masing
+                            </p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">💻</div>
+                        <h4>Tim IT Support</h4>
+                        <p>Untuk masalah teknis, error sistem, dan bug report</p>
+                        <div class="highlight-box" style="margin-top: 12px; padding: 12px;">
+                            <p style="font-size: 12px; margin: 0;">
+                                📧 it@workplaceeval.com<br>
+                                📱 0813-xxxx-xxxx
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>📝 Informasi yang Perlu Disiapkan Saat Menghubungi Support</h3>
+                <div class="two-col">
+                    <div class="col">
+                        <h4>Untuk Masalah Akun:</h4>
+                        <ul>
+                            <li>Nama lengkap Anda</li>
+                            <li>Email yang terdaftar</li>
+                            <li>Tipe user (Admin/Pembimbing/Mahasiswa)</li>
+                            <li>Program studi</li>
+                        </ul>
+                    </div>
+                    <div class="col">
+                        <h4>Untuk Masalah Teknis:</h4>
+                        <ul>
+                            <li>Screenshot error</li>
+                            <li>Langkah untuk mereproduksi masalah</li>
+                            <li>Browser yang digunakan</li>
+                            <li>Waktu kejadian</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number"><span class="current">29</span> / 30</div>
+        </div>
+
+        <!-- ==================== SLIDE 30: PENUTUP ==================== -->
+        <div class="slide slide-cover">
+            <div class="logo">🎉</div>
+            <h1>Terima <span class="accent">Kasih!</span></h1>
+            <div class="subtitle">Panduan Pengguna WorkPlaceEval</div>
+            <p class="tagline">
+                Anda telah menyelesaikan panduan penggunaan aplikasi WorkPlaceEval.<br>
+                Semoga panduan ini membantu Anda menggunakan aplikasi dengan lebih mudah.
+            </p>
+
+            <div class="stats-row" style="max-width: 800px; margin: 36px auto;">
+                <div class="stat-box">
+                    <div class="emoji">📖</div>
+                    <div class="value">30</div>
+                    <div class="label">Slides Panduan</div>
+                </div>
+                <div class="stat-box">
+                    <div class="emoji">👥</div>
+                    <div class="value">3</div>
+                    <div class="label">Role Pengguna</div>
+                </div>
+                <div class="stat-box">
+                    <div class="emoji">❓</div>
+                    <div class="value">18</div>
+                    <div class="label">FAQ Terjawab</div>
+                </div>
+            </div>
+
+            <div class="highlight-box success" style="max-width: 600px; margin: 0 auto;">
+                <strong>📚 Dokumentasi Lengkap</strong>
+                <p>Untuk panduan lebih detail, lihat file <strong>PANDUAN_PENGGUNA_USER.md</strong> yang berisi penjelasan lengkap dengan screenshot.</p>
+            </div>
+
+            <p style="color: var(--text-muted); font-size: 13px; margin-top: 30px;">WorkPlaceEval v1.0.0 • © 2024</p>
+            <div class="slide-number"><span class="current">30</span> / 30</div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">← Prev</button>
+        <div class="nav-dots" id="navDots"></div>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Next →</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        const navDots = document.getElementById('navDots');
+
+        // Create nav dots
+        for (let i = 0; i < totalSlides; i++) {
+            const dot = document.createElement('div');
+            dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
+            dot.onclick = () => goToSlide(i);
+            navDots.appendChild(dot);
+        }
+
+        function updateDots() {
+            document.querySelectorAll('.nav-dot').forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentSlide);
+            });
+        }
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+            updateDots();
+        }
+
+        function changeSlide(d) { showSlide(currentSlide + d); }
+        function goToSlide(i) { showSlide(i); }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft' && currentSlide > 0) changeSlide(-1);
+            if (e.key === 'ArrowRight' && currentSlide < totalSlides - 1) changeSlide(1);
+            if (e.key === 'Home') goToSlide(0);
+            if (e.key === 'End') goToSlide(totalSlides - 1);
+        });
+
+        // Touch/swipe support
+        let touchStartX = 0;
+        document.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX);
+        document.addEventListener('touchend', e => {
+            const diff = touchStartX - e.changedTouches[0].screenX;
+            if (Math.abs(diff) > 50) {
+                if (diff > 0 && currentSlide < totalSlides - 1) changeSlide(1);
+                if (diff < 0 && currentSlide > 0) changeSlide(-1);
+            }
+        });
+
+        showSlide(0);
+    </script>
+</body>
+</html>

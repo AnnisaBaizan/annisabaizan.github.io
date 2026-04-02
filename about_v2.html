@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Annisa Baizan — Susah dikenal. Worth it kalau mau.">
+    <title>Annisa Baizan — About</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&family=Fira+Code:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" href="assets/css/theme.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <link rel="stylesheet" href="assets/css/galaxy.css">
+
+    <style>
+        /* ════════════════════════════════════════════════
+           ABOUT V2 — GALAXY THEME + L1 TONE
+           ════════════════════════════════════════════════ */
+
+        .ab-section {
+            padding: 7rem 6rem;
+            position: relative;
+            z-index: 1;
+        }
+        .ab-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .ab-label {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: #f0c040;
+            margin-bottom: 0.75rem;
+        }
+        .ab-title {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+            font-weight: 700;
+            color: #f5f0ff;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        .ab-lead {
+            font-family: 'Crimson Text', serif;
+            font-size: 1.05rem;
+            color: #a89fc0;
+            max-width: 580px;
+            line-height: 1.85;
+            margin-bottom: 3.5rem;
+        }
+        .ab-dark {
+            background: rgba(13,10,46,0.5);
+            border-top: 1px solid rgba(240,192,64,0.1);
+            border-bottom: 1px solid rgba(240,192,64,0.1);
+        }
+
+        /* ── HERO ── */
+        .about-hero {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            padding-top: 80px;
+            position: relative;
+            z-index: 1;
+        }
+        .hero-left {
+            padding: 6rem 4rem 6rem 6rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-right: 1px solid rgba(240,192,64,0.15);
+            position: relative;
+        }
+        .hero-left::after {
+            content: '';
+            position: absolute;
+            bottom: 0; right: -1px;
+            width: 1px; height: 40%;
+            background: linear-gradient(to top, #f0c040, transparent);
+        }
+        .eyebrow {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: #f0c040;
+            margin-bottom: 1.5rem;
+        }
+        .about-hero-name {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(2.8rem, 5.5vw, 4.5rem);
+            line-height: 1.2;
+            font-weight: 700;
+            color: #f5f0ff;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 40px rgba(240,192,64,0.2);
+        }
+        .about-hero-name em {
+            font-style: italic;
+            background: linear-gradient(135deg, #f0c040, #00d4ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-sub {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.72rem;
+            color: #7a7095;
+            letter-spacing: 0.1em;
+            margin-bottom: 2.5rem;
+        }
+        .hero-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        .about-tag {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.62rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 0.35rem 0.9rem;
+            border: 1px solid rgba(240,192,64,0.2);
+            color: #7a7095;
+            border-radius: 100px;
+            background: rgba(240,192,64,0.03);
+            transition: border-color 0.2s, color 0.2s;
+        }
+        .about-tag:hover {
+            border-color: #f0c040;
+            color: #f0c040;
+        }
+        .hero-right {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 6rem 6rem 6rem 4rem;
+            background: rgba(13,10,46,0.4);
+        }
+        .hero-note {
+            font-family: 'Crimson Text', serif;
+            font-size: 1rem;
+            color: #a89fc0;
+            line-height: 1.9;
+            margin-bottom: 3rem;
+        }
+        .hero-note strong {
+            color: #f5f0ff;
+        }
+        .quick-facts {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            border: 1px solid rgba(240,192,64,0.12);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        .fact-item {
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid rgba(240,192,64,0.08);
+            border-right: 1px solid rgba(240,192,64,0.08);
+            background: rgba(13,10,46,0.4);
+            transition: background 0.2s;
+        }
+        .fact-item:hover { background: rgba(240,192,64,0.03); }
+        .fact-item:nth-child(even) { border-right: none; }
+        .fact-item:nth-last-child(-n+2) { border-bottom: none; }
+        .fact-label {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.55rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: #7a7095;
+            margin-bottom: 0.35rem;
+        }
+        .fact-value {
+            font-family: 'Crimson Text', serif;
+            font-size: 0.9rem;
+            color: #d0c8e8;
+        }
+
+        /* ── TWO COL ── */
+        .ab-two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+        .ab-prose {
+            font-family: 'Crimson Text', serif;
+            font-size: 0.98rem;
+            color: #a89fc0;
+            line-height: 1.9;
+        }
+        .ab-prose p + p { margin-top: 1.25rem; }
+        .ab-prose strong { color: #f5f0ff; font-weight: 600; }
+        .ab-divider {
+            width: 32px; height: 1px;
+            background: rgba(240,192,64,0.3);
+            margin: 2rem 0;
+        }
+        .ab-quote-block {
+            border-left: 2px solid rgba(240,192,64,0.3);
+            padding: 1.1rem 1.5rem;
+            margin-bottom: 1.1rem;
+            font-family: 'Crimson Text', serif;
+            font-size: 0.92rem;
+            font-style: italic;
+            color: #d0c8e8;
+            line-height: 1.8;
+            background: rgba(240,192,64,0.02);
+        }
+        .ab-quote-note {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.55rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #7a7095;
+            margin-top: 0.5rem;
+            font-style: normal;
+            display: block;
+        }
+
+        /* ── HOBBY GRID ── */
+        .ab-hobby-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            border: 1px solid rgba(240,192,64,0.12);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .ab-hobby-item {
+            padding: 2rem 1.5rem;
+            background: rgba(13,10,46,0.5);
+            transition: background 0.2s;
+        }
+        .ab-hobby-item:hover { background: rgba(240,192,64,0.04); }
+        .ab-hobby-icon { font-size: 1.6rem; display: block; margin-bottom: 0.65rem; }
+        .ab-hobby-name {
+            font-family: 'Cinzel', serif;
+            font-size: 0.78rem;
+            color: #f5f0ff;
+            margin-bottom: 0.3rem;
+        }
+        .ab-hobby-note {
+            font-family: 'Crimson Text', serif;
+            font-size: 0.88rem;
+            color: #7a7095;
+            line-height: 1.6;
+        }
+
+        /* ── CONTEXT GRID ── */
+        .ab-context-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            border: 1px solid rgba(240,192,64,0.12);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .ab-context-item {
+            padding: 2rem 1.75rem;
+            background: rgba(13,10,46,0.6);
+        }
+        .ab-context-label {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.58rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: #f0c040;
+            margin-bottom: 0.6rem;
+        }
+        .ab-context-value {
+            font-family: 'Cinzel', serif;
+            font-size: 0.85rem;
+            color: #f5f0ff;
+            margin-bottom: 0.5rem;
+        }
+        .ab-context-note {
+            font-family: 'Crimson Text', serif;
+            font-size: 0.88rem;
+            color: #7a7095;
+            line-height: 1.65;
+        }
+
+        /* ── STRENGTH / WEAKNESS CARDS ── */
+        .ab-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+            border: 1px solid rgba(240,192,64,0.12);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .ab-card {
+            background: rgba(13,10,46,0.5);
+            padding: 2rem 2.25rem;
+            border-left: 3px solid transparent;
+            transition: background 0.2s;
+        }
+        .ab-card:hover { background: rgba(240,192,64,0.02); }
+        .ab-card.strength { border-left-color: #00d4ff; }
+        .ab-card.weakness { border-left-color: #c41e3a; }
+        .ab-card-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 0.75rem;
+        }
+        .ab-card-title {
+            font-family: 'Cinzel', serif;
+            font-size: 0.88rem;
+            color: #f5f0ff;
+        }
+        .ab-badge {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.55rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 0.2rem 0.6rem;
+            border-radius: 100px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .ab-badge.cyan {
+            background: rgba(0,212,255,0.07);
+            color: #00d4ff;
+            border: 1px solid rgba(0,212,255,0.2);
+        }
+        .ab-badge.red {
+            background: rgba(196,30,58,0.07);
+            color: #e05070;
+            border: 1px solid rgba(196,30,58,0.2);
+        }
+        .ab-card-body {
+            font-family: 'Crimson Text', serif;
+            font-size: 0.95rem;
+            color: #a89fc0;
+            line-height: 1.85;
+        }
+        .ab-card-cost {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.68rem;
+            color: rgba(240,192,64,0.5);
+            margin-top: 0.75rem;
+            letter-spacing: 0.05em;
+        }
+
+        /* ── FRIEND QUOTES ── */
+        .ab-friend-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+        }
+        .ab-friend-card {
+            background: rgba(13,10,46,0.6);
+            border: 1px solid rgba(240,192,64,0.1);
+            border-radius: 10px;
+            padding: 1.75rem 2rem;
+            transition: border-color 0.2s, transform 0.2s;
+            position: relative;
+        }
+        .ab-friend-card::before {
+            content: '"';
+            font-family: 'Crimson Text', serif;
+            font-size: 4rem;
+            color: rgba(240,192,64,0.08);
+            position: absolute;
+            top: 0.25rem; left: 1.25rem;
+            line-height: 1;
+        }
+        .ab-friend-card:hover {
+            border-color: rgba(240,192,64,0.28);
+            transform: translateY(-3px);
+        }
+        .ab-friend-text {
+            font-family: 'Crimson Text', serif;
+            font-size: 0.95rem;
+            color: #d0c8e8;
+            line-height: 1.8;
+            font-style: italic;
+            margin-top: 1.25rem;
+            position: relative;
+            z-index: 1;
+        }
+        .ab-friend-from {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.58rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #f0c040;
+            margin-top: 1.25rem;
+            opacity: 0.6;
+        }
+
+        /* ── CTA ── */
+        .about-cta {
+            background: linear-gradient(135deg, rgba(123,47,255,0.08), rgba(240,192,64,0.04));
+            border-top: 1px solid rgba(240,192,64,0.1);
+            text-align: center;
+            padding: 8rem 6rem;
+            position: relative;
+            z-index: 1;
+        }
+        .about-cta::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 50% 0%, rgba(123,47,255,0.12) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        .cta-label {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: #f0c040;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        .cta-title {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            color: #f5f0ff;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            position: relative;
+        }
+        .cta-title em {
+            background: linear-gradient(135deg, #f0c040, #00d4ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-style: italic;
+        }
+        .cta-sub {
+            font-family: 'Crimson Text', serif;
+            font-size: 1.05rem;
+            color: #7a7095;
+            max-width: 440px;
+            margin: 0 auto 3rem;
+            line-height: 1.85;
+            position: relative;
+        }
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            position: relative;
+        }
+
+        /* ── ANIMATIONS ── */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-up { opacity: 0; animation: fadeUp 0.7s ease forwards; }
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.25s; }
+        .delay-3 { animation-delay: 0.4s; }
+        .delay-4 { animation-delay: 0.55s; }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 1024px) {
+            .hero-left  { padding: 5rem 3rem; }
+            .hero-right { padding: 5rem 3rem; }
+            .ab-section { padding: 6rem 3rem; }
+        }
+        @media (max-width: 768px) {
+            .about-hero { grid-template-columns: 1fr; min-height: auto; }
+            .hero-left  {
+                padding: 5rem 1.5rem 3rem;
+                border-right: none;
+                border-bottom: 1px solid rgba(240,192,64,0.12);
+            }
+            .hero-left::after { display: none; }
+            .hero-right { padding: 3rem 1.5rem 5rem; }
+            .ab-section { padding: 5rem 1.5rem; }
+            .ab-two-col { grid-template-columns: 1fr; gap: 2.5rem; }
+            .ab-hobby-grid { grid-template-columns: repeat(2, 1fr); }
+            .ab-context-grid { grid-template-columns: 1fr; }
+            .ab-friend-grid { grid-template-columns: 1fr; }
+            .about-cta { padding: 5rem 1.5rem; }
+            .quick-facts { grid-template-columns: 1fr; }
+            .fact-item { border-right: none; }
+        }
+        @media (max-width: 480px) {
+            .about-hero-name { font-size: 2.4rem; }
+            .ab-hobby-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-brand">AB</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html" class="active">About</a></li>
+                <li><a href="projects/index.html">Projects</a></li>
+                <li><a href="blog/index.html">Blog</a></li>
+                <li><a href="links.html">Contact</a></li>
+            </ul>
+            <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="nav-mobile-overlay" id="nav-mobile-overlay">
+        <div class="overlay-divider"></div>
+        <a href="index.html">Home</a>
+        <a href="about.html" class="active">About</a>
+        <a href="projects/index.html">Projects</a>
+        <a href="blog/index.html">Blog</a>
+        <a href="links.html">Contact</a>
+        <div class="overlay-divider"></div>
+    </div>
+
+    <!-- ── HERO ── -->
+    <section class="about-hero">
+        <div class="hero-left">
+            <p class="eyebrow fade-up delay-1">✦ Palembang, South Sumatra ✦</p>
+            <h1 class="about-hero-name fade-up delay-2">
+                Susah dikenal.<br>
+                <em>Worth it</em><br>
+                kalau mau.
+            </h1>
+            <p class="hero-sub fade-up delay-3">CS Student · ASN · Independent Builder</p>
+            <div class="hero-tags fade-up delay-4">
+                <span class="about-tag">CS · BINUS</span>
+                <span class="about-tag">ASN Palembang</span>
+                <span class="about-tag">INFJ</span>
+                <span class="about-tag">Independent</span>
+                <span class="about-tag">Evidence-Based</span>
+            </div>
+        </div>
+
+        <div class="hero-right">
+            <p class="hero-note fade-up delay-2">
+                Orang yang lebih dalam dari yang terlihat di permukaan.<br><br>
+                Butuh waktu dan effort untuk sampai ke sana —
+                tapi orang yang sudah sampai, tidak menyesal.
+                <br><br>
+                <strong>Ini bukan klaim.</strong> Ini dari orang-orang yang sudah invest waktu untuk tahu.
+            </p>
+
+            <div class="quick-facts fade-up delay-3">
+                <div class="fact-item">
+                    <div class="fact-label">Studi</div>
+                    <div class="fact-value">Ilmu Komputer, BINUS</div>
+                </div>
+                <div class="fact-item">
+                    <div class="fact-label">Profesi</div>
+                    <div class="fact-value">ASN Palembang</div>
+                </div>
+                <div class="fact-item">
+                    <div class="fact-label">Minat</div>
+                    <div class="fact-value">Antariksa & problem-solving</div>
+                </div>
+                <div class="fact-item">
+                    <div class="fact-label">Stack</div>
+                    <div class="fact-value">Java · PHP · Python</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── FIRST IMPRESSION vs REALITY ── -->
+    <section class="ab-section ab-dark">
+        <div class="ab-inner">
+            <p class="ab-label" data-animate>✦ Kesan Pertama vs Kenyataan ✦</p>
+            <h2 class="ab-title" data-animate>Yang Orang Lihat Pertama.<br>Yang Sebenarnya Ada.</h2>
+            <p class="ab-lead" data-animate>
+                Bukan kontradiksi. Ini kompleksitas — dua hal yang sama-sama benar,
+                tapi hanya satu yang langsung terlihat.
+            </p>
+
+            <div class="ab-two-col">
+                <div data-animate>
+                    <div class="ab-prose">
+                        <p>
+                            Kesan pertama: <strong>pendiam, serius, sulit didekati.</strong><br>
+                            Mungkin terkesan cuek. Mungkin terkesan tidak tertarik.<br>
+                            Diam bukan berarti kosong. Jarak bukan berarti tidak mau dekat.
+                        </p>
+                        <p>
+                            Ada satu hal yang konsisten — dari cara belajar, cara kerja,
+                            sampai cara berhubungan dengan orang:<br>
+                            <strong>tidak bisa setengah-setengah.</strong>
+                        </p>
+                    </div>
+                    <div class="ab-divider"></div>
+                    <div class="ab-prose">
+                        <p>
+                            <strong>Tidak berhenti sebelum paham.</strong><br>
+                            Kalau sudah tertarik, dikejar sampai ke akar. Bukan karena harus —
+                            karena memang tidak bisa berhenti di permukaan.
+                        </p>
+                        <p>
+                            <strong>Tidak bisa kerja asal jadi.</strong><br>
+                            Yang dikerjakan, dikerjakan sungguh-sungguh.
+                            Standar bukan tuntutan dari luar — ini dari dalam.
+                        </p>
+                        <p>
+                            <strong>Hangat. Tapi perlu waktu.</strong><br>
+                            Teman yang sudah kenal bilang: tempat aman, seperti perlindungan keluarga.
+                            Tapi untuk sampai ke sana — butuh proses.
+                        </p>
+                        <p style="font-size:0.85rem; opacity:0.55; font-family:'Fira Code',monospace; letter-spacing:0.03em;">
+                            Ini juga yang membuat beberapa hal jadi lebih sulit dari yang seharusnya.
+                        </p>
+                    </div>
+                </div>
+
+                <div data-animate data-delay="1">
+                    <div class="ab-quote-block">
+                        "Seneng hal-hal yang orang tidak ekspek. Terus kalau sudah tahu — sampai detail."<br>
+                        "Gila belajar, anaknya ambisius. Kalau belum ada solusi, pasti terus belajar sampai selesai."
+                        <span class="ab-quote-note">— Teman dekat</span>
+                    </div>
+                    <div class="ab-quote-block">
+                        "Kalau sudah ada tujuan, pokoknya dia usahakan."<br>
+                        "Dedikasi, fokus, semangat juang, gigih, dan komitmen. Tidak mudah menyerah."
+                        <span class="ab-quote-note">— Teman kuliah</span>
+                    </div>
+                    <div class="ab-quote-block">
+                        "Tough but warm."<br>
+                        "Peduli dengan orang di sekelilingnya — di dalam hati sangat care."<br>
+                        "Baik pada orang-orang terdekat, sangat perhatian."
+                        <span class="ab-quote-note">— Teman belajar</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── SISI LAIN ── -->
+    <section class="ab-section">
+        <div class="ab-inner">
+            <p class="ab-label" data-animate>✦ Di Luar Kode ✦</p>
+            <h2 class="ab-title" data-animate>Yang Jarang Kelihatan.</h2>
+            <p class="ab-lead" data-animate>
+                Ada sisi dari saya yang tidak langsung terlihat —
+                bukan karena disembunyikan, tapi karena tidak suka menonjolkan diri.
+            </p>
+
+            <div class="ab-hobby-grid" data-animate>
+                <div class="ab-hobby-item">
+                    <span class="ab-hobby-icon">🔭</span>
+                    <div class="ab-hobby-name">Astronomi · Psikologi · Filsafat</div>
+                    <div class="ab-hobby-note">Semesta, manusia, dan makna. Tiga hal berbeda — satu ketertarikan yang sama.</div>
+                </div>
+                <div class="ab-hobby-item">
+                    <span class="ab-hobby-icon">✂️</span>
+                    <div class="ab-hobby-name">Crafting & Kerajinan</div>
+                    <div class="ab-hobby-note">Kadang ekspresi yang paling jujur tidak butuh kata-kata.</div>
+                </div>
+                <div class="ab-hobby-item">
+                    <span class="ab-hobby-icon">🎵</span>
+                    <div class="ab-hobby-name">Menyanyi</div>
+                    <div class="ab-hobby-note">Bukan untuk didengar semua orang. Cukup untuk diri sendiri — dan orang yang tepat.</div>
+                </div>
+                <div class="ab-hobby-item">
+                    <span class="ab-hobby-icon">🍳</span>
+                    <div class="ab-hobby-name">Memasak</div>
+                    <div class="ab-hobby-note">Satu dari sedikit hal yang tidak dianalisis terlalu banyak. Menikmati prosesnya.</div>
+                </div>
+                <div class="ab-hobby-item">
+                    <span class="ab-hobby-icon">💻</span>
+                    <div class="ab-hobby-name">Problem Solving</div>
+                    <div class="ab-hobby-note">Belum tamat kalau masalah belum selesai. Berjam-jam di depan layar bukan beban — ini mode.</div>
+                </div>
+                <div class="ab-hobby-item">
+                    <span class="ab-hobby-icon">✍️</span>
+                    <div class="ab-hobby-name">Menulis & Riset</div>
+                    <div class="ab-hobby-note">Satu pertanyaan membuka sepuluh yang lain. Tidak apa-apa — itu yang menarik.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── CONTEXT ── -->
+    <section class="ab-section ab-dark">
+        <div class="ab-inner">
+            <p class="ab-label" data-animate>✦ Konteks ✦</p>
+            <h2 class="ab-title" data-animate>Siapa, Di Mana, Mengerjakan Apa.</h2>
+
+            <div class="ab-context-grid" data-animate>
+                <div class="ab-context-item">
+                    <div class="ab-context-label">Akademik</div>
+                    <div class="ab-context-value">Ilmu Komputer · BINUS</div>
+                    <div class="ab-context-note">Termasuk self-directed curriculum di luar perkuliahan — bukan casual reading, tapi systematic study.</div>
+                </div>
+                <div class="ab-context-item">
+                    <div class="ab-context-label">Profesional</div>
+                    <div class="ab-context-value">ASN · Palembang</div>
+                    <div class="ab-context-note">Dual-track: teknologi akademis + birokrasi pemerintahan. Multi-tracking yang demanding, dijalankan bersamaan.</div>
+                </div>
+                <div class="ab-context-item">
+                    <div class="ab-context-label">Tech Stack</div>
+                    <div class="ab-context-value">Java · PHP · Python</div>
+                    <div class="ab-context-note">Healthcare tech, e-governance, sistem manajemen. Project dikerjakan dengan dedikasi — bukan sekadar tugas.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── KELEBIHAN ── -->
+    <section class="ab-section">
+        <div class="ab-inner">
+            <p class="ab-label" data-animate>✦ Kelebihan ✦</p>
+            <h2 class="ab-title" data-animate>Yang Ada — Dengan Biayanya.</h2>
+            <p class="ab-lead" data-animate>
+                Setiap kelebihan di sini datang dengan trade-off.
+                Ditampilkan bersama biayanya — karena jujur lebih berguna dari kesan baik.
+            </p>
+
+            <div class="ab-cards" data-animate>
+                <div class="ab-card strength">
+                    <div class="ab-card-top">
+                        <div class="ab-card-title">🧩 Systematic Thinker</div>
+                        <span class="ab-badge cyan">Default Mode</span>
+                    </div>
+                    <div class="ab-card-body">
+                        Bukan sekadar terorganisir — ini cara default memproses informasi.
+                        Memisahkan yang diketahui dari yang diasumsikan, mencari pola,
+                        membangun kesimpulan dari dasar yang solid.
+                    </div>
+                    <p class="ab-card-cost">Biaya: kecepatan. Sistematis tidak selalu berarti cepat.</p>
+                </div>
+                <div class="ab-card strength">
+                    <div class="ab-card-top">
+                        <div class="ab-card-title">🔥 Dedikasi & Daya Juang</div>
+                        <span class="ab-badge cyan">Verified</span>
+                    </div>
+                    <div class="ab-card-body">
+                        Kalau sudah commit — all-in. Tidak berhenti sebelum menemukan solusi.
+                        Bukan karena semangat sesaat — karena memang tidak bisa berhenti di tengah jalan.
+                    </div>
+                    <p class="ab-card-cost">Biaya: sulit berhenti di "cukup baik". Selalu ada dorongan untuk lebih.</p>
+                </div>
+                <div class="ab-card strength">
+                    <div class="ab-card-top">
+                        <div class="ab-card-title">🤝 Empati yang Tidak Berisik</div>
+                        <span class="ab-badge cyan">Hidden Strength</span>
+                    </div>
+                    <div class="ab-card-body">
+                        Selalu mencari alasan di balik tindakan orang sebelum menghakimi.
+                        Kalau membantu, benar-benar membantu — rela mencari pendekatan berbeda
+                        sampai orang benar-benar mengerti.
+                    </div>
+                    <p class="ab-card-cost">Biaya: orang jarang melihatnya. Karena tidak ditampilkan.</p>
+                </div>
+                <div class="ab-card strength">
+                    <div class="ab-card-top">
+                        <div class="ab-card-title">🚀 Independent Agency</div>
+                        <span class="ab-badge cyan">Consistent Pattern</span>
+                    </div>
+                    <div class="ab-card-body">
+                        Tidak bergantung pada validasi eksternal untuk bergerak.
+                        Self-directed, autonomous. "Independent woman" adalah kata yang
+                        muncul berulang dari orang berbeda tanpa koordinasi.
+                    </div>
+                    <p class="ab-card-cost">Biaya: orang tidak tahu kapan saya butuh bantuan — karena tidak pernah tampak butuh.</p>
+                </div>
+                <div class="ab-card strength">
+                    <div class="ab-card-top">
+                        <div class="ab-card-title">✅ Intellectual Honesty</div>
+                        <span class="ab-badge cyan">Non-Negotiable</span>
+                    </div>
+                    <div class="ab-card-body">
+                        Lebih memilih "tidak tahu" daripada jawaban yang salah.
+                        Kebenaran di atas kenyamanan. Fakta di atas kecepatan.
+                        Pilihan sadar dengan cost yang jelas — dan tetap dipilih.
+                    </div>
+                    <p class="ab-card-cost">Biaya: bisa terasa blunt. Terutama dalam budaya high-context.</p>
+                </div>
+                <div class="ab-card strength">
+                    <div class="ab-card-top">
+                        <div class="ab-card-title">🌱 Kapasitas Belajar yang Genuine</div>
+                        <span class="ab-badge cyan">Terus Berkembang</span>
+                    </div>
+                    <div class="ab-card-body">
+                        Bukan sekadar suka belajar — ada perubahan nyata setelahnya.
+                        Dari ilmu komputer sampai psikologi. Rasa ingin tahu yang tidak
+                        bisa berhenti di permukaan.
+                    </div>
+                    <p class="ab-card-cost">Biaya: rabbit hole tidak berujung. Prioritisasi kadang jadi korbannya.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── KELEMAHAN ── -->
+    <section class="ab-section ab-dark">
+        <div class="ab-inner">
+            <p class="ab-label" data-animate>✦ Kelemahan ✦</p>
+            <h2 class="ab-title" data-animate>Yang Masih Dikerjakan.<br>Secara Aktif.</h2>
+            <p class="ab-lead" data-animate>
+                Diberi label bukan berarti sudah selesai.
+                Ini masih terjadi — dan sedang dihadapi.
+            </p>
+
+            <div class="ab-cards" data-animate>
+                <div class="ab-card weakness">
+                    <div class="ab-card-top">
+                        <div class="ab-card-title">🐌 Analysis Paralysis</div>
+                        <span class="ab-badge red">High Impact</span>
+                    </div>
+                    <div class="ab-card-body">
+                        Overthinking yang aktif menghambat eksekusi. Self-aware tentang ini —
+                        tapi masih terjadi. Preference untuk thoroughness sebelum commit
+                        sering lebih mahal dari yang seharusnya.
+                    </div>
+                </div>
+                <div class="ab-card weakness">
+                    <div class="ab-card-top">
+                        <div class="ab-card-title">🪞 Perfeksionisme ke Dalam</div>
+                        <span class="ab-badge red">High Impact</span>
+                    </div>
+                    <div class="ab-card-body">
+                        Standar tinggi yang seharusnya jadi kekuatan — kadang berbalik
+                        menjadi tekanan terhadap diri sendiri. Ketika hasil tidak sesuai ekspektasi,
+                        penilaian bisa jauh lebih keras dari yang diperlukan.
+                    </div>
+                </div>
+                <div class="ab-card weakness">
+                    <div class="ab-card-top">
+                        <div class="ab-card-title">⚡ Intoleransi terhadap Ketidaksungguhan</div>
+                        <span class="ab-badge red">Moderate</span>
+                    </div>
+                    <div class="ab-card-body">
+                        Toleran terhadap perbedaan kemampuan — tapi sulit toleran terhadap orang
+                        yang bisa tapi tidak mau. Standar yang tinggi kadang bocor ke relasi.
+                        Ini yang perlu terus dikalibrasi.
+                    </div>
+                </div>
+                <div class="ab-card weakness">
+                    <div class="ab-card-top">
+                        <div class="ab-card-title">😐 Susah Terbuka di Awal</div>
+                        <span class="ab-badge red">Low-Moderate</span>
+                    </div>
+                    <div class="ab-card-body">
+                        Cover depan: introvert parah. Butuh waktu dan effort untuk benar-benar mengenal saya.
+                        Di zaman yang bergerak cepat, banyak orang tidak mau invest waktu itu —
+                        dan itu jadi kehilangan di kedua sisi.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── KATA TEMAN ── -->
+    <section class="ab-section">
+        <div class="ab-inner">
+            <p class="ab-label" data-animate>✦ Dari Orang yang Kenal ✦</p>
+            <h2 class="ab-title" data-animate>Bukan Kata Saya.</h2>
+            <p class="ab-lead" data-animate>
+                Kadang orang lain melihat sesuatu yang kita sendiri tidak sadari.
+                Bukan penilaian AI, bukan self-perception.
+            </p>
+
+            <div class="ab-friend-grid" data-animate>
+                <div class="ab-friend-card">
+                    <p class="ab-friend-text">
+                        "Aku memandang Babai sebagai tempat di mana aku merasa aman, di mana aku bisa jadi diri sendiri.
+                        Bukan sekadar kawan biasa — dapat perlindungan keluarga secara harfiah."
+                    </p>
+                    <p class="ab-friend-from">— Teman dekat</p>
+                </div>
+                <div class="ab-friend-card">
+                    <p class="ab-friend-text">
+                        "Tidak suka menonjolkan diri padahal punya banyak kemampuan.
+                        Konsisten, fokus, dan serius kalau sudah menyukai sesuatu."
+                    </p>
+                    <p class="ab-friend-from">— Teman kuliah</p>
+                </div>
+                <div class="ab-friend-card">
+                    <p class="ab-friend-text">
+                        "Kalau bantu orang pasti tulus. Rela jelasin berulang-ulang, rela muter otak nyari cara penyampaian lain supaya ngerti."
+                    </p>
+                    <p class="ab-friend-from">— Teman belajar</p>
+                </div>
+                <div class="ab-friend-card">
+                    <p class="ab-friend-text">
+                        "Sederhana itu kelebihan yang ada di dalam dirimu — dan itu hebat bisa mempertahankan itu di zaman sekarang."
+                    </p>
+                    <p class="ab-friend-from">— Teman lama</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── CTA ── -->
+    <section class="about-cta">
+        <p class="cta-label" data-animate>✦ Next ✦</p>
+        <h2 class="cta-title" data-animate>Sampai <em>Sejauh Ini?</em></h2>
+        <p class="cta-sub" data-animate>
+            Berarti kamu sudah melewati layer pertama.<br>
+            Saya bukan orang yang mudah dikenal dari permukaan —
+            tapi kalau mau invest waktu untuk itu, mungkin worth it.
+        </p>
+        <div class="cta-buttons" data-animate>
+            <a href="links.html" class="btn btn-primary btn-glow">✉ Hubungi Saya</a>
+            <a href="projects/index.html" class="btn btn-secondary">⚗️ Lihat Proyek</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="about.html">About</a>
+                <a href="projects/index.html">Projects</a>
+                <a href="blog/index.html">Blog</a>
+                <a href="links.html">Contact</a>
+            </div>
+            <p style="color:#7a7095;">✦ &copy; 2026 Annisa Baizan — Built with analytical precision &amp; a touch of magic ✦</p>
+        </div>
+    </footer>
+
+    <canvas id="star-canvas"></canvas>
+
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/stars.js"></script>
+    <script src="assets/js/cursor.js"></script>
+    <script src="assets/js/effects.js"></script>
+    <script src="assets/js/music-player.js"></script>
+
+</body>
+</html>

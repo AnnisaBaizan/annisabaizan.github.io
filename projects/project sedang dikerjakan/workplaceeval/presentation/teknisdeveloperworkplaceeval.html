@@ -1,0 +1,1608 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WorkPlaceEval - Technical Documentation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-card: #1a1a24;
+            --accent-green: #00ff88;
+            --accent-blue: #00d4ff;
+            --accent-purple: #a855f7;
+            --accent-orange: #ff6b35;
+            --accent-yellow: #fbbf24;
+            --text-primary: #ffffff;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --border: #2a2a3a;
+            --glow-green: rgba(0, 255, 136, 0.15);
+            --glow-blue: rgba(0, 212, 255, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            overflow: hidden;
+        }
+
+        /* Matrix-like background */
+        .matrix-bg {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            background: 
+                linear-gradient(180deg, transparent 0%, var(--bg-primary) 100%),
+                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 255, 136, 0.03) 2px, rgba(0, 255, 136, 0.03) 4px);
+            animation: matrixScroll 20s linear infinite;
+        }
+
+        @keyframes matrixScroll {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 100px; }
+        }
+
+        /* Circuit pattern */
+        .circuit-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 1;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0v20M30 40v20M0 30h20M40 30h20M30 30m-5 0a5 5 0 1 1 10 0a5 5 0 1 1-10 0' stroke='%2300ff88' fill='none' stroke-width='1'/%3E%3C/svg%3E");
+        }
+
+        /* Glow orbs */
+        .glow-orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(100px);
+            z-index: 0;
+        }
+
+        .glow-1 {
+            width: 400px;
+            height: 400px;
+            background: var(--glow-green);
+            top: -100px;
+            left: -100px;
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        .glow-2 {
+            width: 300px;
+            height: 300px;
+            background: var(--glow-blue);
+            bottom: -50px;
+            right: -50px;
+            animation: pulse 8s ease-in-out infinite 4s;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.1); }
+        }
+
+        /* Presentation */
+        .presentation {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 10;
+            padding: 30px;
+        }
+
+        .slide {
+            width: 100%;
+            max-width: 1400px;
+            height: calc(100vh - 100px);
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 50px 60px;
+            display: none;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            animation: slideIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent-green), transparent);
+        }
+
+        .slide.active {
+            display: flex;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Typography */
+        h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(42px, 5vw, 64px);
+            font-weight: 700;
+            letter-spacing: -2px;
+            margin-bottom: 16px;
+        }
+
+        h1 .highlight {
+            background: linear-gradient(135deg, var(--accent-green), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(28px, 3.5vw, 40px);
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 32px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        h2 .tag {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            font-weight: 500;
+            background: var(--accent-green);
+            color: var(--bg-primary);
+            padding: 4px 12px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--accent-green);
+            margin: 28px 0 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        h3::before {
+            content: '>';
+            font-family: 'IBM Plex Mono', monospace;
+            color: var(--accent-blue);
+        }
+
+        .subtitle {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 14px;
+            color: var(--accent-green);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 40px;
+        }
+
+        /* Content */
+        .content {
+            flex: 1;
+            overflow-y: auto;
+            padding-right: 16px;
+        }
+
+        .content::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .content::-webkit-scrollbar-thumb {
+            background: var(--accent-green);
+            border-radius: 4px;
+        }
+
+        /* Code blocks */
+        .code-block {
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin: 16px 0;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 13px;
+            line-height: 1.8;
+            overflow-x: auto;
+            position: relative;
+        }
+
+        .code-block::before {
+            content: attr(data-lang);
+            position: absolute;
+            top: 8px;
+            right: 12px;
+            font-size: 10px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .code-block .keyword { color: var(--accent-purple); }
+        .code-block .string { color: var(--accent-green); }
+        .code-block .comment { color: var(--text-muted); font-style: italic; }
+        .code-block .function { color: var(--accent-blue); }
+        .code-block .variable { color: var(--accent-orange); }
+
+        /* Cards grid */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 24px 0;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--accent-green), var(--accent-blue));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .card:hover {
+            border-color: var(--accent-green);
+            transform: translateY(-4px);
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--glow-green), var(--glow-blue));
+            border: 1px solid var(--accent-green);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 16px;
+        }
+
+        .card h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .card p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Terminal box */
+        .terminal {
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .terminal-header {
+            background: var(--bg-card);
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .terminal-dot.red { background: #ff5f56; }
+        .terminal-dot.yellow { background: #ffbd2e; }
+        .terminal-dot.green { background: #27ca40; }
+
+        .terminal-title {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-left: 12px;
+        }
+
+        .terminal-body {
+            padding: 20px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        .terminal-body .prompt {
+            color: var(--accent-green);
+        }
+
+        .terminal-body .command {
+            color: var(--text-primary);
+        }
+
+        .terminal-body .output {
+            color: var(--text-secondary);
+        }
+
+        /* Table */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 14px;
+        }
+
+        .data-table th {
+            background: var(--bg-card);
+            padding: 14px 18px;
+            text-align: left;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--accent-green);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .data-table td {
+            padding: 14px 18px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-secondary);
+        }
+
+        .data-table tr:hover td {
+            background: var(--bg-card);
+            color: var(--text-primary);
+        }
+
+        .data-table code {
+            font-family: 'IBM Plex Mono', monospace;
+            background: var(--bg-primary);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            color: var(--accent-blue);
+        }
+
+        /* ERD Diagram */
+        .erd-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 30px;
+            margin: 20px 0;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            line-height: 2;
+            overflow-x: auto;
+        }
+
+        .erd-table {
+            display: inline-block;
+            background: var(--bg-primary);
+            border: 1px solid var(--accent-green);
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin: 8px;
+            vertical-align: top;
+        }
+
+        .erd-table-name {
+            color: var(--accent-green);
+            font-weight: 600;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 8px;
+            margin-bottom: 8px;
+        }
+
+        .erd-column {
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .erd-column .pk { color: var(--accent-yellow); }
+        .erd-column .fk { color: var(--accent-purple); }
+
+        /* Flow diagram */
+        .flow-horizontal {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .flow-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px 24px;
+            text-align: center;
+            min-width: 140px;
+        }
+
+        .flow-box.highlight {
+            border-color: var(--accent-green);
+            box-shadow: 0 0 20px var(--glow-green);
+        }
+
+        .flow-box-title {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+
+        .flow-box-content {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .flow-arrow {
+            color: var(--accent-green);
+            font-size: 24px;
+        }
+
+        /* Badge */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            font-weight: 500;
+            padding: 4px 10px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge.green {
+            background: var(--glow-green);
+            color: var(--accent-green);
+            border: 1px solid var(--accent-green);
+        }
+
+        .badge.blue {
+            background: var(--glow-blue);
+            color: var(--accent-blue);
+            border: 1px solid var(--accent-blue);
+        }
+
+        .badge.purple {
+            background: rgba(168, 85, 247, 0.15);
+            color: var(--accent-purple);
+            border: 1px solid var(--accent-purple);
+        }
+
+        .badge.orange {
+            background: rgba(255, 107, 53, 0.15);
+            color: var(--accent-orange);
+            border: 1px solid var(--accent-orange);
+        }
+
+        /* List */
+        ul {
+            list-style: none;
+        }
+
+        li {
+            padding: 12px 0;
+            padding-left: 28px;
+            position: relative;
+            font-size: 15px;
+            color: var(--text-secondary);
+            border-bottom: 1px solid rgba(42, 42, 58, 0.5);
+        }
+
+        li:last-child {
+            border-bottom: none;
+        }
+
+        li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--accent-green);
+            font-size: 14px;
+        }
+
+        li strong {
+            color: var(--text-primary);
+        }
+
+        li code {
+            font-family: 'IBM Plex Mono', monospace;
+            background: var(--bg-primary);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 13px;
+            color: var(--accent-blue);
+        }
+
+        /* Two column */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 24px 0;
+        }
+
+        .col {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        .col h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--accent-green);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Slide number */
+        .slide-number {
+            position: absolute;
+            bottom: 24px;
+            right: 32px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .slide-number .current {
+            color: var(--accent-green);
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        /* Navigation */
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 1000;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 10px 16px;
+            border-radius: 100px;
+        }
+
+        .nav-btn {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-btn:hover:not(:disabled) {
+            background: var(--accent-green);
+            border-color: var(--accent-green);
+            color: var(--bg-primary);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .nav-dots {
+            display: flex;
+            gap: 6px;
+        }
+
+        .nav-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 3px;
+            background: var(--border);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-dot.active {
+            background: var(--accent-green);
+            width: 20px;
+            box-shadow: 0 0 10px var(--accent-green);
+        }
+
+        /* Cover slide */
+        .slide-cover {
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .slide-cover .logo {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--accent-green), var(--accent-blue));
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            margin: 0 auto 32px;
+            box-shadow: 0 20px 60px var(--glow-green);
+        }
+
+        .slide-cover .version {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-top: 24px;
+        }
+
+        .slide-cover .tech-badges {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        /* Highlight box */
+        .highlight-box {
+            background: linear-gradient(135deg, var(--glow-green), var(--glow-blue));
+            border: 1px solid var(--accent-green);
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin: 20px 0;
+        }
+
+        .highlight-box.warning {
+            background: rgba(255, 107, 53, 0.1);
+            border-color: var(--accent-orange);
+        }
+
+        .highlight-box strong {
+            color: var(--accent-green);
+        }
+
+        .highlight-box.warning strong {
+            color: var(--accent-orange);
+        }
+
+        .highlight-box p {
+            color: var(--text-secondary);
+            margin-top: 8px;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        /* Stats */
+        .stats-row {
+            display: flex;
+            gap: 20px;
+            margin: 24px 0;
+        }
+
+        .stat-item {
+            flex: 1;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 36px;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-green), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-label {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Background -->
+    <div class="matrix-bg"></div>
+    <div class="circuit-overlay"></div>
+    <div class="glow-orb glow-1"></div>
+    <div class="glow-orb glow-2"></div>
+
+    <div class="presentation">
+        <!-- Slide 1: Cover -->
+        <div class="slide slide-cover active">
+            <div class="logo">⚙️</div>
+            <h1><span class="highlight">WorkPlaceEval</span></h1>
+            <div class="subtitle">Technical Documentation</div>
+            <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto; line-height: 1.8;">
+                Dokumentasi teknis sistem penilaian praktek klinik.<br>
+                Arsitektur, database, API, dan implementation guide.
+            </p>
+            <div class="tech-badges">
+                <span class="badge green">Laravel 10.x</span>
+                <span class="badge blue">PHP 8.1+</span>
+                <span class="badge purple">MySQL 8.0</span>
+                <span class="badge orange">Bootstrap 5</span>
+            </div>
+            <div class="version">v1.0.0 • Last Updated: 2024</div>
+            <div class="slide-number"><span class="current">01</span> / 15</div>
+        </div>
+
+        <!-- Slide 2: Tech Stack -->
+        <div class="slide">
+            <h2>Technology Stack <span class="tag">Architecture</span></h2>
+            <div class="content">
+                <div class="card-grid">
+                    <div class="card">
+                        <div class="card-icon">🔧</div>
+                        <h4>Backend Framework</h4>
+                        <p><strong>Laravel 10.x</strong> dengan PHP 8.1+. MVC architecture, Eloquent ORM, built-in authentication, policy-based authorization.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">🎨</div>
+                        <h4>Frontend Stack</h4>
+                        <p><strong>Soft UI Dashboard</strong> + Bootstrap 5 + Blade Templates. Vanilla JS untuk interaksi, AJAX untuk dynamic content.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">🗄️</div>
+                        <h4>Database</h4>
+                        <p><strong>MySQL 8.0</strong> dengan 12 tabel terintegrasi. Foreign key constraints, cascade rules, indexed queries.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">🔐</div>
+                        <h4>Security</h4>
+                        <p><strong>Laravel Sanctum</strong> auth, bcrypt hashing, CSRF protection, XSS prevention, SQL injection protection.</p>
+                    </div>
+                </div>
+
+                <h3>Request Flow</h3>
+                <div class="flow-horizontal">
+                    <div class="flow-box">
+                        <div class="flow-box-title">Client</div>
+                        <div class="flow-box-content">Browser</div>
+                    </div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-box">
+                        <div class="flow-box-title">Server</div>
+                        <div class="flow-box-content">Apache</div>
+                    </div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-box highlight">
+                        <div class="flow-box-title">Application</div>
+                        <div class="flow-box-content">Laravel</div>
+                    </div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-box">
+                        <div class="flow-box-title">ORM</div>
+                        <div class="flow-box-content">Eloquent</div>
+                    </div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-box">
+                        <div class="flow-box-title">Storage</div>
+                        <div class="flow-box-content">MySQL</div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number"><span class="current">02</span> / 15</div>
+        </div>
+
+        <!-- Slide 3: Installation -->
+        <div class="slide">
+            <h2>Installation & Setup <span class="tag">DevOps</span></h2>
+            <div class="content">
+                <div class="terminal">
+                    <div class="terminal-header">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                        <span class="terminal-title">bash — installation</span>
+                    </div>
+                    <div class="terminal-body">
+                        <span class="comment"># Clone repository</span><br>
+                        <span class="prompt">$</span> <span class="command">git clone https://github.com/repo/workplaceeval.git</span><br>
+                        <span class="prompt">$</span> <span class="command">cd workplaceeval</span><br><br>
+                        
+                        <span class="comment"># Install dependencies</span><br>
+                        <span class="prompt">$</span> <span class="command">composer install</span><br>
+                        <span class="prompt">$</span> <span class="command">npm install && npm run build</span><br><br>
+                        
+                        <span class="comment"># Environment setup</span><br>
+                        <span class="prompt">$</span> <span class="command">cp .env.example .env</span><br>
+                        <span class="prompt">$</span> <span class="command">php artisan key:generate</span><br><br>
+                        
+                        <span class="comment"># Database migration & seed</span><br>
+                        <span class="prompt">$</span> <span class="command">php artisan migrate:fresh --seed</span><br>
+                        <span class="prompt">$</span> <span class="command">php artisan storage:link</span><br><br>
+                        
+                        <span class="comment"># Start server</span><br>
+                        <span class="prompt">$</span> <span class="command">php artisan serve</span><br>
+                        <span class="output">Starting Laravel development server: http://127.0.0.1:8000</span>
+                    </div>
+                </div>
+
+                <h3>Server Requirements</h3>
+                <div class="stats-row">
+                    <div class="stat-item">
+                        <div class="stat-value">8.1+</div>
+                        <div class="stat-label">PHP Version</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">8.0+</div>
+                        <div class="stat-label">MySQL Version</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">2.x</div>
+                        <div class="stat-label">Composer</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">18+</div>
+                        <div class="stat-label">Node.js</div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number"><span class="current">03</span> / 15</div>
+        </div>
+
+        <!-- Slide 4: Database Schema -->
+        <div class="slide">
+            <h2>Database Schema <span class="tag">12 Tables</span></h2>
+            <div class="content">
+                <div class="two-col">
+                    <div class="col">
+                        <h4>📚 Master Tables</h4>
+                        <ul>
+                            <li><code>programs</code> — Program studi</li>
+                            <li><code>users</code> — All users (5 types)</li>
+                            <li><code>assessment_templates</code> — Template penilaian</li>
+                            <li><code>assessment_categories</code> — Kategori + weight</li>
+                            <li><code>assessment_components</code> — Komponen + score_type</li>
+                            <li><code>scoring_rubrics</code> — Rubrik deskripsi</li>
+                            <li><code>assessment_criteria</code> — Checklist criteria</li>
+                        </ul>
+                    </div>
+                    <div class="col">
+                        <h4>📝 Transaction Tables</h4>
+                        <ul>
+                            <li><code>internship_placements</code> — Data PKL</li>
+                            <li><code>assessments</code> — Header penilaian</li>
+                            <li><code>assessment_scores</code> — Detail nilai</li>
+                            <li><code>assessment_criteria_responses</code> — Checklist answers</li>
+                            <li><code>assessment_attachments</code> — File lampiran</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>Key Relationships</h3>
+                <div class="flow-horizontal">
+                    <div class="flow-box">
+                        <div class="flow-box-content">Program</div>
+                    </div>
+                    <span class="flow-arrow">1:N</span>
+                    <div class="flow-box">
+                        <div class="flow-box-content">User</div>
+                    </div>
+                    <span class="flow-arrow">1:N</span>
+                    <div class="flow-box highlight">
+                        <div class="flow-box-content">Placement</div>
+                    </div>
+                    <span class="flow-arrow">1:N</span>
+                    <div class="flow-box">
+                        <div class="flow-box-content">Assessment</div>
+                    </div>
+                    <span class="flow-arrow">1:N</span>
+                    <div class="flow-box">
+                        <div class="flow-box-content">Scores</div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number"><span class="current">04</span> / 15</div>
+        </div>
+
+        <!-- Slide 5: User Model -->
+        <div class="slide">
+            <h2>User Model <span class="tag">Eloquent</span></h2>
+            <div class="content">
+                <div class="code-block" data-lang="php">
+<span class="keyword">class</span> <span class="function">User</span> <span class="keyword">extends</span> Authenticatable
+{
+    <span class="comment">// 5 User Types</span>
+    <span class="keyword">protected</span> <span class="variable">$fillable</span> = [<span class="string">'name'</span>, <span class="string">'email'</span>, <span class="string">'user_type'</span>, <span class="string">'program_id'</span>];
+
+    <span class="comment">// Relationships</span>
+    <span class="keyword">public function</span> <span class="function">program</span>() { <span class="keyword">return</span> $this-><span class="function">belongsTo</span>(Program::class); }
+    <span class="keyword">public function</span> <span class="function">placements</span>() { <span class="keyword">return</span> $this-><span class="function">hasMany</span>(InternshipPlacement::class, <span class="string">'student_id'</span>); }
+    <span class="keyword">public function</span> <span class="function">assessments</span>() { <span class="keyword">return</span> $this-><span class="function">hasMany</span>(Assessment::class, <span class="string">'assessor_id'</span>); }
+
+    <span class="comment">// Scopes</span>
+    <span class="keyword">public function</span> <span class="function">scopeAdmin</span>($q) { <span class="keyword">return</span> $q-><span class="function">where</span>(<span class="string">'user_type'</span>, <span class="string">'admin'</span>); }
+    <span class="keyword">public function</span> <span class="function">scopeSupervisors</span>($q) { <span class="keyword">return</span> $q-><span class="function">whereIn</span>(<span class="string">'user_type'</span>, [<span class="string">'dosen'</span>, <span class="string">'pembimbing_institusi'</span>, <span class="string">'pembimbing_klinik'</span>]); }
+
+    <span class="comment">// Helpers</span>
+    <span class="keyword">public function</span> <span class="function">isAdmin</span>(): bool { <span class="keyword">return</span> $this->user_type === <span class="string">'admin'</span>; }
+    <span class="keyword">public function</span> <span class="function">isSupervisor</span>(): bool { <span class="keyword">return</span> <span class="function">in_array</span>($this->user_type, [<span class="string">'dosen'</span>, <span class="string">'pembimbing_institusi'</span>, <span class="string">'pembimbing_klinik'</span>]); }
+}
+                </div>
+
+                <h3>User Types Enum</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Scope</th>
+                            <th>Access Level</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>admin</code></td>
+                            <td><code>scopeAdmin()</code></td>
+                            <td>Full access - manage all</td>
+                        </tr>
+                        <tr>
+                            <td><code>dosen</code></td>
+                            <td><code>scopeDosen()</code></td>
+                            <td>Assess supervised students</td>
+                        </tr>
+                        <tr>
+                            <td><code>pembimbing_institusi</code></td>
+                            <td><code>scopePembimbingInstitusi()</code></td>
+                            <td>Assess from institution side</td>
+                        </tr>
+                        <tr>
+                            <td><code>pembimbing_klinik</code></td>
+                            <td><code>scopePembimbingKlinik()</code></td>
+                            <td>Assess from clinical side</td>
+                        </tr>
+                        <tr>
+                            <td><code>mahasiswa</code></td>
+                            <td><code>scopeMahasiswa()</code></td>
+                            <td>View own approved results</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="slide-number"><span class="current">05</span> / 15</div>
+        </div>
+
+        <!-- Slide 6: Assessment Model -->
+        <div class="slide">
+            <h2>Assessment Model <span class="tag">Business Logic</span></h2>
+            <div class="content">
+                <div class="code-block" data-lang="php">
+<span class="keyword">class</span> <span class="function">Assessment</span> <span class="keyword">extends</span> Model
+{
+    <span class="comment">// Status: draft → submitted → approved/rejected</span>
+    
+    <span class="keyword">public function</span> <span class="function">calculateTotalScore</span>(): float
+    {
+        <span class="keyword">match</span>($this->template->calculation_method) {
+            <span class="string">'average'</span>  => $this->scores-><span class="function">avg</span>(<span class="string">'score_value'</span>),
+            <span class="string">'weighted'</span> => $this-><span class="function">calculateWeighted</span>(),
+            <span class="string">'sum'</span>      => $this->scores-><span class="function">sum</span>(<span class="string">'score_value'</span>),
+        };
+    }
+
+    <span class="keyword">public function</span> <span class="function">determineFinalGrade</span>(): string
+    {
+        <span class="variable">$pct</span> = ($this->total_score / $this->template->max_score) * 100;
+        <span class="keyword">return match</span>(<span class="keyword">true</span>) {
+            <span class="variable">$pct</span> >= 85 => <span class="string">'A'</span>,
+            <span class="variable">$pct</span> >= 75 => <span class="string">'B'</span>,
+            <span class="variable">$pct</span> >= 65 => <span class="string">'C'</span>,
+            <span class="variable">$pct</span> >= 55 => <span class="string">'D'</span>,
+            <span class="keyword">default</span>    => <span class="string">'E'</span>,
+        };
+    }
+
+    <span class="keyword">public function</span> <span class="function">submit</span>(): bool { <span class="comment">// draft → submitted</span> }
+    <span class="keyword">public function</span> <span class="function">approve</span>(User $admin): bool { <span class="comment">// submitted → approved</span> }
+    <span class="keyword">public function</span> <span class="function">reject</span>(User $admin, string $reason): bool { <span class="comment">// submitted → rejected</span> }
+}
+                </div>
+
+                <h3>Assessment Status Flow</h3>
+                <div class="flow-horizontal">
+                    <div class="flow-box">
+                        <div class="flow-box-title">Create</div>
+                        <div class="flow-box-content">DRAFT</div>
+                    </div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-box">
+                        <div class="flow-box-title">Submit</div>
+                        <div class="flow-box-content">SUBMITTED</div>
+                    </div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-box highlight">
+                        <div class="flow-box-title">Admin Review</div>
+                        <div class="flow-box-content">APPROVED</div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number"><span class="current">06</span> / 15</div>
+        </div>
+
+        <!-- Slide 7: Routes -->
+        <div class="slide">
+            <h2>Route Configuration <span class="tag">web.php</span></h2>
+            <div class="content">
+                <div class="code-block" data-lang="php">
+<span class="comment">// Admin Routes - middleware: admin</span>
+Route::<span class="function">prefix</span>(<span class="string">'admin'</span>)-><span class="function">middleware</span>(<span class="string">'admin'</span>)-><span class="function">group</span>(<span class="keyword">function</span>() {
+    Route::<span class="function">resource</span>(<span class="string">'programs'</span>, ProgramController::class);
+    Route::<span class="function">resource</span>(<span class="string">'users'</span>, UserController::class);
+    Route::<span class="function">resource</span>(<span class="string">'assessment-templates'</span>, TemplateController::class);
+    Route::<span class="function">resource</span>(<span class="string">'placements'</span>, PlacementController::class);
+    
+    <span class="comment">// AJAX endpoints for template builder</span>
+    Route::<span class="function">post</span>(<span class="string">'assessment/categories'</span>, [ComponentController::class, <span class="string">'storeCategory'</span>]);
+    Route::<span class="function">post</span>(<span class="string">'assessment/components'</span>, [ComponentController::class, <span class="string">'storeComponent'</span>]);
+    Route::<span class="function">post</span>(<span class="string">'assessment/rubrics'</span>, [ComponentController::class, <span class="string">'storeRubric'</span>]);
+});
+
+<span class="comment">// Assessor Routes - middleware: supervisor</span>
+Route::<span class="function">prefix</span>(<span class="string">'assessor'</span>)-><span class="function">middleware</span>(<span class="string">'supervisor'</span>)-><span class="function">group</span>(<span class="keyword">function</span>() {
+    Route::<span class="function">resource</span>(<span class="string">'assessments'</span>, AssessmentController::class);
+    Route::<span class="function">post</span>(<span class="string">'assessments/{id}/submit'</span>, [AssessmentController::class, <span class="string">'submit'</span>]);
+});
+
+<span class="comment">// Student Routes - middleware: student</span>
+Route::<span class="function">prefix</span>(<span class="string">'student'</span>)-><span class="function">middleware</span>(<span class="string">'student'</span>)-><span class="function">group</span>(<span class="keyword">function</span>() {
+    Route::<span class="function">get</span>(<span class="string">'assessments'</span>, [StudentController::class, <span class="string">'index'</span>]);
+    Route::<span class="function">get</span>(<span class="string">'assessments/{id}'</span>, [StudentController::class, <span class="string">'show'</span>]);
+});
+                </div>
+
+                <h3>Route Groups Summary</h3>
+                <div class="stats-row">
+                    <div class="stat-item">
+                        <div class="stat-value">/admin</div>
+                        <div class="stat-label">Admin Routes</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">/assessor</div>
+                        <div class="stat-label">Supervisor Routes</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">/student</div>
+                        <div class="stat-label">Student Routes</div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number"><span class="current">07</span> / 15</div>
+        </div>
+
+        <!-- Slide 8: Middleware -->
+        <div class="slide">
+            <h2>Custom Middleware <span class="tag">Security</span></h2>
+            <div class="content">
+                <div class="two-col">
+                    <div class="col">
+                        <h4>🛡️ CheckAdmin</h4>
+                        <div class="code-block" data-lang="php" style="font-size: 12px;">
+<span class="keyword">public function</span> <span class="function">handle</span>($request, $next)
+{
+    <span class="keyword">if</span> (!auth()->user()-><span class="function">isAdmin</span>()) {
+        <span class="function">abort</span>(403);
+    }
+    <span class="keyword">return</span> <span class="variable">$next</span>($request);
+}
+                        </div>
+                    </div>
+                    <div class="col">
+                        <h4>🛡️ CheckSupervisor</h4>
+                        <div class="code-block" data-lang="php" style="font-size: 12px;">
+<span class="keyword">public function</span> <span class="function">handle</span>($request, $next)
+{
+    <span class="keyword">if</span> (!auth()->user()-><span class="function">isSupervisor</span>()) {
+        <span class="function">abort</span>(403);
+    }
+    <span class="keyword">return</span> <span class="variable">$next</span>($request);
+}
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Register in Kernel.php</h3>
+                <div class="code-block" data-lang="php">
+<span class="keyword">protected</span> <span class="variable">$routeMiddleware</span> = [
+    <span class="string">'admin'</span>      => \App\Http\Middleware\CheckAdmin::class,
+    <span class="string">'supervisor'</span> => \App\Http\Middleware\CheckSupervisor::class,
+    <span class="string">'student'</span>    => \App\Http\Middleware\CheckStudent::class,
+];
+                </div>
+            </div>
+            <div class="slide-number"><span class="current">08</span> / 15</div>
+        </div>
+
+        <!-- Slide 9: Policy -->
+        <div class="slide">
+            <h2>Assessment Policy <span class="tag">Authorization</span></h2>
+            <div class="content">
+                <div class="code-block" data-lang="php">
+<span class="keyword">class</span> <span class="function">AssessmentPolicy</span>
+{
+    <span class="keyword">public function</span> <span class="function">view</span>(User <span class="variable">$user</span>, Assessment <span class="variable">$assessment</span>): bool
+    {
+        <span class="keyword">if</span> (<span class="variable">$user</span>-><span class="function">isAdmin</span>()) <span class="keyword">return true</span>;
+        <span class="keyword">if</span> (<span class="variable">$user</span>-><span class="function">isSupervisor</span>() && <span class="variable">$assessment</span>->assessor_id === <span class="variable">$user</span>->id) <span class="keyword">return true</span>;
+        <span class="keyword">if</span> (<span class="variable">$user</span>-><span class="function">isMahasiswa</span>()) {
+            <span class="keyword">return</span> <span class="variable">$assessment</span>->placement->student_id === <span class="variable">$user</span>->id 
+                && <span class="variable">$assessment</span>->status === <span class="string">'approved'</span>;
+        }
+        <span class="keyword">return false</span>;
+    }
+
+    <span class="keyword">public function</span> <span class="function">update</span>(User <span class="variable">$user</span>, Assessment <span class="variable">$assessment</span>): bool
+    {
+        <span class="keyword">return</span> <span class="variable">$user</span>->id === <span class="variable">$assessment</span>->assessor_id && <span class="variable">$assessment</span>->status === <span class="string">'draft'</span>;
+    }
+
+    <span class="keyword">public function</span> <span class="function">approve</span>(User <span class="variable">$user</span>, Assessment <span class="variable">$assessment</span>): bool
+    {
+        <span class="keyword">return</span> <span class="variable">$user</span>-><span class="function">isAdmin</span>() && <span class="variable">$assessment</span>->status === <span class="string">'submitted'</span>;
+    }
+}
+                </div>
+
+                <h3>Policy Matrix</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Action</th>
+                            <th>Admin</th>
+                            <th>Supervisor</th>
+                            <th>Student</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>view</code></td>
+                            <td><span class="badge green">All</span></td>
+                            <td><span class="badge blue">Own</span></td>
+                            <td><span class="badge purple">Own + Approved</span></td>
+                        </tr>
+                        <tr>
+                            <td><code>update</code></td>
+                            <td><span class="badge orange">—</span></td>
+                            <td><span class="badge blue">Own + Draft</span></td>
+                            <td><span class="badge orange">—</span></td>
+                        </tr>
+                        <tr>
+                            <td><code>approve</code></td>
+                            <td><span class="badge green">Submitted</span></td>
+                            <td><span class="badge orange">—</span></td>
+                            <td><span class="badge orange">—</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="slide-number"><span class="current">09</span> / 15</div>
+        </div>
+
+        <!-- Slide 10: Controllers -->
+        <div class="slide">
+            <h2>Controller Structure <span class="tag">MVC</span></h2>
+            <div class="content">
+                <div class="card-grid">
+                    <div class="card">
+                        <div class="card-icon">📊</div>
+                        <h4>DashboardController</h4>
+                        <p>Role-based dashboard routing. Mengarahkan ke admin/assessor/student dashboard sesuai user type.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">👥</div>
+                        <h4>UserManagementController</h4>
+                        <p>CRUD users dengan filter role/program. Bulk delete, validation rules, password hashing.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">📋</div>
+                        <h4>AssessmentTemplateController</h4>
+                        <p>CRUD templates. Clone template, toggle active, eager load categories/components.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">⚙️</div>
+                        <h4>AssessmentComponentController</h4>
+                        <p>AJAX endpoints untuk template builder. Store/update/delete categories, components, rubrics.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">📝</div>
+                        <h4>AssessmentController</h4>
+                        <p>Scoring form handler. Create draft, fill scores, submit, upload attachments.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">🎓</div>
+                        <h4>StudentAssessmentController</h4>
+                        <p>Read-only access. List approved assessments, view detail, download PDF.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number"><span class="current">10</span> / 15</div>
+        </div>
+
+        <!-- Slide 11: Template Structure -->
+        <div class="slide">
+            <h2>Template Hierarchy <span class="tag">Data Model</span></h2>
+            <div class="content">
+                <div class="code-block" data-lang="structure">
+<span class="function">AssessmentTemplate</span>
+├── <span class="variable">id</span>, <span class="variable">name</span>, <span class="variable">code</span>, <span class="variable">program_id</span>
+├── <span class="variable">type</span>: <span class="string">praktek</span> | <span class="string">teori</span> | <span class="string">sikap</span> | <span class="string">kombinasi</span>
+├── <span class="variable">assessor_type</span>: <span class="string">pembimbing_institusi</span> | <span class="string">pembimbing_klinik</span> | <span class="string">dosen</span>
+├── <span class="variable">calculation_method</span>: <span class="string">average</span> | <span class="string">weighted</span> | <span class="string">sum</span>
+├── <span class="variable">min_score</span>, <span class="variable">max_score</span>, <span class="variable">passing_score</span>
+│
+└── <span class="function">AssessmentCategory</span> (hasMany)
+    ├── <span class="variable">name</span>, <span class="variable">weight</span> (%), <span class="variable">order_index</span>
+    │
+    └── <span class="function">AssessmentComponent</span> (hasMany)
+        ├── <span class="variable">name</span>, <span class="variable">weight</span> (%), <span class="variable">is_required</span>
+        ├── <span class="variable">score_type</span>: <span class="string">numeric</span> | <span class="string">rubric</span> | <span class="string">checklist</span> | <span class="string">grade</span>
+        │
+        └── <span class="function">ScoringRubric</span> (hasMany, if score_type = rubric)
+            └── <span class="variable">score_value</span>, <span class="variable">grade_label</span>, <span class="variable">descriptor</span>
+                </div>
+
+                <h3>Score Types</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Input</th>
+                            <th>Example</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>numeric</code></td>
+                            <td>Number input with min/max</td>
+                            <td>0-100 range</td>
+                        </tr>
+                        <tr>
+                            <td><code>rubric</code></td>
+                            <td>Dropdown with descriptions</td>
+                            <td>1-4 scale with descriptors</td>
+                        </tr>
+                        <tr>
+                            <td><code>checklist</code></td>
+                            <td>Yes/No dropdown</td>
+                            <td>Dilakukan / Tidak</td>
+                        </tr>
+                        <tr>
+                            <td><code>grade</code></td>
+                            <td>Letter grade input</td>
+                            <td>A, B, C, D, E</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="slide-number"><span class="current">11</span> / 15</div>
+        </div>
+
+        <!-- Slide 12: Calculation Methods -->
+        <div class="slide">
+            <h2>Score Calculation <span class="tag">Algorithms</span></h2>
+            <div class="content">
+                <div class="two-col">
+                    <div class="col">
+                        <h4>📊 Average Method</h4>
+                        <div class="code-block" data-lang="php" style="font-size: 12px;">
+<span class="variable">$total</span> = <span class="variable">$scores</span>-><span class="function">avg</span>(<span class="string">'score_value'</span>);
+                        </div>
+                        <p style="color: var(--text-secondary); font-size: 13px; margin-top: 12px;">Simple average of all component scores. Best for equal-weight components.</p>
+                    </div>
+                    <div class="col">
+                        <h4>⚖️ Weighted Method</h4>
+                        <div class="code-block" data-lang="php" style="font-size: 12px;">
+<span class="variable">$total</span> = Σ(<span class="variable">score</span> × <span class="variable">catWeight</span> × <span class="variable">compWeight</span>) / Σ<span class="variable">weights</span>;
+                        </div>
+                        <p style="color: var(--text-secondary); font-size: 13px; margin-top: 12px;">Considers category and component weights. Best for differentiated importance.</p>
+                    </div>
+                </div>
+
+                <h3>Grade Determination</h3>
+                <div class="code-block" data-lang="php">
+<span class="variable">$percentage</span> = (<span class="variable">$totalScore</span> / <span class="variable">$maxScore</span>) * 100;
+
+<span class="variable">$grade</span> = <span class="keyword">match</span>(<span class="keyword">true</span>) {
+    <span class="variable">$percentage</span> >= 85 => <span class="string">'A'</span>,  <span class="comment">// Excellent</span>
+    <span class="variable">$percentage</span> >= 75 => <span class="string">'B'</span>,  <span class="comment">// Good</span>
+    <span class="variable">$percentage</span> >= 65 => <span class="string">'C'</span>,  <span class="comment">// Satisfactory</span>
+    <span class="variable">$percentage</span> >= 55 => <span class="string">'D'</span>,  <span class="comment">// Needs Improvement</span>
+    <span class="keyword">default</span>           => <span class="string">'E'</span>,  <span class="comment">// Unsatisfactory</span>
+};
+
+<span class="variable">$isPassed</span> = <span class="variable">$totalScore</span> >= <span class="variable">$template</span>->passing_score;
+                </div>
+            </div>
+            <div class="slide-number"><span class="current">12</span> / 15</div>
+        </div>
+
+        <!-- Slide 13: AJAX Endpoints -->
+        <div class="slide">
+            <h2>AJAX API Endpoints <span class="tag">REST</span></h2>
+            <div class="content">
+                <h3>Template Builder APIs</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Method</th>
+                            <th>Endpoint</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="badge green">POST</span></td>
+                            <td><code>/admin/assessment/categories</code></td>
+                            <td>Create category</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge blue">PUT</span></td>
+                            <td><code>/admin/assessment/categories/{id}</code></td>
+                            <td>Update category</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge orange">DELETE</span></td>
+                            <td><code>/admin/assessment/categories/{id}</code></td>
+                            <td>Delete category</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge green">POST</span></td>
+                            <td><code>/admin/assessment/components</code></td>
+                            <td>Create component</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge green">POST</span></td>
+                            <td><code>/admin/assessment/rubrics</code></td>
+                            <td>Create rubric</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge green">POST</span></td>
+                            <td><code>/admin/assessment/rubrics/bulk</code></td>
+                            <td>Bulk create rubrics</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Dynamic Dropdowns</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Method</th>
+                            <th>Endpoint</th>
+                            <th>Response</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="badge purple">GET</span></td>
+                            <td><code>/admin/placements/students-by-program/{id}</code></td>
+                            <td>Array of students</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge purple">GET</span></td>
+                            <td><code>/admin/placements/supervisors-by-program/{id}</code></td>
+                            <td>{institution: [], clinical: []}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="slide-number"><span class="current">13</span> / 15</div>
+        </div>
+
+        <!-- Slide 14: Troubleshooting -->
+        <div class="slide">
+            <h2>Troubleshooting <span class="tag">Debug</span></h2>
+            <div class="content">
+                <div class="terminal">
+                    <div class="terminal-header">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                        <span class="terminal-title">bash — debug commands</span>
+                    </div>
+                    <div class="terminal-body">
+                        <span class="comment"># Clear all caches</span><br>
+                        <span class="prompt">$</span> <span class="command">php artisan optimize:clear</span><br><br>
+                        
+                        <span class="comment"># List routes with filter</span><br>
+                        <span class="prompt">$</span> <span class="command">php artisan route:list --name=admin</span><br><br>
+                        
+                        <span class="comment"># Test models in Tinker</span><br>
+                        <span class="prompt">$</span> <span class="command">php artisan tinker</span><br>
+                        <span class="output">>>> Assessment::with('scores')->first()</span><br><br>
+                        
+                        <span class="comment"># Watch logs</span><br>
+                        <span class="prompt">$</span> <span class="command">tail -f storage/logs/laravel.log</span>
+                    </div>
+                </div>
+
+                <h3>Common Issues</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Issue</th>
+                            <th>Solution</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Class not found</td>
+                            <td><code>composer dump-autoload</code></td>
+                        </tr>
+                        <tr>
+                            <td>CSRF token mismatch</td>
+                            <td>Add <code>@csrf</code> in forms</td>
+                        </tr>
+                        <tr>
+                            <td>Permission denied</td>
+                            <td><code>chmod -R 775 storage</code></td>
+                        </tr>
+                        <tr>
+                            <td>Undefined variable</td>
+                            <td>Check controller <code>compact()</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="slide-number"><span class="current">14</span> / 15</div>
+        </div>
+
+        <!-- Slide 15: Summary -->
+        <div class="slide slide-cover">
+            <div class="logo">✅</div>
+            <h1>Technical <span class="highlight">Summary</span></h1>
+            <div class="stats-row" style="max-width: 800px; margin: 40px auto;">
+                <div class="stat-item">
+                    <div class="stat-value">12</div>
+                    <div class="stat-label">Database Tables</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">5</div>
+                    <div class="stat-label">User Roles</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">3</div>
+                    <div class="stat-label">Middlewares</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">6</div>
+                    <div class="stat-label">Controllers</div>
+                </div>
+            </div>
+            <div class="highlight-box" style="max-width: 700px; margin: 0 auto;">
+                <strong>📚 Full Documentation Available</strong>
+                <p>Lihat file PANDUAN_TEKNIS_DEVELOPER.md untuk dokumentasi lengkap termasuk code snippets, ERD detail, dan API reference.</p>
+            </div>
+            <div class="slide-number"><span class="current">15</span> / 15</div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">← Prev</button>
+        <div class="nav-dots" id="navDots"></div>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Next →</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        const navDots = document.getElementById('navDots');
+
+        // Create dots
+        for (let i = 0; i < totalSlides; i++) {
+            const dot = document.createElement('div');
+            dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
+            dot.onclick = () => goToSlide(i);
+            navDots.appendChild(dot);
+        }
+
+        function updateDots() {
+            document.querySelectorAll('.nav-dot').forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentSlide);
+            });
+        }
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+            updateDots();
+        }
+
+        function changeSlide(d) { showSlide(currentSlide + d); }
+        function goToSlide(i) { showSlide(i); }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft' && currentSlide > 0) changeSlide(-1);
+            if (e.key === 'ArrowRight' && currentSlide < totalSlides - 1) changeSlide(1);
+        });
+
+        showSlide(0);
+    </script>
+</body>
+</html>

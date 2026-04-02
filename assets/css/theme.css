@@ -2,34 +2,38 @@
 /* Consistent design tokens for all pages */
 
 :root {
-    /* Colors - Dark Theme */
-    --bg-dark: #0a0a0a;
-    --bg-card: #1a1a1a;
-    --bg-elevated: #222222;
-    --bg-overlay: rgba(10, 10, 10, 0.95);
-    
+    /* Colors - Galaxy Theme */
+    --bg-dark: #07050f;
+    --bg-card: rgba(13, 10, 46, 0.75);
+    --bg-elevated: rgba(20, 15, 60, 0.85);
+    --bg-overlay: rgba(7, 5, 15, 0.93);
+
     /* Text Colors */
-    --text-primary: #ffffff;
-    --text-secondary: #a0a0a0;
-    --text-tertiary: #707070;
-    --text-muted: #505050;
-    
+    --text-primary: #f5f0ff;
+    --text-secondary: #a89fc0;
+    --text-tertiary: #7a7095;
+    --text-muted: #5a5070;
+
     /* Accent Colors */
-    --accent-blue: #3b82f6;
-    --accent-cyan: #06b6d4;
-    --accent-blue-dark: #2563eb;
-    --accent-cyan-dark: #0891b2;
+    --accent-blue: #7b2fff;
+    --accent-cyan: #f0c040;
+    --accent-blue-dark: #5a1fd8;
+    --accent-cyan-dark: #b8860b;
     
     /* Alternative Accents (for variations) */
-    --accent-pink: #ec4899;
+    --accent-pink: #c41e3a;
     --accent-purple: #a855f7;
     --accent-green: #10b981;
-    --accent-orange: #f59e0b;
-    
+    --accent-orange: #f0c040;
+    --gold: #f0c040;
+    --purple: #7b2fff;
+    --cyan: #00d4ff;
+    --crimson: #c41e3a;
+
     /* Border Colors */
-    --border-color: #2a2a2a;
-    --border-light: #3a3a3a;
-    --border-accent: var(--accent-blue);
+    --border-color: rgba(240, 192, 64, 0.13);
+    --border-light: rgba(240, 192, 64, 0.28);
+    --border-accent: #f0c040;
     
     /* Status Colors */
     --success: #10b981;
@@ -38,13 +42,16 @@
     --info: #06b6d4;
     
     /* Gradients */
-    --gradient-primary: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
-    --gradient-hover: linear-gradient(135deg, var(--accent-blue-dark), var(--accent-cyan-dark));
-    --gradient-bg: radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
-                    radial-gradient(circle at 80% 80%, rgba(6, 182, 212, 0.1) 0%, transparent 50%);
-    
+    --gradient-primary: linear-gradient(135deg, #f0c040, #00d4ff);
+    --gradient-hover: linear-gradient(135deg, #b8860b, #0099cc);
+    --gradient-bg:
+        radial-gradient(ellipse at 20% 50%, rgba(123, 47, 255, 0.14) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(0, 212, 255, 0.09) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 80%, rgba(196, 30, 58, 0.07) 0%, transparent 50%);
+
     /* Typography */
-    --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    --font-primary: 'Crimson Text', Georgia, serif;
+    --font-heading: 'Cinzel', 'Times New Roman', serif;
     --font-mono: 'Fira Code', 'Monaco', 'Courier New', monospace;
     
     /* Font Sizes */
@@ -104,8 +111,8 @@
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
     --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
     --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-    --shadow-glow: 0 0 20px rgba(59, 130, 246, 0.3);
-    --shadow-glow-hover: 0 10px 30px rgba(59, 130, 246, 0.4);
+    --shadow-glow: 0 0 20px rgba(240, 192, 64, 0.3);
+    --shadow-glow-hover: 0 10px 30px rgba(240, 192, 64, 0.45);
     
     /* Transitions */
     --transition-fast: 150ms ease-in-out;
@@ -141,38 +148,37 @@ body {
 
 /* Selection colors */
 ::selection {
-    background-color: var(--accent-blue);
-    color: var(--text-primary);
+    background-color: rgba(240, 192, 64, 0.3);
+    color: #fff;
 }
 
 ::-moz-selection {
-    background-color: var(--accent-blue);
-    color: var(--text-primary);
+    background-color: rgba(240, 192, 64, 0.3);
+    color: #fff;
 }
 
 /* Scrollbar styling for webkit browsers */
 ::-webkit-scrollbar {
-    width: 12px;
+    width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-    background: var(--bg-dark);
+    background: #07050f;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: var(--bg-card);
+    background: linear-gradient(180deg, #7b2fff, #f0c040);
     border-radius: var(--radius-full);
-    border: 2px solid var(--bg-dark);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: var(--border-light);
+    background: #f0c040;
 }
 
 /* Focus styles */
 :focus-visible {
-    outline: 2px solid var(--accent-blue);
-    outline-offset: 2px;
+    outline: 2px solid #f0c040;
+    outline-offset: 3px;
 }
 
 /* Code blocks styling */

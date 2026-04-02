@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Annisa Baizan — Butuh waktu untuk dikenal. Worth it kalau mau invest.">
+    <title>About - Annisa Baizan</title>
+
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" href="assets/css/theme.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&display=swap');
+
+        :root {
+            --font-display: 'DM Serif Display', serif;
+            --font-body: 'DM Sans', sans-serif;
+
+            --c-introverted:        #e05252;
+            --c-intuitive:          #f97316;
+            --c-feeling:            #eab308;
+            --c-judging:            #22c55e;
+            --c-systematic:         #60a5fa;
+            --c-koleris:            #6366f1;
+            --c-melankolis:         #c084fc;
+            --c-avoidant:           #fb7185;
+            --c-agreeableness:      #2dd4bf;
+            --c-conscientiousness:  #3b82f6;
+            --c-openness:           #fbbf24;
+            --c-neuroticism:        #94a3b8;
+        }
+
+        * { box-sizing: border-box; }
+        body { font-family: var(--font-body); }
+
+        .emoji {
+            font-family: 'Noto Color Emoji', 'Apple Color Emoji', 'Segoe UI Emoji', sans-serif;
+            font-style: normal;
+        }
+
+        /* ── HIGHLIGHT SYSTEM ── */
+        .hl {
+            color: inherit; font-weight: inherit;
+            padding-bottom: 2px;
+            border-bottom: 2px solid transparent;
+            display: inline; position: relative; cursor: default;
+        }
+        .hl-l2 { padding-bottom: 5px; border-bottom: 2px solid transparent; }
+        .hl-l3 { padding-bottom: 8px; border-bottom: 2px solid transparent; }
+
+        .hl-introverted, .hl-l2.hl-introverted, .hl-l3.hl-introverted           { border-bottom-color: var(--c-introverted); }
+        .hl-intuitive, .hl-l2.hl-intuitive, .hl-l3.hl-intuitive                 { border-bottom-color: var(--c-intuitive); }
+        .hl-feeling, .hl-l2.hl-feeling, .hl-l3.hl-feeling                       { border-bottom-color: var(--c-feeling); }
+        .hl-judging, .hl-l2.hl-judging, .hl-l3.hl-judging                       { border-bottom-color: var(--c-judging); }
+        .hl-systematic, .hl-l2.hl-systematic, .hl-l3.hl-systematic              { border-bottom-color: var(--c-systematic); }
+        .hl-koleris, .hl-l2.hl-koleris, .hl-l3.hl-koleris                       { border-bottom-color: var(--c-koleris); }
+        .hl-melankolis, .hl-l2.hl-melankolis, .hl-l3.hl-melankolis              { border-bottom-color: var(--c-melankolis); }
+        .hl-avoidant, .hl-l2.hl-avoidant, .hl-l3.hl-avoidant                   { border-bottom-color: var(--c-avoidant); }
+        .hl-agreeableness, .hl-l2.hl-agreeableness, .hl-l3.hl-agreeableness    { border-bottom-color: var(--c-agreeableness); }
+        .hl-conscientiousness, .hl-l2.hl-conscientiousness, .hl-l3.hl-conscientiousness { border-bottom-color: var(--c-conscientiousness); }
+        .hl-openness, .hl-l2.hl-openness, .hl-l3.hl-openness                   { border-bottom-color: var(--c-openness); }
+        .hl-neuroticism, .hl-l2.hl-neuroticism, .hl-l3.hl-neuroticism          { border-bottom-color: var(--c-neuroticism); }
+
+        /* ── TOOLTIP ── */
+        #hl-tooltip {
+            position: fixed; z-index: 9999; pointer-events: none;
+            display: flex; gap: 4px; align-items: center;
+            opacity: 0; transform: translateY(4px);
+            transition: opacity 0.15s ease, transform 0.15s ease;
+        }
+        #hl-tooltip.visible { opacity: 1; transform: translateY(0); }
+        .hl-tip-badge {
+            font-family: var(--font-body, sans-serif);
+            font-size: 0.62rem; font-weight: 700; font-style: normal;
+            letter-spacing: 0.09em; text-transform: uppercase;
+            padding: 0.28rem 0.6rem; border-radius: 4px; white-space: nowrap;
+            box-shadow: 2px 2px 0px rgba(0,0,0,0.35); color: #000;
+        }
+        .hl-tip-badge.light-text { color: #fff; }
+
+        /* ── TAGS ── */
+        .ab-tag { padding: 0.28rem 0.85rem; border: 1px solid; border-radius: 999px; font-size: 0.68rem; letter-spacing: 0.05em; font-weight: 500; transition: opacity 0.2s; display: inline-block; }
+        .ab-tag:hover { opacity: 0.75; }
+        .t-introverted        { color: var(--c-introverted);       border-color: var(--c-introverted);       background: rgba(224,82,82,0.08); }
+        .t-intuitive          { color: var(--c-intuitive);         border-color: var(--c-intuitive);         background: rgba(249,115,22,0.08); }
+        .t-feeling            { color: var(--c-feeling);           border-color: var(--c-feeling);           background: rgba(234,179,8,0.08); }
+        .t-judging            { color: var(--c-judging);           border-color: var(--c-judging);           background: rgba(34,197,94,0.08); }
+        .t-systematic         { color: var(--c-systematic);        border-color: var(--c-systematic);        background: rgba(96,165,250,0.08); }
+        .t-koleris            { color: var(--c-koleris);           border-color: var(--c-koleris);           background: rgba(99,102,241,0.08); }
+        .t-melankolis         { color: var(--c-melankolis);        border-color: var(--c-melankolis);        background: rgba(192,132,252,0.08); }
+        .t-avoidant           { color: var(--c-avoidant);          border-color: var(--c-avoidant);          background: rgba(251,113,133,0.08); }
+        .t-agreeableness      { color: var(--c-agreeableness);     border-color: var(--c-agreeableness);     background: rgba(45,212,191,0.08); }
+        .t-conscientiousness  { color: var(--c-conscientiousness); border-color: var(--c-conscientiousness); background: rgba(59,130,246,0.08); }
+        .t-openness           { color: var(--c-openness);          border-color: var(--c-openness);          background: rgba(251,191,36,0.08); }
+        .t-neuroticism        { color: var(--c-neuroticism);       border-color: var(--c-neuroticism);       background: rgba(148,163,184,0.08); }
+        .t-context            { color: var(--text-secondary,#888); border-color: rgba(255,255,255,0.12);     background: transparent; }
+
+        /* ── LAYOUT BASE ── */
+        .ab-hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; padding-top: 80px; }
+        .ab-hero-left { display: flex; flex-direction: column; justify-content: center; padding: 6rem 4rem 6rem 6rem; border-right: 1px solid var(--border-color, rgba(255,255,255,0.08)); }
+        .ab-hero-right { display: flex; align-items: center; justify-content: center; padding: 4rem; position: relative; overflow: hidden; }
+        .ab-eyebrow { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent-cyan,#06b6d4); font-weight: 600; margin-bottom: 1.5rem; }
+        .ab-name { font-family: var(--font-display); font-size: clamp(3rem,6vw,5.5rem); line-height: 1.05; color: var(--text-primary,#fff); margin-bottom: 1rem; }
+        .ab-name em { font-style: italic; color: var(--accent-cyan,#06b6d4); }
+        .ab-tagline { font-size: 1rem; color: var(--text-secondary,#aaa); line-height: 1.7; max-width: 420px; margin-bottom: 2.5rem; }
+        .ab-tag-cluster { margin-bottom: 1rem; }
+        .ab-tag-cluster-label { font-size: 0.58rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-secondary,#aaa); opacity: 0.5; margin-bottom: 0.4rem; display: block; }
+        .ab-tag-group { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+
+        .ab-portrait {
+            width: 320px; height: 400px;
+            background: var(--bg-card,#1a1a1a);
+            border: 1px solid var(--border-color,rgba(255,255,255,0.08));
+            border-radius: 2px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 7rem; position: relative;
+            font-family: 'Noto Color Emoji', 'Apple Color Emoji', sans-serif;
+        }
+        .ab-portrait::after {
+            content: ''; position: absolute; inset: 12px -12px -12px 12px;
+            border: 1px solid var(--border-color,rgba(255,255,255,0.08));
+            border-radius: 2px; z-index: -1;
+        }
+
+        .ab-section { padding: 6rem 0; }
+        .ab-section-inner { max-width: 900px; margin: 0 auto; padding: 0 2rem; }
+        .ab-section-label { font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent-cyan,#06b6d4); font-weight: 600; margin-bottom: 0.75rem; }
+        .ab-section-title { font-family: var(--font-display); font-size: clamp(2rem,4vw,3rem); color: var(--text-primary,#fff); margin-bottom: 1rem; line-height: 1.2; }
+        .ab-section-lead { font-size: 1.05rem; color: var(--text-secondary,#aaa); line-height: 1.8; max-width: 640px; margin-bottom: 3.5rem; }
+        .ab-first { background: var(--bg-card,#111); border-top: 1px solid var(--border-color,rgba(255,255,255,0.08)); border-bottom: 1px solid var(--border-color,rgba(255,255,255,0.08)); }
+
+        .ab-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+        .ab-prose { font-size: 0.95rem; color: var(--text-secondary,#aaa); line-height: 1.85; }
+        .ab-prose p + p { margin-top: 1rem; }
+        .ab-prose strong { color: var(--text-primary,#fff); font-weight: 600; }
+        .ab-quote { border-left: 3px solid var(--accent-cyan,#06b6d4); padding: 1.25rem 1.5rem; margin: 1.5rem 0; font-style: italic; color: var(--text-secondary,#aaa); font-size: 0.88rem; line-height: 1.75; background: rgba(6,182,212,0.03); border-radius: 0 4px 4px 0; }
+        .ab-divider { width: 40px; height: 2px; background: var(--accent-cyan,#06b6d4); margin: 2rem 0; }
+
+        /* ── DUALITY TABLE ── */
+        .ab-duality-table {
+            display: grid; grid-template-columns: 1fr 1fr;
+            border: 1px solid var(--border-color, rgba(255,255,255,0.08));
+            border-radius: 8px; overflow: hidden;
+            margin-top: 3rem;
+        }
+        .ab-duality-header {
+            padding: 1rem 1.75rem;
+            background: rgba(255,255,255,0.02);
+            font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
+            font-weight: 600; border-bottom: 1px solid var(--border-color, rgba(255,255,255,0.08));
+        }
+        .ab-duality-header.left { color: var(--c-avoidant); border-right: 1px solid var(--border-color, rgba(255,255,255,0.08)); }
+        .ab-duality-header.right { color: var(--accent-cyan, #06b6d4); }
+        .ab-duality-row {
+            display: contents;
+        }
+        .ab-duality-cell {
+            padding: 1.25rem 1.75rem;
+            font-size: 0.875rem; line-height: 1.7;
+            border-bottom: 1px solid var(--border-color, rgba(255,255,255,0.06));
+        }
+        .ab-duality-cell:nth-child(odd) {
+            border-right: 1px solid var(--border-color, rgba(255,255,255,0.06));
+            color: var(--text-secondary,#aaa);
+            background: rgba(251,113,133,0.02);
+        }
+        .ab-duality-cell:nth-child(even) {
+            color: var(--text-primary,#fff);
+            background: rgba(6,182,212,0.02);
+        }
+        .ab-duality-table > .ab-duality-cell:nth-last-child(-n+2) { border-bottom: none; }
+
+        /* ── HOBBY GRID ── */
+        .ab-hobby-list { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; border: 1px solid var(--border-color,rgba(255,255,255,0.08)); border-radius: 8px; overflow: hidden; margin-top: 2rem; }
+        .ab-hobby-item { padding: 1.75rem 1.5rem; background: var(--bg-card,#111); transition: background 0.2s; }
+        .ab-hobby-item:hover { background: rgba(6,182,212,0.04); }
+        .ab-hobby-icon { font-size: 1.5rem; display: block; margin-bottom: 0.6rem; font-family: 'Noto Color Emoji', 'Apple Color Emoji', 'Segoe UI Emoji', sans-serif; line-height: 1; }
+        .ab-hobby-name { font-size: 0.85rem; font-weight: 600; color: var(--text-primary,#fff); margin-bottom: 0.25rem; }
+        .ab-hobby-note { font-size: 0.75rem; color: var(--text-secondary,#aaa); line-height: 1.5; }
+
+        /* ── CONTEXT ── */
+        .ab-context-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; border: 1px solid var(--border-color,rgba(255,255,255,0.08)); border-radius: 8px; overflow: hidden; }
+        .ab-context-item { padding: 2rem 1.75rem; background: var(--bg-card,#111); }
+        .ab-context-label { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent-cyan,#06b6d4); font-weight: 600; margin-bottom: 0.6rem; }
+        .ab-context-value { font-size: 0.9rem; color: var(--text-primary,#fff); font-weight: 500; margin-bottom: 0.35rem; }
+        .ab-context-note { font-size: 0.78rem; color: var(--text-secondary,#aaa); line-height: 1.6; }
+
+        /* ── CARDS ── */
+        .ab-cards { display: flex; flex-direction: column; gap: 1px; border: 1px solid var(--border-color,rgba(255,255,255,0.08)); border-radius: 8px; overflow: hidden; }
+        .ab-card { background: var(--bg-card,#111); padding: 2rem 2.25rem; border-left: 3px solid transparent; transition: all 0.2s; }
+        .ab-card:hover { background: rgba(255,255,255,0.02); }
+        .ab-card.strength { border-left-color: var(--accent-cyan,#06b6d4); }
+        .ab-card.weakness { border-left-color: var(--accent-orange,#f59e0b); }
+        .ab-card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; margin-bottom: 0.75rem; }
+        .ab-card-title { font-size: 0.95rem; font-weight: 600; color: var(--text-primary,#fff); }
+        .ab-card-badge { font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.2rem 0.6rem; border-radius: 999px; white-space: nowrap; flex-shrink: 0; }
+        .ab-card-badge.cyan { background: rgba(6,182,212,0.1); color: var(--accent-cyan,#06b6d4); border: 1px solid rgba(6,182,212,0.3); }
+        .ab-card-badge.orange { background: rgba(245,158,11,0.1); color: var(--accent-orange,#f59e0b); border: 1px solid rgba(245,158,11,0.3); }
+        .ab-card-body { font-size: 0.875rem; color: var(--text-secondary,#aaa); line-height: 1.9; }
+
+        .ab-card-group-label {
+            font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
+            color: var(--text-secondary,#aaa); opacity: 0.4;
+            padding: 1.25rem 2.25rem 0.5rem;
+            background: var(--bg-card,#111);
+            border-top: 1px solid var(--border-color,rgba(255,255,255,0.08));
+        }
+        .ab-card-group-label:first-child { border-top: none; }
+
+        /* ── GROWTH ── */
+        .ab-growth-section {
+            background: linear-gradient(135deg, rgba(6,182,212,0.04) 0%, rgba(168,85,247,0.04) 100%);
+            border-top: 1px solid var(--border-color,rgba(255,255,255,0.08));
+            border-bottom: 1px solid var(--border-color,rgba(255,255,255,0.08));
+        }
+        .ab-growth-headline { font-family: var(--font-display); font-size: 1.6rem; color: var(--text-primary,#fff); margin-bottom: 2rem; line-height: 1.3; }
+        .ab-growth-items { display: flex; flex-direction: column; gap: 1.25rem; }
+        .ab-growth-item { display: flex; gap: 1.25rem; align-items: flex-start; padding: 1.25rem 1.5rem; background: var(--bg-card,#111); border-radius: 6px; border: 1px solid var(--border-color,rgba(255,255,255,0.06)); transition: border-color 0.2s; }
+        .ab-growth-item:hover { border-color: rgba(6,182,212,0.2); }
+        .ab-growth-num { font-family: var(--font-display); font-size: 1.5rem; color: var(--accent-cyan,#06b6d4); opacity: 0.3; line-height: 1; flex-shrink: 0; margin-top: -2px; }
+        .ab-growth-text { font-size: 0.9rem; color: var(--text-secondary,#aaa); line-height: 1.7; }
+
+        /* ── CTA ── */
+        .ab-cta { text-align: center; padding: 5rem 2rem; border-top: 1px solid var(--border-color,rgba(255,255,255,0.08)); }
+        .ab-cta-title { font-family: var(--font-display); font-size: clamp(1.75rem,3vw,2.5rem); color: var(--text-primary,#fff); margin-bottom: 1rem; }
+        .ab-cta-sub { font-size: 0.95rem; color: var(--text-secondary,#aaa); max-width: 480px; margin: 0 auto 2.5rem; line-height: 1.75; }
+
+        @media (max-width: 768px) {
+            .ab-hero { grid-template-columns: 1fr; min-height: auto; }
+            .ab-hero-left { padding: 6rem 2rem 3rem; border-right: none; border-bottom: 1px solid var(--border-color,rgba(255,255,255,0.08)); }
+            .ab-hero-right { display: none; }
+            .ab-two-col { grid-template-columns: 1fr; gap: 2rem; }
+            .ab-hobby-list { grid-template-columns: repeat(2,1fr); }
+            .ab-context-grid { grid-template-columns: 1fr; }
+            .ab-duality-table { grid-template-columns: 1fr; }
+            .ab-duality-header.left { border-right: none; }
+            .ab-duality-cell:nth-child(odd) { border-right: none; border-bottom: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-brand">AB</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html" class="active">About</a></li>
+                <li><a href="projects/index.html">Projects</a></li>
+                <li><a href="blog/index.html">Blog</a></li>
+                <li><a href="links.html">Links</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- ══════════════════════════════════════
+         HERO — kesan pertama yang jujur
+    ══════════════════════════════════════ -->
+    <section class="ab-hero">
+        <div class="ab-hero-left">
+            <div class="ab-eyebrow">Annisa Baizan · Palembang, 2026</div>
+            <h1 class="ab-name">Susah dikenal.<br><em>Worth it</em><br>kalau mau.</h1>
+            <p class="ab-tagline">
+                Orang yang lebih dalam dari yang terlihat di permukaan.
+                Butuh waktu dan effort untuk sampai ke sana —
+                tapi orang yang sudah sampai, tidak menyesal.
+            </p>
+            <div class="ab-tag-cluster">
+                <span class="ab-tag-cluster-label">Kepribadian</span>
+                <div class="ab-tag-group">
+                    <span class="ab-tag t-introverted">Introverted</span>
+                    <span class="ab-tag t-feeling">Feeling</span>
+                    <span class="ab-tag t-judging">Judging</span>
+                    <span class="ab-tag t-systematic">Systematic</span>
+                    <span class="ab-tag t-koleris">Koleris</span>
+                    <span class="ab-tag t-melankolis">Melankolis</span>
+                </div>
+            </div>
+            <div class="ab-tag-cluster">
+                <span class="ab-tag-cluster-label">Konteks</span>
+                <div class="ab-tag-group">
+                    <span class="ab-tag t-context">Computer Science · BINUS</span>
+                    <span class="ab-tag t-context">ASN Palembang</span>
+                    <span class="ab-tag t-context">Evidence-Based</span>
+                </div>
+            </div>
+        </div>
+        <div class="ab-hero-right">
+            <div class="ab-portrait">👤</div>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         DUALITAS — ini yang paling penting
+    ══════════════════════════════════════ -->
+    <section class="ab-section ab-first">
+        <div class="ab-section-inner">
+            <div class="ab-section-label">Luar vs Dalam</div>
+            <h2 class="ab-section-title">Yang Orang Lihat Pertama.<br>Yang Sebenarnya Ada.</h2>
+            <p class="ab-section-lead">
+                Bukan kontradiksi. Ini kompleksitas — dua hal yang sama-sama benar,
+                tapi hanya satu yang langsung terlihat.
+            </p>
+
+            <div class="ab-duality-table">
+                <div class="ab-duality-header left">Apa yang terlihat dari luar</div>
+                <div class="ab-duality-header right">Apa yang sebenarnya ada</div>
+
+                <div class="ab-duality-cell">
+                    <span class="hl hl-l2 hl-avoidant"><span class="hl hl-introverted">Dingin, pendiam, sulit didekati.</span></span>
+                    Orang perlu effort untuk mendekat — dan banyak yang memilih tidak mencoba.
+                </div>
+                <div class="ab-duality-cell">
+                    <span class="hl hl-l2 hl-agreeableness"><span class="hl hl-feeling">Hangat, aman, protektif.</span></span>
+                    Teman-teman yang sudah kenal bilang: <em>"tempat di mana aku bisa jadi diri sendiri."</em>
+                </div>
+
+                <div class="ab-duality-cell">
+                    <span class="hl hl-l2 hl-koleris"><span class="hl hl-introverted">Mandiri sepenuhnya.</span></span>
+                    Tidak kelihatan butuh bantuan. Tidak pernah tampak rapuh.
+                </div>
+                <div class="ab-duality-cell">
+                    <span class="hl hl-l2 hl-feeling"><span class="hl hl-agreeableness">Bisa turun, bisa terbuka — kalau diberi ruang.</span></span>
+                    Bukan tidak mau. Selektif di mana menaruh kepercayaan.
+                </div>
+
+                <div class="ab-duality-cell">
+                    <span class="hl hl-l2 hl-conscientiousness"><span class="hl hl-judging">Serius, perfeksionis, tinggi standar.</span></span>
+                    Terkesan kaku, tidak banyak ruang untuk yang tidak sejalan.
+                </div>
+                <div class="ab-duality-cell">
+                    <span class="hl hl-l2 hl-openness"><span class="hl hl-intuitive">Astronomi, crafting, masak, nyanyi.</span></span>
+                    Punya dunia yang luas — hanya tidak suka menonjolkannya.
+                </div>
+
+                <div class="ab-duality-cell">
+                    <span class="hl hl-introverted">Tidak banyak bicara.</span>
+                    Orang mudah salah sangka: tidak tertarik, atau tidak peduli.
+                </div>
+                <div class="ab-duality-cell">
+                    <span class="hl hl-l2 hl-conscientiousness"><span class="hl hl-feeling">Lebih banyak bertindak dari bicara.</span></span>
+                    Perhatian ditunjukkan lewat aksi, bukan kata-kata.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         CARA KERJA — siapa dia sebenarnya
+    ══════════════════════════════════════ -->
+    <section class="ab-section">
+        <div class="ab-section-inner">
+            <div class="ab-section-label">Cara Kerja</div>
+            <h2 class="ab-section-title">Satu Benang Merah<br>yang Mengikat Semuanya.</h2>
+            <div class="ab-two-col">
+                <div>
+                    <div class="ab-prose">
+                        <p>
+                            Ada satu hal yang konsisten — dari cara belajar, cara kerja, sampai cara berhubungan dengan orang:
+                            <strong><span class="hl hl-l2 hl-conscientiousness"><span class="hl hl-judging">tidak bisa setengah-setengah.</span></span></strong>
+                        </p>
+                        <p>
+                            <strong><span class="hl hl-l2 hl-intuitive"><span class="hl hl-openness">Kalau tertarik, dikejar sampai ke akar.</span></span></strong><br>
+                            Bukan karena harus. Karena memang tidak bisa berhenti di permukaan —
+                            satu pertanyaan membuka sepuluh pertanyaan lain, dan itu terasa menyenangkan, bukan melelahkan.
+                        </p>
+                        <p>
+                            <strong><span class="hl hl-l2 hl-conscientiousness"><span class="hl hl-koleris">Kalau dikerjakan, dikerjakan sungguh-sungguh.</span></span></strong><br>
+                            Standar bukan dari tekanan luar — ini dari dalam.
+                            <span class="hl hl-judging">Tidak nyaman menghasilkan sesuatu yang kurang dari yang seharusnya.</span>
+                        </p>
+                        <p>
+                            <strong><span class="hl hl-l2 hl-agreeableness"><span class="hl hl-feeling">Kalau peduli, benar-benar peduli.</span></span></strong><br>
+                            Tapi tidak semua orang diberi akses ke sana.
+                            <span class="hl hl-avoidant">Kepercayaan bukan sesuatu yang diberikan begitu saja</span> — harus dibangun.
+                        </p>
+                    </div>
+                    <div class="ab-divider"></div>
+                    <div class="ab-prose">
+                        <p style="font-size:0.82rem; opacity:0.6;">
+                            Ini juga yang membuat beberapa hal jadi lebih sulit dari yang seharusnya.
+                            Tapi saat ini sedang dipelajari — di mana standar tinggi perlu dipertahankan,
+                            dan di mana perlu dilepaskan.
+                        </p>
+                    </div>
+                </div>
+                <div>
+                    <div class="ab-quote">
+                        "Kalau sudah ada tujuan, pokoknya dia usahakan."<br>
+                        "Misalnya ada tugas, pasti dikerjakan sampai selesai."<br>
+                        "Tidak mudah menyerah — kecuali memang mentok."
+                    </div>
+                    <div class="ab-quote">
+                        "Gila belajar. Apa yang jadi persoalan kalau belum terpecahkan, belum ada solusi,
+                        pasti terus belajar sampai persoalan itu bisa diselesaikan."
+                    </div>
+                    <div class="ab-quote">
+                        "Kalau bantu orang, pasti tulus. Rela menjelaskan berulang-ulang,
+                        rela mencari cara pendekatan lain sampai orang benar-benar mengerti."
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         KELEBIHAN — terverifikasi
+    ══════════════════════════════════════ -->
+    <section class="ab-section" style="background:var(--bg-card,#111);border-top:1px solid var(--border-color,rgba(255,255,255,0.08));border-bottom:1px solid var(--border-color,rgba(255,255,255,0.08));">
+        <div class="ab-section-inner">
+            <div class="ab-section-label">Kelebihan</div>
+            <h2 class="ab-section-title">Yang Ada — Dengan Biayanya.</h2>
+            <p class="ab-section-lead">
+                Setiap kelebihan di sini datang dengan trade-off.
+                Ditampilkan bersama biayanya — karena jujur lebih berguna dari kesan baik.
+            </p>
+
+            <div class="ab-cards">
+
+                <div class="ab-card-group-label">Cara Berpikir</div>
+
+                <div class="ab-card strength">
+                    <div class="ab-card-top">
+                        <div class="ab-card-title">🧩 Systematic Thinker</div>
+                        <span class="ab-card-badge cyan">Default Mode</span>
+                    </div>
+                    <div class="ab-card-body">
+                        <span class="hl hl-l2 hl-judging"><span class="hl hl-systematic">Memisahkan yang diketahui dari yang diasumsikan.</span></span>
+                        Mencari pola, membangun kesimpulan dari dasar yang solid, menolak spekulasi tanpa basis.
+                        Ini bukan gaya komunikasi — ini cara kerja otak. <span class="hl hl-melankolis">Biayanya: kecepatan. Dan kadang, fleksibilitas.</span>
+                    </div>
+                </div>
+
+                <div class="ab-card strength">
+                    <div class="ab-card-top">
+                        <div class="ab-card-title">✅ Kejujuran Intelektual</div>
+                        <span class="ab-card-badge cyan">Non-Negotiable</span>
+                    </div>
+                    <div class="ab-card-body">
+                        <span class="hl hl-l2 hl-systematic"><span class="hl hl-judging">Lebih memilih "tidak tahu" dari jawaban yang salah.</span></span>
+                        Kebenaran di atas kenyamanan. Fakta di atas kecepatan.
+                        Pilihan sadar dengan cost yang jelas — dan tetap dipilih.
+                        <span class="hl hl-melankolis">Biayanya: bisa terasa blunt, terutama di budaya yang mengharapkan kehalusan.</span>
+                    </div>
+                </div>
+
+                <div class="ab-card strength">
+                    <div class="ab-card-top">
+                        <div class="ab-card-title">🌱 Kapasitas Belajar yang Genuine</div>
+                        <span class="ab-card-badge cyan">Terus Berkembang</span>
+                    </div>
+                    <div class="ab-card-body">
+                        Bukan sekadar suka belajar —
+                        <span class="hl hl-l2 hl-intuitive"><span class="hl hl-openness">ada perubahan nyata setelah belajar.</span></span>
+                        Dari teknologi sampai psikologi — rasa ingin tahu yang tidak bisa berhenti di permukaan.
+                        <span class="hl hl-melankolis">Biayanya: bisa belajar tanpa tahu ke mana arahnya.</span>
+                    </div>
+                </div>
+
+                <div class="ab-card-group-label">Cara Bekerja</div>
+
+                <div class="ab-card strength">
+                    <div class="ab-card-top">
+                        <div class="ab-card-title">🔥 Dedikasi & Daya Juang</div>
+                        <span class="ab-card-badge cyan">Verified</span>
+                    </div>
+                    <div class="ab-card-body">
+                        Kalau sudah commit —
+                        <span class="hl hl-l2 hl-conscientiousness"><span class="hl hl-koleris">all-in. Rela begadang, rela otak-atik berjam-jam, tidak berhenti sebelum menemukan solusi.</span></span>
+                        <span class="hl hl-melankolis">Biayanya: susah berhenti di "cukup baik" — dan susah menyerahkan ke orang lain.</span>
+                    </div>
+                </div>
+
+                <div class="ab-card strength">
+                    <div class="ab-card-top">
+                        <div class="ab-card-title">🚀 Mandiri & Self-Directed</div>
+                        <span class="ab-card-badge cyan">Consistent Pattern</span>
+                    </div>
+                    <div class="ab-card-body">
+                        <span class="hl hl-l2 hl-judging"><span class="hl hl-koleris">Bergerak atas inisiatif sendiri.</span></span>
+                        Mendesain jalan belajar sendiri, mengambil keputusan, menyelesaikan masalah tanpa menunggu.
+                        <span class="hl hl-melankolis">Biayanya: orang tidak selalu tahu kapan saya butuh bantuan — karena tidak pernah tampak butuh.</span>
+                    </div>
+                </div>
+
+                <div class="ab-card-group-label">Cara Berhubungan</div>
+
+                <div class="ab-card strength">
+                    <div class="ab-card-top">
+                        <div class="ab-card-title">🤝 Empati yang Tidak Berisik</div>
+                        <span class="ab-card-badge cyan">Hidden Strength</span>
+                    </div>
+                    <div class="ab-card-body">
+                        <span class="hl hl-l2 hl-feeling"><span class="hl hl-intuitive">Selalu mencari alasan di balik tindakan orang sebelum menghakimi.</span></span>
+                        Toleran terhadap perbedaan cara pikir dan kemampuan.
+                        <span class="hl hl-avoidant">Biayanya: orang sering tidak menyadari ini ada — karena tidak pernah ditunjukkan secara eksplisit.</span>
+                    </div>
+                </div>
+
+                <div class="ab-card strength">
+                    <div class="ab-card-top">
+                        <div class="ab-card-title">🫂 Tulus dalam Membantu</div>
+                        <span class="ab-card-badge cyan">Verified by Others</span>
+                    </div>
+                    <div class="ab-card-body">
+                        Kalau membantu, benar-benar membantu.
+                        <span class="hl hl-l3 hl-conscientiousness"><span class="hl hl-l2 hl-agreeableness"><span class="hl hl-feeling">Rela menjelaskan berulang-ulang, rela mencari pendekatan berbeda sampai orang benar-benar mengerti.</span></span></span>
+                        <span class="hl hl-neuroticism">Biayanya: sulit bilang tidak — dan itu bisa menguras lebih dari yang terlihat.</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         SISI LAIN — di luar kode
+    ══════════════════════════════════════ -->
+    <section class="ab-section">
+        <div class="ab-section-inner">
+            <div class="ab-section-label">Di Luar Kode</div>
+            <h2 class="ab-section-title">Yang Jarang Kelihatan.</h2>
+            <p class="ab-section-lead">
+                Ada sisi dari saya yang tidak langsung terlihat —
+                bukan karena disembunyikan, tapi karena tidak suka menonjolkan diri.
+            </p>
+            <div class="ab-hobby-list">
+                <div class="ab-hobby-item">
+                    <span class="ab-hobby-icon">&#x1F52D;</span>
+                    <div class="ab-hobby-name">Astronomi & Luar Angkasa</div>
+                    <div class="ab-hobby-note">Kalau sudah tertarik — sampai detail yang tidak orang ekspek. Ini bukan hobi casual.</div>
+                </div>
+                <div class="ab-hobby-item">
+                    <span class="ab-hobby-icon">&#x2702;&#xFE0F;</span>
+                    <div class="ab-hobby-name">Crafting & Kerajinan</div>
+                    <div class="ab-hobby-note">Dulu prakarya, sekarang kode. Build something from scratch — dalam bentuk apapun.</div>
+                </div>
+                <div class="ab-hobby-item">
+                    <span class="ab-hobby-icon">&#x1F3B5;</span>
+                    <div class="ab-hobby-name">Menyanyi</div>
+                    <div class="ab-hobby-note">Suara bagus — tapi hanya orang tertentu yang tahu. Bukan untuk semua orang.</div>
+                </div>
+                <div class="ab-hobby-item">
+                    <span class="ab-hobby-icon">&#x1F373;</span>
+                    <div class="ab-hobby-name">Memasak</div>
+                    <div class="ab-hobby-note">Kreativitas yang praktis. Cara lain untuk memberi tanpa harus bicara banyak.</div>
+                </div>
+                <div class="ab-hobby-item">
+                    <span class="ab-hobby-icon">&#x1F9E0;</span>
+                    <div class="ab-hobby-name">Psikologi & Filsafat</div>
+                    <div class="ab-hobby-note">Belajar cara kerja manusia dengan serius — bukan casual reading, tapi systematic study.</div>
+                </div>
+                <div class="ab-hobby-item">
+                    <span class="ab-hobby-icon">&#x1F4BB;</span>
+                    <div class="ab-hobby-name">Problem Solving</div>
+                    <div class="ab-hobby-note">Belum tamat kalau masalah belum selesai. Berjam-jam di depan layar bukan beban — ini mode.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         KONTEKS
+    ══════════════════════════════════════ -->
+    <section class="ab-section" style="background:var(--bg-card,#111);border-top:1px solid var(--border-color,rgba(255,255,255,0.08));border-bottom:1px solid var(--border-color,rgba(255,255,255,0.08));">
+        <div class="ab-section-inner">
+            <div class="ab-section-label">Konteks</div>
+            <h2 class="ab-section-title">Siapa, Di Mana, Mengerjakan Apa.</h2>
+            <div class="ab-context-grid">
+                <div class="ab-context-item">
+                    <div class="ab-context-label">Akademik</div>
+                    <div class="ab-context-value">Ilmu Komputer · BINUS</div>
+                    <div class="ab-context-note">Termasuk self-directed curriculum di luar kuliah — psikologi, astronomi, hal-hal yang tidak ada di silabus tapi penting.</div>
+                </div>
+                <div class="ab-context-item">
+                    <div class="ab-context-label">Profesional</div>
+                    <div class="ab-context-value">ASN · Palembang</div>
+                    <div class="ab-context-note">Dual-track: teknologi akademis + birokrasi pemerintahan. Multi-tasking yang demanding — dijalankan bersamaan.</div>
+                </div>
+                <div class="ab-context-item">
+                    <div class="ab-context-label">Tech Stack</div>
+                    <div class="ab-context-value">Java · Laravel · Python</div>
+                    <div class="ab-context-note">Healthcare tech. Calrisk Dentistry, AR Tooth Academy. Project yang dikerjakan dengan dedikasi — bukan sekadar tugas.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         KELEMAHAN — jujur
+    ══════════════════════════════════════ -->
+    <section class="ab-section">
+        <div class="ab-section-inner">
+            <div class="ab-section-label">Kelemahan</div>
+            <h2 class="ab-section-title">Yang Masih Dikerjakan.<br>Secara Aktif.</h2>
+            <p class="ab-section-lead">
+                Diberi label bukan berarti sudah selesai.
+                Ini masih terjadi — dan sedang dihadapi.
+            </p>
+            <div class="ab-cards">
+
+                <div class="ab-card weakness">
+                    <div class="ab-card-top">
+                        <div class="ab-card-title">🐌 Analysis Paralysis</div>
+                        <span class="ab-card-badge orange">High Impact</span>
+                    </div>
+                    <div class="ab-card-body">
+                        <span class="hl hl-l2 hl-neuroticism"><span class="hl hl-melankolis">Overthinking yang aktif menghambat eksekusi.</span></span>
+                        Self-aware tentang ini — tapi masih terjadi.
+                        Preference untuk thoroughness sebelum commit
+                        <span class="hl hl-judging">sering lebih mahal dari yang seharusnya.</span>
+                        Yang terlambat, tetap terlambat.
+                    </div>
+                </div>
+
+                <div class="ab-card weakness">
+                    <div class="ab-card-top">
+                        <div class="ab-card-title">🪞 Standar yang Berbalik ke Dalam</div>
+                        <span class="ab-card-badge orange">High Impact</span>
+                    </div>
+                    <div class="ab-card-body">
+                        <span class="hl hl-l2 hl-conscientiousness"><span class="hl hl-melankolis">Standar tinggi yang seharusnya jadi kekuatan — kadang berbalik jadi tekanan terhadap diri sendiri.</span></span>
+                        Ketika hasil tidak sesuai ekspektasi,
+                        <span class="hl hl-l2 hl-introverted"><span class="hl hl-neuroticism">penilaian terhadap diri jauh lebih keras dari yang diperlukan.</span></span>
+                        Nilai diri belum sepenuhnya terpisah dari hasil kerja.
+                    </div>
+                </div>
+
+                <div class="ab-card weakness">
+                    <div class="ab-card-top">
+                        <div class="ab-card-title">🧱 "Branding" yang Tidak Mencerminkan Dalam</div>
+                        <span class="ab-card-badge orange">High Impact</span>
+                    </div>
+                    <div class="ab-card-body">
+                        Tampilan pertama: <span class="hl hl-l2 hl-avoidant"><span class="hl hl-introverted">dingin, tertutup, sulit didekati.</span></span>
+                        Banyak orang tidak melanjutkan karena effort untuk mengenal terasa terlalu besar.
+                        Di dalamnya ada kehangatan, humor, dan kedalaman —
+                        tapi <span class="hl hl-introverted">orang tidak akan tahu kalau tidak diberi sinyal bahwa ada yang perlu digali.</span>
+                    </div>
+                </div>
+
+                <div class="ab-card weakness">
+                    <div class="ab-card-top">
+                        <div class="ab-card-title">🔧 Susah Delegasi</div>
+                        <span class="ab-card-badge orange">Moderate</span>
+                    </div>
+                    <div class="ab-card-body">
+                        Karena <span class="hl hl-l2 hl-koleris"><span class="hl hl-conscientiousness">standar tinggi dan tidak bisa setengah-setengah</span></span>,
+                        lebih mudah mengerjakan sendiri daripada menyerahkan ke orang lain.
+                        <span class="hl hl-koleris">Efektif jangka pendek</span> — tidak sustainable jangka panjang.
+                        Masih dikalibrasi.
+                    </div>
+                </div>
+
+                <div class="ab-card weakness">
+                    <div class="ab-card-top">
+                        <div class="ab-card-title">😶 Sulit Bilang Tidak</div>
+                        <span class="ab-card-badge orange">Low-Moderate</span>
+                    </div>
+                    <div class="ab-card-body">
+                        Karena <span class="hl hl-l2 hl-agreeableness"><span class="hl hl-feeling">genuinely peduli</span></span>, sulit mengabaikan orang yang membutuhkan bantuan.
+                        Kekuatan yang bisa berubah jadi beban ketika
+                        <span class="hl hl-l2 hl-neuroticism"><span class="hl hl-agreeableness">tidak ada batas antara peduli dan menanggung terlalu banyak.</span></span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         GROWTH — ke mana arahnya
+    ══════════════════════════════════════ -->
+    <section class="ab-section ab-growth-section">
+        <div class="ab-section-inner">
+            <div class="ab-section-label">Path Forward</div>
+            <h2 class="ab-section-title">Yang Sedang Dikerjakan.</h2>
+            <div class="ab-growth-headline">
+                Bukan merubah — mengkalibrasi.<br>
+                Sistem yang ada sudah cukup baik. Deployment-nya yang perlu dioptimalkan.
+            </div>
+            <div class="ab-growth-items">
+                <div class="ab-growth-item">
+                    <div class="ab-growth-num">01</div>
+                    <div class="ab-growth-text">
+                        <span class="hl hl-l2 hl-judging"><span class="hl hl-conscientiousness">Memisahkan nilai diri dari hasil kerja.</span></span>
+                        Ini yang paling sulit — dan paling perlu. Bagus bukan berarti layak. Jelek bukan berarti tidak.
+                    </div>
+                </div>
+                <div class="ab-growth-item">
+                    <div class="ab-growth-num">02</div>
+                    <div class="ab-growth-text">
+                        <span class="hl hl-l2 hl-feeling"><span class="hl hl-avoidant">Membuka diri sedikit lebih awal.</span></span>
+                        Tidak harus menunggu sampai yakin 100% bahwa orang itu "layak".
+                        Kepercayaan dibangun dengan mencoba, bukan menunggu jaminan.
+                    </div>
+                </div>
+                <div class="ab-growth-item">
+                    <div class="ab-growth-num">03</div>
+                    <div class="ab-growth-text">
+                        <span class="hl hl-l2 hl-koleris"><span class="hl hl-conscientiousness">Belajar melepaskan kendali pada hal-hal yang bukan core.</span></span>
+                        Tidak semua hal butuh standar tertinggi. Supaya ada energi untuk yang benar-benar penting.
+                    </div>
+                </div>
+                <div class="ab-growth-item">
+                    <div class="ab-growth-num">04</div>
+                    <div class="ab-growth-text">
+                        <span class="hl hl-l2 hl-openness"><span class="hl hl-judging">Audit tujuan — bukan hanya kompetensi.</span></span>
+                        Belajar untuk apa, dan menuju mana? Kompetensi sebagai alat, bukan sebagai tujuan itu sendiri.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         CTA
+    ══════════════════════════════════════ -->
+    <div class="ab-cta">
+        <h2 class="ab-cta-title">Sampai Sejauh Ini?</h2>
+        <p class="ab-cta-sub">
+            Berarti kamu sudah melewati layer pertama.<br>
+            Saya bukan orang yang mudah dikenal dari permukaan —
+            tapi kalau mau invest waktu untuk itu, mungkin worth it.
+            Atau setidaknya, tidak membosankan.
+        </p>
+        <div class="hero-cta">
+            <a href="links.html" class="btn btn-primary">Get in Touch</a>
+            <a href="projects/index.html" class="btn btn-secondary">View Projects</a>
+        </div>
+    </div>
+
+    <script>
+        const tagNames = {
+            'hl-introverted':       { label: 'Introverted',       color: '#e05252', light: false },
+            'hl-intuitive':         { label: 'Intuitive',         color: '#f97316', light: false },
+            'hl-feeling':           { label: 'Feeling',           color: '#eab308', light: false },
+            'hl-judging':           { label: 'Judging',           color: '#22c55e', light: false },
+            'hl-systematic':        { label: 'Systematic',        color: '#60a5fa', light: false },
+            'hl-koleris':           { label: 'Koleris',           color: '#6366f1', light: true  },
+            'hl-melankolis':        { label: 'Melankolis',        color: '#c084fc', light: false },
+            'hl-avoidant':          { label: 'Avoidant',          color: '#fb7185', light: false },
+            'hl-agreeableness':     { label: 'Agreeableness',     color: '#2dd4bf', light: false },
+            'hl-conscientiousness': { label: 'Conscientiousness', color: '#3b82f6', light: true  },
+            'hl-openness':          { label: 'Openness',          color: '#fbbf24', light: false },
+            'hl-neuroticism':       { label: 'Neuroticism',       color: '#94a3b8', light: false },
+        };
+
+        const tip = document.createElement('div');
+        tip.id = 'hl-tooltip';
+        document.body.appendChild(tip);
+
+        let hideTimer = null;
+
+        document.querySelectorAll('.hl').forEach(el => {
+            if (el.querySelector(':scope > .hl')) return;
+
+            const traits = [];
+            const seen = new Set();
+            let node = el;
+            while (node && node.classList && node.classList.contains('hl')) {
+                [...node.classList].forEach(c => {
+                    if (tagNames[c] && !seen.has(c)) {
+                        seen.add(c);
+                        traits.push(tagNames[c]);
+                    }
+                });
+                node = node.parentElement;
+            }
+            if (traits.length === 0) return;
+
+            el.style.cursor = 'default';
+
+            el.addEventListener('mouseenter', (e) => {
+                clearTimeout(hideTimer);
+                tip.innerHTML = traits.map(t =>
+                    `<span class="hl-tip-badge${t.light ? ' light-text' : ''}" style="background:${t.color}">${t.label}</span>`
+                ).join('');
+
+                const rect = el.getBoundingClientRect();
+                const tipW = tip.offsetWidth || 200;
+                let left = rect.left + rect.width / 2 - tipW / 2;
+                left = Math.max(8, Math.min(left, window.innerWidth - tipW - 8));
+
+                tip.style.left = left + 'px';
+                tip.style.top = (rect.top - 36) + 'px';
+                tip.classList.add('visible');
+            });
+
+            el.addEventListener('mouseleave', () => {
+                hideTimer = setTimeout(() => tip.classList.remove('visible'), 80);
+            });
+        });
+    </script>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="about.html">About</a>
+                <a href="projects/index.html">Projects</a>
+                <a href="blog/index.html">Blog</a>
+                <a href="labs/index.html">Labs</a>
+                <a href="links.html">Contact</a>
+            </div>
+            <p>&copy; 2026 Annisa Baizan. Masih dalam proses — dan itu tidak apa-apa.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

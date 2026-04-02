@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find c:/Project/annisabaizan.github.io/projects -name *qual* -o -name *smile* -o -name *equal*)"
+    ]
+  }
+}

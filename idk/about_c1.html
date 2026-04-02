@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Annisa Baizan — Systematic thinker. Dingin di luar, hangat di dalam.">
+    <title>About - Annisa Baizan</title>
+
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" href="assets/css/theme.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+        :root {
+            --font-display: 'DM Serif Display', serif;
+            --font-body: 'DM Sans', sans-serif;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: var(--font-body);
+        }
+
+        /* ── HERO ── */
+        .ab-hero {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            padding-top: 80px;
+        }
+
+        .ab-hero-left {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 6rem 4rem 6rem 6rem;
+            border-right: 1px solid var(--border-color);
+        }
+
+        .ab-hero-right {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ab-hero-right::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--gradient-primary);
+            opacity: 0.04;
+        }
+
+        .ab-eyebrow {
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--accent-cyan);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .ab-name {
+            font-family: var(--font-display);
+            font-size: clamp(3rem, 6vw, 5.5rem);
+            line-height: 1.05;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .ab-name em {
+            font-style: italic;
+            color: var(--accent-cyan);
+        }
+
+        .ab-tagline {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            max-width: 420px;
+            margin-bottom: 3rem;
+        }
+
+        .ab-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .ab-tag {
+            padding: 0.3rem 0.9rem;
+            border: 1px solid var(--border-color);
+            border-radius: 999px;
+            font-size: 0.72rem;
+            color: var(--text-secondary);
+            letter-spacing: 0.05em;
+            transition: all 0.2s;
+        }
+
+        .ab-tag:hover {
+            border-color: var(--accent-cyan);
+            color: var(--accent-cyan);
+        }
+
+        /* portrait box */
+        .ab-portrait {
+            width: 320px;
+            height: 400px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 7rem;
+            position: relative;
+        }
+
+        .ab-portrait::after {
+            content: '';
+            position: absolute;
+            inset: 12px -12px -12px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 2px;
+            z-index: -1;
+        }
+
+        /* ── SECTION BASE ── */
+        .ab-section {
+            padding: 6rem 0;
+        }
+
+        .ab-section-inner {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .ab-section-label {
+            font-size: 0.65rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--accent-cyan);
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .ab-section-title {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 4vw, 3rem);
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .ab-section-lead {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            max-width: 640px;
+            margin-bottom: 3.5rem;
+        }
+
+        /* ── FIRST IMPRESSION ── */
+        .ab-first {
+            background: var(--bg-card);
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .ab-two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .ab-prose {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.85;
+        }
+
+        .ab-prose p + p {
+            margin-top: 1rem;
+        }
+
+        .ab-prose strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .ab-quote {
+            border-left: 3px solid var(--accent-cyan);
+            padding: 1.25rem 1.5rem;
+            margin: 2rem 0;
+            font-style: italic;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.75;
+            background: rgba(6, 182, 212, 0.03);
+            border-radius: 0 4px 4px 0;
+        }
+
+        /* ── HOBI ── */
+        .ab-hobby-list {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 2rem;
+        }
+
+        .ab-hobby-item {
+            padding: 1.75rem 1.5rem;
+            background: var(--bg-card);
+            transition: background 0.2s;
+        }
+
+        .ab-hobby-item:hover {
+            background: rgba(6, 182, 212, 0.04);
+        }
+
+        .ab-hobby-icon {
+            font-size: 1.75rem;
+            display: block;
+            margin-bottom: 0.6rem;
+        }
+
+        .ab-hobby-name {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .ab-hobby-note {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* ── STRENGTH / WEAKNESS CARDS ── */
+        .ab-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .ab-card {
+            background: var(--bg-card);
+            padding: 2rem 2.25rem;
+            border-left: 3px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .ab-card:hover {
+            background: rgba(255,255,255,0.02);
+        }
+
+        .ab-card.strength { border-left-color: var(--accent-cyan); }
+        .ab-card.weakness { border-left-color: var(--accent-orange); }
+
+        .ab-card-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .ab-card-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .ab-card-badge {
+            font-size: 0.62rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 0.2rem 0.6rem;
+            border-radius: 999px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .ab-card-badge.cyan {
+            background: rgba(6, 182, 212, 0.1);
+            color: var(--accent-cyan);
+            border: 1px solid rgba(6, 182, 212, 0.3);
+        }
+
+        .ab-card-badge.orange {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--accent-orange);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+
+        .ab-card-body {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            line-height: 1.75;
+        }
+
+        /* ── CONTEXT ── */
+        .ab-context-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .ab-context-item {
+            padding: 2rem 1.75rem;
+            background: var(--bg-card);
+        }
+
+        .ab-context-label {
+            font-size: 0.65rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--accent-cyan);
+            font-weight: 600;
+            margin-bottom: 0.6rem;
+        }
+
+        .ab-context-value {
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            font-weight: 500;
+            margin-bottom: 0.35rem;
+        }
+
+        .ab-context-note {
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* ── WHAT FRIENDS SAY ── */
+        .ab-friend-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+            margin-top: 0.5rem;
+        }
+
+        .ab-friend-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem 1.75rem;
+        }
+
+        .ab-friend-text {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            line-height: 1.75;
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        .ab-friend-from {
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--accent-cyan);
+            font-weight: 600;
+        }
+
+        /* ── DIVIDER ── */
+        .ab-divider {
+            width: 40px;
+            height: 2px;
+            background: var(--accent-cyan);
+            margin: 2rem 0;
+        }
+
+        /* ── CTA ── */
+        .ab-cta {
+            text-align: center;
+            padding: 5rem 2rem;
+            background: var(--bg-card);
+            border-top: 1px solid var(--border-color);
+        }
+
+        .ab-cta-title {
+            font-family: var(--font-display);
+            font-size: clamp(1.75rem, 3vw, 2.5rem);
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .ab-cta-sub {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            max-width: 480px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.75;
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 768px) {
+            .ab-hero { grid-template-columns: 1fr; min-height: auto; }
+            .ab-hero-left { padding: 6rem 2rem 3rem; border-right: none; border-bottom: 1px solid var(--border-color); }
+            .ab-hero-right { padding: 3rem 2rem; }
+            .ab-portrait { width: 220px; height: 280px; font-size: 5rem; }
+            .ab-two-col { grid-template-columns: 1fr; gap: 2rem; }
+            .ab-hobby-list { grid-template-columns: repeat(2, 1fr); }
+            .ab-context-grid { grid-template-columns: 1fr; }
+            .ab-friend-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Nav -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-brand">AB</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html" class="active">About</a></li>
+                <li><a href="projects/index.html">Projects</a></li>
+                <li><a href="blog/index.html">Blog</a></li>
+                <li><a href="links.html">Links</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- ── HERO ── -->
+    <section class="ab-hero">
+        <div class="ab-hero-left">
+            <div class="ab-eyebrow">About Annisa Baizan</div>
+            <h1 class="ab-name">
+                Tough.<br>
+                <em>Warm.</em><br>
+                Working on it.
+            </h1>
+            <p class="ab-tagline">
+                Systematic thinker yang lebih dalam dari yang terlihat. 
+                Dingin di luar, hangat di dalam — tapi butuh waktu untuk sampai ke sana. 
+                Dan worth it kalau Anda mau.
+            </p>
+            <div class="ab-tags">
+                <span class="ab-tag">Computer Science · BINUS</span>
+                <span class="ab-tag">ASN Palembang</span>
+                <span class="ab-tag">INFJ</span>
+                <span class="ab-tag">Independent</span>
+                <span class="ab-tag">Evidence-Based</span>
+            </div>
+        </div>
+        <div class="ab-hero-right">
+            <div class="ab-portrait">👤</div>
+        </div>
+    </section>
+
+    <!-- ── FIRST IMPRESSION vs REALITY ── -->
+    <section class="ab-section ab-first">
+        <div class="ab-section-inner">
+            <div class="ab-section-label">Kesan Pertama vs Kenyataan</div>
+            <h2 class="ab-section-title">Yang Orang Lihat.<br>Yang Sebenarnya Ada.</h2>
+
+            <div class="ab-two-col">
+                <div>
+                    <div class="ab-prose">
+                        <p>
+                            Kesan pertama: <strong>pendiam, serius, sulit didekati.</strong> 
+                            Mungkin terkesan cuek. Mungkin terkesan tidak tertarik.
+                        </p>
+                        <p>
+                            Kenyataannya — saya punya dunia yang luas di dalam. 
+                            Astronomi. Kerajinan tangan. Memasak. Menyanyi (yang jarang ada yang tahu). 
+                            Rasa ingin tahu yang tidak pernah berhenti soal hal-hal yang orang lain tidak ekspek.
+                        </p>
+                        <p>
+                            Yang membuat saya tertarik pada sesuatu, saya dalami sampai detail. 
+                            Yang saya kerjakan, saya kerjakan sungguh-sungguh. 
+                            Yang saya jaga, saya jaga dengan sepenuhnya.
+                        </p>
+                    </div>
+                    <div class="ab-divider"></div>
+                    <div class="ab-prose">
+                        <p>
+                            Teman-teman yang sudah kenal saya bilang: 
+                            <strong>tempat yang aman, seperti perlindungan keluarga.</strong> 
+                            Bukan sekadar teman biasa.
+                        </p>
+                        <p>
+                            Tapi untuk sampai ke sana — butuh proses. Saya tidak mudah terbuka. 
+                            Bukan karena tidak mau, tapi karena saya hanya bisa benar-benar ada 
+                            untuk orang yang juga benar-benar ada untuk saya.
+                        </p>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="ab-quote">
+                        "Tough but warm. Kalau sudah ada tujuan, pokoknya dia usahakan. Pendiem tapi punya dunia yang luas."
+                    </div>
+                    <div class="ab-quote">
+                        "Dingin di luar, hangat di dalam. Tidak sombong padahal punya banyak kemampuan."
+                    </div>
+                    <div class="ab-quote">
+                        "Konsisten, fokus, serius kalau sudah menyukai sesuatu. Tipe lebih banyak bertindak daripada bicara."
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── SISI LAIN ── -->
+    <section class="ab-section">
+        <div class="ab-section-inner">
+            <div class="ab-section-label">Di Luar Kode dan Spreadsheet</div>
+            <h2 class="ab-section-title">Yang Jarang Ditampilkan</h2>
+            <p class="ab-section-lead">
+                Ada sisi dari saya yang tidak langsung terlihat — dan justru mungkin lebih menarik 
+                dari skill stack yang ada di CV.
+            </p>
+
+            <div class="ab-hobby-list">
+                <div class="ab-hobby-item">
+                    <span class="ab-hobby-icon">🔭</span>
+                    <div class="ab-hobby-name">Astronomi</div>
+                    <div class="ab-hobby-note">Terpesona dengan skala semesta. Salah satu topik yang bisa saya telusuri tanpa batas.</div>
+                </div>
+                <div class="ab-hobby-item">
+                    <span class="ab-hobby-icon">✂️</span>
+                    <div class="ab-hobby-name">Crafting & Kerajinan</div>
+                    <div class="ab-hobby-note">Suka membangun sesuatu dengan tangan sendiri. Dulu prakarya, sekarang kode — benangnya sama.</div>
+                </div>
+                <div class="ab-hobby-item">
+                    <span class="ab-hobby-icon">🎵</span>
+                    <div class="ab-hobby-name">Menyanyi</div>
+                    <div class="ab-hobby-note">Ada suara bagus yang jarang diperlihatkan. Hanya orang-orang tertentu yang tahu.</div>
+                </div>
+                <div class="ab-hobby-item">
+                    <span class="ab-hobby-icon">🍳</span>
+                    <div class="ab-hobby-name">Memasak</div>
+                    <div class="ab-hobby-note">Menikmati proses, bukan hanya hasilnya. Satu dari sedikit hal yang tidak dianalisis terlalu banyak.</div>
+                </div>
+                <div class="ab-hobby-item">
+                    <span class="ab-hobby-icon">💻</span>
+                    <div class="ab-hobby-name">Problem Solving</div>
+                    <div class="ab-hobby-note">Belum tamat kalau masalah belum selesai. Berjam-jam di depan layar bukan beban — ini mode.</div>
+                </div>
+                <div class="ab-hobby-item">
+                    <span class="ab-hobby-icon">📖</span>
+                    <div class="ab-hobby-name">Belajar Sistematik</div>
+                    <div class="ab-hobby-note">Self-designed curriculum, bukan sekadar scroll artikel. Dari CS sampai psikologi — semuanya serius.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── CONTEXT ── -->
+    <section class="ab-section" style="background: var(--bg-card); border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);">
+        <div class="ab-section-inner">
+            <div class="ab-section-label">Konteks</div>
+            <h2 class="ab-section-title">Siapa, Di Mana, Mengerjakan Apa</h2>
+
+            <div class="ab-context-grid">
+                <div class="ab-context-item">
+                    <div class="ab-context-label">Akademik</div>
+                    <div class="ab-context-value">Ilmu Komputer · BINUS</div>
+                    <div class="ab-context-note">Ditambah 1-year self-designed curriculum untuk psychology. Bukan casual reading — systematic scholarly study.</div>
+                </div>
+                <div class="ab-context-item">
+                    <div class="ab-context-label">Profesional</div>
+                    <div class="ab-context-value">ASN · Palembang</div>
+                    <div class="ab-context-note">Dual-track: teknologi akademis + birokrasi pemerintahan. Multi-tracking yang demanding, dijalankan bersamaan.</div>
+                </div>
+                <div class="ab-context-item">
+                    <div class="ab-context-label">Tech Stack</div>
+                    <div class="ab-context-value">Java · PHP (Laravel) · Python</div>
+                    <div class="ab-context-note">Calrisk Dentistry · AR Tooth Academy · Healthcare Tech. Project dengan dedikasi penuh, bukan sekadar tugas.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── KELEBIHAN ── -->
+    <section class="ab-section">
+        <div class="ab-section-inner">
+            <div class="ab-section-label">Kelebihan</div>
+            <h2 class="ab-section-title">Yang Konsisten Ada</h2>
+            <p class="ab-section-lead">
+                Dikonfirmasi oleh orang-orang di sekitar saya, bukan hanya self-assessment.
+            </p>
+
+            <div class="ab-cards">
+                <div class="ab-card strength">
+                    <div class="ab-card-top">
+                        <div class="ab-card-title">🎯 Analytical Rigor</div>
+                        <span class="ab-card-badge cyan">Default Mode</span>
+                    </div>
+                    <div class="ab-card-body">
+                        Bukan gaya komunikasi — ini cara saya berpikir secara alami. Framework, kategorisasi, 
+                        pemisahan Known/Inferred/Unknown. Setiap kesimpulan harus punya dasar. 
+                        Rejection terhadap spekulasi bukan pilihan, ini kebutuhan.
+                    </div>
+                </div>
+
+                <div class="ab-card strength">
+                    <div class="ab-card-top">
+                        <div class="ab-card-title">🔥 Dedikasi & Daya Juang</div>
+                        <span class="ab-card-badge cyan">Verified</span>
+                    </div>
+                    <div class="ab-card-body">
+                        Kalau sudah commit — all-in. Rela begadang, rela otak-atik berjam-jam, 
+                        tidak berhenti sebelum menemukan solusi. Dari seangkatan, yang benar-benar 
+                        all-in dengan passion-nya itu sedikit. Ini salah satu yang sedikit itu.
+                    </div>
+                </div>
+
+                <div class="ab-card strength">
+                    <div class="ab-card-top">
+                        <div class="ab-card-title">🤝 Empati yang Tidak Berisik</div>
+                        <span class="ab-card-badge cyan">Hidden Strength</span>
+                    </div>
+                    <div class="ab-card-body">
+                        Toleran terhadap perbedaan — cara pikir, latar belakang, kemampuan. 
+                        Selalu mencari alasan di balik tindakan orang sebelum menghakimi. 
+                        Bisa bersabar dengan orang yang membutuhkan — bukan karena terpaksa, 
+                        tapi karena genuine care yang tidak selalu terlihat dari luar.
+                    </div>
+                </div>
+
+                <div class="ab-card strength">
+                    <div class="ab-card-top">
+                        <div class="ab-card-title">🚀 Independent Agency</div>
+                        <span class="ab-card-badge cyan">Consistent Pattern</span>
+                    </div>
+                    <div class="ab-card-body">
+                        Tidak bergantung pada validasi eksternal untuk bergerak. 
+                        Self-directed, autonomous, mampu mendesain sendiri jalan belajarnya. 
+                        Ini bukan sekadar persepsi diri — "independent woman" adalah kata yang 
+                        muncul berulang dari orang-orang berbeda tanpa koordinasi.
+                    </div>
+                </div>
+
+                <div class="ab-card strength">
+                    <div class="ab-card-top">
+                        <div class="ab-card-title">✅ Intellectual Honesty</div>
+                        <span class="ab-card-badge cyan">Non-Negotiable</span>
+                    </div>
+                    <div class="ab-card-body">
+                        Lebih memilih "tidak tahu" daripada jawaban yang salah. 
+                        Correctness di atas comfort. Truth di atas kecepatan. 
+                        Ini pilihan sadar dengan cost yang jelas — dan tetap dipilih.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── KELEMAHAN ── -->
+    <section class="ab-section" style="background: var(--bg-card); border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);">
+        <div class="ab-section-inner">
+            <div class="ab-section-label">Kelemahan</div>
+            <h2 class="ab-section-title">Yang Masih Dikerjakan</h2>
+            <p class="ab-section-lead">
+                Tidak ada yang sudah selesai hanya karena sudah diberi label. 
+                Ini masih aktif — dan sedang dihadapi.
+            </p>
+
+            <div class="ab-cards">
+                <div class="ab-card weakness">
+                    <div class="ab-card-top">
+                        <div class="ab-card-title">🐌 Analysis Paralysis</div>
+                        <span class="ab-card-badge orange">High Impact</span>
+                    </div>
+                    <div class="ab-card-body">
+                        Overthinking yang aktif menghambat eksekusi. Self-aware tentang ini — 
+                        tapi masih terjadi. Preference untuk thoroughness sebelum commit 
+                        sering lebih mahal dari yang seharusnya.
+                    </div>
+                </div>
+
+                <div class="ab-card weakness">
+                    <div class="ab-card-top">
+                        <div class="ab-card-title">🎯 Belajar Tanpa Arah yang Jelas</div>
+                        <span class="ab-card-badge orange">Perlu Kalibrasi</span>
+                    </div>
+                    <div class="ab-card-body">
+                        Bisa belajar dan meningkatkan diri dengan sangat serius — 
+                        tapi kadang tanpa tujuan akhir yang benar-benar jelas. 
+                        Kompetensi bisa jadi tujuan itu sendiri, bukan alat menuju sesuatu. 
+                        Perlu audit: ini untuk apa, dan menuju mana?
+                    </div>
+                </div>
+
+                <div class="ab-card weakness">
+                    <div class="ab-card-top">
+                        <div class="ab-card-title">⚡ Intoleransi terhadap Ketidaksungguhan</div>
+                        <span class="ab-card-badge orange">Moderate</span>
+                    </div>
+                    <div class="ab-card-body">
+                        Toleran terhadap perbedaan kemampuan — tapi sulit toleran terhadap orang 
+                        yang bisa tapi tidak mau. Standar yang tinggi kadang bocor ke relasi, 
+                        bukan hanya ke hasil kerja. Ini yang perlu terus dikalibrasi.
+                    </div>
+                </div>
+
+                <div class="ab-card weakness">
+                    <div class="ab-card-top">
+                        <div class="ab-card-title">😐 Susah Terbuka di Awal</div>
+                        <span class="ab-card-badge orange">Low-Moderate</span>
+                    </div>
+                    <div class="ab-card-body">
+                        Cover depan: introvert parah. Butuh waktu dan effort untuk benar-benar mengenal saya. 
+                        Di zaman yang bergerak cepat, banyak orang tidak mau invest waktu itu — 
+                        dan itu jadi kehilangan di kedua sisi.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── KATA TEMAN ── -->
+    <section class="ab-section">
+        <div class="ab-section-inner">
+            <div class="ab-section-label">Dari Orang yang Kenal Saya</div>
+            <h2 class="ab-section-title">Bukan Kata Saya</h2>
+            <p class="ab-section-lead">
+                Kadang orang lain melihat sesuatu yang kita sendiri tidak sadari.
+            </p>
+
+            <div class="ab-friend-grid">
+                <div class="ab-friend-card">
+                    <div class="ab-friend-text">
+                        "Aku memandang Babai sebagai tempat di mana aku merasa aman, di mana aku bisa jadi diri sendiri. Bukan sekadar kawan biasa — dapat perlindungan keluarga secara harfiah."
+                    </div>
+                    <div class="ab-friend-from">Teman dekat</div>
+                </div>
+                <div class="ab-friend-card">
+                    <div class="ab-friend-text">
+                        "Tidak suka menonjolkan diri padahal punya banyak kemampuan. Konsisten, fokus, dan serius kalau sudah menyukai sesuatu."
+                    </div>
+                    <div class="ab-friend-from">Teman kuliah</div>
+                </div>
+                <div class="ab-friend-card">
+                    <div class="ab-friend-text">
+                        "Kalo bantu orang pasti tulus. Rela jelasin berulang-ulang, rela muter otak nyari cara penyampaian lain supaya ngerti."
+                    </div>
+                    <div class="ab-friend-from">Teman belajar</div>
+                </div>
+                <div class="ab-friend-card">
+                    <div class="ab-friend-text">
+                        "Sederhana itu kelebihan yang ada di dalam dirimu — dan itu hebat bisa mempertahankan itu di zaman sekarang."
+                    </div>
+                    <div class="ab-friend-from">Teman lama</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── CTA ── -->
+    <div class="ab-cta">
+        <h2 class="ab-cta-title">Tertarik untuk Benar-Benar Berkenalan?</h2>
+        <p class="ab-cta-sub">
+            Saya bukan orang yang mudah dikenal dari permukaan. 
+            Tapi kalau Anda mau invest waktu untuk itu — worth it. 
+            Atau setidaknya, tidak membosankan.
+        </p>
+        <div class="hero-cta">
+            <a href="links.html" class="btn btn-primary">Get in Touch</a>
+            <a href="projects/index.html" class="btn btn-secondary">View Projects</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="about.html">About</a>
+                <a href="projects/index.html">Projects</a>
+                <a href="blog/index.html">Blog</a>
+                <a href="labs/index.html">Labs</a>
+                <a href="links.html">Contact</a>
+            </div>
+            <p>&copy; 2026 Annisa Baizan. Built with analytical precision.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

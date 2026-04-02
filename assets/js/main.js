@@ -140,7 +140,7 @@ function initScrollAnimations() {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
     };
-    
+
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -149,11 +149,25 @@ function initScrollAnimations() {
             }
         });
     }, observerOptions);
-    
-    // Observe elements with data-animate attribute
+
     document.querySelectorAll('[data-animate]').forEach(el => {
         observer.observe(el);
     });
+
+    // ── .reveal scroll-in system ──
+    if ('IntersectionObserver' in window) {
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.classList.add('visible');
+                    revealObserver.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+    } else {
+        document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+    }
 }
 
 // ============================================
@@ -213,7 +227,7 @@ function initExternalLinks() {
             if (!link.querySelector('.external-icon')) {
                 const icon = document.createElement('span');
                 icon.className = 'external-icon';
-                icon.innerHTML = ' ↗';
+                icon.innerHTML = ' &#x2197;';
                 icon.style.fontSize = '0.8em';
                 icon.style.opacity = '0.6';
                 link.appendChild(icon);
@@ -412,7 +426,7 @@ function logPerformance() {
                 const connectTime = perfData.responseEnd - perfData.requestStart;
                 const renderTime = perfData.domComplete - perfData.domLoading;
                 
-                console.log('⚡ Performance Metrics:');
+                console.log('Performance Metrics:');
                 console.log(`  Page Load Time: ${pageLoadTime}ms`);
                 console.log(`  Connect Time: ${connectTime}ms`);
                 console.log(`  Render Time: ${renderTime}ms`);
@@ -449,7 +463,7 @@ function init() {
         logPerformance();
     }
     
-    console.log('✅ Main.js initialized');
+    console.log('[OK] Main.js initialized ✨ Galaxy theme active');
 }
 
 // Auto-initialize on DOM ready

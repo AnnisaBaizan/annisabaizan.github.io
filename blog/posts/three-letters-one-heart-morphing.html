@@ -1,0 +1,1317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Three Letters, One Heart | Annisa Baizan</title>
+    <meta name="description" content="The same story, written three times. Notice what changes. Notice what stays.">
+    
+    <link rel="stylesheet" href="../../assets/css/reset.css">
+    <link rel="stylesheet" href="../../assets/css/theme.css">
+    <link rel="stylesheet" href="../../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/blog.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400;1,600&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        /* ── Triptych-specific overrides ── */
+        body { font-family: 'DM Sans', sans-serif; }
+
+        .post-body,
+        .post-body p { font-family: 'Lora', Georgia, serif; line-height: 1.9; }
+
+        /* ── Phase tabs ── */
+        .phase-tabs {
+            display: flex;
+            gap: 0;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            margin: var(--space-12) 0 var(--space-8);
+            background: var(--bg-card);
+        }
+
+        .phase-tab {
+            flex: 1;
+            padding: var(--space-5) var(--space-6);
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            color: var(--text-tertiary);
+            font-family: 'DM Sans', sans-serif;
+            font-size: var(--text-sm);
+            font-weight: var(--font-semibold);
+            text-align: center;
+            transition: all 0.25s ease;
+            position: relative;
+            border-right: 1px solid var(--border-color);
+        }
+        .phase-tab:last-child { border-right: none; }
+
+        .phase-tab .tab-label {
+            display: block;
+            font-size: var(--text-xs);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 3px;
+            opacity: 0.7;
+        }
+        .phase-tab .tab-title {
+            display: block;
+            font-size: var(--text-base);
+            font-weight: var(--font-bold);
+        }
+
+        .phase-tab:hover { background: rgba(255,255,255,0.03); color: var(--text-secondary); }
+
+        .phase-tab.active-i   { background: rgba(236, 72, 153, 0.08); color: #ec4899; border-bottom: 2px solid #ec4899; }
+        .phase-tab.active-ii  { background: rgba(245,158,11, 0.08);   color: #f59e0b; border-bottom: 2px solid #f59e0b; }
+        .phase-tab.active-iii { background: rgba(6,182,212, 0.08);    color: var(--accent-cyan); border-bottom: 2px solid var(--accent-cyan); }
+
+        /* ── Diff view toggle ── */
+        .view-toggle {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            font-size: var(--text-sm);
+            color: var(--text-tertiary);
+            margin-bottom: var(--space-8);
+            user-select: none;
+        }
+        .view-toggle label { cursor: pointer; display: flex; align-items: center; gap: var(--space-2); }
+        .view-toggle input[type="checkbox"] { accent-color: var(--accent-cyan); width: 16px; height: 16px; cursor: pointer; }
+        .diff-legend {
+            display: flex; gap: var(--space-4); align-items: center;
+            font-size: var(--text-xs); color: var(--text-tertiary);
+            padding-left: var(--space-4); border-left: 1px solid var(--border-color);
+        }
+        .legend-dot {
+            width: 10px; height: 10px; border-radius: 50%; display: inline-block; flex-shrink: 0;
+        }
+
+        /* ── Phase content panels ── */
+        .phase-panel { display: none; }
+        .phase-panel.active { display: block; }
+
+        /* ── Phase header (compact) ── */
+        .phase-header-compact {
+            display: flex;
+            align-items: baseline;
+            gap: var(--space-4);
+            margin-bottom: var(--space-10);
+            padding-bottom: var(--space-6);
+            border-bottom: 1px solid var(--border-color);
+        }
+        .phase-num-badge {
+            font-family: 'DM Sans', sans-serif;
+            font-size: var(--text-xs);
+            font-weight: var(--font-bold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 3px 10px;
+            border-radius: var(--radius-full);
+            flex-shrink: 0;
+        }
+        .badge-i   { background: rgba(236,72,153,0.12); color: #ec4899; border: 1px solid rgba(236,72,153,0.3); }
+        .badge-ii  { background: rgba(245,158,11,0.12); color: #f59e0b;  border: 1px solid rgba(245,158,11,0.3); }
+        .badge-iii { background: rgba(6,182,212,0.12);  color: var(--accent-cyan); border: 1px solid rgba(6,182,212,0.3); }
+
+        .phase-header-text { font-family: 'DM Sans', sans-serif; }
+        .phase-header-text h2 {
+            font-size: var(--text-3xl); font-weight: var(--font-extrabold);
+            color: var(--text-primary); margin: 0 0 2px;
+        }
+        .phase-header-text p { font-size: var(--text-sm); color: var(--text-tertiary); margin: 0; font-style: italic; }
+
+        /* ── Section headings inside phase ── */
+        .section-heading {
+            font-family: 'DM Sans', sans-serif;
+            font-size: var(--text-sm);
+            font-weight: var(--font-bold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-tertiary);
+            margin: var(--space-12) 0 var(--space-6);
+        }
+        .section-heading::before {
+            content: attr(data-num) '. ';
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* ── Sentence-level diff ── */
+        .sent { transition: all 0.3s ease; }
+
+        /* In diff mode: same = faded, changed = highlighted */
+        body.diff-mode .sent.same {
+            opacity: 0.3;
+            filter: grayscale(0.5);
+        }
+        body.diff-mode .sent.changed-added {
+            background: rgba(6,182,212,0.08);
+            border-left: 3px solid var(--accent-cyan);
+            padding-left: var(--space-4);
+            margin-left: calc(-1 * var(--space-4) - 3px);
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+        }
+        body.diff-mode .sent.changed-removed {
+            background: rgba(236,72,153,0.08);
+            border-left: 3px solid #ec4899;
+            padding-left: var(--space-4);
+            margin-left: calc(-1 * var(--space-4) - 3px);
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+        }
+        body.diff-mode .sent.new {
+            background: rgba(16,185,129,0.07);
+            border-left: 3px solid #10b981;
+            padding-left: var(--space-4);
+            margin-left: calc(-1 * var(--space-4) - 3px);
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+        }
+
+        /* ── Poem block ── */
+        .poem-block {
+            font-style: italic;
+            color: var(--text-primary);
+            line-height: 2;
+            padding: var(--space-8) var(--space-12);
+            border-left: 2px solid rgba(255,255,255,0.08);
+            margin: var(--space-8) 0;
+            font-family: 'Lora', Georgia, serif;
+        }
+        .poem-block .stanza { margin-bottom: var(--space-6); }
+        .poem-block .stanza:last-child { margin-bottom: 0; }
+
+        /* ── Change indicator (parallel tracking key) ── */
+        .tracking-table-wrap {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: var(--space-8);
+            margin: var(--space-12) 0;
+            overflow-x: auto;
+        }
+        .tracking-table-title {
+            font-family: 'DM Sans', sans-serif;
+            font-size: var(--text-xs);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-tertiary);
+            margin-bottom: var(--space-6);
+            display: flex; align-items: center; gap: var(--space-2);
+        }
+        .tracking-table-title::before { content: '⇄'; font-size: var(--text-base); }
+        .tracking-table {
+            width: 100%; border-collapse: collapse; font-size: var(--text-sm);
+            font-family: 'DM Sans', sans-serif;
+        }
+        .tracking-table th {
+            text-align: left; padding: var(--space-2) var(--space-4);
+            font-size: var(--text-xs); text-transform: uppercase; letter-spacing: 1px;
+            color: var(--text-tertiary); border-bottom: 1px solid var(--border-color);
+        }
+        .tracking-table td {
+            padding: var(--space-3) var(--space-4);
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+            vertical-align: top; color: var(--text-secondary); line-height: 1.5;
+        }
+        .tracking-table tr:last-child td { border-bottom: none; }
+        .tracking-table td:first-child { color: var(--text-tertiary); width: 4%; font-size: var(--text-xs); padding-top: 14px; }
+        .cell-i   { color: #ec4899 !important; }
+        .cell-ii  { color: #f59e0b !important; }
+        .cell-iii { color: var(--accent-cyan) !important; }
+        .cell-same { opacity: 0.4; font-style: italic; font-size: var(--text-xs); }
+        .cell-new { font-weight: var(--font-semibold); }
+
+        /* ── Insight box tweak ── */
+        .insight-box-title::before { content: '◆ '; }
+
+        /* ── Ornament ── */
+        .ornament { color: rgba(255,255,255,0.2); }
+
+        /* ── Final note at bottom of phase ── */
+        .phase-analysis {
+            margin-top: var(--space-12);
+            padding: var(--space-6) var(--space-8);
+            background: linear-gradient(135deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+            border: 1px dashed var(--border-color);
+            border-radius: var(--radius-lg);
+            font-family: 'DM Sans', sans-serif;
+            font-size: var(--text-sm);
+            color: var(--text-tertiary);
+            line-height: 1.7;
+        }
+        .phase-analysis strong { color: var(--text-secondary); font-weight: var(--font-semibold); }
+
+        /* ── Section III special: the tracked section ── */
+        .section-tracked { position: relative; }
+
+        /* ── TOC sublinks ── */
+        .toc-sub {
+            padding-left: var(--space-4) !important;
+            font-size: 11px !important;
+            opacity: 0.7;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 640px) {
+            .phase-tab .tab-title { font-size: var(--text-sm); }
+            .poem-block { padding: var(--space-6); }
+            .diff-legend { display: none; }
+            .tracking-table-wrap { font-size: var(--text-xs); }
+        }
+    </style>
+</head>
+<body>
+    <div class="reading-progress" id="readingProgress"></div>
+
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="../../index.html" class="nav-brand">AB</a>
+            <ul class="nav-links">
+                <li><a href="../../index.html">Home</a></li>
+                <li><a href="../../about.html">About</a></li>
+                <li><a href="../../projects/">Projects</a></li>
+                <li><a href="../index.html" class="active">Blog</a></li>
+                <li><a href="../../links.html">Links</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="blog-container">
+        <!-- Sidebar TOC -->
+        <aside class="blog-sidebar">
+            <nav class="toc">
+                <h3 class="toc-title">Contents</h3>
+                <ul class="toc-list">
+                    <li><a href="#intro">Introduction</a></li>
+                    <li><a href="#how-to-read">How to Read This</a></li>
+                    <li><a href="#letters">The Three Letters</a>
+                        <ul class="toc-list" style="margin-top:var(--space-2);">
+                            <li><a href="#letters" class="toc-sub">↳ Phase I: The Ache</a></li>
+                            <li><a href="#letters" class="toc-sub">↳ Phase II: The Reckoning</a></li>
+                            <li><a href="#letters" class="toc-sub">↳ Phase III: The Staying</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#tracking">Change Tracking</a></li>
+                    <li><a href="#reflection">Final Reflection</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main content -->
+        <article class="blog-content">
+            <div class="breadcrumb">
+                <a href="../../index.html">Home</a>
+                <span>/</span>
+                <a href="../index.html">Blog</a>
+                <span>/</span>
+                <span>Three Letters, One Heart</span>
+            </div>
+
+            <header class="post-header">
+                <div class="post-category">Triptych</div>
+                <h1 class="post-title">Three Letters, One Heart</h1>
+                <p class="post-subtitle">The same story, written three times. Notice what changes. Notice what stays.</p>
+                <div class="post-meta">
+                    <span class="post-meta-item">📅 February 2026</span>
+                    <span class="post-meta-item">⏱️ 25 min read</span>
+                    <span class="post-meta-item">🏷️ Love · Grief · Acceptance</span>
+                </div>
+            </header>
+
+            <div class="post-body">
+
+                <!-- ── INTRODUCTION ── -->
+                <section id="intro">
+                    <p class="lead">This is the same story, told three times.</p>
+
+                    <p>Each version was written in a different emotional state — hours, days, weeks apart. The subject remains the same. The feelings remain true. But the voice changes.</p>
+
+                    <p>From raw ache to quiet reckoning to peaceful acceptance.</p>
+
+                    <p>I could have chosen one version and discarded the others. But that felt dishonest. Because healing isn't linear. It's not a clean arc from pain to peace. It's messy. It circles back. It rewrites itself.</p>
+                </section>
+
+                <!-- ── HOW TO READ ── -->
+                <section id="how-to-read">
+                    <div class="insight-box">
+                        <div class="insight-box-title">How to Read This Triptych</div>
+                        <p>Use the <strong>phase tabs</strong> below to switch between the three letters. Most of the text is shared — those are the truths that didn't change. What <em>did</em> change is where the growth lives.</p>
+                        <p>Turn on <strong>Diff Mode</strong> to highlight those changes: faded text is unchanged across all phases, while highlighted text marks where one phase diverges from the others.</p>
+                        <p>There's also a <strong>Change Tracking table</strong> further down for Section III — the section whose emotional core shifts most visibly across the three letters.</p>
+                    </div>
+
+                    <div class="insight-box" style="margin-top: var(--space-6);">
+                        <div class="insight-box-title">On Grief as Iterative Process</div>
+                        <p>Psychologists have moved away from Kübler-Ross's linear "stages of grief" model. Modern grief research by Stroebe and Schut describes grief as an oscillating process — we move back and forth between loss-oriented and restoration-oriented coping, sometimes revisiting the same pain with different understanding.</p>
+                        <p>Writing the same letter three times is this oscillation made visible. Each version doesn't replace the previous — they coexist, showing how a single truth can hold multiple emotional weights.</p>
+                    </div>
+                </section>
+
+                <div class="ornament" style="margin: var(--space-16) 0;">✦ ✦ ✦</div>
+
+                <!-- ── THE THREE LETTERS ── -->
+                <section id="letters">
+
+                    <!-- Phase Tabs -->
+                    <div class="phase-tabs" role="tablist">
+                        <button class="phase-tab active-i" role="tab" aria-selected="true"  data-phase="i"   onclick="switchPhase('i')">
+                            <span class="tab-label">Phase I</span>
+                            <span class="tab-title">The Ache</span>
+                        </button>
+                        <button class="phase-tab" role="tab" aria-selected="false" data-phase="ii"  onclick="switchPhase('ii')">
+                            <span class="tab-label">Phase II</span>
+                            <span class="tab-title">The Reckoning</span>
+                        </button>
+                        <button class="phase-tab" role="tab" aria-selected="false" data-phase="iii" onclick="switchPhase('iii')">
+                            <span class="tab-label">Phase III</span>
+                            <span class="tab-title">The Staying</span>
+                        </button>
+                    </div>
+
+                    <!-- Diff toggle -->
+                    <div class="view-toggle">
+                        <label>
+                            <input type="checkbox" id="diffToggle" onchange="toggleDiff(this)">
+                            Diff mode — highlight what changed
+                        </label>
+                        <div class="diff-legend">
+                            <span><span class="legend-dot" style="background:#ec4899;"></span> removed / softened</span>
+                            <span><span class="legend-dot" style="background:var(--accent-cyan);"></span> rewritten</span>
+                            <span><span class="legend-dot" style="background:#10b981;"></span> new addition</span>
+                        </div>
+                    </div>
+
+                    <!-- ══════════════════════════════════════
+                         PHASE I: THE ACHE
+                    ══════════════════════════════════════ -->
+                    <div class="phase-panel active" id="panel-i">
+                        <div class="phase-header-compact">
+                            <span class="phase-num-badge badge-i">Phase I</span>
+                            <div class="phase-header-text">
+                                <h2>The Ache</h2>
+                                <p>Raw, unresolved, still bleeding</p>
+                            </div>
+                        </div>
+
+                        <div class="quote-callout">
+                            <p>Listen twice: first to what's being said, second to who said it.</p>
+                            <cite>John Sherman Cooper</cite>
+                        </div>
+
+                        <!-- §I -->
+                        <h3 class="section-heading" data-num="I">The Beginning of Wondering</h3>
+
+                        <p><span class="sent same">I don't remember the exact moment it started.</span> <span class="sent same">Perhaps it was never a moment at all — perhaps it was a slow accumulation of small things: the way you explained ideas I couldn't grasp, the patience hidden beneath your sharp words, the strange brightness in you that you never seemed to notice yourself.</span></p>
+
+                        <p><span class="sent same">You became my teacher without intending to.</span> <span class="sent same">My mentor without asking.</span> <span class="sent same">My devil's advocate when I needed someone to challenge me.</span> <span class="sent same">My harsh guardian when I was too soft on myself.</span> <span class="sent changed-removed">And somewhere along the way, without permission, you became something I cannot name.</span></p>
+
+                        <p><span class="sent same">From the beginning, I knew I wasn't someone special to you.</span> <span class="sent same">You said your tone was simply your "natural way," and I believed you.</span> <span class="sent same">But I also saw how gently you could treat those who truly mattered to you.</span> <span class="sent same">I understood that difference.</span> <span class="sent same">I accepted it with a quiet smile, as if humor could soften the sting.</span></p>
+
+                        <p><span class="sent same">Still, my heart learned to hold you gently.</span></p>
+
+                        <div class="ornament">• • •</div>
+
+                        <p><span class="sent same">Lately I've been wondering what this feeling truly is.</span> <span class="sent changed-removed">Is it love, or care, or empathy — or something softer that only Allah understands?</span> <span class="sent same">Because whatever name I give it, it keeps returning to you.</span></p>
+
+                        <p><em><span class="sent same">If wanting someone to be happy is love — then what is this?</span></em></p>
+                        <p><em><span class="sent same">If praying for someone's success without them ever hearing — is that love?</span></em></p>
+                        <p><em><span class="sent same">If feeling frustrated when you speak harshly about yourself — what do I call this?</span></em></p>
+
+                        <p><span class="sent same">I am afraid to hurt you, so I shape my words softer than I feel them.</span> <span class="sent same">Not because I want to hide, but because I care about your peace more than my own urgency.</span></p>
+                        <p><span class="sent same">Is that not something close to love?</span></p>
+
+                        <!-- §II -->
+                        <h3 class="section-heading" data-num="II">The Weight of Small Things</h3>
+
+                        <p><span class="sent same">I don't think you're cruel.</span> <span class="sent same">You are simply human, and my pain comes mostly from the fragile places inside me — although not everything is insecurity.</span> <span class="sent same">Some things truly hurt.</span></p>
+
+                        <p><span class="sent same">There is a word you use sometimes — and every time it lands, the walls I've spent years building crumble in an instant.</span> <span class="sent same">You don't know this, but that word touches the one value I fought so hard to build.</span> <span class="sent same">I was not born with the shield of beauty that protects so many others.</span> <span class="sent same">I cannot change my face, so I changed my path instead.</span> <span class="sent same">I worked harder than I should have, bled longer than anyone knew, climbed with weary hands and breaking bones just to stand where others arrive with ease.</span></p>
+
+                        <p><span class="sent same">This is the only strength I've built to hold my worth.</span> <span class="sent same">And when it's shattered by someone whose opinion matters — it hurts in ways I cannot explain.</span></p>
+
+                        <div class="ornament">• • •</div>
+
+                        <p><span class="sent same">You often teach me without warning — not because I ask, but because that's who you are.</span> <span class="sent same">And I accept it because I like learning from you.</span> <span class="sent same">But when frustration appears if I fail to understand, everything in me becomes quiet.</span> <span class="sent same">It's one of the reasons I hesitate to ask you anything.</span> <span class="sent same">I don't want to feel small next to you.</span> <span class="sent same">I don't want to feel like a burden.</span></p>
+
+                        <p><span class="sent same">You once said, "I expect talking to you feels calm."</span> <span class="sent same">Yet too often I feel read through shadows, my meaning slipping away before it reaches you.</span> <span class="sent same">That is why I whisper, not demand.</span> <span class="sent same">That is why my words come wrapped in caution, my voice restrained by fear.</span></p>
+
+                        <p><span class="sent same">Why do I still stay, despite all of this?</span></p>
+                        <p><span class="sent same">Why does my heart refuse to leave?</span></p>
+
+                        <!-- §III — THE TRACKED SECTION -->
+                        <h3 class="section-heading section-tracked" data-num="III">The Place You Land</h3>
+
+                        <p><span class="sent same" data-s="1">Ironically, I am almost always there whenever your heart is broken.</span> <span class="sent same" data-s="2">I am the one who stays when the world feels too heavy.</span> <span class="sent same" data-s="3">I am the one who listens when the silence becomes unbearable.</span></p>
+
+                        <p><em><span class="sent same" data-s="4">Maybe I am a place you land — but never the place you stay.</span></em></p>
+
+                        <p><span class="sent changed-removed" data-s="5">That's why the jealousy comes — not because I want to control you, but because I wish our presence to each other mattered in the same measure.</span> <span class="sent same" data-s="6">You are close enough to make me stay, but at the same time, distant enough to never choose me.</span></p>
+
+                        <p><span class="sent changed-removed" data-s="7">Sometimes it feels like you cherish the comfort I bring more than the person I am.</span> <span class="sent changed-removed" data-s="8">Sometimes I wonder if you fear losing me — but never fear hurting me.</span> <span class="sent same" data-s="9">But maybe that is only my fear echoing back to me.</span></p>
+
+                        <div class="ornament">• • •</div>
+
+                        <p><span class="sent same" data-s="10">Your name is still loud in my head.</span> <span class="sent same" data-s="11">Close enough to keep me waiting, yet far enough to leave me unsure.</span> <span class="sent same" data-s="12">It becomes heavier by day.</span> <span class="sent same" data-s="13">Louder by night.</span></p>
+
+                        <p><span class="sent same" data-s="14">I see you there in silence, and I make scenarios of you here with me.</span> <span class="sent same" data-s="15">Yes, I used to create a manufactured happiness — but thank you for letting me see you.</span> <span class="sent same" data-s="16">Thank you for this strange gift of knowing you exist.</span></p>
+
+                        <p><span class="sent same" data-s="17">Why is this so bold, so thick, so deep?</span></p>
+
+                        <!-- §IV -->
+                        <h3 class="section-heading" data-num="IV">The Quiet Transformation</h3>
+
+                        <p><em><span class="sent same">If the quiet effort to become a better version of myself — is that not love?</span></em></p>
+
+                        <p><span class="sent same">Because without you asking, your presence made me want to grow.</span> <span class="sent same">I learned things I once ignored.</span> <span class="sent same">I sharpened my mind.</span> <span class="sent same">I tried to understand your logic, your worldview, your brilliance — so I could speak with you from a place of balance, not confusion.</span></p>
+
+                        <p><span class="sent same">If becoming better not to be chosen, but to meet you with dignity — is that not love?</span></p>
+
+                        <p><span class="sent same">You taught me patience I didn't know I had.</span> <span class="sent same">You showed me the gaps in my thinking I never wanted to see.</span> <span class="sent same">You challenged me in ways that made me uncomfortable, then grateful, then stronger.</span></p>
+
+                        <p><span class="sent changed-removed">Maaf kalau aku ndak bisa langsung mengerti caramu berpikir. Dirimu butuh banyak menjelaskan pikiranmu, menjelaskan tentang dirimu. Tapi satu hal yang harus kamu tahu — I am willing to understand you. I am willing to hear your explanation. Ndak harus sekaligus kalau capek menjelaskan, bertahap saja. Sorry kalau aku lambat nangkep atau salah nangkep. I still learn you.</span></p>
+
+                        <div class="ornament">• • •</div>
+
+                        <p><span class="sent same">The feeling I feel towards you is so strong, so deep.</span> <span class="sent same">This feeling — like a luxury thing.</span> <span class="sent same">So pure, so sincere.</span> <span class="sent same">You are special to me.</span></p>
+
+                        <p><span class="sent same">I am not going to lie — somewhere in my heart, there is a wish.</span> <span class="sent same">But all the theory you told me gives the same conclusion: we will never be 1+1=11.</span> <span class="sent same">And for that, I know we will walk separately.</span></p>
+
+                        <p><span class="sent changed-removed">I am not ready for that.</span></p>
+                        <p><span class="sent changed-removed">And yet — I must let go of what was never mine to hold.</span></p>
+
+                        <!-- §V -->
+                        <h3 class="section-heading" data-num="V">The Return to Self</h3>
+
+                        <p><span class="sent same">So I remind myself: where is my logic?</span> <span class="sent changed-removed">Where is my God in these hours when I ache for you?</span></p>
+
+                        <p><span class="sent changed-removed">And the answer comes: return to Allah — the One who steadies hearts, who never wounds with neglect.</span></p>
+
+                        <p><span class="sent same">For whatever this feeling is — it should not destroy.</span> <span class="sent same">It must never chain.</span> <span class="sent same">With too many boundaries, it becomes detachment.</span> <span class="sent same">But without any boundary, it becomes obsession.</span></p>
+
+                        <p><span class="sent changed-removed">So I remain here, half in hope, half in resignation — holding out my hand into the empty air, wondering if you will ever reach, and fearing you never will.</span></p>
+
+                        <div class="ornament">• • •</div>
+
+                        <p><span class="sent changed-removed">I like you, but I resent you.</span> <span class="sent same">I can understand you, but I can never accept what you do to me.</span> <span class="sent same">I resent the fact that I feel this way.</span> <span class="sent same">When the only strength I have is shattered by you — I just want to cherish myself more than I cherish you.</span></p>
+
+                        <p><span class="sent changed-removed">Yet still — I cannot erase you.</span></p>
+
+                        <!-- §VI – Poem -->
+                        <h3 class="section-heading" data-num="VI">A Poem Without Answers</h3>
+
+                        <div class="poem-block">
+                            <div class="stanza">
+                                Whatever this is — I feel it unconditionally.
+                            </div>
+                            <div class="stanza">
+                                Even when what I receive from you<br>
+                                is the ache of being unseen,<br>
+                                the silence that cuts too sharp,<br>
+                                the weight of worry,<br>
+                                the smallness of feeling foolish<br>
+                                when that word touches me,<br>
+                                when that is all the worth I seem allowed to hold.
+                            </div>
+                            <div class="stanza">
+                                I know it's not your intention to hurt me.<br>
+                                But this is how it feels to me —<br>
+                                because I hoped too much.
+                            </div>
+                            <div class="stanza">
+                                Is this your nature,<br>
+                                or would something more... change you?
+                            </div>
+                            <div class="stanza sent changed-removed">
+                                I sow seeds with trembling hands,<br>
+                                longing that what I planted<br>
+                                would bloom in sweetness.<br><br>
+                                Yet perhaps the soil is not the same,<br>
+                                perhaps our roots<br>
+                                were never meant to meet.
+                            </div>
+                        </div>
+
+                        <!-- §VII -->
+                        <h3 class="section-heading" data-num="VII">Letting Go</h3>
+
+                        <p><span class="sent changed-removed">Now, I don't put hope toward you anymore.</span> <span class="sent same">But I still like you.</span> <span class="sent same">I still care about you.</span> <span class="sent same">Whatever this feeling is — it remains.</span> <span class="sent same">No matter the condition.</span></p>
+
+                        <p><span class="sent changed-removed">I will never lie to what I feel. I will show it — until it's gone. Just use it as long as it's there. Just use it as long as it's not empty yet. Just use it until I'm going to make a new life.</span></p>
+
+                        <p><span class="sent changed-removed">Maybe now, or forever — it's not my choice anymore.</span></p>
+
+                        <div class="ornament">• • •</div>
+
+                        <p><span class="sent same">Thank you — for letting me feel this.</span> <span class="sent same">For teaching me what something pure feels like.</span> <span class="sent same">What something true feels like.</span> <span class="sent same">I hope you are always happy.</span></p>
+
+                        <p><span class="sent same">Maybe you will still be in my heart forever — in a place that will be forgotten, but never erased.</span></p>
+
+                        <div class="ornament">• • •</div>
+
+                        <p><span class="sent changed-removed">In another version of the world, where timing is kinder and Allah writes our paths side by side — perhaps I would choose you.</span></p>
+
+                        <p><span class="sent same">But here, in this reality, I hold that truth lightly — not as a request, not as a hope, but as a feeling that harms no one.</span></p>
+
+                        <!-- §VIII -->
+                        <h3 class="section-heading" data-num="VIII">What Remains</h3>
+
+                        <p><span class="sent changed-removed">I feel something for you in a way I know we will not walk the same line — like you always said. I don't hope so, but what if it's true?</span></p>
+
+                        <p><span class="sent changed-removed"><em>Saya ikhlas.</em></span></p>
+
+                        <p><span class="sent same">I know I am not what you want.</span> <span class="sent changed-removed">But maybe — just maybe — I am what you need.</span></p>
+
+                        <div class="ornament">• • •</div>
+
+                        <p><span class="sent same">You are still my teacher. My mentor. My devil's advocate. My harsh guardian.</span> <span class="sent changed-removed">My best friend.</span> <span class="sent same">My inspiration. My motivation. My mirror. My strength. My spark. My chaos and my clarity. My turning point. My lesson, and also my patience.</span></p>
+
+                        <p><em><span class="sent changed-removed">Jika menjadi dirimu artinya merasakan ini — maka aku merasakannya.</span></em></p>
+
+                        <p><span class="sent same">Too much connection to be just friends.</span> <span class="sent same">Too complicated to be a relationship.</span></p>
+
+                        <p><span class="sent same">Of all the feelings you gave me — the best and the worst — this is the truest thing I know.</span></p>
+
+                        <div class="ornament">• • •</div>
+
+                        <p><span class="sent same">If breaking yet choosing kindness is love —</span><br>
+                        <span class="sent same">If feeling quietly while standing with dignity is love —</span><br>
+                        <span class="sent changed-removed">If letting go of one role but staying in all the others is love —</span><br>
+                        <span class="sent same">Then what is this?</span></p>
+
+                        <p style="text-align:center; font-size:var(--text-2xl); margin:var(--space-8) 0;"><em>I still don't know.</em></p>
+                        <p style="text-align:center;"><em>But maybe I don't need to.</em></p>
+
+                        <!-- Epilogue -->
+                        <h3 class="section-heading" data-num="✦">Epilogue</h3>
+
+                        <p><strong>Be imperfect.</strong> <span class="sent same">Because if I am there, it becomes ugly.</span></p>
+                        <p><span class="sent same">That's what I used to believe.</span> <span class="sent same">That my presence would only ruin things.</span> <span class="sent same">That I was never meant to be chosen.</span></p>
+                        <p><span class="sent same">But now I know — my worth is not measured by being chosen.</span> <span class="sent same">My worth is not diminished by feeling something for someone who could not feel the same.</span> <span class="sent same">My worth is in the feeling itself: pure, sincere, transformative.</span></p>
+                        <p><span class="sent same">I felt. I grew.</span> <span class="sent changed-removed">I let go without losing myself.</span></p>
+                        <p><span class="sent same">And that is enough.</span></p>
+
+                        <div class="ornament">• • •</div>
+
+                        <p><span class="sent same">This letter was never meant to be sent.</span> <span class="sent same">It was meant to be written — to release what needed releasing, to honor what needed honoring,</span> <span class="sent changed-removed">to close what needed closing.</span></p>
+
+                        <p><span class="sent changed-removed">But some doors don't need to close completely. Some people stay — not as lovers, not as wounds — but as permanent marks on who we've become.</span></p>
+                        <p><span class="sent same">You are one of those marks.</span></p>
+                        <p><span class="sent same">And I am grateful.</span></p>
+
+                        <div class="ornament">• • •</div>
+
+                        <p><span class="sent same">So what is this feeling?</span><br>
+                        <span class="sent same">Perhaps one day I'll find the word.</span> <span class="sent same">Perhaps I never will.</span> <span class="sent same">Perhaps it doesn't matter.</span></p>
+
+                        <p><span class="sent same">What matters is that I felt it fully, honored it honestly, and chose to stay — not because I needed to, but because you still matter.</span></p>
+
+                        <p><span class="sent same">And maybe that's the closest answer I'll ever have.</span></p>
+
+                        <div class="phase-analysis">
+                            <strong>Phase I — Protest.</strong> The language is urgent, questioning, unresolved. Notice the conditional framing: "Is this love?" "What if?" The mind is still bargaining, hoping that naming the feeling correctly might change the outcome. The heart hasn't accepted that the relationship won't transform into what it wishes.
+                        </div>
+                    </div>
+                    <!-- end panel-i -->
+
+
+                    <!-- ══════════════════════════════════════
+                         PHASE II: THE RECKONING
+                    ══════════════════════════════════════ -->
+                    <div class="phase-panel" id="panel-ii">
+                        <div class="phase-header-compact">
+                            <span class="phase-num-badge badge-ii">Phase II</span>
+                            <div class="phase-header-text">
+                                <h2>The Reckoning</h2>
+                                <p>Processing, realizing, beginning to release</p>
+                            </div>
+                        </div>
+
+                        <div class="quote-callout">
+                            <p>Listen twice: first to what's being said, second to who said it.</p>
+                            <cite>John Sherman Cooper</cite>
+                        </div>
+
+                        <!-- §I–II identical to Phase I, shown in full but styled as "same" in diff mode -->
+                        <h3 class="section-heading" data-num="I">The Beginning of Wondering</h3>
+
+                        <p><span class="sent same">I don't remember the exact moment it started.</span> <span class="sent same">Perhaps it was never a moment at all — perhaps it was a slow accumulation of small things: the way you explained ideas I couldn't grasp, the patience hidden beneath your sharp words, the strange brightness in you that you never seemed to notice yourself.</span></p>
+
+                        <p><span class="sent same">You became my teacher without intending to.</span> <span class="sent same">My mentor without asking.</span> <span class="sent same">My devil's advocate when I needed someone to challenge me.</span> <span class="sent same">My harsh guardian when I was too soft on myself.</span> <span class="sent same">And somewhere along the way, without permission, you became something I cannot name.</span></p>
+
+                        <p><span class="sent same">From the beginning, I knew I wasn't someone special to you.</span> <span class="sent same">You said your tone was simply your "natural way," and I believed you.</span> <span class="sent same">But I also saw how gently you could treat those who truly mattered to you.</span> <span class="sent same">I understood that difference.</span> <span class="sent same">I accepted it with a quiet smile, as if humor could soften the sting.</span></p>
+
+                        <p><span class="sent same">Still, my heart learned to hold you gently.</span></p>
+
+                        <div class="ornament">• • •</div>
+
+                        <p><span class="sent same">Lately I've been wondering what this feeling truly is.</span> <span class="sent same">Is it love, or care, or empathy — or something softer that only Allah understands?</span> <span class="sent same">Because whatever name I give it, it keeps returning to you.</span></p>
+
+                        <p><em><span class="sent same">If wanting someone to be happy is love — then what is this?</span></em></p>
+                        <p><em><span class="sent same">If praying for someone's success without them ever hearing — is that love?</span></em></p>
+                        <p><em><span class="sent same">If feeling frustrated when you speak harshly about yourself — what do I call this?</span></em></p>
+
+                        <p><span class="sent same">I am afraid to hurt you, so I shape my words softer than I feel them.</span> <span class="sent same">Not because I want to hide, but because I care about your peace more than my own urgency.</span></p>
+                        <p><span class="sent same">Is that not something close to love?</span></p>
+
+                        <h3 class="section-heading" data-num="II">The Weight of Small Things</h3>
+
+                        <p><span class="sent same">I don't think you're cruel.</span> <span class="sent same">You are simply human, and my pain comes mostly from the fragile places inside me — although not everything is insecurity.</span> <span class="sent same">Some things truly hurt.</span></p>
+
+                        <p><span class="sent same">There is a word you use sometimes — and every time it lands, the walls I've spent years building crumble in an instant.</span> <span class="sent same">You don't know this, but that word touches the one value I fought so hard to build.</span> <span class="sent same">I was not born with the shield of beauty that protects so many others.</span> <span class="sent same">I cannot change my face, so I changed my path instead.</span> <span class="sent same">I worked harder than I should have, bled longer than anyone knew, climbed with weary hands and breaking bones just to stand where others arrive with ease.</span></p>
+
+                        <p><span class="sent same">This is the only strength I've built to hold my worth.</span> <span class="sent same">And when it's shattered by someone whose opinion matters — it hurts in ways I cannot explain.</span></p>
+
+                        <div class="ornament">• • •</div>
+
+                        <p><span class="sent same">You often teach me without warning — not because I ask, but because that's who you are.</span> <span class="sent same">And I accept it because I like learning from you.</span> <span class="sent same">But when frustration appears if I fail to understand, everything in me becomes quiet.</span> <span class="sent same">It's one of the reasons I hesitate to ask you anything.</span> <span class="sent same">I don't want to feel small next to you.</span> <span class="sent same">I don't want to feel like a burden.</span></p>
+
+                        <p><span class="sent same">You once said, "I expect talking to you feels calm."</span> <span class="sent same">Yet too often I feel read through shadows, my meaning slipping away before it reaches you.</span> <span class="sent same">That is why I whisper, not demand.</span> <span class="sent same">That is why my words come wrapped in caution, my voice restrained by fear.</span></p>
+
+                        <p><span class="sent same">Why do I still stay, despite all of this?</span></p>
+                        <p><span class="sent same">Why does my heart refuse to leave?</span></p>
+
+                        <!-- §III — SAME as Phase I here, Phase III is where it changes -->
+                        <h3 class="section-heading section-tracked" data-num="III">The Place You Land</h3>
+
+                        <p><span class="sent same" data-s="1">Ironically, I am almost always there whenever your heart is broken.</span> <span class="sent same" data-s="2">I am the one who stays when the world feels too heavy.</span> <span class="sent same" data-s="3">I am the one who listens when the silence becomes unbearable.</span></p>
+
+                        <p><em><span class="sent same" data-s="4">Maybe I am a place you land — but never the place you stay.</span></em></p>
+
+                        <p><span class="sent same" data-s="5">That's why the jealousy comes — not because I want to control you, but because I wish our presence to each other mattered in the same measure.</span> <span class="sent same" data-s="6">You are close enough to make me stay, but at the same time, distant enough to never choose me.</span></p>
+
+                        <p><span class="sent same" data-s="7">Sometimes it feels like you cherish the comfort I bring more than the person I am.</span> <span class="sent same" data-s="8">Sometimes I wonder if you fear losing me — but never fear hurting me.</span> <span class="sent same" data-s="9">But maybe that is only my fear echoing back to me.</span></p>
+
+                        <div class="ornament">• • •</div>
+
+                        <p><span class="sent same" data-s="10">Your name is still loud in my head.</span> <span class="sent same" data-s="11">Close enough to keep me waiting, yet far enough to leave me unsure.</span> <span class="sent same" data-s="12">It becomes heavier by day.</span> <span class="sent same" data-s="13">Louder by night.</span></p>
+
+                        <p><span class="sent same" data-s="14">I see you there in silence, and I make scenarios of you here with me.</span> <span class="sent same" data-s="15">Yes, I used to create a manufactured happiness — but thank you for letting me see you.</span> <span class="sent same" data-s="16">Thank you for this strange gift of knowing you exist.</span></p>
+
+                        <p><span class="sent same" data-s="17">Why is this so bold, so thick, so deep?</span></p>
+
+                        <!-- §IV — same, with one key phrase bolded: mind knows -->
+                        <h3 class="section-heading" data-num="IV">The Quiet Transformation</h3>
+
+                        <p><em><span class="sent same">If the quiet effort to become a better version of myself — is that not love?</span></em></p>
+
+                        <p><span class="sent same">Because without you asking, your presence made me want to grow.</span> <span class="sent same">I learned things I once ignored.</span> <span class="sent same">I sharpened my mind.</span> <span class="sent same">I tried to understand your logic, your worldview, your brilliance — so I could speak with you from a place of balance, not confusion.</span></p>
+
+                        <p><span class="sent same">If becoming better not to be chosen, but to meet you with dignity — is that not love?</span></p>
+
+                        <p><span class="sent same">You taught me patience I didn't know I had.</span> <span class="sent same">You showed me the gaps in my thinking I never wanted to see.</span> <span class="sent same">You challenged me in ways that made me uncomfortable, then grateful, then stronger.</span></p>
+
+                        <p><span class="sent same">Maaf kalau aku ndak bisa langsung mengerti caramu berpikir. Dirimu butuh banyak menjelaskan pikiranmu, menjelaskan tentang dirimu. Tapi satu hal yang harus kamu tahu — I am willing to understand you. I am willing to hear your explanation. Ndak harus sekaligus kalau capek menjelaskan, bertahap saja. Sorry kalau aku lambat nangkep atau salah nangkep. I still learn you.</span></p>
+
+                        <div class="ornament">• • •</div>
+
+                        <p><span class="sent same">The feeling I feel towards you is so strong, so deep.</span> <span class="sent same">This feeling — like a luxury thing.</span> <span class="sent same">So pure, so sincere.</span> <span class="sent same">You are special to me.</span></p>
+
+                        <p><span class="sent same">I am not going to lie — somewhere in my heart, there is a wish.</span> <span class="sent same">But all the theory you told me gives the same conclusion: we will never be 1+1=11.</span> <span class="sent same">And for that, I know we will walk separately.</span></p>
+
+                        <p><span class="sent same">I am not ready for that.</span></p>
+                        <p><strong><span class="sent changed-removed">And yet — I must let go of what was never mine to hold.</span></strong></p>
+
+                        <!-- §V — small shift: still holding on -->
+                        <h3 class="section-heading" data-num="V">The Return to Self</h3>
+
+                        <p><span class="sent same">So I remind myself: where is my logic?</span> <span class="sent same">Where is my God in these hours when I ache for you?</span></p>
+
+                        <p><span class="sent same">And the answer comes: return to Allah — the One who steadies hearts, who never wounds with neglect.</span></p>
+
+                        <p><span class="sent same">For whatever this feeling is — it should not destroy.</span> <span class="sent same">It must never chain.</span> <span class="sent same">With too many boundaries, it becomes detachment.</span> <span class="sent same">But without any boundary, it becomes obsession.</span></p>
+
+                        <p><span class="sent same">So I remain here, half in hope, half in resignation — holding out my hand into the empty air, wondering if you will ever reach, and fearing you never will.</span></p>
+
+                        <div class="ornament">• • •</div>
+
+                        <p><span class="sent same">I like you, but I resent you.</span> <span class="sent same">I can understand you, but I can never accept what you do to me.</span> <span class="sent same">I resent the fact that I feel this way.</span> <span class="sent same">When the only strength I have is shattered by you — I just want to cherish myself more than I cherish you.</span></p>
+
+                        <p><span class="sent same">Yet still — I cannot erase you.</span></p>
+
+                        <!-- §VI Poem — last stanza shifts -->
+                        <h3 class="section-heading" data-num="VI">A Poem Without Answers</h3>
+
+                        <div class="poem-block">
+                            <div class="stanza">Whatever this is — I feel it unconditionally.</div>
+                            <div class="stanza">
+                                Even when what I receive from you<br>
+                                is the ache of being unseen,<br>
+                                the silence that cuts too sharp,<br>
+                                the weight of worry,<br>
+                                the smallness of feeling foolish<br>
+                                when that word touches me,<br>
+                                when that is all the worth I seem allowed to hold.
+                            </div>
+                            <div class="stanza">
+                                I know it's not your intention to hurt me.<br>
+                                But this is how it feels to me —<br>
+                                because I hoped too much.
+                            </div>
+                            <div class="stanza">
+                                Is this your nature,<br>
+                                or would something more... change you?
+                            </div>
+                            <div class="stanza sent same">
+                                I sow seeds with trembling hands,<br>
+                                longing that what I planted<br>
+                                would bloom in sweetness.<br><br>
+                                Yet perhaps the soil is not the same,<br>
+                                perhaps our roots<br>
+                                were never meant to meet.
+                            </div>
+                        </div>
+
+                        <!-- §VII — same, but key phrase bolded (conviction growing) -->
+                        <h3 class="section-heading" data-num="VII">Letting Go</h3>
+
+                        <p><strong><span class="sent same">Now, I don't put hope toward you anymore.</span></strong> <span class="sent same">But I still like you.</span> <span class="sent same">I still care about you.</span> <span class="sent same">Whatever this feeling is — it remains.</span> <span class="sent same">No matter the condition.</span></p>
+
+                        <p><span class="sent same">I will never lie to what I feel. I will show it — until it's gone. Just use it as long as it's there. Just use it as long as it's not empty yet. Just use it until I'm going to make a new life.</span></p>
+
+                        <p><span class="sent same">Maybe now, or forever — it's not my choice anymore.</span></p>
+
+                        <div class="ornament">• • •</div>
+
+                        <p><span class="sent same">Thank you — for letting me feel this.</span> <span class="sent same">For teaching me what something pure feels like.</span> <span class="sent same">What something true feels like.</span> <span class="sent same">I hope you are always happy.</span></p>
+
+                        <p><span class="sent same">Maybe you will still be in my heart forever — in a place that will be forgotten, but never erased.</span></p>
+
+                        <div class="ornament">• • •</div>
+
+                        <p><span class="sent same">In another version of the world, where timing is kinder and Allah writes our paths side by side — perhaps I would choose you.</span></p>
+
+                        <p><span class="sent same">But here, in this reality, I hold that truth lightly — not as a request, not as a hope, but as a feeling that harms no one.</span></p>
+
+                        <!-- §VIII -->
+                        <h3 class="section-heading" data-num="VIII">What Remains</h3>
+
+                        <p><span class="sent same">I feel something for you in a way I know we will not walk the same line — like you always said. I don't hope so, but what if it's true?</span></p>
+
+                        <p><strong><span class="sent same"><em>Saya ikhlas.</em></span></strong></p>
+
+                        <p><span class="sent same">I know I am not what you want.</span> <span class="sent same">But maybe — just maybe — I am what you need.</span></p>
+
+                        <div class="ornament">• • •</div>
+
+                        <p><span class="sent same">You are still my teacher. My mentor. My devil's advocate. My harsh guardian. My best friend. My inspiration. My motivation. My mirror. My strength. My spark. My chaos and my clarity. My turning point. My lesson, and also my patience.</span></p>
+
+                        <p><em><span class="sent same">Jika menjadi dirimu artinya merasakan ini — maka aku merasakannya.</span></em></p>
+
+                        <p><span class="sent same">Too much connection to be just friends.</span> <span class="sent same">Too complicated to be a relationship.</span></p>
+
+                        <p><span class="sent same">Of all the feelings you gave me — the best and the worst — this is the truest thing I know.</span></p>
+
+                        <div class="ornament">• • •</div>
+
+                        <p><span class="sent same">If breaking yet choosing kindness is love —</span><br>
+                        <span class="sent same">If feeling quietly while standing with dignity is love —</span><br>
+                        <span class="sent same">If letting go of one role but staying in all the others is love —</span><br>
+                        <span class="sent same">Then what is this?</span></p>
+
+                        <p style="text-align:center; font-size:var(--text-2xl); margin:var(--space-8) 0;"><em>I still don't know.</em></p>
+                        <p style="text-align:center;"><em>But maybe I don't need to.</em></p>
+
+                        <!-- Epilogue -->
+                        <h3 class="section-heading" data-num="✦">Epilogue</h3>
+
+                        <p><strong>Be imperfect.</strong> <span class="sent same">Because if I am there, it becomes ugly.</span></p>
+                        <p><span class="sent same">That's what I used to believe. That my presence would only ruin things. That I was never meant to be chosen.</span></p>
+                        <p><span class="sent same">But now I know — my worth is not measured by being chosen. My worth is not diminished by feeling something for someone who could not feel the same. My worth is in the feeling itself: pure, sincere, transformative.</span></p>
+                        <p><span class="sent same">I felt. I grew. I let go without losing myself.</span></p>
+                        <p><span class="sent same">And that is enough.</span></p>
+
+                        <div class="ornament">• • •</div>
+
+                        <p><span class="sent same">This letter was never meant to be sent. It was meant to be written — to release what needed releasing, to honor what needed honoring, to close what needed closing.</span></p>
+
+                        <p><span class="sent same">But some doors don't need to close completely. Some people stay — not as lovers, not as wounds — but as permanent marks on who we've become.</span></p>
+                        <p><span class="sent same">You are one of those marks.</span></p>
+                        <p><span class="sent same">And I am grateful.</span></p>
+
+                        <div class="ornament">• • •</div>
+
+                        <p><span class="sent same">So what is this feeling?</span><br>
+                        <span class="sent same">Perhaps one day I'll find the word. Perhaps I never will. Perhaps it doesn't matter.</span></p>
+
+                        <p><span class="sent same">What matters is that I felt it fully, honored it honestly, and chose to stay — not because I needed to, but because you still matter.</span></p>
+
+                        <p><span class="sent same">And maybe that's the closest answer I'll ever have.</span></p>
+
+                        <div class="phase-analysis">
+                            <strong>Phase II — Processing.</strong> Notice the subtle shift. The same words, but certain phrases are now bolded: conviction is building. "I must let go" and "Saya ikhlas" appear with more weight — acceptance attempted in two languages at once, as if trying to convince the heart from multiple directions. The mind knows what must happen, but the heart hasn't fully surrendered.
+                        </div>
+                    </div>
+                    <!-- end panel-ii -->
+
+
+                    <!-- ══════════════════════════════════════
+                         PHASE III: THE STAYING
+                    ══════════════════════════════════════ -->
+                    <div class="phase-panel" id="panel-iii">
+                        <div class="phase-header-compact">
+                            <span class="phase-num-badge badge-iii">Phase III</span>
+                            <div class="phase-header-text">
+                                <h2>The Staying</h2>
+                                <p>Acceptance, peace, choosing to remain</p>
+                            </div>
+                        </div>
+
+                        <div class="quote-callout">
+                            <p>Listen twice: first to what's being said, second to who said it.</p>
+                            <cite>John Sherman Cooper</cite>
+                        </div>
+
+                        <!-- §I — subtle shift: "my best friend when I needed someone to stay" is new -->
+                        <h3 class="section-heading" data-num="I">The Beginning of Wondering</h3>
+
+                        <p><span class="sent same">I do not remember the exact moment it started.</span> <span class="sent same">Perhaps it was never a moment at all — perhaps it was a slow accumulation of small things: the way you explained ideas I could not grasp, the patience hidden beneath your sharp words, the strange brightness in you that you never seemed to notice yourself.</span></p>
+
+                        <p><span class="sent same">You became my teacher without intending to.</span> <span class="sent same">My mentor without asking.</span> <span class="sent same">My devil's advocate when I needed someone to challenge me.</span> <span class="sent same">My harsh guardian when I was too soft on myself.</span> <span class="sent new"><strong>My best friend when I needed someone to stay.</strong></span> <span class="sent same">And somewhere along the way, without permission, you became something I cannot name.</span></p>
+
+                        <p><span class="sent same">From the beginning, I knew I was not someone special to you.</span> <span class="sent same">You said your tone was simply your "natural way," and I believed you.</span> <span class="sent same">But I also saw how gently you could treat those who truly mattered to you.</span> <span class="sent same">I understood that difference.</span> <span class="sent same">I accepted it with a quiet smile, as if humor could soften the sting.</span></p>
+
+                        <p><span class="sent same">Still, my heart learned to hold you gently.</span></p>
+
+                        <div class="ornament">• • •</div>
+
+                        <p><span class="sent same">Lately I have been wondering what this feeling truly is.</span> <span class="sent changed-removed">Is it love, or care, or empathy — or something softer that only God understands?</span> <span class="sent same">Because whatever name I give it, it keeps returning to you.</span></p>
+
+                        <p><em><span class="sent same">If wanting someone to be happy is love — then what is this?</span></em></p>
+                        <p><em><span class="sent same">If praying for someone's success without them ever hearing — is that love?</span></em></p>
+                        <p><em><span class="sent same">If feeling frustrated when you speak harshly about yourself — what do I call this?</span></em></p>
+
+                        <p><span class="sent same">I am afraid to hurt you, so I shape my words softer than I feel them.</span> <span class="sent same">Not because I want to hide, but because I care about your peace more than my own urgency.</span></p>
+                        <p><span class="sent same">Is that not something close to love?</span></p>
+
+                        <!-- §II — one structural split: paragraph breaks more -->
+                        <h3 class="section-heading" data-num="II">The Weight of Small Things</h3>
+
+                        <p><span class="sent same">I do not think you are cruel.</span> <span class="sent same">You are simply human, and my pain comes mostly from the fragile places inside me — although not everything is insecurity.</span> <span class="sent same">Some things truly hurt.</span></p>
+
+                        <p><span class="sent same">There is a word you use sometimes — and every time it lands, the walls I have spent years building crumble in an instant.</span> <span class="sent same">You do not know this, but that word touches the one value I fought so hard to build.</span></p>
+
+                        <p><span class="sent same">I was not born with the shield of beauty that protects so many others.</span> <span class="sent same">I cannot change my face, so I changed my path instead.</span> <span class="sent same">I worked harder than I should have, bled longer than anyone knew, climbed with weary hands and breaking bones just to stand where others arrive with ease.</span></p>
+
+                        <p><span class="sent same">This is the only strength I have built to hold my worth.</span> <span class="sent same">And when it is shattered by someone whose opinion matters — it hurts in ways I cannot explain.</span></p>
+
+                        <div class="ornament">• • •</div>
+
+                        <p><span class="sent same">You often teach me without warning — not because I ask, but because that is who you are.</span> <span class="sent same">And I accept it because I like learning from you.</span> <span class="sent same">But when frustration appears if I fail to understand, everything in me becomes quiet.</span></p>
+
+                        <p><span class="sent same">It is one of the reasons I hesitate to ask you anything.</span> <span class="sent same">I do not want to feel small next to you.</span> <span class="sent same">I do not want to feel like a burden.</span></p>
+
+                        <p><span class="sent same">You once said, "I expect talking to you feels calm."</span> <span class="sent same">Yet too often I feel read through shadows, my meaning slipping away before it reaches you.</span> <span class="sent same">That is why I whisper, not demand.</span> <span class="sent same">That is why my words come wrapped in caution, my voice restrained by fear.</span></p>
+
+                        <p><span class="sent same">Why do I still stay, despite all of this?</span></p>
+                        <p><span class="sent same">Why does my heart refuse to leave?</span></p>
+
+                        <!-- §III — THE CHANGED SECTION -->
+                        <h3 class="section-heading section-tracked" data-num="III">The Place You Land</h3>
+
+                        <p><span class="sent same" data-s="1">Ironically, I am almost always there whenever your heart is broken.</span> <span class="sent same" data-s="2">I am the one who stays when the world feels too heavy.</span> <span class="sent same" data-s="3">I am the one who listens when the silence becomes unbearable.</span></p>
+
+                        <p><em><span class="sent same" data-s="4">Maybe I am a place you land — but never the place you stay.</span></em></p>
+
+                        <p><span class="sent new" data-s="5"><strong>That is why the jealousy comes — not because I want to control you, but because I wish our presence to each other mattered in the same measure.</strong></span> <span class="sent same" data-s="6">You are close enough to make me stay, but at the same time, distant enough to never choose me.</span></p>
+
+                        <p><span class="sent new" data-s="7">Sometimes it feels like you cherish the comfort I bring more than the person I am.</span> <span class="sent new" data-s="8">Sometimes I wonder if you fear losing me — but never fear hurting me.</span></p>
+
+                        <p><span class="sent same" data-s="9">But maybe that is only my fear echoing back to me.</span></p>
+
+                        <div class="ornament">• • •</div>
+
+                        <p><span class="sent same" data-s="10">Your name is still loud in my head.</span> <span class="sent same" data-s="11">Close enough to keep me waiting, yet far enough to leave me unsure.</span> <span class="sent same" data-s="12">It becomes heavier by day.</span> <span class="sent same" data-s="13">Louder by night.</span></p>
+
+                        <p><span class="sent same" data-s="14">I see you there in silence, and I make scenarios of you here with me.</span> <span class="sent same" data-s="15">Yes, I used to create a manufactured happiness — but thank you for letting me see you.</span> <span class="sent same" data-s="16">Thank you for this strange gift of knowing you exist.</span></p>
+
+                        <p><span class="sent same" data-s="17">Why is this so bold, so thick, so deep?</span></p>
+
+                        <!-- §IV — apology shifts from Javanese to formal English -->
+                        <h3 class="section-heading" data-num="IV">The Quiet Transformation</h3>
+
+                        <p><em><span class="sent same">If the quiet effort to become a better version of myself — is that not love?</span></em></p>
+
+                        <p><span class="sent same">Because without you asking, your presence made me want to grow.</span> <span class="sent same">I learned things I once ignored.</span> <span class="sent same">I sharpened my mind.</span> <span class="sent same">I tried to understand your logic, your worldview, your brilliance — so I could speak with you from a place of balance, not confusion.</span></p>
+
+                        <p><span class="sent same">If becoming better not to be chosen, but to meet you with dignity — is that not love?</span></p>
+
+                        <p><span class="sent same">You taught me patience I did not know I had.</span> <span class="sent same">You showed me the gaps in my thinking I never wanted to see.</span> <span class="sent same">You challenged me in ways that made me uncomfortable, then grateful, then stronger.</span></p>
+
+                        <p><span class="sent new">I am sorry if I cannot immediately understand the way you think. You need to explain your thoughts, explain yourself. But one thing you must know — I am willing to understand you. I am willing to hear your explanation. It does not have to be all at once if you are tired of explaining. We can take it slowly. I am sorry if I am slow to grasp or if I misunderstand.</span></p>
+
+                        <p><strong><span class="sent new">I am still learning you.</span></strong></p>
+
+                        <div class="ornament">• • •</div>
+
+                        <p><span class="sent same">The feeling I feel towards you is so strong, so deep.</span> <span class="sent same">This feeling — like a luxury thing.</span> <span class="sent same">So pure, so sincere.</span> <span class="sent same">You are special to me.</span></p>
+
+                        <p><span class="sent same">I am not going to lie — somewhere in my heart, there is a wish.</span> <span class="sent new">But all the theory you told me gives the same conclusion: we will never be one plus one equals eleven.</span> <span class="sent same">And for that, I know we will walk separately in that particular way.</span></p>
+
+                        <p><strong><span class="sent new">I am not ready for that. But I must accept it.</span></strong></p>
+
+                        <!-- §V — resignation → acceptance -->
+                        <h3 class="section-heading" data-num="V">The Return to Self</h3>
+
+                        <p><span class="sent same">So I remind myself: where is my logic?</span> <span class="sent new">Where is my God in these hours when I ache for you?</span></p>
+
+                        <p><span class="sent new">And the answer comes: return to the One who steadies hearts, who never wounds with neglect.</span></p>
+
+                        <p><span class="sent same">For whatever this feeling is — it should not destroy.</span> <span class="sent same">It must never chain.</span> <span class="sent same">With too many boundaries, it becomes detachment.</span> <span class="sent same">But without any boundary, it becomes obsession.</span></p>
+
+                        <p><strong><span class="sent new">So I remain here, half in acceptance, half in tenderness — holding out my hand into the space between us, knowing what it can reach and what it cannot.</span></strong></p>
+
+                        <div class="ornament">• • •</div>
+
+                        <p><span class="sent new">I like you, but sometimes I resent you.</span> <span class="sent same">I can understand you, but I cannot always accept what you do to me.</span> <span class="sent same">I resent the fact that I feel this way.</span> <span class="sent same">When the only strength I have is shattered by you — I just want to cherish myself more than I cherish you.</span></p>
+
+                        <p><strong><span class="sent new">Yet still — I cannot erase you. And I do not want to.</span></strong></p>
+
+                        <!-- §VI Poem — last stanza changes -->
+                        <h3 class="section-heading" data-num="VI">A Poem Without Answers</h3>
+
+                        <div class="poem-block">
+                            <div class="stanza">Whatever this is — I feel it unconditionally.</div>
+                            <div class="stanza">
+                                Even when what I receive from you<br>
+                                is the ache of being unseen,<br>
+                                the silence that cuts too sharp,<br>
+                                the weight of worry,<br>
+                                the smallness of feeling foolish<br>
+                                when that word touches me,<br>
+                                when that is all the worth I seem allowed to hold.
+                            </div>
+                            <div class="stanza">
+                                I know it is not your intention to hurt me.<br>
+                                But this is how it feels to me —<br>
+                                because I hoped too much.
+                            </div>
+                            <div class="stanza">
+                                Is this your nature,<br>
+                                or would something more... change you?
+                            </div>
+                            <div class="stanza sent new">
+                                I sow seeds with trembling hands,<br>
+                                longing that what I planted<br>
+                                would bloom in sweetness.<br><br>
+                                Yet perhaps the soil is not the same,<br>
+                                perhaps our roots<br>
+                                <strong>were never meant to intertwine that way.</strong>
+                            </div>
+                        </div>
+
+                        <!-- §VII — the true rewrite: "Letting One Thing Go" -->
+                        <h3 class="section-heading" data-num="VII">Letting One Thing Go</h3>
+
+                        <p><strong><span class="sent new">This is not a goodbye.</span></strong></p>
+
+                        <p><span class="sent new">I am not leaving. I am not walking away. I am not erasing you from my life — because you are too woven into who I have become.</span></p>
+
+                        <p><strong><span class="sent new">I am simply letting go of one thing. Just one.</span></strong></p>
+
+                        <p><span class="sent new">The hope of being yours in that particular way — I release it. Not with bitterness, not with regret, but with acceptance. I am surrendering. I know I am not what you want. And maybe I never will be. And that is okay.</span></p>
+
+                        <div class="ornament">• • •</div>
+
+                        <p><strong><span class="sent new">But everything else? Everything else stays.</span></strong></p>
+
+                        <p><span class="sent new">You are still my teacher — the one who sharpens my mind without mercy. You are still my mentor — the one whose footsteps I follow even when you do not realize I am watching. You are still my devil's advocate — the one who forces me to defend what I believe. You are still my harsh guardian — the one who does not let me settle for less.</span></p>
+
+                        <p><strong><span class="sent new">You are still my best friend. And I am not willing to lose that.</span></strong></p>
+
+                        <p><span class="sent new">I do not mind losing the chance to be your lover. But I refuse to lose everything else. You are too important.</span></p>
+
+                        <div class="ornament">• • •</div>
+
+                        <p><strong><span class="sent new">So I will stay.</span></strong> <span class="sent new">Not as someone waiting. Not as someone hoping. But as someone who simply wants to be here — because your presence still matters, and I believe mine matters to you too, even if in a different way.</span></p>
+
+                        <p><span class="sent new">Too much connection to be just strangers. Too complicated to be lovers. So we stay here, in this unnamed space, and I have made peace with it.</span></p>
+
+                        <!-- §VIII -->
+                        <h3 class="section-heading" data-num="VIII">What Remains</h3>
+
+                        <p><span class="sent same">I feel something for you in a way I know we will not walk the same path — like you always said.</span> <strong><span class="sent new">I do not hope otherwise anymore. I have accepted it.</span></strong></p>
+
+                        <p><span class="sent same">I know I am not what you want.</span> <span class="sent new">But maybe — just maybe — I am what you need. As a friend. As a constant. As someone who sees you, truly sees you, and chooses to stay anyway.</span></p>
+
+                        <div class="ornament">• • •</div>
+
+                        <p><span class="sent same">You are still my teacher. My mentor. My devil's advocate. My harsh guardian. My best friend. My inspiration. My motivation. My mirror. My strength. My spark. My chaos and my clarity. My turning point. My lesson, and also my patience.</span></p>
+
+                        <p><em><span class="sent new">If being close to you means feeling this — then I accept it.</span></em></p>
+
+                        <p><span class="sent same">Of all the feelings you gave me — the best and the worst — this is the truest thing I know.</span></p>
+
+                        <div class="ornament">• • •</div>
+
+                        <p><span class="sent same">If breaking yet choosing kindness is love —</span><br>
+                        <span class="sent same">If feeling quietly while standing with dignity is love —</span><br>
+                        <strong><span class="sent new">If letting go of one role but refusing to let go of all the others —</span></strong><br>
+                        <span class="sent same">Then what is this?</span></p>
+
+                        <p style="text-align:center; font-size:var(--text-2xl); margin:var(--space-8) 0;"><em>I still do not know.</em></p>
+                        <p style="text-align:center;"><em>But maybe I do not need to.</em></p>
+                        <p style="text-align:center; font-size:var(--text-xl); font-weight:var(--font-bold); color:var(--accent-cyan);"><em>What I know is that I am staying.</em></p>
+
+                        <!-- Epilogue -->
+                        <h3 class="section-heading" data-num="✦">Epilogue</h3>
+
+                        <p><strong>Be imperfect.</strong> <span class="sent same">Because if I am there, it becomes ugly.</span></p>
+
+                        <p><span class="sent new">That is what I used to believe.</span> <span class="sent same">That my presence would only ruin things. That I was never meant to be chosen.</span></p>
+
+                        <p><span class="sent new">But now I know — my worth is not measured by being chosen in that one way.</span> <span class="sent same">My worth is not diminished by feeling something for someone who could not feel the same.</span> <span class="sent same">My worth is in the feeling itself: pure, sincere, transformative.</span></p>
+
+                        <p><strong><span class="sent new">I felt. I grew. I let go of one thing without losing everything.</span></strong></p>
+                        <p><span class="sent same">And that is enough.</span></p>
+
+                        <div class="ornament">• • •</div>
+
+                        <p><span class="sent same">This letter was never meant to be sent.</span> <span class="sent same">It was meant to be written — to release what needed releasing, to honor what needed honoring,</span> <span class="sent new">to clarify what needed clarifying.</span></p>
+
+                        <p><strong><span class="sent new">But this is not a door closing. This is me choosing which doors to walk through and which ones to leave open.</span></strong> <span class="sent new">The door to being your lover — I close it gently, with gratitude for the dreams it held. But every other door? They stay wide open.</span></p>
+
+                        <p><span class="sent new">You are not leaving my life. You are simply settling into a different place within it — a place that is permanent, essential, and irreplaceable.</span></p>
+
+                        <div class="ornament">• • •</div>
+
+                        <p><span class="sent same">So what is this feeling?</span><br>
+                        <span class="sent same">Perhaps one day I will find the word. Perhaps I never will. Perhaps it does not matter.</span></p>
+
+                        <p><span class="sent new">What matters is that I felt it fully, honored it honestly, and chose to stay — not as someone waiting to be loved, but as someone who has already made peace with what is and what will never be.</span></p>
+
+                        <p style="text-align:center; font-size:var(--text-2xl); margin:var(--space-8) 0; font-weight:var(--font-bold); background:var(--gradient-primary); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;">
+                            I am not losing you. I am simply loving you differently.
+                        </p>
+
+                        <p style="text-align:center;">And maybe that is the closest answer I will ever have.</p>
+
+                        <div class="phase-analysis">
+                            <strong>Phase III — Differentiation.</strong> The questions have been answered — not with certainty about what the feeling is, but with clarity about what the action will be. Notice the shift in §VII: the title itself changes from "Letting Go" to "Letting <em>One Thing</em> Go." The bold text isn't about emphasis anymore. It's declaration. This is what Esther Perel calls "differentiated grief" — mourning one aspect of a relationship while maintaining all the others.
+                        </div>
+                    </div>
+                    <!-- end panel-iii -->
+
+                </section>
+                <!-- end #letters -->
+
+                <div class="ornament" style="margin: var(--space-24) 0;">✦ ✦ ✦</div>
+
+                <!-- ── CHANGE TRACKING TABLE ── -->
+                <section id="tracking">
+                    <div class="tracking-table-wrap">
+                        <div class="tracking-table-title">Section III — Parallel Change Tracking</div>
+                        <p style="font-family:'DM Sans',sans-serif; font-size:var(--text-sm); color:var(--text-tertiary); margin-bottom:var(--space-6); line-height:1.6;">
+                            Section III is the section that shifts most across the three letters. The same positions, the same emotional beats — but watch how each sentence carries a different weight depending on where the heart is.
+                        </p>
+                        <table class="tracking-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th class="cell-i">Phase I — The Ache</th>
+                                    <th class="cell-ii">Phase II — The Reckoning</th>
+                                    <th class="cell-iii">Phase III — The Staying</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td class="cell-same">Ironically, I am almost always there...</td>
+                                    <td class="cell-same">— same —</td>
+                                    <td class="cell-same">— same —</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td class="cell-same">I am the one who stays when the world feels too heavy.</td>
+                                    <td class="cell-same">— same —</td>
+                                    <td class="cell-same">— same —</td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td class="cell-same">I am the one who listens when the silence becomes unbearable.</td>
+                                    <td class="cell-same">— same —</td>
+                                    <td class="cell-same">— same —</td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td class="cell-same"><em>Maybe I am a place you land — but never the place you stay.</em></td>
+                                    <td class="cell-same">— same —</td>
+                                    <td class="cell-same">— same —</td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td class="cell-i">That's why the jealousy comes... <em>(runs on with "mattered in the same measure")</em></td>
+                                    <td class="cell-ii">— same —</td>
+                                    <td class="cell-iii cell-new">Separated into its own sentence. Stands alone. Named clearly.</td>
+                                </tr>
+                                <tr>
+                                    <td>6</td>
+                                    <td class="cell-same">You are close enough to make me stay, but distant enough to never choose me.</td>
+                                    <td class="cell-same">— same —</td>
+                                    <td class="cell-same">— same —</td>
+                                </tr>
+                                <tr>
+                                    <td>7</td>
+                                    <td class="cell-i">Sometimes it feels like you cherish the comfort... <em>(bleeding into sentence 8)</em></td>
+                                    <td class="cell-ii">— same —</td>
+                                    <td class="cell-iii cell-new">Stands alone. Observation, not accusation.</td>
+                                </tr>
+                                <tr>
+                                    <td>8</td>
+                                    <td class="cell-i">Sometimes I wonder if you fear losing me — but never fear hurting me. <em>(fused with "But maybe")</em></td>
+                                    <td class="cell-ii">— same —</td>
+                                    <td class="cell-iii cell-new">Becomes its own sentence — then "But maybe" starts a new paragraph. The distance is made visible.</td>
+                                </tr>
+                                <tr>
+                                    <td>9</td>
+                                    <td class="cell-same">But maybe that is only my fear echoing back to me.</td>
+                                    <td class="cell-same">— same —</td>
+                                    <td class="cell-same">— same —</td>
+                                </tr>
+                                <tr>
+                                    <td>10–17</td>
+                                    <td class="cell-same" colspan="3"><em>Identical across all three phases. The longing — the weight, the night, the manufactured happiness — doesn't change. It was never supposed to.</em></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p style="font-family:'DM Sans',sans-serif; font-size:var(--text-xs); color:var(--text-tertiary); margin-top:var(--space-4);">
+                            <strong>Key:</strong> "— same —" = sentence identical to Phase I · Bold = new addition · Italic = structural note
+                        </p>
+                    </div>
+                </section>
+
+                <!-- ── FINAL REFLECTION ── -->
+                <section id="reflection" class="epilogue">
+                    <h2 class="epilogue-title">Final Reflection: On Rewriting the Same Truth</h2>
+
+                    <p>If you read all three phases, you saw it. The same words, the same structure, the same story. But not the same heart.</p>
+
+                    <p>Phase I was protest. Phase II was processing. Phase III was peace.</p>
+
+                    <p>The transformation wasn't in the facts — it was in the stance. From "I cannot erase you" to "I do not want to." From questioning what love is to simply staying without needing the answer.</p>
+
+                    <div class="insight-box">
+                        <div class="insight-box-title">On Narrative Coherence in Emotional Healing</div>
+                        <p>Psychologist Dan McAdams describes how we create "narrative identity" — the story we tell ourselves about who we are. Trauma and grief disrupt this narrative. Healing happens not by changing the facts, but by reorganizing the story until it becomes livable.</p>
+                        <p>These three letters are that reorganization made visible. The plot stayed the same. The protagonist changed.</p>
+                    </div>
+
+                    <p>I didn't know I was writing a triptych. I just kept rewriting the same letter because the first version didn't feel true enough. Then the second version felt too resigned. And finally, the third version found the balance — grief and gratitude, loss and loyalty, goodbye and staying.</p>
+
+                    <div class="ornament">• • •</div>
+
+                    <p>If you're going through something similar: it's okay to write the same letter three times. It's okay if each version contradicts the last. That's not confusion. That's growth in real-time.</p>
+
+                    <p>Let your heart oscillate. Let it protest and process and finally settle. Don't rush to the final draft.</p>
+
+                    <p>Because the answer you arrive at through struggle will hold better than the answer you force yourself to accept before you're ready.</p>
+
+                    <div class="ornament">✦ ✦ ✦</div>
+
+                    <p style="text-align:center; font-style:italic; color:var(--text-tertiary); margin-top:var(--space-12);">
+                        — To be continued, in friendship —
+                    </p>
+                </section>
+
+            </div><!-- end post-body -->
+
+            <!-- Post Footer -->
+            <footer class="post-footer">
+                <div class="post-tags">
+                    <span class="tag">Triptych</span>
+                    <span class="tag tag-pink">Emotional Evolution</span>
+                    <span class="tag tag-green">Grief & Acceptance</span>
+                    <span class="tag tag-orange">Differentiated Love</span>
+                </div>
+                <div class="post-navigation">
+                    <div></div>
+                    <div></div>
+                </div>
+            </footer>
+
+        </article>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="../../about.html">About</a>
+                <a href="../../projects/">Projects</a>
+                <a href="../index.html">Blog</a>
+                <a href="../../links.html">Links</a>
+            </div>
+            <p>&copy; 2026 Annisa Baizan. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        /* ── Diff mode (must be defined before inline onchange fires) ── */
+        function toggleDiff(checkbox) {
+            document.body.classList.toggle('diff-mode', checkbox.checked);
+        }
+    </script>
+    <script src="../../assets/js/main.js"></script>
+    <script>
+        /* ── Phase switching ── */
+        function switchPhase(phase) {
+            // Update panels
+            document.querySelectorAll('.phase-panel').forEach(p => p.classList.remove('active'));
+            document.getElementById('panel-' + phase).classList.add('active');
+
+            // Update tabs
+            document.querySelectorAll('.phase-tab').forEach(t => {
+                t.classList.remove('active-i', 'active-ii', 'active-iii');
+                t.setAttribute('aria-selected', 'false');
+            });
+            const activeTab = document.querySelector('[data-phase="' + phase + '"]');
+            activeTab.classList.add('active-' + phase);
+            activeTab.setAttribute('aria-selected', 'true');
+
+            // Scroll to top of letters section smoothly
+            document.getElementById('letters').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        /* ── Reading progress ── */
+        function updateReadingProgress() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('readingProgress').style.width = scrolled + '%';
+        }
+        window.addEventListener('scroll', updateReadingProgress);
+
+        /* ── Active TOC ── */
+        function updateActiveTOC() {
+            const sections = document.querySelectorAll('section[id]');
+            const tocLinks = document.querySelectorAll('.toc-list a:not(.toc-sub)');
+            let currentSection = '';
+            sections.forEach(section => {
+                if (window.pageYOffset >= section.offsetTop - 150) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+            tocLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + currentSection) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        const _throttle = (fn, ms) => {
+            let last = 0;
+            return (...args) => {
+                const now = Date.now();
+                if (now - last >= ms) { last = now; fn(...args); }
+            };
+        };
+        window.addEventListener('scroll', _throttle(updateActiveTOC, 100));
+
+        updateReadingProgress();
+        updateActiveTOC();
+    </script>
+</body>
+</html>

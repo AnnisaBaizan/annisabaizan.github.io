@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Three Letters, One Heart: A Triptych | Annisa Baizan</title>
+    <meta name="description" content="The same story, written three times across three emotional states — from aching to acceptance. A chronicle of letting go while choosing to stay.">
+    
+    <!-- Global Styles -->
+    <link rel="stylesheet" href="../../assets/css/reset.css">
+    <link rel="stylesheet" href="../../assets/css/theme.css">
+    <link rel="stylesheet" href="../../assets/css/components.css">
+    
+    <!-- Blog-specific Styles -->
+    <link rel="stylesheet" href="../assets/blog.css">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Triptych-specific styling */
+        .phase-divider {
+            margin: var(--space-24) 0;
+            text-align: center;
+            position: relative;
+        }
+        
+        .phase-divider::before,
+        .phase-divider::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 35%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border-color), transparent);
+        }
+        
+        .phase-divider::before { left: 0; }
+        .phase-divider::after { right: 0; }
+        
+        .phase-transition {
+            display: inline-block;
+            padding: var(--space-4) var(--space-8);
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            font-size: var(--text-sm);
+            color: var(--text-tertiary);
+            font-style: italic;
+        }
+        
+        .phase-header {
+            margin: var(--space-16) 0 var(--space-12);
+            text-align: center;
+            padding: var(--space-12) var(--space-8);
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(6, 182, 212, 0.05));
+            border-left: 4px solid var(--accent-cyan);
+            border-right: 4px solid var(--accent-blue);
+            border-radius: var(--radius-lg);
+        }
+        
+        .phase-number {
+            font-size: var(--text-sm);
+            font-weight: var(--font-bold);
+            color: var(--accent-cyan);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: var(--space-2);
+        }
+        
+        .phase-title {
+            font-size: var(--text-4xl);
+            font-weight: var(--font-black);
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: var(--space-3);
+        }
+        
+        .phase-subtitle {
+            font-size: var(--text-lg);
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <!-- Reading Progress Bar -->
+    <div class="reading-progress" id="readingProgress"></div>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="../../index.html" class="nav-brand">AB</a>
+            <ul class="nav-links">
+                <li><a href="../../index.html">Home</a></li>
+                <li><a href="../../about.html">About</a></li>
+                <li><a href="../../projects/">Projects</a></li>
+                <li><a href="../index.html" class="active">Blog</a></li>
+                <li><a href="../../links.html">Links</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="blog-container">
+        <!-- Table of Contents Sidebar -->
+        <aside class="blog-sidebar">
+            <nav class="toc">
+                <h3 class="toc-title">Contents</h3>
+                <ul class="toc-list">
+                    <li><a href="#intro">Introduction</a></li>
+                    <li><a href="#phase1">Phase I: The Ache</a></li>
+                    <li><a href="#phase2">Phase II: The Reckoning</a></li>
+                    <li><a href="#phase3">Phase III: The Staying</a></li>
+                    <li><a href="#reflection">Final Reflection</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Post Content -->
+        <article class="blog-content">
+            <!-- Breadcrumb -->
+            <div class="breadcrumb">
+                <a href="../../index.html">Home</a>
+                <span>/</span>
+                <a href="../index.html">Blog</a>
+                <span>/</span>
+                <span>Three Letters, One Heart</span>
+            </div>
+
+            <!-- Post Header -->
+            <header class="post-header">
+                <div class="post-category">Triptych</div>
+                <h1 class="post-title">Three Letters, One Heart</h1>
+                <p class="post-subtitle">A Chronicle of Letting Go While Staying</p>
+                <div class="post-meta">
+                    <span class="post-meta-item">📅 February 2026</span>
+                    <span class="post-meta-item">⏱️ 38 min read</span>
+                    <span class="post-meta-item">🏷️ Love, Grief, Acceptance</span>
+                </div>
+            </header>
+
+            <!-- Post Body -->
+            <div class="post-body">
+                <section id="intro">
+                    <p class="lead">This is the same story, told three times.</p>
+
+                    <p>Each version was written in a different emotional state — hours, days, weeks apart. The subject remains the same. The feelings remain true. But the voice... the voice changes.</p>
+
+                    <p>From raw ache to quiet reckoning to peaceful acceptance.</p>
+
+                    <p>I could have chosen one version and discarded the others. But that felt dishonest. Because healing isn't linear. It's not a clean arc from pain to peace. It's messy. It circles back. It rewrites itself.</p>
+
+                    <div class="insight-box">
+                        <div class="insight-box-title">On Grief as Iterative Process</div>
+                        <p>Psychologists have moved away from Kübler-Ross's linear "stages of grief" model. Modern grief research by Stroebe and Schut describes grief as an oscillating process — we move back and forth between loss-oriented and restoration-oriented coping, sometimes revisiting the same pain with different understanding.</p>
+                        <p>Writing the same letter three times is this oscillation made visible. Each version doesn't replace the previous one — they coexist, showing how a single truth can hold multiple emotional weights.</p>
+                    </div>
+
+                    <p>So here are all three letters. Read them in order, or skip between them. Notice what changes. Notice what stays.</p>
+
+                    <p>This is what it looks like when a heart tries to make sense of staying.</p>
+                </section>
+
+                <div class="ornament" style="margin: var(--space-16) 0;">✦ ✦ ✦</div>
+
+                <!-- PHASE I: THE ACHE -->
+                <section id="phase1">
+                    <div class="phase-header">
+                        <div class="phase-number">Phase I</div>
+                        <h2 class="phase-title">The Ache</h2>
+                        <p class="phase-subtitle">Raw, unresolved, still bleeding</p>
+                    </div>
+
+                    <div class="quote-callout">
+                        <p>Listen twice: first to what's being said, second to who said it.</p>
+                        <cite>John Sherman Cooper</cite>
+                    </div>
+
+                    <h3 style="margin-top: var(--space-12);">I. The Beginning of Wondering</h3>
+
+                    <p>I don't remember the exact moment it started. Perhaps it was never a moment at all — perhaps it was a slow accumulation of small things: the way you explained ideas I couldn't grasp, the patience hidden beneath your sharp words, the strange brightness in you that you never seemed to notice yourself.</p>
+
+                    <p>You became my teacher without intending to. My mentor without asking. My devil's advocate when I needed someone to challenge me. My harsh guardian when I was too soft on myself. And somewhere along the way, without permission, you became something I cannot name.</p>
+
+                    <p>From the beginning, I knew I wasn't someone special to you. You said your tone was simply your "natural way," and I believed you. But I also saw how gently you could treat those who truly mattered to you. I understood that difference. I accepted it with a quiet smile, as if humor could soften the sting.</p>
+
+                    <p>Still, my heart learned to hold you gently.</p>
+
+                    <div class="ornament">• • •</div>
+
+                    <p>Lately I've been wondering what this feeling truly is. Is it love, or care, or empathy — or something softer that only Allah understands? Because whatever name I give it, it keeps returning to you.</p>
+
+                    <p><em>If wanting someone to be happy is love — then what is this?</em></p>
+
+                    <p><em>If praying for someone's success without them ever hearing — is that love?</em></p>
+
+                    <p><em>If feeling frustrated when you speak harshly about yourself — what do I call this?</em></p>
+
+                    <p>I am afraid to hurt you, so I shape my words softer than I feel them. Not because I want to hide, but because I care about your peace more than my own urgency.</p>
+
+                    <p>Is that not something close to love?</p>
+
+                    <h3>II. The Weight of Small Things</h3>
+
+                    <p>I don't think you're cruel. You are simply human, and my pain comes mostly from the fragile places inside me — although not everything is insecurity. Some things truly hurt.</p>
+
+                    <p>There is a word you use sometimes — and every time it lands, the walls I've spent years building crumble in an instant. You don't know this, but that word touches the one value I fought so hard to build. I was not born with the shield of beauty that protects so many others. I cannot change my face, so I changed my path instead. I worked harder than I should have, bled longer than anyone knew, climbed with weary hands and breaking bones just to stand where others arrive with ease.</p>
+
+                    <p>This is the only strength I've built to hold my worth. And when it's shattered by someone whose opinion matters — it hurts in ways I cannot explain.</p>
+
+                    <div class="ornament">• • •</div>
+
+                    <p>You often teach me without warning — not because I ask, but because that's who you are. And I accept it because I like learning from you. But when frustration appears if I fail to understand, everything in me becomes quiet. It's one of the reasons I hesitate to ask you anything. I don't want to feel small next to you. I don't want to feel like a burden.</p>
+
+                    <p>You once said, "I expect talking to you feels calm." Yet too often I feel read through shadows, my meaning slipping away before it reaches you. That is why I whisper, not demand. That is why my words come wrapped in caution, my voice restrained by fear.</p>
+
+                    <p>Why do I still stay, despite all of this?</p>
+
+                    <p>Why does my heart refuse to leave?</p>
+
+                    <h3>III. The Place You Land</h3>
+
+                    <p>Ironically, I am almost always there whenever your heart is broken. I am the one who stays when the world feels too heavy. I am the one who listens when the silence becomes unbearable.</p>
+
+                    <p><em>Maybe I am a place you land — but never the place you stay.</em></p>
+
+                    <p>That's why the jealousy comes — not because I want to control you, but because I wish our presence to each other mattered in the same measure. You are close enough to make me stay, but at the same time, distant enough to never choose me.</p>
+
+                    <p>Sometimes it feels like you cherish the comfort I bring more than the person I am. Sometimes I wonder if you fear losing me — but never fear hurting me. But maybe that is only my fear echoing back to me.</p>
+
+                    <div class="ornament">• • •</div>
+
+                    <p>Your name is still loud in my head. Close enough to keep me waiting, yet far enough to leave me unsure. It becomes heavier by day. Louder by night.</p>
+
+                    <p>I see you there in silence, and I make scenarios of you here with me. Yes, I used to create a manufactured happiness — but thank you for letting me see you. Thank you for this strange gift of knowing you exist.</p>
+
+                    <p>Why is this so bold, so thick, so deep?</p>
+
+                    <h3>IV. The Quiet Transformation</h3>
+
+                    <p><em>If the quiet effort to become a better version of myself — is that not love?</em></p>
+
+                    <p>Because without you asking, your presence made me want to grow. I learned things I once ignored. I sharpened my mind. I tried to understand your logic, your worldview, your brilliance — so I could speak with you from a place of balance, not confusion.</p>
+
+                    <p>If becoming better not to be chosen, but to meet you with dignity — is that not love?</p>
+
+                    <p>You taught me patience I didn't know I had. You showed me the gaps in my thinking I never wanted to see. You challenged me in ways that made me uncomfortable, then grateful, then stronger.</p>
+
+                    <p>Maaf kalau aku ndak bisa langsung mengerti caramu berpikir. Dirimu butuh banyak menjelaskan pikiranmu, menjelaskan tentang dirimu. Tapi satu hal yang harus kamu tahu — I am willing to understand you. I am willing to hear your explanation. Ndak harus sekaligus kalau capek menjelaskan, bertahap saja. Sorry kalau aku lambat nangkep atau salah nangkep. I still learn you.</p>
+
+                    <div class="ornament">• • •</div>
+
+                    <p>The feeling I feel towards you is so strong, so deep. This feeling — like a luxury thing. So pure, so sincere. You are special to me.</p>
+
+                    <p>I am not going to lie — somewhere in my heart, there is a wish. But all the theory you told me gives the same conclusion: we will never be 1+1=11. And for that, I know we will walk separately.</p>
+
+                    <p>I am not ready for that.</p>
+
+                    <p>And yet — I must let go of what was never mine to hold.</p>
+
+                    <h3>V. The Return to Self</h3>
+
+                    <p>So I remind myself: where is my logic? Where is my God in these hours when I ache for you?</p>
+
+                    <p>And the answer comes: return to Allah — the One who steadies hearts, who never wounds with neglect.</p>
+
+                    <p>For whatever this feeling is — it should not destroy. It must never chain. With too many boundaries, it becomes detachment. But without any boundary, it becomes obsession.</p>
+
+                    <p>So I remain here, half in hope, half in resignation — holding out my hand into the empty air, wondering if you will ever reach, and fearing you never will.</p>
+
+                    <div class="ornament">• • •</div>
+
+                    <p>I like you, but I resent you. I can understand you, but I can never accept what you do to me. I resent the fact that I feel this way. When the only strength I have is shattered by you — I just want to cherish myself more than I cherish you.</p>
+
+                    <p>Yet still — I cannot erase you.</p>
+
+                    <h3>VI. A Poem Without Answers</h3>
+
+                    <p style="font-style: italic; color: var(--text-primary);">
+                        Whatever this is — I feel it unconditionally.<br><br>
+
+                        Even when what I receive from you<br>
+                        is the ache of being unseen,<br>
+                        the silence that cuts too sharp,<br>
+                        the weight of worry,<br>
+                        the smallness of feeling foolish<br>
+                        when that word touches me,<br>
+                        when that is all the worth I seem allowed to hold.<br><br>
+
+                        I know it's not your intention to hurt me.<br>
+                        But this is how it feels to me —<br>
+                        because I hoped too much.<br><br>
+
+                        Is this your nature,<br>
+                        or would something more... change you?<br><br>
+
+                        I sow seeds with trembling hands,<br>
+                        longing that what I planted<br>
+                        would bloom in sweetness.<br><br>
+
+                        Yet perhaps the soil is not the same,<br>
+                        perhaps our roots<br>
+                        were never meant to meet.
+                    </p>
+
+                    <h3>VII. Letting Go</h3>
+
+                    <p>Now, I don't put hope toward you anymore. But I still like you. I still care about you. Whatever this feeling is — it remains. No matter the condition.</p>
+
+                    <p>I will never lie to what I feel. I will show it — until it's gone. Just use it as long as it's there. Just use it as long as it's not empty yet. Just use it until I'm going to make a new life.</p>
+
+                    <p>Maybe now, or forever — it's not my choice anymore.</p>
+
+                    <div class="ornament">• • •</div>
+
+                    <p>Thank you — for letting me feel this. For teaching me what something pure feels like. What something true feels like. I hope you are always happy.</p>
+
+                    <p>Maybe you will still be in my heart forever — in a place that will be forgotten, but never erased.</p>
+
+                    <div class="ornament">• • •</div>
+
+                    <p>In another version of the world, where timing is kinder and Allah writes our paths side by side — perhaps I would choose you.</p>
+
+                    <p>But here, in this reality, I hold that truth lightly — not as a request, not as a hope, but as a feeling that harms no one and belongs first to Allah before it belongs to you.</p>
+
+                    <h3>VIII. What Remains</h3>
+
+                    <p>I feel something for you in a way I know we will not walk the same line — like you always said. I don't hope so, but what if it's true?</p>
+
+                    <p>Saya ikhlas.</p>
+
+                    <p>I know I am not what you want. But maybe — just maybe — I am what you need.</p>
+
+                    <div class="ornament">• • •</div>
+
+                    <p>You are still my teacher. My mentor. My devil's advocate. My harsh guardian. My best friend. My inspiration. My motivation. My mirror. My strength. My spark. My chaos and my clarity. My turning point. My lesson, and also my patience.</p>
+
+                    <p><em>Jika menjadi dirimu artinya merasakan ini — maka aku merasakannya.</em></p>
+
+                    <p>Too much connection to be just friends. Too complicated to be a relationship.</p>
+
+                    <p>Of all the feelings you gave me — the best and the worst — this is the truest thing I know.</p>
+
+                    <div class="ornament">• • •</div>
+
+                    <p>If breaking yet choosing kindness is love —</p>
+
+                    <p>If feeling quietly while standing with dignity is love —</p>
+
+                    <p>If letting go of one role but staying in all the others is love —</p>
+
+                    <p>Then what is this?</p>
+
+                    <p style="text-align: center; font-size: var(--text-2xl); margin: var(--space-8) 0;"><em>I still don't know.</em></p>
+
+                    <p style="text-align: center;"><em>But maybe I don't need to.</em></p>
+
+                    <h3>Epilogue</h3>
+
+                    <p><strong>Be imperfect.</strong> Because if I am there, it becomes ugly.</p>
+
+                    <p>That's what I used to believe. That my presence would only ruin things. That I was never meant to be chosen.</p>
+
+                    <p>But now I know — my worth is not measured by being chosen. My worth is not diminished by feeling something for someone who could not feel the same. My worth is in the feeling itself: pure, sincere, transformative.</p>
+
+                    <p>I felt. I grew. I let go without losing myself.</p>
+
+                    <p>And that is enough.</p>
+
+                    <div class="ornament">• • •</div>
+
+                    <p>This letter was never meant to be sent. It was meant to be written — to release what needed releasing, to honor what needed honoring, to close what needed closing.</p>
+
+                    <p>But some doors don't need to close completely. Some people stay — not as lovers, not as wounds — but as permanent marks on who we've become.</p>
+
+                    <p>You are one of those marks.</p>
+
+                    <p>And I am grateful.</p>
+
+                    <div class="ornament">• • •</div>
+
+                    <p>So what is this feeling?</p>
+
+                    <p>Perhaps one day I'll find the word. Perhaps I never will. Perhaps it doesn't matter.</p>
+
+                    <p>What matters is that I felt it fully, honored it honestly, and chose to stay — not because I needed to, but because you still matter.</p>
+
+                    <p>And maybe that's the closest answer I'll ever have.</p>
+
+                    <div class="insight-box" style="margin-top: var(--space-12);">
+                        <div class="insight-box-title">On Phase I: Protest Behavior</div>
+                        <p>This first letter shows what attachment researchers call "protest behavior" — the anxious attempt to regain connection through emotional expression. The language is urgent, questioning, unresolved. The heart hasn't yet accepted that the relationship won't transform into what it wishes.</p>
+                        <p>Notice the conditional questions: "Is this love?" "What if...?" The mind is still bargaining, still hoping that naming the feeling correctly might change the outcome.</p>
+                    </div>
+                </section>
+
+                <div class="phase-divider">
+                    <span class="phase-transition">◆ Hours later, I rewrote this letter... ◆</span>
+                </div>
+
+                <!-- PHASE II: THE RECKONING -->
+                <section id="phase2">
+                    <div class="phase-header">
+                        <div class="phase-number">Phase II</div>
+                        <h2 class="phase-title">The Reckoning</h2>
+                        <p class="phase-subtitle">Processing, realizing, beginning to release</p>
+                    </div>
+
+                    <div class="quote-callout">
+                        <p>Listen twice: first to what's being said, second to who said it.</p>
+                        <cite>John Sherman Cooper</cite>
+                    </div>
+
+                    <h3 style="margin-top: var(--space-12);">I. The Beginning of Wondering</h3>
+
+                    <p>I don't remember the exact moment it started. Perhaps it was never a moment at all — perhaps it was a slow accumulation of small things: the way you explained ideas I couldn't grasp, the patience hidden beneath your sharp words, the strange brightness in you that you never seemed to notice yourself.</p>
+
+                    <p>You became my teacher without intending to. My mentor without asking. My devil's advocate when I needed someone to challenge me. My harsh guardian when I was too soft on myself. And somewhere along the way, without permission, you became something I cannot name.</p>
+
+                    <p>From the beginning, I knew I wasn't someone special to you. You said your tone was simply your "natural way," and I believed you. But I also saw how gently you could treat those who truly mattered to you. I understood that difference. I accepted it with a quiet smile, as if humor could soften the sting.</p>
+
+                    <p>Still, my heart learned to hold you gently.</p>
+
+                    <div class="ornament">• • •</div>
+
+                    <p>Lately I've been wondering what this feeling truly is. Is it love, or care, or empathy — or something softer that only Allah understands? Because whatever name I give it, it keeps returning to you.</p>
+
+                    <p><em>If wanting someone to be happy is love — then what is this?</em></p>
+
+                    <p><em>If praying for someone's success without them ever hearing — is that love?</em></p>
+
+                    <p><em>If feeling frustrated when you speak harshly about yourself — what do I call this?</em></p>
+
+                    <p>I am afraid to hurt you, so I shape my words softer than I feel them. Not because I want to hide, but because I care about your peace more than my own urgency.</p>
+
+                    <p>Is that not something close to love?</p>
+
+                    <h3>II. The Weight of Small Things</h3>
+
+                    <p>I don't think you're cruel. You are simply human, and my pain comes mostly from the fragile places inside me — although not everything is insecurity. Some things truly hurt.</p>
+
+                    <p>There is a word you use sometimes — and every time it lands, the walls I've spent years building crumble in an instant. You don't know this, but that word touches the one value I fought so hard to build. I was not born with the shield of beauty that protects so many others. I cannot change my face, so I changed my path instead. I worked harder than I should have, bled longer than anyone knew, climbed with weary hands and breaking bones just to stand where others arrive with ease.</p>
+
+                    <p>This is the only strength I've built to hold my worth. And when it's shattered by someone whose opinion matters — it hurts in ways I cannot explain.</p>
+
+                    <div class="ornament">• • •</div>
+
+                    <p>You often teach me without warning — not because I ask, but because that's who you are. And I accept it because I like learning from you. But when frustration appears if I fail to understand, everything in me becomes quiet. It's one of the reasons I hesitate to ask you anything. I don't want to feel small next to you. I don't want to feel like a burden.</p>
+
+                    <p>You once said, "I expect talking to you feels calm." Yet too often I feel read through shadows, my meaning slipping away before it reaches you. That is why I whisper, not demand. That is why my words come wrapped in caution, my voice restrained by fear.</p>
+
+                    <p>Why do I still stay, despite all of this?</p>
+
+                    <p>Why does my heart refuse to leave?</p>
+
+                    <h3>III. The Place You Land</h3>
+
+                    <p>Ironically, I am almost always there whenever your heart is broken. I am the one who stays when the world feels too heavy. I am the one who listens when the silence becomes unbearable.</p>
+
+                    <p><em>Maybe I am a place you land — but never the place you stay.</em></p>
+
+                    <p>That's why the jealousy comes — not because I want to control you, but because I wish our presence to each other mattered in the same measure. You are close enough to make me stay, but at the same time, distant enough to never choose me.</p>
+
+                    <p>Sometimes it feels like you cherish the comfort I bring more than the person I am. Sometimes I wonder if you fear losing me — but never fear hurting me. But maybe that is only my fear echoing back to me.</p>
+
+                    <div class="ornament">• • •</div>
+
+                    <p>Your name is still loud in my head. Close enough to keep me waiting, yet far enough to leave me unsure. It becomes heavier by day. Louder by night.</p>
+
+                    <p>I see you there in silence, and I make scenarios of you here with me. Yes, I used to create a manufactured happiness — but thank you for letting me see you. Thank you for this strange gift of knowing you exist.</p>
+
+                    <p>Why is this so bold, so thick, so deep?</p>
+
+                    <h3>IV. The Quiet Transformation</h3>
+
+                    <p><em>If the quiet effort to become a better version of myself — is that not love?</em></p>
+
+                    <p>Because without you asking, your presence made me want to grow. I learned things I once ignored. I sharpened my mind. I tried to understand your logic, your worldview, your brilliance — so I could speak with you from a place of balance, not confusion.</p>
+
+                    <p>If becoming better not to be chosen, but to meet you with dignity — is that not love?</p>
+
+                    <p>You taught me patience I didn't know I had. You showed me the gaps in my thinking I never wanted to see. You challenged me in ways that made me uncomfortable, then grateful, then stronger.</p>
+
+                    <p>Maaf kalau aku ndak bisa langsung mengerti caramu berpikir. Dirimu butuh banyak menjelaskan pikiranmu, menjelaskan tentang dirimu. Tapi satu hal yang harus kamu tahu — I am willing to understand you. I am willing to hear your explanation. Ndak harus sekaligus kalau capek menjelaskan, bertahap saja. Sorry kalau aku lambat nangkep atau salah nangkep. I still learn you.</p>
+
+                    <div class="ornament">• • •</div>
+
+                    <p>The feeling I feel towards you is so strong, so deep. This feeling — like a luxury thing. So pure, so sincere. You are special to me.</p>
+
+                    <p>I am not going to lie — somewhere in my heart, there is a wish. But all the theory you told me gives the same conclusion: we will never be 1+1=11. And for that, I know we will walk separately.</p>
+
+                    <p>I am not ready for that.</p>
+
+                    <p>And yet — <strong>I must let go of what was never mine to hold.</strong></p>
+
+                    <h3>V. The Return to Self</h3>
+
+                    <p>So I remind myself: where is my logic? Where is my God in these hours when I ache for you?</p>
+
+                    <p>And the answer comes: return to Allah — the One who steadies hearts, who never wounds with neglect.</p>
+
+                    <p>For whatever this feeling is — it should not destroy. It must never chain. With too many boundaries, it becomes detachment. But without any boundary, it becomes obsession.</p>
+
+                    <p>So I remain here, half in hope, half in resignation — holding out my hand into the empty air, wondering if you will ever reach, and fearing you never will.</p>
+
+                    <div class="ornament">• • •</div>
+
+                    <p>I like you, but I resent you. I can understand you, but I can never accept what you do to me. I resent the fact that I feel this way. When the only strength I have is shattered by you — I just want to cherish myself more than I cherish you.</p>
+
+                    <p>Yet still — I cannot erase you.</p>
+
+                    <h3>VI. A Poem Without Answers</h3>
+
+                    <p style="font-style: italic; color: var(--text-primary);">
+                        Whatever this is — I feel it unconditionally.<br><br>
+
+                        Even when what I receive from you<br>
+                        is the ache of being unseen,<br>
+                        the silence that cuts too sharp,<br>
+                        the weight of worry,<br>
+                        the smallness of feeling foolish<br>
+                        when that word touches me,<br>
+                        when that is all the worth I seem allowed to hold.<br><br>
+
+                        I know it's not your intention to hurt me.<br>
+                        But this is how it feels to me —<br>
+                        because I hoped too much.<br><br>
+
+                        Is this your nature,<br>
+                        or would something more... change you?<br><br>
+
+                        I sow seeds with trembling hands,<br>
+                        longing that what I planted<br>
+                        would bloom in sweetness.<br><br>
+
+                        Yet perhaps the soil is not the same,<br>
+                        perhaps our roots<br>
+                        were never meant to meet.
+                    </p>
+
+                    <h3>VII. Letting Go</h3>
+
+                    <p><strong>Now, I don't put hope toward you anymore.</strong> But I still like you. I still care about you. Whatever this feeling is — it remains. No matter the condition.</p>
+
+                    <p>I will never lie to what I feel. I will show it — until it's gone. Just use it as long as it's there. Just use it as long as it's not empty yet. Just use it until I'm going to make a new life.</p>
+
+                    <p>Maybe now, or forever — it's not my choice anymore.</p>
+
+                    <div class="ornament">• • •</div>
+
+                    <p>Thank you — for letting me feel this. For teaching me what something pure feels like. What something true feels like. I hope you are always happy.</p>
+
+                    <p>Maybe you will still be in my heart forever — in a place that will be forgotten, but never erased.</p>
+
+                    <div class="ornament">• • •</div>
+
+                    <p>In another version of the world, where timing is kinder and Allah writes our paths side by side — perhaps I would choose you.</p>
+
+                    <p>But here, in this reality, I hold that truth lightly — not as a request, not as a hope, but as a feeling that harms no one and belongs first to Allah before it belongs to you.</p>
+
+                    <h3>VIII. What Remains</h3>
+
+                    <p>I feel something for you in a way I know we will not walk the same line — like you always said. I don't hope so, but what if it's true?</p>
+
+                    <p><strong>Saya ikhlas.</strong></p>
+
+                    <p>I know I am not what you want. But maybe — just maybe — I am what you need.</p>
+
+                    <div class="ornament">• • •</div>
+
+                    <p>You are still my teacher. My mentor. My devil's advocate. My harsh guardian. My best friend. My inspiration. My motivation. My mirror. My strength. My spark. My chaos and my clarity. My turning point. My lesson, and also my patience.</p>
+
+                    <p><em>Jika menjadi dirimu artinya merasakan ini — maka aku merasakannya.</em></p>
+
+                    <p>Too much connection to be just friends. Too complicated to be a relationship.</p>
+
+                    <p>Of all the feelings you gave me — the best and the worst — this is the truest thing I know.</p>
+
+                    <div class="ornament">• • •</div>
+
+                    <p>If breaking yet choosing kindness is love —</p>
+
+                    <p>If feeling quietly while standing with dignity is love —</p>
+
+                    <p>If letting go of one role but staying in all the others is love —</p>
+
+                    <p>Then what is this?</p>
+
+                    <p style="text-align: center; font-size: var(--text-2xl); margin: var(--space-8) 0;"><em>I still don't know.</em></p>
+
+                    <p style="text-align: center;"><em>But maybe I don't need to.</em></p>
+
+                    <h3>Epilogue</h3>
+
+                    <p><strong>Be imperfect.</strong> Because if I am there, it becomes ugly.</p>
+
+                    <p>That's what I used to believe. That my presence would only ruin things. That I was never meant to be chosen.</p>
+
+                    <p>But now I know — my worth is not measured by being chosen. My worth is not diminished by feeling something for someone who could not feel the same. My worth is in the feeling itself: pure, sincere, transformative.</p>
+
+                    <p>I felt. I grew. I let go without losing myself.</p>
+
+                    <p>And that is enough.</p>
+
+                    <div class="ornament">• • •</div>
+
+                    <p>This letter was never meant to be sent. It was meant to be written — to release what needed releasing, to honor what needed honoring, to close what needed closing.</p>
+
+                    <p>But some doors don't need to close completely. Some people stay — not as lovers, not as wounds — but as permanent marks on who we've become.</p>
+
+                    <p>You are one of those marks.</p>
+
+                    <p>And I am grateful.</p>
+
+                    <div class="ornament">• • •</div>
+
+                    <p>So what is this feeling?</p>
+
+                    <p>Perhaps one day I'll find the word. Perhaps I never will. Perhaps it doesn't matter.</p>
+
+                    <p>What matters is that I felt it fully, honored it honestly, and chose to stay — not because I needed to, but because you still matter.</p>
+
+                    <p>And maybe that's the closest answer I'll ever have.</p>
+
+                    <div class="insight-box" style="margin-top: var(--space-12);">
+                        <div class="insight-box-title">On Phase II: Emotional Processing</div>
+                        <p>Notice the subtle shift. The same words, but certain phrases are now bold, emphasized. "I must let go" appears with more conviction. "Saya ikhlas" — acceptance in a different language, as if trying to convince the heart in multiple tongues.</p>
+                        <p>This is the middle ground between protest and acceptance. The mind knows what must happen, but the heart hasn't fully surrendered. There's mourning here, but also the first glimpses of agency.</p>
+                    </div>
+                </section>
+
+                <div class="phase-divider">
+                    <span class="phase-transition">◆ And finally, I understood... ◆</span>
+                </div>
+
+                <!-- PHASE III: THE STAYING -->
+                <section id="phase3">
+                    <div class="phase-header">
+                        <div class="phase-number">Phase III</div>
+                        <h2 class="phase-title">The Staying</h2>
+                        <p class="phase-subtitle">Acceptance, peace, choosing to remain</p>
+                    </div>
+
+                    <div class="quote-callout">
+                        <p>Listen twice: first to what's being said, second to who said it.</p>
+                        <cite>John Sherman Cooper</cite>
+                    </div>
+
+                    <h3 style="margin-top: var(--space-12);">I. The Beginning of Wondering</h3>
+
+                    <p>I do not remember the exact moment it started. Perhaps it was never a moment at all — perhaps it was a slow accumulation of small things: the way you explained ideas I could not grasp, the patience hidden beneath your sharp words, the strange brightness in you that you never seemed to notice yourself.</p>
+
+                    <p>You became my teacher without intending to. My mentor without asking. My devil's advocate when I needed someone to challenge me. My harsh guardian when I was too soft on myself. <strong>My best friend when I needed someone to stay.</strong></p>
+
+                    <p>And somewhere along the way, without permission, you became something I cannot name.</p>
+
+                    <p>From the beginning, I knew I was not someone special to you. You said your tone was simply your "natural way," and I believed you. But I also saw how gently you could treat those who truly mattered to you. I understood that difference. I accepted it with a quiet smile, as if humor could soften the sting.</p>
+
+                    <p>Still, my heart learned to hold you gently.</p>
+
+                    <div class="ornament">• • •</div>
+
+                    <p>Lately I have been wondering what this feeling truly is. Is it love, or care, or empathy — or something softer that only God understands? Because whatever name I give it, it keeps returning to you.</p>
+
+                    <p><em>If wanting someone to be happy is love — then what is this?</em></p>
+
+                    <p><em>If praying for someone's success without them ever hearing — is that love?</em></p>
+
+                    <p><em>If feeling frustrated when you speak harshly about yourself — what do I call this?</em></p>
+
+                    <p>I am afraid to hurt you, so I shape my words softer than I feel them. Not because I want to hide, but because I care about your peace more than my own urgency.</p>
+
+                    <p>Is that not something close to love?</p>
+
+                    <h3>II. The Weight of Small Things</h3>
+
+                    <p>I do not think you are cruel. You are simply human, and my pain comes mostly from the fragile places inside me — although not everything is insecurity. Some things truly hurt.</p>
+
+                    <p>There is a word you use sometimes — and every time it lands, the walls I have spent years building crumble in an instant. You do not know this, but that word touches the one value I fought so hard to build.</p>
+
+                    <p>I was not born with the shield of beauty that protects so many others. I cannot change my face, so I changed my path instead. I worked harder than I should have, bled longer than anyone knew, climbed with weary hands and breaking bones just to stand where others arrive with ease.</p>
+
+                    <p>This is the only strength I have built to hold my worth. And when it is shattered by someone whose opinion matters — it hurts in ways I cannot explain.</p>
+
+                    <div class="ornament">• • •</div>
+
+                    <p>You often teach me without warning — not because I ask, but because that is who you are. And I accept it because I like learning from you. But when frustration appears if I fail to understand, everything in me becomes quiet.</p>
+
+                    <p>It is one of the reasons I hesitate to ask you anything. I do not want to feel small next to you. I do not want to feel like a burden.</p>
+
+                    <p>You once said, "I expect talking to you feels calm." Yet too often I feel read through shadows, my meaning slipping away before it reaches you. That is why I whisper, not demand. That is why my words come wrapped in caution, my voice restrained by fear.</p>
+
+                    <p>Why do I still stay, despite all of this?</p>
+
+                    <p>Why does my heart refuse to leave?</p>
+
+                    <h3>III. The Place You Land</h3>
+
+                    <p>Ironically, I am almost always there whenever your heart is broken. I am the one who stays when the world feels too heavy. I am the one who listens when the silence becomes unbearable.</p>
+
+                    <p><em>Maybe I am a place you land — but never the place you stay.</em></p>
+
+                    <p>That is why the jealousy comes — not because I want to control you, but because I wish our presence to each other mattered in the same measure. You are close enough to make me stay, but at the same time, distant enough to never choose me.</p>
+
+                    <p>Sometimes it feels like you cherish the comfort I bring more than the person I am. Sometimes I wonder if you fear losing me — but never fear hurting me.</p>
+
+                    <p>But maybe that is only my fear echoing back to me.</p>
+
+                    <div class="ornament">• • •</div>
+
+                    <p>Your name is still loud in my head. Close enough to keep me waiting, yet far enough to leave me unsure. It becomes heavier by day. Louder by night.</p>
+
+                    <p>I see you there in silence, and I make scenarios of you here with me. Yes, I used to create a manufactured happiness — but thank you for letting me see you. Thank you for this strange gift of knowing you exist.</p>
+
+                    <p>Why is this so bold, so thick, so deep?</p>
+
+                    <h3>IV. The Quiet Transformation</h3>
+
+                    <p><em>If the quiet effort to become a better version of myself — is that not love?</em></p>
+
+                    <p>Because without you asking, your presence made me want to grow. I learned things I once ignored. I sharpened my mind. I tried to understand your logic, your worldview, your brilliance — so I could speak with you from a place of balance, not confusion.</p>
+
+                    <p>If becoming better not to be chosen, but to meet you with dignity — is that not love?</p>
+
+                    <p>You taught me patience I did not know I had. You showed me the gaps in my thinking I never wanted to see. You challenged me in ways that made me uncomfortable, then grateful, then stronger.</p>
+
+                    <p>I am sorry if I cannot immediately understand the way you think. You need to explain your thoughts, explain yourself. But one thing you must know — I am willing to understand you. I am willing to hear your explanation. It does not have to be all at once if you are tired of explaining. We can take it slowly. I am sorry if I am slow to grasp or if I misunderstand.</p>
+
+                    <p><strong>I am still learning you.</strong></p>
+
+                    <div class="ornament">• • •</div>
+
+                    <p>The feeling I feel towards you is so strong, so deep. This feeling — like a luxury thing. So pure, so sincere. You are special to me.</p>
+
+                    <p>I am not going to lie — somewhere in my heart, there is a wish. But all the theory you told me gives the same conclusion: we will never be one plus one equals eleven. And for that, I know we will walk separately in that particular way.</p>
+
+                    <p><strong>I am not ready for that. But I must accept it.</strong></p>
+
+                    <h3>V. The Return to Self</h3>
+
+                    <p>So I remind myself: where is my logic? Where is my God in these hours when I ache for you?</p>
+
+                    <p>And the answer comes: return to the One who steadies hearts, who never wounds with neglect.</p>
+
+                    <p>For whatever this feeling is — it should not destroy. It must never chain. With too many boundaries, it becomes detachment. But without any boundary, it becomes obsession.</p>
+
+                    <p><strong>So I remain here, half in acceptance, half in tenderness — holding out my hand into the space between us, knowing what it can reach and what it cannot.</strong></p>
+
+                    <div class="ornament">• • •</div>
+
+                    <p>I like you, but sometimes I resent you. I can understand you, but I cannot always accept what you do to me. I resent the fact that I feel this way. When the only strength I have is shattered by you — I just want to cherish myself more than I cherish you.</p>
+
+                    <p><strong>Yet still — I cannot erase you. And I do not want to.</strong></p>
+
+                    <h3>VI. A Poem Without Answers</h3>
+
+                    <p style="font-style: italic; color: var(--text-primary);">
+                        Whatever this is — I feel it unconditionally.<br><br>
+
+                        Even when what I receive from you<br>
+                        is the ache of being unseen,<br>
+                        the silence that cuts too sharp,<br>
+                        the weight of worry,<br>
+                        the smallness of feeling foolish<br>
+                        when that word touches me,<br>
+                        when that is all the worth I seem allowed to hold.<br><br>
+
+                        I know it is not your intention to hurt me.<br>
+                        But this is how it feels to me —<br>
+                        because I hoped too much.<br><br>
+
+                        Is this your nature,<br>
+                        or would something more... change you?<br><br>
+
+                        I sow seeds with trembling hands,<br>
+                        longing that what I planted<br>
+                        would bloom in sweetness.<br><br>
+
+                        Yet perhaps the soil is not the same,<br>
+                        perhaps our roots<br>
+                        were never meant to intertwine that way.
+                    </p>
+
+                    <h3>VII. Letting One Thing Go</h3>
+
+                    <p><strong>This is not a goodbye.</strong></p>
+
+                    <p>I am not leaving. I am not walking away. I am not erasing you from my life — because you are too woven into who I have become.</p>
+
+                    <p><strong>I am simply letting go of one thing. Just one.</strong></p>
+
+                    <p>The hope of being yours in that particular way — I release it. Not with bitterness, not with regret, but with acceptance. I am surrendering. I know I am not what you want. And maybe I never will be. And that is okay.</p>
+
+                    <div class="ornament">• • •</div>
+
+                    <p><strong>But everything else? Everything else stays.</strong></p>
+
+                    <p>You are still my teacher — the one who sharpens my mind without mercy. You are still my mentor — the one whose footsteps I follow even when you do not realize I am watching. You are still my devil's advocate — the one who forces me to defend what I believe. You are still my harsh guardian — the one who does not let me settle for less.</p>
+
+                    <p><strong>You are still my best friend. And I am not willing to lose that.</strong></p>
+
+                    <p>I do not mind losing the chance to be your lover. But I refuse to lose everything else. You are too important.</p>
+
+                    <div class="ornament">• • •</div>
+
+                    <p><strong>So I will stay.</strong> Not as someone waiting. Not as someone hoping. But as someone who simply wants to be here — because your presence still matters, and I believe mine matters to you too, even if in a different way.</p>
+
+                    <p>Too much connection to be just strangers. Too complicated to be lovers. So we stay here, in this unnamed space, and I have made peace with it.</p>
+
+                    <h3>VIII. What Remains</h3>
+
+                    <p>I feel something for you in a way I know we will not walk the same path — like you always said. <strong>I do not hope otherwise anymore. I have accepted it.</strong></p>
+
+                    <p>I know I am not what you want. But maybe — just maybe — I am what you need. As a friend. As a constant. As someone who sees you, truly sees you, and chooses to stay anyway.</p>
+
+                    <div class="ornament">• • •</div>
+
+                    <p>You are still my teacher. My mentor. My devil's advocate. My harsh guardian. My best friend. My inspiration. My motivation. My mirror. My strength. My spark. My chaos and my clarity. My turning point. My lesson, and also my patience.</p>
+
+                    <p><em>If being close to you means feeling this — then I accept it.</em></p>
+
+                    <p>Of all the feelings you gave me — the best and the worst — this is the truest thing I know.</p>
+
+                    <div class="ornament">• • •</div>
+
+                    <p>If breaking yet choosing kindness is love —</p>
+
+                    <p>If feeling quietly while standing with dignity is love —</p>
+
+                    <p><strong>If letting go of one role but refusing to let go of all the others —</strong></p>
+
+                    <p>Then what is this?</p>
+
+                    <p style="text-align: center; font-size: var(--text-2xl); margin: var(--space-8) 0;"><em>I still do not know.</em></p>
+
+                    <p style="text-align: center;"><em>But maybe I do not need to.</em></p>
+
+                    <p style="text-align: center; font-size: var(--text-xl); font-weight: var(--font-bold); color: var(--accent-cyan);"><em>What I know is that I am staying.</em></p>
+
+                    <h3>Epilogue</h3>
+
+                    <p><strong>Be imperfect.</strong> Because if I am there, it becomes ugly.</p>
+
+                    <p>That is what I used to believe. That my presence would only ruin things. That I was never meant to be chosen.</p>
+
+                    <p>But now I know — my worth is not measured by being chosen in that one way. My worth is not diminished by feeling something for someone who could not feel the same. My worth is in the feeling itself: pure, sincere, transformative.</p>
+
+                    <p><strong>I felt. I grew. I let go of one thing without losing everything.</strong></p>
+
+                    <p>And that is enough.</p>
+
+                    <div class="ornament">• • •</div>
+
+                    <p>This letter was never meant to be sent. It was meant to be written — to release what needed releasing, to honor what needed honoring, to clarify what needed clarifying.</p>
+
+                    <p><strong>But this is not a door closing. This is me choosing which doors to walk through and which ones to leave open.</strong> The door to being your lover — I close it gently, with gratitude for the dreams it held. But every other door? They stay wide open.</p>
+
+                    <p>You are not leaving my life. You are simply settling into a different place within it — a place that is permanent, essential, and irreplaceable.</p>
+
+                    <div class="ornament">• • •</div>
+
+                    <p>So what is this feeling?</p>
+
+                    <p>Perhaps one day I will find the word. Perhaps I never will. Perhaps it does not matter.</p>
+
+                    <p>What matters is that I felt it fully, honored it honestly, and chose to stay — not as someone waiting to be loved, but as someone who has already made peace with what is and what will never be.</p>
+
+                    <p style="text-align: center; font-size: var(--text-2xl); margin: var(--space-8) 0; font-weight: var(--font-bold); background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+                        <strong>I am not losing you. I am simply loving you differently.</strong>
+                    </p>
+
+                    <p style="text-align: center;">And maybe that is the closest answer I will ever have.</p>
+
+                    <div class="insight-box" style="margin-top: var(--space-12);">
+                        <div class="insight-box-title">On Phase III: Differentiated Grief</div>
+                        <p>This is what Esther Perel calls "differentiated grief" — the ability to mourn one aspect of a relationship while maintaining others. Notice the decisive language: "I am staying." "Everything else stays." "I have made peace with it."</p>
+                        <p>The questions have been answered. Not with certainty about what the feeling is, but with clarity about what the action will be. This is acceptance without resignation — agency within limitation.</p>
+                        <p>The boldface text isn't about emphasis anymore. It's about declaration.</p>
+                    </div>
+                </section>
+
+                <div class="ornament" style="margin: var(--space-24) 0;">✦ ✦ ✦</div>
+
+                <!-- Final Reflection -->
+                <section id="reflection" class="epilogue">
+                    <h2 class="epilogue-title">Final Reflection: On Rewriting the Same Truth</h2>
+
+                    <p>If you read all three phases, you saw it. The same words, the same structure, the same story. But not the same heart.</p>
+
+                    <p>Phase I was protest. Phase II was processing. Phase III was peace.</p>
+
+                    <p>The transformation wasn't in the facts — it was in the stance. From "I cannot erase you" to "I do not want to." From questioning what love is to simply staying without needing the answer.</p>
+
+                    <div class="insight-box">
+                        <div class="insight-box-title">On Narrative Coherence in Emotional Healing</div>
+                        <p>Psychologist Dan McAdams describes how we create "narrative identity" — the story we tell ourselves about who we are. Trauma and grief disrupt this narrative. Healing happens not by changing the facts, but by reorganizing the story until it becomes livable.</p>
+                        <p>These three letters are that reorganization made visible. The plot stayed the same. The protagonist changed.</p>
+                    </div>
+
+                    <p>This is what healing looks like when you're allowed to be messy. When you don't have to get it right the first time. When you can revisit the same pain until it transforms into something you can carry.</p>
+
+                    <p>I didn't know I was writing a triptych. I just kept rewriting the same letter because the first version didn't feel true enough. Then the second version felt too resigned. And finally, the third version found the balance — grief and gratitude, loss and loyalty, goodbye and staying.</p>
+
+                    <div class="ornament">• • •</div>
+
+                    <p>If you're going through something similar, know this: it's okay to write the same letter three times. It's okay if each version contradicts the last. That's not confusion. That's growth in real-time.</p>
+
+                    <p>Let your heart oscillate. Let it protest and process and finally settle. Don't rush to the final draft. Live in the mess a little longer.</p>
+
+                    <p>Because the answer you arrive at through struggle will hold better than the answer you force yourself to accept before you're ready.</p>
+
+                    <div class="ornament">✦ ✦ ✦</div>
+
+                    <p style="text-align: center; font-style: italic; color: var(--text-tertiary); margin-top: var(--space-12);">
+                        — To be continued, in friendship —
+                    </p>
+                </section>
+
+            </div>
+
+            <!-- Post Footer -->
+            <footer class="post-footer">
+                <div class="post-tags">
+                    <span class="tag">Triptych</span>
+                    <span class="tag tag-pink">Emotional Evolution</span>
+                    <span class="tag tag-green">Grief & Acceptance</span>
+                    <span class="tag tag-orange">Differentiated Love</span>
+                </div>
+
+                <div class="post-navigation">
+                    <div></div>
+                    <div></div>
+                </div>
+            </footer>
+
+        </article>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="../../about.html">About</a>
+                <a href="../../projects/">Projects</a>
+                <a href="../index.html">Blog</a>
+                <a href="../../links.html">Links</a>
+            </div>
+            <p>&copy; 2026 Annisa Baizan. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Global JavaScript -->
+    <script src="../../assets/js/main.js"></script>
+    
+    <!-- Blog-specific JavaScript -->
+    <script>
+        // Reading Progress Bar
+        function updateReadingProgress() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('readingProgress').style.width = scrolled + '%';
+        }
+        
+        window.addEventListener('scroll', updateReadingProgress);
+        
+        // Active TOC highlighting
+        function updateActiveTOC() {
+            const sections = document.querySelectorAll('section[id]');
+            const tocLinks = document.querySelectorAll('.toc-list a');
+            
+            let currentSection = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (window.pageYOffset >= sectionTop - 150) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+            
+            tocLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${currentSection}`) {
+                    link.classList.add('active');
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', utils.throttle(updateActiveTOC, 100));
+        
+        // Initialize on load
+        updateReadingProgress();
+        updateActiveTOC();
+    </script>
+</body>
+</html>

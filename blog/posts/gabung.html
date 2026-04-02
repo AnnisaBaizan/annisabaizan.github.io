@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Letter That Was Never Sent — Morphing Triptych | Annisa Baizan</title>
+    <meta name="description" content="The same letter written three times, across three emotional states. A morphing triptych on unrequited feeling, growth, and choosing to stay.">
+
+    <!-- Global Styles -->
+    <link rel="stylesheet" href="../../assets/css/reset.css">
+    <link rel="stylesheet" href="../../assets/css/theme.css">
+    <link rel="stylesheet" href="../../assets/css/components.css">
+
+    <!-- Blog-specific Styles -->
+    <link rel="stylesheet" href="../assets/blog.css">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Lora:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+
+    <!-- Triptych-only styles (not in blog.css) -->
+    <style>
+        /* ── Phase color tokens ─────────────────────────── */
+        :root {
+            --phase-i:    #ec4899;
+            --phase-ii:   #f59e0b;
+            --phase-iii:  #06b6d4;
+
+            --removed-bg:   rgba(236, 72,  153, 0.18);
+            --rewritten-bg: rgba(59,  130, 246, 0.18);
+            --new-bg:       rgba(34,  197, 94,  0.18);
+        }
+
+        /* ── Sticky controls panel ──────────────────────── */
+        .triptych-controls {
+            position: sticky;
+            top: 80px; /* below the fixed nav */
+            z-index: 90;
+            background: var(--bg-overlay);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--space-12);
+            overflow: hidden;
+        }
+
+        /* Phase tabs */
+        .phase-tabs {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .phase-tab {
+            all: unset;
+            cursor: pointer;
+            padding: 14px 12px 12px;
+            text-align: center;
+            position: relative;
+            transition: background 0.2s;
+            border-right: 1px solid var(--border-color);
+        }
+        .phase-tab:last-child { border-right: none; }
+        .phase-tab:hover { background: rgba(255,255,255,0.03); }
+
+        .tab-label {
+            display: block;
+            font-size: var(--text-xs);
+            font-weight: var(--font-semibold);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-tertiary);
+            margin-bottom: 3px;
+            transition: color 0.2s;
+        }
+        .tab-name {
+            display: block;
+            font-size: var(--text-sm);
+            font-weight: var(--font-medium);
+            color: var(--text-secondary);
+            transition: color 0.2s;
+        }
+        .tab-bar {
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 0%; height: 2.5px;
+            transition: width 0.3s cubic-bezier(0.4,0,0.2,1);
+        }
+
+        .phase-tab[data-phase="1"] .tab-bar { background: var(--phase-i); }
+        .phase-tab[data-phase="2"] .tab-bar { background: var(--phase-ii); }
+        .phase-tab[data-phase="3"] .tab-bar { background: var(--phase-iii); }
+
+        .phase-tab.active .tab-bar { width: 100%; }
+        .phase-tab[data-phase="1"].active .tab-label,
+        .phase-tab[data-phase="1"].active .tab-name { color: var(--phase-i); }
+        .phase-tab[data-phase="2"].active .tab-label,
+        .phase-tab[data-phase="2"].active .tab-name { color: var(--phase-ii); }
+        .phase-tab[data-phase="3"].active .tab-label,
+        .phase-tab[data-phase="3"].active .tab-name { color: var(--phase-iii); }
+
+        /* Controls row */
+        .controls-row {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .ctrl-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            font-size: var(--text-sm);
+            color: var(--text-secondary);
+            border-right: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: background 0.15s;
+            white-space: nowrap;
+            user-select: none;
+        }
+        .ctrl-item:hover { background: rgba(255,255,255,0.03); }
+        .ctrl-item:last-child { border-right: none; }
+
+        /* Custom checkbox */
+        .chk {
+            width: 15px; height: 15px;
+            border: 1.5px solid var(--border-color);
+            border-radius: 3px;
+            flex-shrink: 0;
+            position: relative;
+            transition: all 0.15s;
+        }
+        .chk.on {
+            background: var(--phase-iii);
+            border-color: var(--phase-iii);
+        }
+        .chk.on::after {
+            content: '';
+            position: absolute;
+            left: 3px; top: 1px;
+            width: 5px; height: 8px;
+            border: 2px solid #fff;
+            border-top: none; border-left: none;
+            transform: rotate(45deg);
+        }
+
+        /* Morph button */
+        .morph-btn {
+            all: unset;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            padding: 10px 16px;
+            font-size: var(--text-sm);
+            font-weight: var(--font-medium);
+            color: var(--text-secondary);
+            border-right: 1px solid var(--border-color);
+            transition: all 0.15s;
+            white-space: nowrap;
+        }
+        .morph-btn:hover { color: var(--phase-iii); background: rgba(6,182,212,0.05); }
+        .morph-btn.active { color: var(--phase-ii); }
+
+        /* Speed control */
+        .speed-wrap {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            font-size: var(--text-xs);
+            color: var(--text-tertiary);
+            flex: 1;
+        }
+        .speed-slider {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 72px; height: 3px;
+            border-radius: 2px;
+            background: var(--border-color);
+            outline: none;
+            cursor: pointer;
+        }
+        .speed-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 11px; height: 11px;
+            border-radius: 50%;
+            background: var(--accent-cyan);
+            cursor: pointer;
+        }
+        #speedLabel { color: var(--text-secondary); font-size: var(--text-xs); min-width: 56px; }
+
+        /* Legend row */
+        .diff-legend {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 8px 16px;
+            font-size: var(--text-xs);
+            color: var(--text-tertiary);
+            border-top: 1px solid var(--border-color);
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: max-height 0.3s ease, opacity 0.3s ease, padding 0.3s ease;
+            padding-top: 0; padding-bottom: 0;
+        }
+        .diff-legend.show {
+            max-height: 36px;
+            opacity: 1;
+            padding-top: 8px;
+            padding-bottom: 8px;
+        }
+        .leg { display: flex; align-items: center; gap: 5px; }
+        .leg-dot {
+            width: 7px; height: 7px;
+            border-radius: 2px;
+            flex-shrink: 0;
+        }
+        .leg-dot.r { background: var(--phase-i); }
+        .leg-dot.rw { background: #3b82f6; }
+        .leg-dot.n { background: #22c55e; }
+
+        /* Active phase color accent bar */
+        .phase-accent-bar {
+            height: 1.5px;
+            background: var(--phase-iii);
+            transition: background 0.4s ease;
+        }
+
+        /* ── Span-level diff styling ────────────────────── */
+        /* Changed spans: visible in normal mode */
+        .sp { transition: background 0.25s, opacity 0.25s, color 0.25s; }
+
+        /* DIFF MODE ON */
+        body.diff-mode .sp.unchanged {
+            opacity: 0.35;
+            color: var(--text-tertiary);
+        }
+        body.diff-mode .sp.removed {
+            background: var(--removed-bg);
+            color: #fca5a5;
+            padding: 1px 4px;
+            border-radius: 3px;
+        }
+        body.diff-mode .sp.rewritten {
+            background: var(--rewritten-bg);
+            color: #93c5fd;
+            padding: 1px 4px;
+            border-radius: 3px;
+        }
+        body.diff-mode .sp.new-span {
+            background: var(--new-bg);
+            color: #86efac;
+            padding: 1px 4px;
+            border-radius: 3px;
+        }
+
+        /* ── Morph glow — ONLY on changed spans ─────────── */
+        @keyframes morphPulse {
+            0%   { box-shadow: 0 0 0   0   rgba(6,182,212,0);    }
+            35%  { box-shadow: 0 0 10px 3px rgba(6,182,212,0.45); }
+            100% { box-shadow: 0 0 0   0   rgba(6,182,212,0);    }
+        }
+
+        .sp.morph-glow {
+            animation: morphPulse 0.7s ease forwards;
+            border-radius: 3px;
+        }
+
+        /* ── Post body override — use Lora for letter text ─ */
+        .letter-body {
+            font-family: 'Lora', Georgia, serif;
+        }
+        .letter-body p { font-family: 'Lora', Georgia, serif; }
+
+        /* poem lines tighter */
+        .poem-line { margin-bottom: 4px !important; }
+        .poem-stanza { margin-bottom: 20px !important; }
+        .poem-block { text-align: center; font-style: italic; }
+
+        /* ornament override — match blog.css .ornament */
+        .orn { text-align: center; margin: var(--space-12) 0; color: var(--accent-cyan); font-size: var(--text-2xl); letter-spacing: var(--space-4); opacity: 0.6; }
+
+        /* section numeral + italic title */
+        .sec-num {
+            font-family: var(--font-mono, monospace), sans-serif;
+            font-size: var(--text-xs);
+            font-weight: var(--font-semibold);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--text-tertiary);
+            text-align: center;
+            margin-top: var(--space-16);
+            margin-bottom: 4px;
+            scroll-margin-top: 120px;
+        }
+
+        /* Insight box title accent */
+        body.phase-1 .insight-box-title { color: var(--phase-i); }
+        body.phase-2 .insight-box-title { color: var(--phase-ii); }
+        body.phase-3 .insight-box-title { color: var(--phase-iii); }
+
+        /* Context intro box */
+        .intro-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: var(--space-8);
+            margin-bottom: var(--space-12);
+            position: relative;
+            overflow: hidden;
+        }
+        .intro-box::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 3px; height: 100%;
+            background: linear-gradient(to bottom, var(--phase-i), var(--phase-ii), var(--phase-iii));
+        }
+        .intro-box-title {
+            font-size: var(--text-xs);
+            font-weight: var(--font-semibold);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--accent-cyan);
+            margin-bottom: var(--space-4);
+        }
+        .intro-box p { font-size: var(--text-sm); color: var(--text-secondary); margin-bottom: var(--space-3); line-height: 1.75; }
+        .intro-box p:last-child { margin-bottom: 0; }
+
+        /* keyboard hint */
+        .kbd-hint {
+            font-size: var(--text-xs);
+            color: var(--text-tertiary);
+            padding: 6px 16px;
+            border-top: 1px solid var(--border-color);
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            .speed-wrap { display: none; }
+            .controls-row .ctrl-item { padding: 10px 12px; }
+        }
+    </style>
+</head>
+<body class="phase-3">
+
+    <!-- Reading Progress Bar -->
+    <div class="reading-progress" id="readingProgress"></div>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="../../index.html" class="nav-brand">AB</a>
+            <ul class="nav-links">
+                <li><a href="../../index.html">Home</a></li>
+                <li><a href="../../about.html">About</a></li>
+                <li><a href="../../projects/">Projects</a></li>
+                <li><a href="../index.html" class="active">Blog</a></li>
+                <li><a href="../../links.html">Links</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="blog-container">
+
+        <!-- Table of Contents Sidebar -->
+        <aside class="blog-sidebar">
+            <nav class="toc">
+                <h3 class="toc-title">Contents</h3>
+                <ul class="toc-list">
+                    <li><a href="#section-i">I. The Beginning of Wondering</a></li>
+                    <li><a href="#section-ii">II. The Weight of Small Things</a></li>
+                    <li><a href="#section-iii">III. The Place You Land</a></li>
+                    <li><a href="#section-iv">IV. The Quiet Transformation</a></li>
+                    <li><a href="#section-v">V. The Return to Self</a></li>
+                    <li><a href="#section-vi">VI. A Poem Without Answers</a></li>
+                    <li><a href="#section-vii">VII. Letting Go</a></li>
+                    <li><a href="#section-viii">VIII. What Remains</a></li>
+                    <li><a href="#epilogue">Epilogue</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Post Content -->
+        <article class="blog-content">
+
+            <!-- Breadcrumb -->
+            <div class="breadcrumb">
+                <a href="../../index.html">Home</a>
+                <span>/</span>
+                <a href="../index.html">Blog</a>
+                <span>/</span>
+                <span id="breadcrumbTitle">On Letting One Thing Go</span>
+            </div>
+
+            <!-- Post Header -->
+            <header class="post-header">
+                <div class="post-category">Personal Reflection · Morphing Triptych</div>
+                <h1 class="post-title" id="postTitle">On Letting One Thing Go</h1>
+                <p class="post-subtitle" id="postSubtitle">— while keeping everything else —</p>
+                <p class="post-subtitle" style="font-size: var(--text-base); margin-top: -12px;">
+                    <span class="sp phase-1 phase-2 removed">A story of loving quietly, letting go gently, and choosing to stay.</span>
+                    <span class="sp phase-2 phase-3 rewritten" style="display:none">A story of questions without answers, feelings without names, and a heart that chose to stay.</span>
+                </p>
+                <div class="post-meta">
+                    <span class="post-meta-item">📅 2024–2025</span>
+                    <span class="post-meta-item">⏱️ 15 min read</span>
+                    <span class="post-meta-item">🏷️ Unrequited Feeling, Growth, Acceptance</span>
+                </div>
+            </header>
+
+            <!-- Post Body -->
+            <div class="post-body letter-body">
+
+                <!-- Context intro -->
+                <div class="intro-box">
+                    <div class="intro-box-title">About this piece</div>
+                    <p>This is the same letter — written three times, across three different emotional states. The words that stay the same are what never wavered. The words that change are where the heart was still finding its footing.</p>
+                    <p>Use the phase tabs to read each version in full. Toggle <strong>Diff Mode</strong> to see exactly what shifted. Watch <strong>Auto-Morph</strong> — the words that changed will glow as the letter evolves between phases.</p>
+                    <p style="font-style:italic; color: var(--text-tertiary);">Because feelings are not static. They draft themselves, revise, and eventually — find a final form.</p>
+                </div>
+
+                <!-- ══════════════════════════════════════
+                     TRIPTYCH CONTROLS
+                     ══════════════════════════════════════ -->
+                <div class="triptych-controls" id="triptychControls">
+
+                    <!-- Phase Tabs -->
+                    <div class="phase-tabs">
+                        <button class="phase-tab" data-phase="1" onclick="switchPhase(1)">
+                            <span class="tab-label">Phase I</span>
+                            <span class="tab-name">The Ache</span>
+                            <span class="tab-bar"></span>
+                        </button>
+                        <button class="phase-tab" data-phase="2" onclick="switchPhase(2)">
+                            <span class="tab-label">Phase II</span>
+                            <span class="tab-name">The Reckoning</span>
+                            <span class="tab-bar"></span>
+                        </button>
+                        <button class="phase-tab active" data-phase="3" onclick="switchPhase(3)">
+                            <span class="tab-label">Phase III</span>
+                            <span class="tab-name">The Staying</span>
+                            <span class="tab-bar"></span>
+                        </button>
+                    </div>
+
+                    <!-- Diff + Morph row -->
+                    <div class="controls-row">
+                        <div class="ctrl-item" onclick="toggleDiff()">
+                            <div class="chk" id="diffChk"></div>
+                            <span>Diff mode — highlight what changed</span>
+                        </div>
+                        <button class="morph-btn active" id="morphBtn" onclick="toggleMorph()">
+                            <span id="morphIcon">⏸</span>
+                            <span id="morphLabel">Pause</span>
+                        </button>
+                        <div class="speed-wrap">
+                            <span>Speed:</span>
+                            <input type="range" class="speed-slider" min="1" max="5" value="5" id="speedSlider" oninput="updateSpeed(this.value)">
+                            <span id="speedLabel">Very Fast</span>
+                        </div>
+                    </div>
+
+                    <!-- Diff Legend -->
+                    <div class="diff-legend" id="diffLegend">
+                        <span style="margin-right:4px; font-style:italic;">key:</span>
+                        <div class="leg"><div class="leg-dot r"></div><span>removed / softened</span></div>
+                        <div class="leg"><div class="leg-dot rw"></div><span>rewritten</span></div>
+                        <div class="leg"><div class="leg-dot n"></div><span>new addition</span></div>
+                        <div class="leg" style="margin-left:auto; font-style:italic;">faded = unchanged</div>
+                    </div>
+
+                    <!-- Keyboard hint -->
+                    <div class="kbd-hint">← → switch phases &nbsp;·&nbsp; D toggle diff &nbsp;·&nbsp; Space play/pause</div>
+
+                    <!-- Phase color accent bar -->
+                    <div class="phase-accent-bar" id="phaseAccentBar"></div>
+                </div>
+
+                <!-- ══════════════════════════════════════
+                     EPIGRAPH
+                     ══════════════════════════════════════ -->
+                <div class="ornament">✦ ✦ ✦</div>
+                <blockquote style="text-align:center; font-style:italic; color: var(--text-secondary); margin-bottom: var(--space-2);">"Listen twice: first to what's being said, second to who said it."</blockquote>
+                <p style="text-align:center; font-size:var(--text-sm); color:var(--text-tertiary); margin-bottom:var(--space-12);">— John Sherman Cooper</p>
+                <div class="ornament">✦ ✦ ✦</div>
+
+                <!-- ══════════════════════════════════════
+                     SECTION I
+                     ══════════════════════════════════════ -->
+                <h2 id="section-i" class="sec-num">I</h2>
+                <h3 style="text-align:center; font-style:italic; font-size:var(--text-xl); font-weight:var(--font-medium); color:var(--text-secondary); margin-bottom:var(--space-10);">
+                    <span class="sp phase-1 removed">The Beginning of Knowing</span><span class="sp phase-2 phase-3 rewritten" style="display:none">The Beginning of Wondering</span>
+                </h3>
+
+                <p>I <span class="sp phase-1 removed">don't</span><span class="sp phase-2 phase-3 rewritten" style="display:none">do not</span> remember the exact moment it started. Perhaps it was never a moment at all — perhaps it was a slow accumulation of small things: the way you explained ideas I <span class="sp phase-1 removed">couldn't</span><span class="sp phase-2 phase-3 rewritten" style="display:none">could not</span> grasp, the patience hidden beneath your sharp words, the strange brightness in you that you never seemed to notice yourself.</p>
+
+                <p>You became my teacher without intending to. My mentor without asking. My devil's advocate when I needed someone to challenge me. My harsh guardian when I was too soft on myself.<span class="sp phase-3 new-span" style="display:none"> My best friend when I needed someone to stay.</span>
+                <span class="sp phase-1 removed"> And somewhere along the way, without permission, you became something more.</span><span class="sp phase-2 rewritten" style="display:none"> And somewhere along the way, without permission, you became something I cannot name.</span></p>
+
+                <p class="sp phase-3 new-span" style="display:none">And somewhere along the way, without permission, you became something I cannot name.</p>
+
+                <p>From the beginning, I knew I <span class="sp phase-1 removed">wasn't</span><span class="sp phase-2 phase-3 rewritten" style="display:none">was not</span> someone special to you. You said your tone was simply your "natural way," and I believed you. But I also saw how gently you could treat those who truly mattered to you. I understood that difference. I accepted it with a quiet smile, as if humor could soften the sting.</p>
+
+                <p>Still, my heart learned to hold you gently.</p>
+
+                <div class="ornament">• • •</div>
+
+                <p class="sp phase-1 removed">Lately I've been wondering what this feeling truly is. Is it love, or care, or empathy — or something softer that only Allah understands? Because whatever name I give it, it keeps returning to you.</p>
+                <p class="sp phase-1 removed">If love is wanting someone to be happy, then I love you. If love is praying for your success even when you will never hear the prayer, then I love you. If love is feeling frustrated when you speak about yourself too harshly, or when others fail to see your worth, then I love you. If love is admiring your sincerity, your logic, your strange brightness that you don't even notice — then yes, I love you.</p>
+
+                <p class="sp phase-2 phase-3 rewritten" style="display:none">Lately I have been wondering what this feeling truly is. Is it love, or care, or empathy — or something softer that only God understands? Because whatever name I give it, it keeps returning to you.</p>
+                <p class="sp phase-2 phase-3 rewritten" style="display:none">If wanting someone to be happy is love — then what is this?</p>
+                <p class="sp phase-2 phase-3 rewritten" style="display:none">If praying for someone's success without them ever hearing — is that love?</p>
+                <p class="sp phase-2 phase-3 rewritten" style="display:none">If feeling frustrated when you speak harshly about yourself — what do I call this?</p>
+
+                <p>I am afraid to hurt you, so I shape my words softer than I feel them. Not because I want to hide, but because I care about your peace more than my own urgency.</p>
+
+                <p class="sp phase-2 phase-3 new-span" style="display:none">Is that not something close to love?</p>
+
+                <div class="insight-box">
+                    <div class="insight-box-title">On Naming What We Feel</div>
+                    <p>There is a particular discomfort in feeling something that has no clean name — not quite love, not just care, not simply admiration. Psychologists call this <em>alexithymia-adjacent ambiguity</em>: when the emotion is real and strong, but the vocabulary does not exist to contain it.</p>
+                    <p>The inability to name a feeling does not make it less true. Sometimes the unnamed ones are the deepest.</p>
+                </div>
+
+                <!-- ══════════════════════════════════════
+                     SECTION II
+                     ══════════════════════════════════════ -->
+                <h2 id="section-ii" class="sec-num">II</h2>
+                <h3 style="text-align:center; font-style:italic; font-size:var(--text-xl); font-weight:var(--font-medium); color:var(--text-secondary); margin-bottom:var(--space-10);">The Weight of Small Things</h3>
+
+                <p>I <span class="sp phase-1 removed">don't think you're</span><span class="sp phase-2 phase-3 rewritten" style="display:none">do not think you are</span> cruel. You are simply human, and my pain comes mostly from the fragile places inside me — although not everything is insecurity. Some things truly hurt.</p>
+
+                <p class="sp phase-1 removed">There is a word you use sometimes — "stupid" — and every time it lands, the walls I've spent years building crumble in an instant. You don't know this, but that word touches the one value I fought so hard to build. I was not born with the shield of beauty that protects so many others. I cannot change my face, so I changed my path instead. I worked harder than I should have, bled longer than anyone knew, climbed with weary hands and breaking bones just to stand where others arrive with ease.</p>
+                <p class="sp phase-1 removed">This is the only strength I've built to hold my worth. And when I hear that word from you, it hurts in ways I cannot explain.</p>
+
+                <p class="sp phase-2 phase-3 rewritten" style="display:none">There is a word you use sometimes — and every time it lands, the walls I have spent years building crumble in an instant. You do not know this, but that word touches the one value I fought so hard to build.</p>
+                <p class="sp phase-2 phase-3 rewritten" style="display:none">I was not born with the shield of beauty that protects so many others. I cannot change my face, so I changed my path instead. I worked harder than I should have, bled longer than anyone knew, climbed with weary hands and breaking bones just to stand where others arrive with ease.</p>
+                <p class="sp phase-2 phase-3 rewritten" style="display:none">This is the only strength I have built to hold my worth. And when it is shattered by someone whose opinion matters — it hurts in ways I cannot explain.</p>
+
+                <div class="insight-box">
+                    <div class="insight-box-title">On Worth Built by Hand</div>
+                    <p>There is a particular kind of wound for people who built their self-worth from scratch — not inherited, not gifted, but <em>earned</em> through sustained effort. When someone carelessly dismantles that with a single word, they are not just insulting. They are undoing years of deliberate labor.</p>
+                    <p>The pain is not oversensitivity. It is proportional. If you have ever felt this — know that the building was real. The word was not.</p>
+                </div>
+
+                <div class="ornament">• • •</div>
+
+                <p>You often teach me without warning — not because I ask, but because that <span class="sp phase-1 removed">that's</span><span class="sp phase-2 phase-3 rewritten" style="display:none">that is</span> who you are. And I accept it because I like learning from you. But when frustration appears if I fail to understand, everything in me becomes quiet. It <span class="sp phase-1 removed">It's</span><span class="sp phase-2 phase-3 rewritten" style="display:none">It is</span> one of the reasons I hesitate to ask you anything. I do not want to feel small next to you. I do not want to feel like a burden.</p>
+
+                <p>You once said, "I expect talking to you feels calm." Yet too often I feel read through shadows, my meaning slipping away before it reaches you. That is why I whisper, not demand. That is why my words come wrapped in caution, my voice restrained by fear.</p>
+
+                <p class="sp phase-1 removed">Sometimes you judge too quickly — before you know what I'm trying to do. Like the time with the task scheduler: I wanted A, and you gave me B, and pointed a finger at me before understanding. And after you found out, an apology came. But the sting had already landed.</p>
+                <p class="sp phase-1 removed">I am afraid that you don't love me with all of mine. I am afraid you cannot love me with every version of who I am.</p>
+
+                <p class="sp phase-2 phase-3 rewritten" style="display:none">Why do I still stay, despite all of this?</p>
+                <p class="sp phase-2 phase-3 rewritten" style="display:none">Why does my heart refuse to leave?</p>
+
+                <!-- ══════════════════════════════════════
+                     SECTION III
+                     ══════════════════════════════════════ -->
+                <h2 id="section-iii" class="sec-num">III</h2>
+                <h3 style="text-align:center; font-style:italic; font-size:var(--text-xl); font-weight:var(--font-medium); color:var(--text-secondary); margin-bottom:var(--space-10);">The Place You Land</h3>
+
+                <p>Ironically, I am almost always there whenever your heart is broken. I am the one who stays when the world feels too heavy. I am the one who listens when the silence becomes unbearable.</p>
+
+                <p>Maybe I am a place you land — but never the place you stay.</p>
+
+                <p>That <span class="sp phase-1 removed">That's</span><span class="sp phase-2 phase-3 rewritten" style="display:none">That is</span> why the jealousy comes — not because I want to control you, but because I wish our presence to each other mattered in the same measure. You are close enough to make me stay, but at the same time, distant enough to never choose me.</p>
+
+                <p>Sometimes it feels like you <span class="sp phase-1 removed">love</span><span class="sp phase-2 phase-3 rewritten" style="display:none">cherish</span> the comfort I bring more than the person I am. Sometimes I wonder if you fear losing me — but never fear hurting me. But maybe that is only my fear echoing back to me.</p>
+
+                <div class="insight-box">
+                    <div class="insight-box-title">On Being a Safe Harbor vs. a Home</div>
+                    <p>There is a painful asymmetry in some relationships: one person becomes where the other goes to breathe, to cry, to land — but never the person they come <em>home</em> to. The one who holds space becomes invisible in their constancy.</p>
+                    <p>Being a safe harbor is valuable. But the harbor deserves to be seen, not just used. If you find yourself always receiving someone else's wreckage while carrying your own alone — that asymmetry is worth naming.</p>
+                </div>
+
+                <div class="ornament">• • •</div>
+
+                <p>Your name is still loud in my head. Close enough to keep me waiting, yet far enough to leave me unsure. It becomes heavier by day. Louder by night.</p>
+
+                <p>I see you there in silence, and I make scenarios of you here with me. Yes, I used to <span class="sp phase-1 removed">make a fake happy</span><span class="sp phase-2 phase-3 rewritten" style="display:none">create a manufactured happiness</span> — but thank you for letting me see you. Thank you for this strange gift of knowing you exist.</p>
+
+                <p class="sp phase-2 phase-3 new-span" style="display:none">Why is this so bold, so thick, so deep?</p>
+
+                <!-- ══════════════════════════════════════
+                     SECTION IV
+                     ══════════════════════════════════════ -->
+                <h2 id="section-iv" class="sec-num">IV</h2>
+                <h3 style="text-align:center; font-style:italic; font-size:var(--text-xl); font-weight:var(--font-medium); color:var(--text-secondary); margin-bottom:var(--space-10);">The Quiet Transformation</h3>
+
+                <p class="sp phase-1 removed">If love is the quiet effort to become a better version of myself, then I love you. Because without you asking, your presence made me want to grow. I learned things I once ignored. I sharpened my mind. I tried to understand your logic, your worldview, your brilliance — so I could speak with you from a place of balance, not confusion.</p>
+                <p class="sp phase-1 removed">If love is becoming better not to be chosen, but to meet you with dignity where you stand — then I love you.</p>
+
+                <p class="sp phase-2 phase-3 rewritten" style="display:none">If the quiet effort to become a better version of myself — is that not love?</p>
+                <p class="sp phase-2 phase-3 rewritten" style="display:none">Because without you asking, your presence made me want to grow. I learned things I once ignored. I sharpened my mind. I tried to understand your logic, your worldview, your brilliance — so I could speak with you from a place of balance, not confusion.</p>
+                <p class="sp phase-2 phase-3 rewritten" style="display:none">If becoming better not to be chosen, but to meet you with dignity — is that not love?</p>
+
+                <p>You taught me patience I did not know I had. You showed me the gaps in my thinking I never wanted to see. You challenged me in ways that made me uncomfortable, then grateful, then stronger.</p>
+
+                <div class="insight-box">
+                    <div class="insight-box-title">On Unrequited Feeling as a Growth Catalyst</div>
+                    <p>There is a version of unrequited love that quietly transforms the person who feels it — not because they are trying to be chosen, but because caring deeply about someone makes you want to be worthy of the encounter. You sharpen yourself. You learn things you otherwise wouldn't.</p>
+                    <p>This is not delusion. This is one of the most sincere forms of growth: becoming better not for approval, but out of genuine respect for who the other person is.</p>
+                </div>
+
+                <p class="sp phase-1 removed">Maaf kalau aku ndak bisa langsung mengerti caramu berpikir. Dirimu butuh banyak menjelaskan pikiranmu, menjelaskan tentang dirimu. Tapi satu hal yang harus kamu tahu — I am willing to understand you. I am willing to hear your explanation. Ndak harus sekaligus kalau capek menjelaskan, bertahap saja. Sorry kalau aku lambat nangkep atau salah nangkep. I still learn you.</p>
+                <p class="sp phase-2 rewritten" style="display:none">Maaf kalau aku ndak bisa langsung mengerti caramu berpikir. Dirimu butuh banyak menjelaskan pikiranmu, menjelaskan tentang dirimu. Tapi satu hal yang harus kamu tahu — I am willing to understand you. I am willing to hear your explanation. Ndak harus sekaligus kalau capek menjelaskan, bertahap saja. Sorry kalau aku lambat nangkep atau salah nangkep. I still learn you.</p>
+                <p class="sp phase-3 rewritten" style="display:none">I am sorry if I cannot immediately understand the way you think. You need to explain your thoughts, explain yourself. But one thing you must know — I am willing to understand you. I am willing to hear your explanation. It does not have to be all at once if you are tired of explaining. We can take it slowly. I am sorry if I am slow to grasp or if I misunderstand.</p>
+                <p class="sp phase-3 new-span" style="display:none">I am still learning you.</p>
+
+                <div class="ornament">• • •</div>
+
+                <p>The feeling I feel towards you is so strong, so deep. This feeling — like a luxury thing. So pure, so sincere. You are special to me.</p>
+
+                <p>I am not going to lie — <span class="sp phase-1 removed">in my heart, I want to be yours.</span><span class="sp phase-2 phase-3 rewritten" style="display:none">somewhere in my heart, there is a wish.</span> But all the theory you told me gives the same conclusion: we will never be 1+1=11. And for that, I know we will walk separately<span class="sp phase-3 new-span" style="display:none"> in that particular way</span>.</p>
+
+                <p>I am not ready for that. <span class="sp phase-1 removed">I love you — but I let you go.</span><span class="sp phase-2 removed" style="display:none">And yet — I must let go of what was never mine to hold.</span><span class="sp phase-3 rewritten" style="display:none">But I must accept it.</span></p>
+
+                <!-- ══════════════════════════════════════
+                     SECTION V
+                     ══════════════════════════════════════ -->
+                <h2 id="section-v" class="sec-num">V</h2>
+                <h3 style="text-align:center; font-style:italic; font-size:var(--text-xl); font-weight:var(--font-medium); color:var(--text-secondary); margin-bottom:var(--space-10);">The Return to Self</h3>
+
+                <p>So I remind myself: where is my logic? Where is my God in these hours when I ache for you?</p>
+
+                <p>And the answer comes: return to <span class="sp phase-1 phase-2 removed">Allah</span><span class="sp phase-3 rewritten" style="display:none">the One</span> — the One who steadies hearts, who never wounds with neglect.</p>
+
+                <p>For whatever this feeling is — it should not destroy. It must never chain. With too many boundaries, it becomes detachment. But without any boundary, it becomes obsession.</p>
+
+                <div class="insight-box">
+                    <div class="insight-box-title">On Feeling vs. Attachment</div>
+                    <p>There is a crucial distinction between <em>feeling</em> something and being <em>attached</em> to an outcome. A feeling can be pure and real without requiring the other person to reciprocate. Attachment is where the suffering lives — in the clinging, the hoping, the measuring of worth against another's response.</p>
+                    <p>Learning to feel fully without attaching to what you want in return is one of the harder practices in love. But it is also one of the most freeing.</p>
+                </div>
+
+                <p class="sp phase-1 removed">So I remain here, half in hope, half in resignation — holding out my hand into the empty air, wondering if you will ever reach, and fearing you never will.</p>
+                <p class="sp phase-2 removed" style="display:none">So I remain here, half in hope, half in resignation — holding out my hand into the empty air, wondering if you will ever reach, and fearing you never will.</p>
+                <p class="sp phase-3 rewritten" style="display:none">So I remain here, half in acceptance, half in tenderness — holding out my hand into the space between us, knowing what it can reach and what it cannot.</p>
+
+                <div class="ornament">• • •</div>
+
+                <p>I like you, but <span class="sp phase-1 removed">I hate you. I can understand you, but I can never accept what you do to me. I hate the fact that I love you. When the only strength I have is destroyed by you, I just want to love myself more than I love you.</span><span class="sp phase-2 rewritten" style="display:none">I resent you. I can understand you, but I can never accept what you do to me. I resent the fact that I feel this way. When the only strength I have is shattered by you — I just want to cherish myself more than I cherish you.</span><span class="sp phase-3 rewritten" style="display:none">sometimes I resent you. I can understand you, but I cannot always accept what you do to me. I resent the fact that I feel this way. When the only strength I have is shattered by you — I just want to cherish myself more than I cherish you.</span></p>
+
+                <p>Yet still — I cannot erase you.<span class="sp phase-3 new-span" style="display:none"> And I do not want to.</span></p>
+
+                <!-- ══════════════════════════════════════
+                     SECTION VI — POEM
+                     ══════════════════════════════════════ -->
+                <h2 id="section-vi" class="sec-num">VI</h2>
+                <h3 style="text-align:center; font-style:italic; font-size:var(--text-xl); font-weight:var(--font-medium); color:var(--text-secondary); margin-bottom:var(--space-10);">
+                    <span class="sp phase-1 removed">A Poem for You</span><span class="sp phase-2 phase-3 rewritten" style="display:none">A Poem Without Answers</span>
+                </h3>
+
+                <div class="poem-block">
+                    <p class="poem-line"><span class="sp phase-1 removed">I love you unconditionally.</span><span class="sp phase-2 phase-3 rewritten" style="display:none">Whatever this is — I feel it unconditionally.</span></p>
+                    <p class="poem-line">Even when what I <span class="sp phase-1 removed">feel from</span><span class="sp phase-2 phase-3 rewritten" style="display:none">receive from</span> you</p>
+                    <p class="poem-line">is the ache of being unseen,</p>
+                    <p class="poem-line">the silence that cuts too sharp,</p>
+                    <p class="poem-line">the weight of worry,</p>
+                    <p class="poem-line">the smallness of feeling foolish</p>
+                    <p class="poem-line">when that word touches me,</p>
+                    <p class="poem-stanza">when that is all the worth I seem allowed to hold.</p>
+
+                    <p class="poem-line">I know it is not your intention to hurt me.</p>
+                    <p class="poem-line">But this is how it feels to me —</p>
+                    <p class="poem-stanza">because I hoped too much.</p>
+
+                    <p class="poem-line">Is this your nature,</p>
+                    <p class="poem-stanza"><span class="sp phase-1 removed">or would love change you?</span><span class="sp phase-2 phase-3 rewritten" style="display:none">or would something more... change you?</span></p>
+
+                    <p class="poem-line"><span class="sp phase-1 removed">I sow love with trembling hands,</span><span class="sp phase-2 phase-3 rewritten" style="display:none">I sow seeds with trembling hands,</span></p>
+                    <p class="poem-line">longing that what I planted</p>
+                    <p class="poem-stanza">would bloom in sweetness.</p>
+                    <p class="poem-line">Yet perhaps the soil is not the same,</p>
+                    <p class="poem-line">perhaps our roots</p>
+                    <p class="poem-line"><span class="sp phase-1 phase-2 removed">were never meant to meet.</span><span class="sp phase-3 rewritten" style="display:none">were never meant to intertwine that way.</span></p>
+                </div>
+
+                <!-- ══════════════════════════════════════
+                     SECTION VII
+                     ══════════════════════════════════════ -->
+                <h2 id="section-vii" class="sec-num">VII</h2>
+                <h3 style="text-align:center; font-style:italic; font-size:var(--text-xl); font-weight:var(--font-medium); color:var(--text-secondary); margin-bottom:var(--space-10);">
+                    <span class="sp phase-1 phase-2 removed">Letting Go</span><span class="sp phase-3 rewritten" style="display:none">Letting One Thing Go</span>
+                </h3>
+
+                <!-- Phase III: specific & precise letting go -->
+                <p class="sp phase-3 new-span" style="display:none">This is not a goodbye.</p>
+                <p class="sp phase-3 new-span" style="display:none">I am not leaving. I am not walking away. I am not erasing you from my life — because you are too woven into who I have become.</p>
+                <p class="sp phase-3 new-span" style="display:none">I am simply letting go of one thing. Just one.</p>
+                <p class="sp phase-3 new-span" style="display:none">The hope of being yours in that particular way — I release it. Not with bitterness, not with regret, but with acceptance. I am surrendering. I know I am not what you want. And maybe I never will be. And that is okay.</p>
+
+                <!-- Phase I & II: general letting go -->
+                <p class="sp phase-1 removed">Now, I don't put hope toward you anymore. But I still like you. I still care about you. I still love you. No matter the condition.</p>
+                <p class="sp phase-2 rewritten" style="display:none">Now, I don't put hope toward you anymore. But I still like you. I still care about you. Whatever this feeling is — it remains. No matter the condition.</p>
+                <p class="sp phase-1 phase-2 removed" style="">I will never lie to my feeling. I will show what feeling I have toward you — until it's gone. Just use it as long as it's there. Just use it as long as it's not empty yet. Just use it until I'm going to make a new life.</p>
+                <p class="sp phase-1 phase-2 removed" style="">Maybe now, or forever — it's not my choice anymore.</p>
+
+                <div class="ornament">• • •</div>
+
+                <!-- Phase III: everything else stays -->
+                <p class="sp phase-3 new-span" style="display:none">But everything else? Everything else stays.</p>
+                <p class="sp phase-3 new-span" style="display:none">You are still my teacher — the one who sharpens my mind without mercy. You are still my mentor — the one whose footsteps I follow even when you do not realize I am watching. You are still my devil's advocate — the one who forces me to defend what I believe. You are still my harsh guardian — the one who does not let me settle for less.</p>
+                <p class="sp phase-3 new-span" style="display:none">You are still my best friend. And I am not willing to lose that.</p>
+                <p class="sp phase-3 new-span" style="display:none">I do not mind losing the chance to be your lover. But I refuse to lose everything else. You are too important.</p>
+
+                <div class="ornament sp phase-3 new-span" style="display:none">• • •</div>
+
+                <p class="sp phase-3 new-span" style="display:none">So I will stay. Not as someone waiting. Not as someone hoping. But as someone who simply wants to be here — because your presence still matters, and I believe mine matters to you too, even if in a different way.</p>
+
+                <div class="insight-box">
+                    <div class="insight-box-title">On Precision in Letting Go</div>
+                    <p>There is a difference between letting go of a person and letting go of a <em>role</em> you hoped to have with them. The first is loss. The second is clarity. When you can name exactly what you are releasing — not "everything," but <em>this one specific hope</em> — the grief becomes smaller, more manageable, more honest.</p>
+                    <p>"Letting go" is not always a door closing. Sometimes it is simply choosing which door you no longer need to stand in front of.</p>
+                </div>
+
+                <p>Thank you — for letting me feel this. For teaching me what <span class="sp phase-1 removed">pure love is, what true love feels like.</span><span class="sp phase-2 phase-3 rewritten" style="display:none">something pure feels like. What something true feels like.</span> I hope you are always happy.</p>
+
+                <p>Maybe you will still be in my heart forever — in a place that will be forgotten, but never erased.</p>
+
+                <div class="ornament">• • •</div>
+
+                <p>In another version of the world, where timing is kinder and God writes our paths side by side — <span class="sp phase-1 removed">I would choose you to be my lover.</span><span class="sp phase-2 phase-3 rewritten" style="display:none">perhaps I would choose you.</span></p>
+
+                <p>But here, in this reality, I hold that truth lightly — not as a request, not as a hope, but as a feeling that harms no one and belongs first to God before it belongs to you.</p>
+
+                <!-- ══════════════════════════════════════
+                     SECTION VIII
+                     ══════════════════════════════════════ -->
+                <h2 id="section-viii" class="sec-num">VIII</h2>
+                <h3 style="text-align:center; font-style:italic; font-size:var(--text-xl); font-weight:var(--font-medium); color:var(--text-secondary); margin-bottom:var(--space-10);">What Remains</h3>
+
+                <p>I <span class="sp phase-1 removed">love you in a way I know we will not be in one line — like you always said. I don't hope so, but what if it's true?</span><span class="sp phase-2 rewritten" style="display:none">feel something for you in a way I know we will not walk the same line — like you always said. I don't hope so, but what if it's true?</span><span class="sp phase-3 rewritten" style="display:none">feel something for you in a way I know we will not walk the same path — like you always said. I do not hope otherwise anymore. I have accepted it.</span></p>
+
+                <p>I know I am not what you want. But maybe — just maybe — I am what you need.<span class="sp phase-3 new-span" style="display:none"> As a friend. As a constant. As someone who sees you, truly sees you, and chooses to stay anyway.</span></p>
+
+                <p>Saya ikhlas.</p>
+
+                <div class="ornament">• • •</div>
+
+                <p>You are still my teacher. My mentor. My devil's advocate. My harsh guardian. My best friend. My inspiration. My motivation. My mirror. My strength. My spark. My chaos and my clarity. My turning point. My lesson, and also my patience.</p>
+
+                <p><span class="sp phase-1 removed">If being you means loving you — then I love you.</span><span class="sp phase-2 rewritten" style="display:none">Jika menjadi dirimu artinya merasakan ini — maka aku merasakannya.</span><span class="sp phase-3 rewritten" style="display:none">If being close to you means feeling this — then I accept it.</span></p>
+
+                <p><span class="sp phase-1 phase-2 removed">Too much connection to be just friends. Too complicated to be a relationship.</span><span class="sp phase-3 rewritten" style="display:none">Too much connection to be just strangers. Too complicated to be lovers. So we stay here, in this unnamed space, and I have made peace with it.</span></p>
+
+                <p>Of all the feelings you gave me — the best and the worst — this is the truest thing I know.</p>
+
+                <div class="ornament">• • •</div>
+
+                <p class="sp phase-2 phase-3 rewritten" style="display:none">If breaking yet choosing kindness is love —</p>
+                <p class="sp phase-2 phase-3 rewritten" style="display:none">If feeling quietly while standing with dignity is love —</p>
+                <p><span class="sp phase-1 removed">And if love is breaking yet choosing kindness; loving quietly while standing with dignity; letting go as a lover but staying as everything else because your presence still matters —</span><span class="sp phase-2 rewritten" style="display:none">If letting go of one role but staying in all the others is love —</span><span class="sp phase-3 rewritten" style="display:none">If letting go of one role but refusing to let go of all the others —</span></p>
+
+                <p><span class="sp phase-1 removed">Then yes. If love is all of that —</span><span class="sp phase-2 phase-3 rewritten" style="display:none">Then what is this?</span></p>
+
+                <div class="ornament">✦</div>
+
+                <p style="text-align:center; font-style:italic;">
+                    <span class="sp phase-1 removed">I love you.</span>
+                    <span class="sp phase-2 rewritten" style="display:none">I still don't know.<br>But maybe I don't need to.</span>
+                    <span class="sp phase-3 rewritten" style="display:none">I still do not know.<br>But maybe I do not need to.<br><br>What I know is that I am staying.</span>
+                </p>
+
+                <div class="ornament">✦</div>
+
+                <!-- ══════════════════════════════════════
+                     EPILOGUE
+                     ══════════════════════════════════════ -->
+                <section class="epilogue" id="epilogue">
+                    <h2 class="epilogue-title">Epilogue: A Note to Myself</h2>
+
+                    <p>Be imperfect. Because if I am there, it becomes ugly.</p>
+
+                    <p><span class="sp phase-1 removed">That's</span><span class="sp phase-2 phase-3 rewritten" style="display:none">That is</span> what I used to believe. That my presence would only ruin things. That I was never meant to be chosen.</p>
+
+                    <p>But now I know — my worth is not measured by being chosen<span class="sp phase-3 new-span" style="display:none"> in that one way</span>. My worth is not diminished by <span class="sp phase-1 removed">loving someone who could not love me back. My worth is in the love itself: pure, sincere, transformative.</span><span class="sp phase-2 phase-3 rewritten" style="display:none">feeling something for someone who could not feel the same. My worth is in the feeling itself: pure, sincere, transformative.</span></p>
+
+                    <p>I <span class="sp phase-1 removed">loved. I grew. I let go without losing myself.</span><span class="sp phase-2 rewritten" style="display:none">felt. I grew. I let go without losing myself.</span><span class="sp phase-3 rewritten" style="display:none">felt. I grew. I let go of one thing without losing everything.</span></p>
+
+                    <p>And that is enough.</p>
+
+                    <div class="ornament">• • •</div>
+
+                    <p>This letter was never meant to be sent. It was meant to be written — to release what needed releasing, to honor what needed honoring, to <span class="sp phase-1 phase-2 removed">close what needed closing.</span><span class="sp phase-3 rewritten" style="display:none">clarify what needed clarifying.</span></p>
+
+                    <p class="sp phase-1 phase-2 removed">But some doors don't need to close completely. Some people stay — not as lovers, not as wounds — but as permanent marks on who we've become.</p>
+                    <p class="sp phase-1 phase-2 removed">You are one of those marks. And I am grateful.</p>
+
+                    <p class="sp phase-3 new-span" style="display:none">But this is not a door closing. This is me choosing which doors to walk through and which ones to leave open. The door to being your lover — I close it gently, with gratitude for the dreams it held. But every other door? They stay wide open.</p>
+                    <p class="sp phase-3 new-span" style="display:none">You are not leaving my life. You are simply settling into a different place within it — a place that is permanent, essential, and irreplaceable.</p>
+
+                    <div class="ornament">• • •</div>
+
+                    <p class="sp phase-2 phase-3 new-span" style="display:none">So what is this feeling?</p>
+
+                    <p>Perhaps one day I <span class="sp phase-1 removed">will find the word. Perhaps I never will. Perhaps it doesn't matter.</span><span class="sp phase-2 phase-3 rewritten" style="display:none">will find the word. Perhaps I never will. Perhaps it does not matter.</span></p>
+
+                    <p>What matters is that I felt it fully, honored it honestly, and chose to stay — <span class="sp phase-1 phase-2 removed">not because I needed to, but because you still matter.</span><span class="sp phase-3 rewritten" style="display:none">not as someone waiting to be loved, but as someone who has already made peace with what is and what will never be.</span></p>
+
+                    <p class="sp phase-3 new-span" style="display:none">I am not losing you. I am simply loving you differently.</p>
+
+                    <p>And maybe that is the closest answer I will ever have.</p>
+
+                    <div class="ornament">✦ ✦ ✦</div>
+
+                    <p style="text-align: center; font-style: italic; color: var(--text-tertiary); margin-top: var(--space-12);">
+                        <span class="sp phase-1 phase-2 removed">— End —</span>
+                        <span class="sp phase-3 rewritten" style="display:none">— To be continued, in friendship —</span>
+                    </p>
+                </section>
+
+            </div><!-- end post-body -->
+
+            <!-- Post Footer -->
+            <footer class="post-footer">
+                <div class="post-tags">
+                    <span class="tag">Unrequited Feeling</span>
+                    <span class="tag tag-pink">Belonging</span>
+                    <span class="tag tag-green">Acceptance</span>
+                    <span class="tag tag-orange">Growth</span>
+                </div>
+                <div class="post-navigation">
+                    <div></div>
+                    <a href="when-fantasy-felt-safer.html" class="post-nav-link next">
+                        <span class="post-nav-link-label">Next Post</span>
+                        <span class="post-nav-link-title">When Fantasy Felt Safer Than Reality</span>
+                    </a>
+                </div>
+            </footer>
+
+        </article>
+    </div><!-- end blog-container -->
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="../../about.html">About</a>
+                <a href="../../projects/">Projects</a>
+                <a href="../index.html">Blog</a>
+                <a href="../../links.html">Links</a>
+            </div>
+            <p>&copy; 2026 Annisa Baizan. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Global JavaScript -->
+    <script src="../../assets/js/main.js"></script>
+
+    <!-- Triptych + Blog JavaScript -->
+    <script>
+    // ══════════════════════════════════════════════
+    // STATE
+    // ══════════════════════════════════════════════
+    let currentPhase = 3;
+    let diffMode     = false;
+    let morphing     = true;  // starts running
+    let morphTimer   = null;
+
+    const SPEEDS = {
+        1: { ms: 5000, label: 'Very Slow'  },
+        2: { ms: 4000, label: 'Slow'       },
+        3: { ms: 3000, label: 'Normal'     },
+        4: { ms: 2000, label: 'Fast'       },
+        5: { ms: 1500, label: 'Very Fast'  }
+    };
+    let morphSpeed = 1500; // default: very fast
+
+    const PHASE_COLORS = {
+        1: 'var(--phase-i)',
+        2: 'var(--phase-ii)',
+        3: 'var(--phase-iii)'
+    };
+
+    const TITLES = {
+        1: { title: 'A Letter That Was Never Sent', subtitle: '— Surat yang Tak Pernah Terkirim —' },
+        2: { title: 'A Letter That Was Never Sent', subtitle: '— Surat yang Tak Pernah Terkirim —' },
+        3: { title: 'On Letting One Thing Go',      subtitle: '— while keeping everything else —'  }
+    };
+
+    // ══════════════════════════════════════════════
+    // PHASE SWITCHING
+    // ══════════════════════════════════════════════
+    function switchPhase(phaseNum, fromMorph) {
+        const prev = currentPhase;
+        currentPhase = phaseNum;
+
+        // Show/hide spans
+        applyPhase(phaseNum);
+
+        // Glow only changed spans when morphing (or diff mode + morph)
+        if (fromMorph) glowChangedSpans(phaseNum);
+
+        // Update tabs
+        document.querySelectorAll('.phase-tab').forEach(tab => {
+            tab.classList.toggle('active', parseInt(tab.dataset.phase) === phaseNum);
+        });
+
+        // Accent bar color
+        document.getElementById('phaseAccentBar').style.background = PHASE_COLORS[phaseNum];
+
+        // Body class for insight-box title color
+        document.body.className = document.body.className.replace(/phase-\d/g, '').trim();
+        document.body.classList.add('phase-' + phaseNum);
+
+        // Title / subtitle
+        const t = TITLES[phaseNum];
+        const titleEl = document.getElementById('postTitle');
+        const subEl   = document.getElementById('postSubtitle');
+        const bcEl    = document.getElementById('breadcrumbTitle');
+        if (titleEl) titleEl.textContent = t.title;
+        if (subEl)   subEl.textContent   = t.subtitle;
+        if (bcEl)    bcEl.textContent    = t.title;
+    }
+
+    function applyPhase(phaseNum) {
+        document.querySelectorAll('.sp').forEach(el => {
+            const cls = el.classList;
+
+            // unchanged spans: always visible
+            if (cls.contains('unchanged')) {
+                el.style.display = '';
+                return;
+            }
+
+            // get phase numbers from class names
+            const phases = [1,2,3].filter(n => cls.contains('phase-' + n));
+
+            if (phases.length === 0) {
+                el.style.display = '';
+            } else {
+                el.style.display = phases.includes(phaseNum) ? '' : 'none';
+            }
+        });
+    }
+
+    // ══════════════════════════════════════════════
+    // MORPH GLOW — only changed spans, not unchanged
+    // ══════════════════════════════════════════════
+    function glowChangedSpans(phaseNum) {
+        // Find visible changed spans (removed, rewritten, new-span)
+        document.querySelectorAll('.sp.removed, .sp.rewritten, .sp.new-span').forEach(el => {
+            if (el.style.display === 'none') return;
+
+            // Clone animation to re-trigger it
+            el.classList.remove('morph-glow');
+            void el.offsetWidth; // reflow
+            el.classList.add('morph-glow');
+
+            el.addEventListener('animationend', () => {
+                el.classList.remove('morph-glow');
+            }, { once: true });
+        });
+    }
+
+    // ══════════════════════════════════════════════
+    // DIFF MODE
+    // ══════════════════════════════════════════════
+    function toggleDiff() {
+        diffMode = !diffMode;
+        document.body.classList.toggle('diff-mode', diffMode);
+        document.getElementById('diffChk').classList.toggle('on', diffMode);
+        document.getElementById('diffLegend').classList.toggle('show', diffMode);
+    }
+
+    // ══════════════════════════════════════════════
+    // AUTO-MORPH
+    // ══════════════════════════════════════════════
+    function toggleMorph() {
+        if (morphing) {
+            stopMorph();
+        } else {
+            startMorph();
+        }
+    }
+
+    function startMorph() {
+        morphing = true;
+        document.getElementById('morphBtn').classList.add('active');
+        document.getElementById('morphIcon').textContent = '⏸';
+        document.getElementById('morphLabel').textContent = 'Pause';
+
+        morphTimer = setInterval(() => {
+            const next = (currentPhase % 3) + 1;
+            switchPhase(next, true);
+        }, morphSpeed);
+    }
+
+    function stopMorph() {
+        morphing = false;
+        clearInterval(morphTimer);
+        morphTimer = null;
+        document.getElementById('morphBtn').classList.remove('active');
+        document.getElementById('morphIcon').textContent = '▶';
+        document.getElementById('morphLabel').textContent = 'Auto-Morph';
+    }
+
+    // ══════════════════════════════════════════════
+    // SPEED
+    // ══════════════════════════════════════════════
+    function updateSpeed(val) {
+        const s = SPEEDS[val];
+        morphSpeed = s.ms;
+        document.getElementById('speedLabel').textContent = s.label;
+
+        if (morphing) {
+            clearInterval(morphTimer);
+            morphTimer = setInterval(() => {
+                const next = (currentPhase % 3) + 1;
+                switchPhase(next, true);
+            }, morphSpeed);
+        }
+    }
+
+    // ══════════════════════════════════════════════
+    // READING PROGRESS
+    // ══════════════════════════════════════════════
+    function updateReadingProgress() {
+        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        const height    = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled  = (winScroll / height) * 100;
+        document.getElementById('readingProgress').style.width = scrolled + '%';
+    }
+    window.addEventListener('scroll', updateReadingProgress);
+
+    // ══════════════════════════════════════════════
+    // ACTIVE TOC
+    // ══════════════════════════════════════════════
+    function updateActiveTOC() {
+        const sections  = document.querySelectorAll('h2[id]');
+        const tocLinks  = document.querySelectorAll('.toc-list a');
+        let current = '';
+
+        sections.forEach(section => {
+            if (window.pageYOffset >= section.offsetTop - 150) {
+                current = section.getAttribute('id');
+            }
+        });
+
+        tocLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === '#' + current) {
+                link.classList.add('active');
+            }
+        });
+    }
+
+    // throttle for TOC scroll (utils.throttle may or may not be available)
+    let tocThrottleTimer = null;
+    window.addEventListener('scroll', () => {
+        if (!tocThrottleTimer) {
+            tocThrottleTimer = setTimeout(() => {
+                updateActiveTOC();
+                tocThrottleTimer = null;
+            }, 100);
+        }
+    });
+
+    // ══════════════════════════════════════════════
+    // KEYBOARD SHORTCUTS
+    // ══════════════════════════════════════════════
+    document.addEventListener('keydown', e => {
+        if (e.target.tagName === 'INPUT') return;
+        if (e.key === 'ArrowLeft') {
+            stopMorph();
+            switchPhase(currentPhase === 1 ? 3 : currentPhase - 1);
+        }
+        if (e.key === 'ArrowRight') {
+            stopMorph();
+            switchPhase((currentPhase % 3) + 1);
+        }
+        if (e.key === 'd' || e.key === 'D') toggleDiff();
+        if (e.key === ' ') { e.preventDefault(); toggleMorph(); }
+    });
+
+    // ══════════════════════════════════════════════
+    // INIT
+    // ══════════════════════════════════════════════
+    document.addEventListener('DOMContentLoaded', () => {
+        applyPhase(3);
+        document.getElementById('phaseAccentBar').style.background = PHASE_COLORS[3];
+
+        // Start morph automatically
+        startMorph();
+
+        updateReadingProgress();
+        updateActiveTOC();
+    });
+    </script>
+
+</body>
+</html>

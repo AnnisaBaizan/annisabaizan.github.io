@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="assets/css/reset.css">
     <link rel="stylesheet" href="assets/css/theme.css">
     <link rel="stylesheet" href="assets/css/components.css">
+    <link rel="stylesheet" href="assets/css/galaxy.css">
     
     <style>
         /* Page-specific styles for links.html */
@@ -241,18 +242,36 @@
                 <li><a href="blog/index.html">Blog</a></li>
                 <li><a href="links.html" class="active">Links</a></li>
             </ul>
+            <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
         </div>
     </nav>
 
+    <!-- Mobile nav overlay -->
+    <div class="nav-mobile-overlay" id="nav-mobile-overlay">
+        <div class="overlay-divider"></div>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="projects/index.html">Projects</a>
+        <a href="blog/index.html">Blog</a>
+        <a href="links.html" class="active">Links</a>
+        <div class="overlay-divider"></div>
+    </div>
+
     <!-- Links Hero -->
-    <section class="links-hero">
-        <div class="links-container">
-            <div class="links-avatar">👤</div>
-            <h1 style="font-size: var(--text-4xl); font-weight: var(--font-extrabold); margin-bottom: 0.5rem;">
+    <section class="links-hero" style="position:relative;overflow:hidden;">
+        <!-- Nebula orbs -->
+        <div class="hero-nebula hero-nebula-1"></div>
+        <div class="hero-nebula hero-nebula-2"></div>
+
+        <div class="links-container" style="position:relative;z-index:1;">
+            <div class="links-avatar" style="animation:borderBreath 4s ease-in-out infinite;">✨</div>
+            <h1 style="font-family:'Cinzel',serif;font-size:clamp(2.2rem,5vw,3.5rem);font-weight:700;margin-bottom:0.75rem;background:linear-gradient(135deg,#f0c040 20%,#a855f7 60%,#00d4ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">
                 Annisa Baizan
             </h1>
-            <p style="color: var(--text-secondary); font-size: var(--text-lg); margin-bottom: 1rem;">
-                System Thinker | Analytical Developer
+            <p style="font-family:'Fira Code',monospace;font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:#7a7095;margin-bottom:1.5rem;">
+                System Thinker · Analytical Developer
             </p>
             <div class="tags" style="justify-content: center;">
                 <span class="tag tag-sm">Evidence-Based</span>
@@ -261,6 +280,13 @@
         </div>
     </section>
 
+    <!-- Cosmos Divider -->
+    <div class="cosmos-divider" style="padding:1.5rem 4rem;">
+        <div class="cosmos-divider-line"></div>
+        <div class="cosmos-divider-center"><span class="cosmos-divider-glyph">✦</span></div>
+        <div class="cosmos-divider-line"></div>
+    </div>
+
     <!-- Quick Links -->
     <section class="section-sm">
         <div class="links-container">
@@ -268,7 +294,7 @@
                 <span>Quick Access</span>
             </div>
             
-            <a href="projects/index.html" class="link-item">
+            <a href="projects/index.html" class="link-item hover-shimmer reveal">
                 <div class="link-content">
                     <div class="link-icon">💼</div>
                     <div class="link-text">
@@ -278,8 +304,8 @@
                     <div class="link-arrow">→</div>
                 </div>
             </a>
-            
-            <a href="about.html" class="link-item">
+
+            <a href="about.html" class="link-item hover-shimmer reveal reveal-delay-1">
                 <div class="link-content">
                     <div class="link-icon">👤</div>
                     <div class="link-text">
@@ -289,30 +315,19 @@
                     <div class="link-arrow">→</div>
                 </div>
             </a>
-            
-            <a href="blog/index.html" class="link-item">
+
+            <a href="blog/index.html" class="link-item hover-shimmer reveal reveal-delay-2">
                 <div class="link-content">
                     <div class="link-icon">✍️</div>
                     <div class="link-text">
-                        <div class="link-title">Tech Blog</div>
-                        <div class="link-description">Technical notes & learning documentation</div>
+                        <div class="link-title">Blog</div>
+                        <div class="link-description">Reflections on attachment, psychology & the human experience</div>
                     </div>
                     <div class="link-arrow">→</div>
                 </div>
             </a>
-            
-            <a href="labs/index.html" class="link-item">
-                <div class="link-content">
-                    <div class="link-icon">🧪</div>
-                    <div class="link-text">
-                        <div class="link-title">Labs & Experiments</div>
-                        <div class="link-description">Code experiments & UI playground</div>
-                    </div>
-                    <div class="link-arrow">→</div>
-                </div>
-            </a>
-            
-            <a href="docs/cv.pdf" class="link-item">
+
+            <a href="docs/cv.pdf" class="link-item hover-shimmer reveal reveal-delay-3">
                 <div class="link-content">
                     <div class="link-icon">📄</div>
                     <div class="link-text">
@@ -427,8 +442,18 @@
                 <a href="labs/index.html">Labs</a>
                 <a href="links.html">Contact</a>
             </div>
-            <p>&copy; 2026 Annisa Baizan. Built with analytical precision.</p>
+            <p style="color:#7a7095;">✦ &copy; 2026 Annisa Baizan — Built with analytical precision &amp; a touch of magic ✦</p>
         </div>
     </footer>
+
+    <!-- Galaxy: Star canvas -->
+    <canvas id="star-canvas"></canvas>
+    <!-- Main JS -->
+    <script src="assets/js/main.js"></script>
+    <!-- Galaxy JS -->
+    <script src="assets/js/stars.js"></script>
+    <script src="assets/js/cursor.js"></script>
+    <script src="assets/js/effects.js"></script>
+    <script src="assets/js/music-player.js"></script>
 </body>
 </html>

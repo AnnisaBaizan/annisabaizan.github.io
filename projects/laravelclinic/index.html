@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Laravel Dental Clinic System — Annisa Baizan</title>
+  <meta name="description" content="Full-featured dental clinic web information system with public profile, patient scheduling, and admin dashboard — built with Laravel.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Fira+Code:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../../assets/css/reset.css">
+  <link rel="stylesheet" href="../../assets/css/theme.css">
+  <link rel="stylesheet" href="../../assets/css/components.css">
+  <link rel="stylesheet" href="../../assets/css/galaxy.css">
+
+  <style>
+    :root { --accent: #ef9a9a; }
+    body { cursor: none; }
+
+    .lp-hero { padding: 120px 40px 80px; }
+    .lp-hero-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+    .lp-badge { display: inline-block; padding: 6px 16px; border: 1px solid var(--accent); border-radius: 100px; color: var(--accent); font-family: 'Fira Code', monospace; font-size: 0.72rem; letter-spacing: 0.1em; margin-bottom: 20px; background: color-mix(in srgb, var(--accent) 10%, transparent); }
+    .lp-title { font-family: 'Cinzel', serif; font-size: clamp(2.2rem, 4.5vw, 3.5rem); font-weight: 700; color: #f5f0ff; letter-spacing: 0.04em; margin-bottom: 16px; line-height: 1.15; }
+    .lp-title span { color: var(--accent); }
+    .lp-subtitle { font-family: 'Crimson Text', serif; font-size: 1.1rem; color: #a89fc0; line-height: 1.8; margin-bottom: 28px; max-width: 480px; }
+    .lp-meta { display: flex; flex-wrap: wrap; gap: 20px; margin-bottom: 32px; }
+    .lp-meta-item { font-family: 'Fira Code', monospace; font-size: 0.78rem; color: #a89fc0; }
+    .lp-meta-label { color: var(--accent); margin-right: 6px; }
+    .lp-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+    .lp-btn-primary { padding: 12px 28px; background: var(--accent); color: #07050f; border-radius: 8px; font-family: 'Cinzel', serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-decoration: none; transition: 0.2s; }
+    .lp-btn-primary:hover { opacity: 0.85; transform: translateY(-1px); }
+    .lp-btn-ghost { padding: 12px 28px; border: 1px solid var(--accent); color: var(--accent); border-radius: 8px; font-family: 'Cinzel', serif; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.06em; text-decoration: none; transition: 0.2s; }
+    .lp-btn-ghost:hover { background: color-mix(in srgb, var(--accent) 12%, transparent); }
+
+    .lp-mockup { background: rgba(13,10,46,0.7); border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent); border-radius: 20px; padding: 24px; backdrop-filter: blur(16px); box-shadow: 0 0 60px color-mix(in srgb, var(--accent) 15%, transparent); }
+    .lp-mockup-bar { display: flex; gap: 6px; margin-bottom: 20px; }
+    .lp-mockup-bar span { width: 12px; height: 12px; border-radius: 50%; }
+    .lp-mockup-bar span:first-child { background: #c41e3a; }
+    .lp-mockup-bar span:nth-child(2) { background: #f0c040; }
+    .lp-mockup-bar span:last-child { background: var(--accent); }
+    .lp-mockup-content { min-height: 200px; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 14px; }
+    .mock-stat { text-align: center; }
+    .mock-stat-num { display: block; font-family: 'Cinzel', serif; font-size: 1.6rem; font-weight: 700; color: var(--accent); }
+    .mock-stat-label { display: block; font-family: 'Fira Code', monospace; font-size: 0.68rem; color: #a89fc0; letter-spacing: 0.08em; margin-top: 2px; }
+    .mock-divider { width: 1px; height: 48px; background: rgba(255,255,255,0.08); }
+    .mock-row { display: flex; align-items: center; gap: 24px; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .mock-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+    .mock-text { font-family: 'Fira Code', monospace; font-size: 0.7rem; color: #a89fc0; }
+    .mock-badge { padding: 2px 8px; border-radius: 100px; font-family: 'Fira Code', monospace; font-size: 0.6rem; background: color-mix(in srgb, var(--accent) 15%, transparent); color: var(--accent); margin-left: auto; }
+
+    .lp-section { padding: 80px 40px; }
+    .lp-section-inner { max-width: 1200px; margin: 0 auto; }
+    .lp-section-title { font-family: 'Cinzel', serif; font-size: clamp(1.4rem, 2.5vw, 2rem); font-weight: 700; color: #f5f0ff; margin-bottom: 10px; }
+    .lp-section-title::after { content: ''; display: block; width: 50px; height: 3px; background: var(--accent); border-radius: 2px; margin-top: 10px; }
+    .lp-section-sub { font-family: 'Crimson Text', serif; font-size: 1.05rem; color: #a89fc0; margin-bottom: 40px; max-width: 580px; }
+
+    .lp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+    .lp-card { background: rgba(13,10,46,0.6); border: 1px solid rgba(240,192,64,0.1); border-radius: 14px; padding: 24px; backdrop-filter: blur(12px); transition: 0.3s; transform-style: preserve-3d; }
+    .lp-card:hover { border-color: color-mix(in srgb, var(--accent) 40%, transparent); box-shadow: 0 0 24px color-mix(in srgb, var(--accent) 10%, transparent); transform: translateY(-3px); }
+    .lp-card-icon { font-size: 1.8rem; margin-bottom: 10px; }
+    .lp-card-title { font-family: 'Cinzel', serif; font-size: 0.95rem; font-weight: 700; color: #f5f0ff; margin-bottom: 8px; }
+    .lp-card-text { font-family: 'Crimson Text', serif; font-size: 0.93rem; color: #a89fc0; line-height: 1.7; }
+
+    .lp-arch { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
+    .lp-arch-block { background: rgba(13,10,46,0.5); border: 1px solid rgba(255,255,255,0.05); border-radius: 10px; padding: 18px; }
+    .lp-arch-block-title { font-family: 'Fira Code', monospace; font-size: 0.7rem; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px; }
+    .lp-arch-block ul { list-style: none; }
+    .lp-arch-block li { font-family: 'Crimson Text', serif; font-size: 0.9rem; color: #a89fc0; padding: 4px 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
+
+    .lp-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+    .lp-tag { padding: 4px 12px; background: color-mix(in srgb, var(--accent) 12%, transparent); border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent); border-radius: 100px; font-family: 'Fira Code', monospace; font-size: 0.68rem; color: var(--accent); letter-spacing: 0.04em; }
+
+    .lp-link-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
+    .lp-link-card { background: rgba(13,10,46,0.5); border: 1px solid rgba(240,192,64,0.1); border-radius: 12px; padding: 18px 22px; text-decoration: none; display: flex; align-items: center; gap: 14px; transition: 0.2s; }
+    .lp-link-card:hover { border-color: color-mix(in srgb, var(--accent) 45%, transparent); transform: translateX(4px); }
+    .lp-link-icon { font-size: 1.4rem; flex-shrink: 0; }
+    .lp-link-title { font-family: 'Cinzel', serif; font-size: 0.83rem; font-weight: 600; color: #f5f0ff; margin-bottom: 3px; }
+    .lp-link-desc { font-family: 'Crimson Text', serif; font-size: 0.83rem; color: #a89fc0; }
+    .lp-link-arrow { margin-left: auto; color: var(--accent); }
+
+    .lp-footer { padding: 40px; text-align: center; border-top: 1px solid rgba(240,192,64,0.08); }
+    .lp-footer p { font-family: 'Fira Code', monospace; font-size: 0.75rem; color: #a89fc0; }
+    .lp-footer a { color: var(--accent); text-decoration: none; }
+
+    @media (max-width: 768px) {
+      .lp-hero-inner { grid-template-columns: 1fr; }
+      .lp-hero-right { display: none; }
+      .lp-section { padding: 60px 20px; }
+      .lp-hero { padding: 100px 20px 60px; }
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="star-canvas"></canvas>
+
+  <nav class="nav">
+    <div class="nav-container">
+      <a href="../../index.html" class="nav-brand">AB</a>
+      <ul class="nav-links">
+        <li><a href="../../index.html">Home</a></li>
+        <li><a href="../../about.html">About</a></li>
+        <li><a href="../index.html" class="active">Projects</a></li>
+        <li><a href="../../blog/index.html">Blog</a></li>
+        <li><a href="../../links.html">Links</a></li>
+      </ul>
+      <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="nav-mobile-overlay" id="nav-mobile-overlay">
+    <div class="overlay-divider"></div>
+    <a href="../../index.html">Home</a>
+    <a href="../../about.html">About</a>
+    <a href="../index.html" class="active">Projects</a>
+    <a href="../../blog/index.html">Blog</a>
+    <a href="../../links.html">Links</a>
+    <div class="overlay-divider"></div>
+  </div>
+
+  <!-- Hero -->
+  <section class="lp-hero">
+    <div class="lp-hero-inner">
+      <div class="lp-hero-left">
+        <span class="lp-badge">Web Application · Dental Clinic</span>
+        <h1 class="lp-title">Laravel <span>Dental Clinic</span> System</h1>
+        <p class="lp-subtitle">Full-featured web information system and public profile for a dental clinic — combining a patient-facing website with a complete admin dashboard for scheduling and content management.</p>
+        <div class="lp-meta">
+          <span class="lp-meta-item"><span class="lp-meta-label">Status</span> Completed</span>
+          <span class="lp-meta-item"><span class="lp-meta-label">Year</span> 2023</span>
+          <span class="lp-meta-item"><span class="lp-meta-label">Role</span> Full-Stack Developer</span>
+          <span class="lp-meta-item"><span class="lp-meta-label">Type</span> Web · MVC</span>
+        </div>
+        <div class="lp-btns">
+          <a href="../index.html" class="lp-btn-ghost">← Back to Projects</a>
+        </div>
+      </div>
+      <div class="lp-hero-right">
+        <div class="lp-mockup">
+          <div class="lp-mockup-bar"><span></span><span></span><span></span></div>
+          <div class="lp-mockup-content">
+            <div style="display:flex;gap:24px;align-items:center;">
+              <div class="mock-stat"><span class="mock-stat-num">2</span><span class="mock-stat-label">Modules</span></div>
+              <div class="mock-divider"></div>
+              <div class="mock-stat"><span class="mock-stat-num">MVC</span><span class="mock-stat-label">Architecture</span></div>
+              <div class="mock-divider"></div>
+              <div class="mock-stat"><span class="mock-stat-num">3</span><span class="mock-stat-label">User Roles</span></div>
+            </div>
+            <div style="width:100%;margin-top:8px;">
+              <div class="mock-row"><div class="mock-dot"></div><span class="mock-text">Public Clinic Website</span><span class="mock-badge">Live</span></div>
+              <div class="mock-row"><div class="mock-dot"></div><span class="mock-text">Patient Scheduling</span><span class="mock-badge">Active</span></div>
+              <div class="mock-row"><div class="mock-dot"></div><span class="mock-text">Admin Dashboard</span><span class="mock-badge">Secured</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Overview -->
+  <section class="lp-section" style="background: rgba(0,0,0,0.2);">
+    <div class="lp-section-inner">
+      <h2 class="lp-section-title">Overview</h2>
+      <p class="lp-section-sub">A two-in-one system: a public-facing clinic website for patients, and a secured admin panel for the clinic owner to manage everything.</p>
+      <div class="lp-grid">
+        <div class="lp-card">
+          <div class="lp-card-icon">🌐</div>
+          <div class="lp-card-title">Public Clinic Profile</div>
+          <p class="lp-card-text">Patients can browse clinic information, services offered, operating hours, dentist profile, and contact details — optimized for mobile browsers.</p>
+        </div>
+        <div class="lp-card">
+          <div class="lp-card-icon">📅</div>
+          <div class="lp-card-title">Appointment Scheduling</div>
+          <p class="lp-card-text">Online appointment booking form where patients select a date, time slot, and service type. Submissions are recorded and managed in the admin panel.</p>
+        </div>
+        <div class="lp-card">
+          <div class="lp-card-icon">🔐</div>
+          <div class="lp-card-title">Admin Dashboard</div>
+          <p class="lp-card-text">Clinic owner logs in to manage appointments, update service listings, edit clinic content, and review patient submissions through a clean Blade-based UI.</p>
+        </div>
+        <div class="lp-card">
+          <div class="lp-card-icon">🦷</div>
+          <div class="lp-card-title">Service Management</div>
+          <p class="lp-card-text">CRUD interface for dental service listings — name, description, price, and availability — displayed dynamically on the public-facing pages.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Architecture -->
+  <section class="lp-section">
+    <div class="lp-section-inner">
+      <h2 class="lp-section-title">Architecture</h2>
+      <p class="lp-section-sub">Standard Laravel MVC pattern with Blade templating, Eloquent ORM, and Bootstrap for a responsive front-end.</p>
+      <div class="lp-arch">
+        <div class="lp-arch-block">
+          <div class="lp-arch-block-title">Frontend</div>
+          <ul>
+            <li>Laravel Blade Templates</li>
+            <li>Bootstrap 5</li>
+            <li>Vanilla JavaScript</li>
+            <li>Responsive Layout</li>
+          </ul>
+        </div>
+        <div class="lp-arch-block">
+          <div class="lp-arch-block-title">Backend</div>
+          <ul>
+            <li>Laravel 10 (PHP 8)</li>
+            <li>MVC Architecture</li>
+            <li>Eloquent ORM</li>
+            <li>Laravel Auth</li>
+          </ul>
+        </div>
+        <div class="lp-arch-block">
+          <div class="lp-arch-block-title">Database</div>
+          <ul>
+            <li>MySQL</li>
+            <li>Laravel Migrations</li>
+            <li>Seeders for demo data</li>
+          </ul>
+        </div>
+        <div class="lp-arch-block">
+          <div class="lp-arch-block-title">Access Levels</div>
+          <ul>
+            <li>Guest (public site)</li>
+            <li>Patient (booking form)</li>
+            <li>Admin (full dashboard)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="lp-tags">
+        <span class="lp-tag">Laravel</span>
+        <span class="lp-tag">PHP</span>
+        <span class="lp-tag">MySQL</span>
+        <span class="lp-tag">Bootstrap 5</span>
+        <span class="lp-tag">Blade</span>
+        <span class="lp-tag">Eloquent ORM</span>
+        <span class="lp-tag">MVC</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Resources & Links -->
+  <section class="lp-section section-alt">
+    <div class="lp-section-inner">
+      <h2 class="lp-section-title">Resources &amp; Links</h2>
+      <p class="lp-section-sub">Dokumentasi, presentasi, dan demo interaktif untuk Laravel Dental Clinic.</p>
+
+      <p class="lp-res-group">Presentations</p>
+      <div class="lp-link-grid">
+        <a href="presentations/5W1H.html" class="lp-link-card">
+          <span class="lp-link-icon">&#128203;</span>
+          <div><div class="lp-link-title">Analisis 5W1H</div><div class="lp-link-desc">Latar belakang, masalah, tujuan, dan solusi inovasi</div></div>
+          <span class="lp-link-arrow">&#8594;</span>
+        </a>
+        <a href="presentations/teknis-internal.html" class="lp-link-card">
+          <span class="lp-link-icon">&#128295;</span>
+          <div><div class="lp-link-title">Teknis Internal</div><div class="lp-link-desc">Detail teknis untuk tim internal dan stakeholder</div></div>
+          <span class="lp-link-arrow">&#8594;</span>
+        </a>
+        <a href="presentations/teknis-eksternal.html" class="lp-link-card">
+          <span class="lp-link-icon">&#128225;</span>
+          <div><div class="lp-link-title">Teknis Eksternal</div><div class="lp-link-desc">Overview teknis untuk audiens dan evaluator eksternal</div></div>
+          <span class="lp-link-arrow">&#8594;</span>
+        </a>
+        <a href="presentations/institutional-showcase.html" class="lp-link-card">
+          <span class="lp-link-icon">&#127963;</span>
+          <div><div class="lp-link-title">Institutional Showcase</div><div class="lp-link-desc">Presentasi showcase untuk pimpinan dan institusi</div></div>
+          <span class="lp-link-arrow">&#8594;</span>
+        </a>
+        <a href="presentations/technical-design.html" class="lp-link-card">
+          <span class="lp-link-icon">&#128220;</span>
+          <div><div class="lp-link-title">Technical Design</div><div class="lp-link-desc">Arsitektur sistem, ERD, dan spesifikasi teknis</div></div>
+          <span class="lp-link-arrow">&#8594;</span>
+        </a>
+      </div>
+
+      <p class="lp-res-group">Demo &amp; Diagrams</p>
+      <div class="lp-link-grid">
+        <a href="demo/matriks-before-after.html" class="lp-link-card">
+          <span class="lp-link-icon">&#128202;</span>
+          <div><div class="lp-link-title">Matriks Before-After</div><div class="lp-link-desc">Perbandingan kondisi sebelum dan sesudah implementasi</div></div>
+          <span class="lp-link-arrow">&#8594;</span>
+        </a>
+        <a href="demo/flowchart-sistem.html" class="lp-link-card">
+          <span class="lp-link-icon">&#128256;</span>
+          <div><div class="lp-link-title">Flowchart Sistem</div><div class="lp-link-desc">Diagram alur proses dan arsitektur sistem</div></div>
+          <span class="lp-link-arrow">&#8594;</span>
+        </a>
+        <a href="demo/code-review.html" class="lp-link-card">
+          <span class="lp-link-icon">&#128187;</span>
+          <div><div class="lp-link-title">Code Review</div><div class="lp-link-desc">Tinjauan kode sumber dan dokumentasi teknis</div></div>
+          <span class="lp-link-arrow">&#8594;</span>
+        </a>
+      </div>
+
+      <p class="lp-res-group">Dokumentasi</p>
+      <div class="lp-link-grid">
+        <a href="docs/TOR-KAK-inovasi.pdf" class="lp-link-card">
+          <span class="lp-link-icon">&#128209;</span>
+          <div><div class="lp-link-title">TOR / KAK Inovasi</div><div class="lp-link-desc">Terms of Reference dan Kerangka Acuan Kegiatan</div></div>
+          <span class="lp-link-arrow">&#8594;</span>
+        </a>
+        <a href="docs/SOP-inovasi.pdf" class="lp-link-card">
+          <span class="lp-link-icon">&#128203;</span>
+          <div><div class="lp-link-title">SOP Inovasi</div><div class="lp-link-desc">Standard Operating Procedure administrasi sistem</div></div>
+          <span class="lp-link-arrow">&#8594;</span>
+        </a>
+        <a href="docs/buku-panduan.pdf" class="lp-link-card">
+          <span class="lp-link-icon">&#128214;</span>
+          <div><div class="lp-link-title">Buku Panduan</div><div class="lp-link-desc">Panduan lengkap penggunaan sistem</div></div>
+          <span class="lp-link-arrow">&#8594;</span>
+        </a>
+        <a href="docs/bukti-pemanfaatan.pdf" class="lp-link-card">
+          <span class="lp-link-icon">&#9989;</span>
+          <div><div class="lp-link-title">Bukti Pemanfaatan</div><div class="lp-link-desc">Dokumentasi bukti penggunaan dan pemanfaatan sistem</div></div>
+          <span class="lp-link-arrow">&#8594;</span>
+        </a>
+        <a href="docs/evaluasi-inovasi.pdf" class="lp-link-card">
+          <span class="lp-link-icon">&#128202;</span>
+          <div><div class="lp-link-title">Evaluasi Inovasi</div><div class="lp-link-desc">Evaluasi dan penilaian dampak inovasi</div></div>
+          <span class="lp-link-arrow">&#8594;</span>
+        </a>
+        <a href="docs/surat-pernyataan-kepala-satker.pdf" class="lp-link-card">
+          <span class="lp-link-icon">&#128220;</span>
+          <div><div class="lp-link-title">Surat Pernyataan Kepala Satker</div><div class="lp-link-desc">Surat pernyataan resmi dari kepala satuan kerja</div></div>
+          <span class="lp-link-arrow">&#8594;</span>
+        </a>
+        <a href="docs/executive-summary.pdf" class="lp-link-card">
+          <span class="lp-link-icon">&#128196;</span>
+          <div><div class="lp-link-title">Executive Summary</div><div class="lp-link-desc">Ringkasan eksekutif inovasi untuk pimpinan</div></div>
+          <span class="lp-link-arrow">&#8594;</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="lp-footer">
+    <p>Laravel Dental Clinic System &mdash; Built by <a href="../../about.html">Annisa Baizan</a> &middot; 2023 &middot; <a href="../index.html">All Projects</a></p>
+  </footer>
+
+  <script src="../../assets/js/stars.js"></script>
+  <script src="../../assets/js/cursor.js"></script>
+  <script src="../../assets/js/music-player.js"></script>
+  <script src="../../assets/js/effects.js"></script>
+  <script src="../../assets/js/main.js"></script>
+
+</body>
+</html>

@@ -1,194 +1,28 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="About Annisa Baizan - System Thinker, Analytical Developer">
+    <meta name="description" content="Annisa Baizan — Systematic thinker. Dingin di luar, hangat di dalam.">
     <title>About - Annisa Baizan</title>
-    
-    <!-- Global CSS -->
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&family=Fira+Code:wght@300;400;500&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="assets/css/reset.css">
     <link rel="stylesheet" href="assets/css/theme.css">
     <link rel="stylesheet" href="assets/css/components.css">
-    
-    <style>
-        /* Page-specific styles for about.html */
-        .about-hero {
-            padding-top: 120px;
-            padding-bottom: 80px;
-        }
-        
-        .profile-section {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 4rem;
-            align-items: start;
-        }
-        
-        .profile-image {
-            width: 100%;
-            aspect-ratio: 1;
-            background: var(--gradient-primary);
-            border-radius: var(--radius-xl);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 8rem;
-            position: sticky;
-            top: 120px;
-        }
-        
-        .stat-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 2rem;
-            margin: 3rem 0;
-        }
-        
-        .stat-item {
-            text-align: center;
-            padding: 2rem;
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-lg);
-        }
-        
-        .stat-number {
-            font-size: var(--text-4xl);
-            font-weight: var(--font-bold);
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .stat-label {
-            color: var(--text-secondary);
-            margin-top: 0.5rem;
-        }
-        
-        .timeline {
-            position: relative;
-            padding-left: 3rem;
-        }
-        
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: var(--border-color);
-        }
-        
-        .timeline-item {
-            position: relative;
-            margin-bottom: 3rem;
-        }
-        
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -3.5rem;
-            top: 0.5rem;
-            width: 1rem;
-            height: 1rem;
-            background: var(--accent-blue);
-            border-radius: 50%;
-            border: 3px solid var(--bg-dark);
-        }
-        
-        .timeline-date {
-            color: var(--accent-cyan);
-            font-weight: var(--font-semibold);
-            font-size: var(--text-sm);
-            margin-bottom: 0.5rem;
-        }
-        
-        .skill-category {
-            margin-bottom: 2rem;
-        }
-        
-        .skill-category h4 {
-            color: var(--accent-cyan);
-            margin-bottom: 1rem;
-            font-size: var(--text-lg);
-        }
-        
-        .skill-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.75rem;
-        }
-        
-        .characteristic-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-        }
-        
-        .characteristic-item {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-lg);
-            padding: 2rem;
-            transition: all var(--transition-base);
-        }
-        
-        .characteristic-item:hover {
-            border-color: var(--accent-blue);
-            transform: translateY(-5px);
-        }
-        
-        .characteristic-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-        
-        .characteristic-title {
-            font-size: var(--text-xl);
-            font-weight: var(--font-bold);
-            margin-bottom: 0.75rem;
-            color: var(--text-primary);
-        }
-        
-        .characteristic-description {
-            color: var(--text-secondary);
-            line-height: var(--leading-relaxed);
-            font-size: var(--text-sm);
-        }
-        
-        .quote-block {
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(6, 182, 212, 0.1));
-            border-left: 4px solid var(--accent-blue);
-            padding: 2rem;
-            border-radius: var(--radius-lg);
-            margin: 2rem 0;
-            font-style: italic;
-            color: var(--text-secondary);
-        }
-        
-        @media (max-width: 768px) {
-            .profile-section {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-            
-            .profile-image {
-                position: static;
-                max-width: 300px;
-                margin: 0 auto;
-            }
-            
-            .timeline {
-                padding-left: 2rem;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="assets/css/galaxy.css">
 </head>
+
 <body>
-    <!-- Navigation -->
+
+    <canvas id="star-canvas"></canvas>
+
+    <!-- Nav -->
     <nav class="nav">
         <div class="nav-container">
             <a href="index.html" class="nav-brand">AB</a>
@@ -199,338 +33,416 @@
                 <li><a href="blog/index.html">Blog</a></li>
                 <li><a href="links.html">Links</a></li>
             </ul>
+            <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
         </div>
     </nav>
 
-    <!-- About Hero -->
-    <section class="about-hero container">
-        <div class="profile-section">
-            <div class="profile-image">
-                👤
+    <!-- Mobile nav overlay -->
+    <div class="nav-mobile-overlay" id="nav-mobile-overlay">
+        <div class="overlay-divider"></div>
+        <a href="index.html">Home</a>
+        <a href="about.html" class="active">About</a>
+        <a href="projects/index.html">Projects</a>
+        <a href="blog/index.html">Blog</a>
+        <a href="links.html">Links</a>
+        <div class="overlay-divider"></div>
+    </div>
+
+    <!-- ── HERO ── -->
+    <section class="ab-hero">
+        <div class="ab-hero-left">
+            <div class="ab-eyebrow">About Annisa Baizan</div>
+            <h1 class="ab-name">
+                Tough.<br>
+                <em>Warm.</em><br>
+                Working on it.
+            </h1>
+            <p class="ab-tagline">
+                Systematic thinker yang lebih dalam dari yang terlihat.
+                Dingin di luar, hangat di dalam — tapi butuh waktu untuk sampai ke sana.
+            </p>
+            <div class="ab-tags">
+                <span class="ab-tag">Computer Science · BINUS</span>
+                <span class="ab-tag">ASN</span>
+                <span class="ab-tag">INFJ</span>
+                <span class="ab-tag">Independent</span>
+                <span class="ab-tag">Evidence-Based</span>
             </div>
-            
-            <div>
-                <div class="hero-label">The Systematic Skeptic</div>
-                <h1 style="font-size: var(--text-5xl); font-weight: var(--font-extrabold); margin: 1rem 0;">
-                    Annisa Baizan
-                </h1>
-                <p style="font-size: var(--text-xl); color: var(--text-secondary); margin-bottom: 2rem;">
-                    System Thinker | Analytical Developer | Evidence-Based Builder
-                </p>
-                
-                <div class="quote-block">
-                    "Mengutamakan ketepatan berpikir dibanding kenyamanan psikologis. 
-                    Lebih percaya pada struktur dan batasan eksplisit daripada asumsi implisit."
-                </div>
-                
-                <p style="color: var(--text-secondary); line-height: var(--leading-relaxed); margin-bottom: 2rem;">
-                    Lulusan komputer dengan orientasi analitis sangat kuat dan standar epistemik tinggi. 
-                    Berpikir dalam sistem, framework, dan struktur. Menghargai kejujuran intelektual 
-                    lebih dari kenyamanan, dan menolak self-deception atau idealisme kosong.
-                </p>
-                
-                <div class="tags">
-                    <span class="tag">Analytical Rigor</span>
-                    <span class="tag">Systems Thinking</span>
-                    <span class="tag">Meta-Cognitive</span>
-                    <span class="tag">Evidence-Based</span>
-                </div>
-            </div>
+        </div>
+        <div class="ab-hero-right">
+            <div class="ab-portrait">👤</div>
         </div>
     </section>
 
-    <!-- Stats Section -->
-    <section class="section">
-        <div class="container">
-            <div class="stat-grid">
-                <div class="stat-item">
-                    <div class="stat-number">100%</div>
-                    <div class="stat-label">Data-Driven</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">95%</div>
-                    <div class="stat-label">Keyakinan Epistemik</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">∞</div>
-                    <div class="stat-label">Learning Mindset</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">0</div>
-                    <div class="stat-label">False Positives Tolerance</div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- ── FIRST IMPRESSION vs REALITY ── -->
+    <section class="ab-section ab-first">
+        <div class="ab-section-inner">
+            <div class="ab-section-label">Kesan Pertama vs Kenyataan</div>
+            <h2 class="ab-section-title">Yang Orang Lihat.<br>Yang Sebenarnya Ada.</h2>
 
-    <!-- Characteristics Section -->
-    <section class="section">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-label">Core Characteristics</div>
-                <h2 class="section-title">How I Think & Work</h2>
-                <p class="section-description">
-                    Analytical-systemic thinker dengan preferensi terhadap struktur eksplisit dibanding intuisi bebas
-                </p>
-            </div>
-            
-            <div class="characteristic-grid">
-                <div class="characteristic-item">
-                    <div class="characteristic-icon">🎯</div>
-                    <h3 class="characteristic-title">Analytical Rigor</h3>
-                    <p class="characteristic-description">
-                        Mampu membangun framework kompleks dengan analytical thinking yang ketat. 
-                        Setiap kesimpulan harus berbasis data dan dapat dipertanggungjawabkan. 
-                        Menghindari asumsi tak berdasar dan spekulasi.
-                    </p>
-                </div>
-                
-                <div class="characteristic-item">
-                    <div class="characteristic-icon">⚙️</div>
-                    <h3 class="characteristic-title">Systems Thinking</h3>
-                    <p class="characteristic-description">
-                        Melihat pola dan interkoneksi dalam sistem yang kompleks. 
-                        Mengidentifikasi input, output, bottleneck, dan failure modes 
-                        untuk mencapai optimization yang efektif.
-                    </p>
-                </div>
-                
-                <div class="characteristic-item">
-                    <div class="characteristic-icon">🧠</div>
-                    <h3 class="characteristic-title">Meta-Cognitive Awareness</h3>
-                    <p class="characteristic-description">
-                        Sadar akan keterbatasan pengetahuan sendiri dan aktif mencari blind spots. 
-                        Self-reflection oriented dengan kesadaran tinggi terhadap potensi bias kognitif.
-                    </p>
-                </div>
-                
-                <div class="characteristic-item">
-                    <div class="characteristic-icon">📊</div>
-                    <h3 class="characteristic-title">Evidence-Based Decision</h3>
-                    <p class="characteristic-description">
-                        Data-driven approach dalam mengambil keputusan. 
-                        Sistematis dalam mengumpulkan informasi dan menggunakan 
-                        framework/mental models untuk decision-making.
-                    </p>
-                </div>
-                
-                <div class="characteristic-item">
-                    <div class="characteristic-icon">✅</div>
-                    <h3 class="characteristic-title">Intellectual Honesty</h3>
-                    <p class="characteristic-description">
-                        Menghargai truth over comfort. Lebih memilih "tidak tahu" 
-                        daripada memberikan jawaban yang salah. Transparansi dalam 
-                        menyatakan tingkat keyakinan dan ketidakpastian.
-                    </p>
-                </div>
-                
-                <div class="characteristic-item">
-                    <div class="characteristic-icon">📐</div>
-                    <h3 class="characteristic-title">Structured Communication</h3>
-                    <p class="characteristic-description">
-                        Direct, terstruktur, dan efisien. Heavy use of formatting, 
-                        numbering, categorization. Clear boundary setting dengan 
-                        fokus pada substansi dibanding pleasantries.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Technical Skills Section -->
-    <section class="section" style="background: var(--bg-card);">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-label">Technical Expertise</div>
-                <h2 class="section-title">Tech Stack & Tools</h2>
-                <p class="section-description">
-                    Pengalaman praktis dalam pengembangan web full-stack dengan fokus pada sistem yang robust
-                </p>
-            </div>
-            
-            <div class="grid grid-auto">
-                <div class="card">
-                    <div class="skill-category">
-                        <h4>Frontend Development</h4>
-                        <div class="skill-list">
-                            <span class="tag">React</span>
-                            <span class="tag">Vite</span>
-                            <span class="tag">TypeScript</span>
-                            <span class="tag">HTML/CSS</span>
-                            <span class="tag">JavaScript</span>
-                        </div>
-                    </div>
-                    
-                    <div class="skill-category">
-                        <h4>Backend Development</h4>
-                        <div class="skill-list">
-                            <span class="tag">Python</span>
-                            <span class="tag">FastAPI</span>
-                            <span class="tag">Flask</span>
-                            <span class="tag">PostgreSQL</span>
-                            <span class="tag">REST API</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <div class="skill-category">
-                        <h4>DevOps & Tools</h4>
-                        <div class="skill-list">
-                            <span class="tag">Docker</span>
-                            <span class="tag">docker-compose</span>
-                            <span class="tag">Git</span>
-                            <span class="tag">XAMPP</span>
-                            <span class="tag">Linux</span>
-                        </div>
-                    </div>
-                    
-                    <div class="skill-category">
-                        <h4>Soft Skills</h4>
-                        <div class="skill-list">
-                            <span class="tag tag-green">Problem Solving</span>
-                            <span class="tag tag-green">System Design</span>
-                            <span class="tag tag-green">Documentation</span>
-                            <span class="tag tag-green">Critical Thinking</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Thinking Process Section -->
-    <section class="section">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-label">Approach</div>
-                <h2 class="section-title">Decision-Making Process</h2>
-            </div>
-            
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-date">STEP 1</div>
-                    <h3 style="margin-bottom: 0.5rem;">Define Problem Space</h3>
-                    <p style="color: var(--text-secondary);">
-                        Mendefinisikan ruang masalah dengan jelas, mengidentifikasi constraint, 
-                        dan menetapkan batasan eksplisit sebelum mencari solusi.
-                    </p>
-                </div>
-                
-                <div class="timeline-item">
-                    <div class="timeline-date">STEP 2</div>
-                    <h3 style="margin-bottom: 0.5rem;">Gather Evidence</h3>
-                    <p style="color: var(--text-secondary);">
-                        Mengumpulkan data dan informasi yang terverifikasi. Sistematis dalam 
-                        verification dan memisahkan fakta dari inferensi.
-                    </p>
-                </div>
-                
-                <div class="timeline-item">
-                    <div class="timeline-date">STEP 3</div>
-                    <h3 style="margin-bottom: 0.5rem;">Framework Analysis</h3>
-                    <p style="color: var(--text-secondary);">
-                        Menggunakan framework dan mental models untuk menganalisis data. 
-                        Rule-based approach dengan fokus pada logical consistency.
-                    </p>
-                </div>
-                
-                <div class="timeline-item">
-                    <div class="timeline-date">STEP 4</div>
-                    <h3 style="margin-bottom: 0.5rem;">Verification & Testing</h3>
-                    <p style="color: var(--text-secondary);">
-                        Multiple verification layers sebelum menerima output. 
-                        Conservative dalam membuat assumptions, toleransi rendah terhadap logical error.
-                    </p>
-                </div>
-                
-                <div class="timeline-item">
-                    <div class="timeline-date">STEP 5</div>
-                    <h3 style="margin-bottom: 0.5rem;">Continuous Optimization</h3>
-                    <p style="color: var(--text-secondary);">
-                        Melihat sistem sebagai sesuatu yang bisa terus dioptimasi. 
-                        Aktif mencari blind spots dan area improvement.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Values Section -->
-    <section class="section" style="background: var(--bg-card);">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-label">Core Values</div>
-                <h2 class="section-title">What I Stand For</h2>
-            </div>
-            
-            <div class="grid grid-2">
+            <div class="ab-two-col">
                 <div>
-                    <h3 style="color: var(--accent-cyan); margin-bottom: 1rem;">Prioritas Tinggi</h3>
-                    <ul style="list-style: none; padding: 0;">
-                        <li style="padding: 1rem 0; border-bottom: 1px solid var(--border-color);">
-                            <strong>Correctness > Speed</strong>
-                            <p style="color: var(--text-secondary); margin-top: 0.5rem; font-size: var(--text-sm);">
-                                Lebih baik lambat tapi benar daripada cepat tapi salah
-                            </p>
-                        </li>
-                        <li style="padding: 1rem 0; border-bottom: 1px solid var(--border-color);">
-                            <strong>Truth > Comfort</strong>
-                            <p style="color: var(--text-secondary); margin-top: 0.5rem; font-size: var(--text-sm);">
-                                Kejujuran intelektual lebih dari kenyamanan psikologis
-                            </p>
-                        </li>
-                        <li style="padding: 1rem 0;">
-                            <strong>Structure > Ambiguity</strong>
-                            <p style="color: var(--text-secondary); margin-top: 0.5rem; font-size: var(--text-sm);">
-                                Definisi jelas dan batasan eksplisit
-                            </p>
-                        </li>
-                    </ul>
+                    <div class="ab-prose">
+                        <p>
+                            Kesan pertama: <strong>pendiam, serius, sulit didekati.</strong><br>
+                            Mungkin terkesan cuek. Mungkin terkesan tidak tertarik.<br>
+                            Tapi diam bukan berarti kosong — dan jarak bukan berarti tidak mau dekat.
+                        </p>
+                        <p>
+                            Kenyataannya — satu benang merah yang mengikat semuanya:<br>
+                            <strong>tidak bisa setengah-setengah.</strong>
+                        </p>
+                    </div>
+                    <div class="ab-divider"></div>
+                    <div class="ab-prose">
+                        <p>
+                            <strong>01 — Tidak berhenti sebelum paham.</strong><br>
+                            Kalau sudah tertarik pada sesuatu, dikejar sampai ke akar.
+                            Bukan karena harus, tapi karena memang tidak bisa berhenti di permukaan.
+                        </p>
+                        <p>
+                            <strong>02 — Tidak bisa kerja asal jadi.</strong><br>
+                            Yang dikerjakan, dikerjakan sungguh-sungguh.
+                            Yang dijaga, dijaga dengan sepenuh hati. Standar bukan tuntutan dari luar — ini dari dalam.
+                        </p>
+                        <p>
+                            <strong>03 — Hangat — tapi perlu waktu untuk sampai ke sana.</strong><br>
+                            Teman-teman yang sudah kenal bilang: care, tempat aman.
+                            Tapi untuk sampai ke sana butuh proses — karena saya hanya bisa
+                            benar-benar hadir untuk orang yang benar-benar membutuhkan saya.
+                        </p>
+                    </div>
                 </div>
-                
+
                 <div>
-                    <h3 style="color: var(--accent-cyan); margin-bottom: 1rem;">Growth Areas</h3>
-                    <ul style="list-style: none; padding: 0;">
-                        <li style="padding: 1rem 0; border-bottom: 1px solid var(--border-color);">
-                            <strong>Bounded Decision-Making</strong>
-                            <p style="color: var(--text-secondary); margin-top: 0.5rem; font-size: var(--text-sm);">
-                                Keputusan dengan threshold minimal yang disengaja
-                            </p>
-                        </li>
-                        <li style="padding: 1rem 0; border-bottom: 1px solid var(--border-color);">
-                            <strong>Adaptive Heuristics</strong>
-                            <p style="color: var(--text-secondary); margin-top: 0.5rem; font-size: var(--text-sm);">
-                                Balance antara analisis dan action
-                            </p>
-                        </li>
-                        <li style="padding: 1rem 0;">
-                            <strong>Comfort with Ambiguity</strong>
-                            <p style="color: var(--text-secondary); margin-top: 0.5rem; font-size: var(--text-sm);">
-                                Decision-making under uncertainty
-                            </p>
-                        </li>
-                    </ul>
+                    <div class="ab-quote">
+                        "Seneng hal-hal yang kadang orang tidak ekspek, terus kalau sudah tahu — sampai detail dia
+                        tahu."<br>
+                        "Gila belajar, anaknya ambisius. Apa yang jadi persoalan kalau belum terpecahkan belum ada
+                        solusi, pasti terus belajar sampai persoalan itu bisa diselesaikan."
+                    </div>
+                    <div class="ab-quote">
+                        "Kalau sudah ada tujuan, pokoknya dia usahakan."<br>
+                        "Misalnya ada tugas, pasti dikerjakan sampai selesai."<br>
+                        "Dedikasi, fokus, semangat juang, gigih, dan komitmen. Tidak mudah menyerah."
+                    </div>
+                    <div class="ab-quote">
+                        "Tough but warm."<br>
+                        "Dingin di luar, hangat di dalam."<br>
+                        "Peduli dengan orang di sekelilingnya, walaupun mungkin caranya sedikit jutek dan judes —
+                        padahal di dalam hati sangat care sama orang."<br>
+                        "Baik pada orang-orang terdekat, apalagi kalau sudah akrab, sangat perhatian."
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- CTA Section -->
-    <section class="section">
-        <div class="container">
-            <div class="card" style="background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(6, 182, 212, 0.1)); text-align: center; padding: 4rem 2rem;">
-                <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Interested in Collaboration?</h2>
-                <p style="font-size: 1.2rem; color: var(--text-secondary); margin-bottom: 2rem;">
-                    Terbuka untuk diskusi tentang sistem thinking, web development, atau analytical approaches.
-                </p>
-                <div class="hero-cta">
-                    <a href="links.html" class="btn btn-primary">Get in Touch</a>
-                    <a href="projects/index.html" class="btn btn-secondary">View Projects</a>
+    <!-- ── SISI LAIN ── -->
+    <section class="ab-section">
+        <div class="ab-section-inner">
+            <div class="ab-section-label">Di Luar Kode</div>
+            <h2 class="ab-section-title">Yang Jarang Ditampilkan</h2>
+            <p class="ab-section-lead">
+                Ada sisi dari saya yang tidak langsung terlihat
+            </p>
+
+            <div class="ab-hobby-list">
+                <div class="ab-hobby-item">
+                    <span class="ab-hobby-icon">🔭</span>
+                    <div class="ab-hobby-name">Astronomi · Psikologi · Filsafat</div>
+                    <div class="ab-hobby-note">Semesta, manusia, dan makna. Tiga hal berbeda — satu ketertarikan yang
+                        sama.</div>
+                </div>
+                <div class="ab-hobby-item">
+                    <span class="ab-hobby-icon">✂️</span>
+                    <div class="ab-hobby-name">Crafting & Kerajinan</div>
+                    <div class="ab-hobby-note">Kadang ekspresi yang paling jujur tidak butuh kata-kata.</div>
+                </div>
+                <div class="ab-hobby-item">
+                    <span class="ab-hobby-icon">🎵</span>
+                    <div class="ab-hobby-name">Menyanyi</div>
+                    <div class="ab-hobby-note">Bukan untuk didengar semua orang. Cukup untuk diri sendiri — dan orang
+                        yang tepat.</div>
+                </div>
+                <div class="ab-hobby-item">
+                    <span class="ab-hobby-icon">💻</span>
+                    <div class="ab-hobby-name">Problem Solving</div>
+                    <div class="ab-hobby-note">Belum tamat kalau masalah belum selesai. Berjam-jam di depan layar bukan
+                        beban — ini mode.</div>
+                </div>
+                <div class="ab-hobby-item">
+                    <span class="ab-hobby-icon">✍️</span>
+                    <div class="ab-hobby-name">Menulis</div>
+                    <div class="ab-hobby-note">Cara lain untuk memproses — pikiran yang terlalu penuh untuk disimpan
+                        sendiri.</div>
+                </div>
+                <div class="ab-hobby-item">
+                    <span class="ab-hobby-icon">📖</span>
+                    <div class="ab-hobby-name">Membaca & Riset</div>
+                    <div class="ab-hobby-note">Satu pertanyaan membuka sepuluh pertanyaan lain. Tidak apa-apa — itu yang
+                        menarik.</div>
                 </div>
             </div>
         </div>
     </section>
+
+    <!-- ── CONTEXT ── -->
+    <section class="ab-section"
+        style="background: var(--bg-card); border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);">
+        <div class="ab-section-inner">
+            <div class="ab-section-label">Konteks</div>
+            <h2 class="ab-section-title">Siapa, Di Mana, Mengerjakan Apa</h2>
+
+            <div class="ab-context-grid">
+                <div class="ab-context-item">
+                    <div class="ab-context-label">Akademik</div>
+                    <div class="ab-context-value">S1 Computer Science · BINUS</div>
+                    <div class="ab-context-note">D3 Teknik Komputer lulus, lanjut S1. Termasuk self-directed curriculum di luar perkuliahan — bukan casual reading, tapi systematic study.</div>
+                </div>
+                <div class="ab-context-item">
+                    <div class="ab-context-label">Profesional</div>
+                    <div class="ab-context-value">ASN</div>
+                    <div class="ab-context-note">Dual-track: teknologi akademis + birokrasi pemerintahan. Multi-tracking
+                        yang demanding, dijalankan bersamaan.</div>
+                </div>
+                <div class="ab-context-item">
+                    <div class="ab-context-label">Tech Stack</div>
+                    <div class="ab-context-value">Laravel · Vue.js · PHP · Python · Flask · FastAPI · MySQL · VB.NET · CodeIgniter</div>
+                    <div class="ab-context-note">Full-stack, health informatics &amp; institutional systems. Project yang dikerjakan dengan dedikasi, bukan sekadar tugas.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── KELEBIHAN ── -->
+    <section class="ab-section">
+        <div class="ab-section-inner">
+            <div class="ab-section-label">Kelebihan</div>
+            <h2 class="ab-section-title">Yang Konsisten Ada</h2>
+            <p class="ab-section-lead">
+                Dikonfirmasi oleh orang-orang di sekitar saya, bukan hanya self-assessment.
+            </p>
+
+            <div class="ab-cards">
+                <div class="ab-card strength">
+                    <div class="ab-card-top">
+                        <div class="ab-card-title">🧩 Systematic Thinker</div>
+                        <span class="ab-card-badge cyan">Default Mode</span>
+                    </div>
+                    <div class="ab-card-body">
+                        Bukan sekadar terorganisir — ini cara default memproses informasi.
+                        Memisahkan yang diketahui dari yang diasumsikan, mencari pola,
+                        membangun kesimpulan dari dasar yang solid.
+                        Bukan gaya komunikasi, ini cara kerja otak.
+                    </div>
+                </div>
+                <div class="ab-card strength">
+                    <div class="ab-card-top">
+                        <div class="ab-card-title">🔥 Dedikasi & Daya Juang</div>
+                        <span class="ab-card-badge cyan">Verified</span>
+                    </div>
+                    <div class="ab-card-body">
+                        Kalau sudah commit — all-in. Rela begadang, rela otak-atik berjam-jam,
+                        tidak berhenti sebelum menemukan solusi. Bukan karena semangat sesaat —
+                        tapi karena memang tidak bisa berhenti di tengah jalan.
+                    </div>
+                </div>
+
+                <div class="ab-card strength">
+                    <div class="ab-card-top">
+                        <div class="ab-card-title">🎯 Standar yang Datang dari Dalam</div>
+                        <span class="ab-card-badge cyan">Self-Driven</span>
+                    </div>
+                    <div class="ab-card-body">
+                        Tidak butuh diawasi untuk bekerja dengan baik.
+                        Standar bukan karena tekanan luar — tapi karena memang tidak nyaman
+                        menghasilkan sesuatu yang kurang dari yang seharusnya.
+                    </div>
+                </div>
+
+                <div class="ab-card strength">
+                    <div class="ab-card-top">
+                        <div class="ab-card-title">🤝 Empati yang Tidak Berisik</div>
+                        <span class="ab-card-badge cyan">Hidden Strength</span>
+                    </div>
+                    <div class="ab-card-body">
+                        Toleran terhadap perbedaan — cara pikir, latar belakang, kemampuan.
+                        Selalu mencari alasan di balik tindakan orang sebelum menghakimi.
+                        Bisa bersabar dengan orang yang membutuhkan — bukan karena terpaksa,
+                        tapi karena genuine care yang tidak selalu terlihat dari luar.
+                    </div>
+                </div>
+
+                <div class="ab-card strength">
+                    <div class="ab-card-top">
+                        <div class="ab-card-title">🚀 Independent Agency</div>
+                        <span class="ab-card-badge cyan">Consistent Pattern</span>
+                    </div>
+                    <div class="ab-card-body">
+                        Bergerak atas inisiatif sendiri — mendesain jalan belajar, mengambil keputusan,
+                        menyelesaikan masalah tanpa harus menunggu arahan atau dorongan dari luar.
+                        Mandiri bukan karena tidak butuh orang lain — tapi karena memang sudah terbiasa
+                        mencari jalan sendiri.
+                    </div>
+                </div>
+
+                <div class="ab-card strength">
+                    <div class="ab-card-top">
+                        <div class="ab-card-title">✅ Intellectual Honesty</div>
+                        <span class="ab-card-badge cyan">Non-Negotiable</span>
+                    </div>
+                    <div class="ab-card-body">
+                        Lebih memilih "tidak tahu" daripada jawaban yang salah.
+                        Kebenaran di atas kenyamanan. Fakta di atas kecepatan.
+                        Ini pilihan sadar dengan cost yang jelas — dan tetap dipilih.
+                    </div>
+                </div>
+
+                <div class="ab-card strength">
+                    <div class="ab-card-top">
+                        <div class="ab-card-title">🌱 Kapasitas Belajar yang Genuine</div>
+                        <span class="ab-card-badge cyan">Terus Berkembang</span>
+                    </div>
+                    <div class="ab-card-body">
+                        Bukan sekadar suka belajar — ada perubahan nyata setelah belajar.
+                        Dari ilmu komputer sampai psikologi, dari coding sampai memahami diri sendiri.
+                        Rasa ingin tahu yang tidak bisa berhenti di permukaan.
+                    </div>
+                </div>
+
+                <div class="ab-card strength">
+                    <div class="ab-card-top">
+                        <div class="ab-card-title">🤲 Tulus dalam Membantu</div>
+                        <span class="ab-card-badge cyan">Verified by Others</span>
+                    </div>
+                    <div class="ab-card-body">
+                        Kalau membantu, benar-benar membantu.
+                        Rela menjelaskan berulang-ulang, rela mencari pendekatan yang berbeda
+                        sampai orang benar-benar mengerti dan terbantu.
+                        Bukan karena kewajiban — tapi karena memang peduli.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── KELEMAHAN ── -->
+    <section class="ab-section"
+        style="background: var(--bg-card); border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);">
+        <div class="ab-section-inner">
+            <div class="ab-section-label">Kelemahan</div>
+            <h2 class="ab-section-title">Yang Masih Dikerjakan</h2>
+            <p class="ab-section-lead">
+                Tidak ada yang sudah selesai hanya karena sudah diberi label.
+                Ini masih aktif — dan sedang dihadapi.
+            </p>
+
+            <div class="ab-cards">
+                <div class="ab-card weakness">
+                    <div class="ab-card-top">
+                        <div class="ab-card-title">🐌 Analysis Paralysis</div>
+                        <span class="ab-card-badge orange">High Impact</span>
+                    </div>
+                    <div class="ab-card-body">
+                        Overthinking yang aktif menghambat eksekusi. Self-aware tentang ini —
+                        tapi masih terjadi. Preference untuk thoroughness sebelum commit
+                        sering lebih mahal dari yang seharusnya.
+                    </div>
+                </div>
+
+                <div class="ab-card weakness">
+                    <div class="ab-card-top">
+                        <div class="ab-card-title">🪞 Perfeksionisme yang Berbalik ke Dalam</div>
+                        <span class="ab-card-badge orange">High Impact</span>
+                    </div>
+                    <div class="ab-card-body">
+                        Standar tinggi yang seharusnya jadi kekuatan — kadang berbalik
+                        menjadi tekanan terhadap diri sendiri. Ketika hasil tidak sesuai ekspektasi,
+                        penilaian terhadap diri bisa jauh lebih keras dari yang diperlukan.
+                    </div>
+                </div>
+
+                <div class="ab-card weakness">
+                    <div class="ab-card-top">
+                        <div class="ab-card-title">📏 Ekspektasi Tinggi terhadap Orang Lain</div>
+                        <span class="ab-card-badge orange">Moderate</span>
+                    </div>
+                    <div class="ab-card-body">
+                        Karena mampu belajar dan berubah dengan cepat, tidak selalu mudah
+                        memahami kenapa orang lain tidak melakukan hal yang sama.
+                        Standar untuk diri sendiri yang tinggi kadang tanpa sadar
+                        menjadi tolok ukur untuk orang lain juga.
+                    </div>
+                </div>
+
+                <div class="ab-card weakness">
+                    <div class="ab-card-top">
+                        <div class="ab-card-title">🔧 Susah Delegasi</div>
+                        <span class="ab-card-badge orange">High Impact</span>
+                    </div>
+                    <div class="ab-card-body">
+                        Karena standar tinggi dan tidak bisa setengah-setengah,
+                        lebih mudah mengerjakan sendiri daripada menyerahkan ke orang lain.
+                        Efektif dalam jangka pendek — tapi tidak sustainable dalam jangka panjang.
+                    </div>
+                </div>
+
+                <div class="ab-card weakness">
+                    <div class="ab-card-top">
+                        <div class="ab-card-title">🎯 Belajar Tanpa Arah yang Jelas</div>
+                        <span class="ab-card-badge orange">Perlu Kalibrasi</span>
+                    </div>
+                    <div class="ab-card-body">
+                        Bisa belajar dan meningkatkan diri dengan sangat serius —
+                        tapi kadang tanpa tujuan akhir yang benar-benar jelas.
+                        Kompetensi bisa jadi tujuan itu sendiri, bukan alat menuju sesuatu.
+                        Perlu audit: ini untuk apa, dan menuju mana?
+                    </div>
+                </div>
+
+                <div class="ab-card weakness">
+                    <div class="ab-card-top">
+                        <div class="ab-card-title">😐 Susah Terbuka di Awal</div>
+                        <span class="ab-card-badge orange">Low-Moderate</span>
+                    </div>
+                    <div class="ab-card-body">
+                        Cover depan: introvert parah. Butuh waktu dan effort untuk benar-benar mengenal saya.
+                        Di zaman yang bergerak cepat, banyak orang tidak mau invest waktu itu —
+                        dan itu jadi kehilangan di kedua sisi.
+                    </div>
+                </div>
+
+                <div class="ab-card weakness">
+                    <div class="ab-card-top">
+                        <div class="ab-card-title">🫂 Sulit Bilang Tidak</div>
+                        <span class="ab-card-badge orange">Low-Moderate</span>
+                    </div>
+                    <div class="ab-card-body">
+                        Karena genuinely peduli, sulit mengabaikan orang yang membutuhkan bantuan.
+                        Yang tadinya kekuatan — ketulusan dalam membantu — bisa jadi beban
+                        ketika tidak ada batas yang jelas antara peduli dan menanggung terlalu banyak.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── CTA ── -->
+    <div class="ab-cta">
+        <h2 class="ab-cta-title">Tertarik untuk Benar-Benar Berkenalan?</h2>
+        <p class="ab-cta-sub">
+            Saya bukan orang yang mudah dikenal dari permukaan.
+            Tapi kalau Anda mau invest waktu untuk itu — mungkin worth it.
+            Atau setidaknya, tidak membosankan.
+        </p>
+        <div class="hero-cta">
+            <a href="links.html" class="btn btn-primary">Get in Touch</a>
+            <a href="projects/index.html" class="btn btn-secondary">View Projects</a>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer class="footer">
@@ -542,8 +454,16 @@
                 <a href="labs/index.html">Labs</a>
                 <a href="links.html">Contact</a>
             </div>
-            <p>&copy; 2026 Annisa Baizan. Built with analytical precision.</p>
+            <p style="color:#7a7095;">✦ &copy; 2026 Annisa Baizan — Built with analytical precision &amp; a touch of magic ✦</p>
         </div>
     </footer>
+
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/stars.js"></script>
+    <script src="assets/js/cursor.js"></script>
+    <script src="assets/js/effects.js"></script>
+    <script src="assets/js/music-player.js"></script>
+
 </body>
+
 </html>

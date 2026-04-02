@@ -3,192 +3,932 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Annisa Baizan - System Thinker & Analytical Developer">
-    <title>Annisa Baizan - Portfolio</title>
-    
-    <!-- Global CSS -->
+    <meta name="description" content="Annisa Baizan — System Thinker & Analytical Developer">
+    <title>Annisa Baizan — Portfolio</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
     <link rel="stylesheet" href="assets/css/reset.css">
     <link rel="stylesheet" href="assets/css/theme.css">
     <link rel="stylesheet" href="assets/css/components.css">
-    
+    <link rel="stylesheet" href="assets/css/galaxy.css">
+
     <style>
-        /* Page-specific styles for index.html */
-        .scroll-indicator {
-            position: absolute;
-            bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            animation: bounce 2s infinite;
+        /* ═══════════════════════════════════════════════
+           INDEX — SPECTACULAR GALAXY EDITION
+           ═══════════════════════════════════════════════ */
+
+        /* ── KEYFRAMES ── */
+        @keyframes nebulaDrift {
+            0%,100% { transform: translate(0,0) scale(1); opacity: .55; }
+            33%      { transform: translate(50px,-35px) scale(1.1); opacity: .75; }
+            66%      { transform: translate(-30px,25px) scale(.92); opacity: .45; }
+        }
+        @keyframes shimmerSweep {
+            0%   { left: -100%; }
+            100% { left: 160%; }
+        }
+        @keyframes auroraShift {
+            0%   { background-position: 0% 50%; }
+            50%  { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        @keyframes constellationFade {
+            0%,100% { opacity: .2; }
+            50%     { opacity: .8; }
+        }
+        @keyframes dotPulse {
+            0%,100% { transform: scale(1); opacity: 1; }
+            50%     { transform: scale(1.6); opacity: .5; }
+        }
+        @keyframes borderBreath {
+            0%,100% { box-shadow: 0 0 30px rgba(240,192,64,.12), 0 0 80px rgba(123,47,255,.08); }
+            50%     { box-shadow: 0 0 80px rgba(240,192,64,.35), 0 0 160px rgba(0,212,255,.15); }
+        }
+        @keyframes gradientThumb {
+            0%,100% { background-position: 0% 50%; }
+            50%     { background-position: 100% 50%; }
+        }
+        @keyframes glyphSpin {
+            from { transform: rotate(0deg); }
+            to   { transform: rotate(360deg); }
+        }
+        @keyframes letterDrop {
+            from { opacity: 0; transform: translateY(70px) skewX(-6deg); filter: blur(6px); }
+            to   { opacity: 1; transform: translateY(0) skewX(0);        filter: blur(0); }
+        }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes scanLine {
+            from { transform: translateX(-100%); }
+            to   { transform: translateX(100%); }
+        }
+        @keyframes quoteGlow {
+            0%,100% { text-shadow: 0 0 40px rgba(240,192,64,.15); }
+            50%     { text-shadow: 0 0 80px rgba(240,192,64,.45), 0 0 160px rgba(240,192,64,.12); }
         }
 
-        .scroll-indicator::after {
-            content: '↓';
-            font-size: 2rem;
-            color: var(--accent-cyan);
+        /* ── HERO NEBULA ORBS ── */
+        .hero-nebula {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            filter: blur(80px);
+        }
+        .hero-nebula-1 {
+            width: 700px; height: 700px;
+            top: -10%; right: -5%;
+            background: radial-gradient(circle, rgba(123,47,255,.18) 0%, transparent 65%);
+            animation: nebulaDrift 18s ease-in-out infinite;
+        }
+        .hero-nebula-2 {
+            width: 500px; height: 500px;
+            bottom: 0; left: -5%;
+            background: radial-gradient(circle, rgba(0,212,255,.1) 0%, transparent 65%);
+            animation: nebulaDrift 14s ease-in-out infinite reverse;
+        }
+        .hero-nebula-3 {
+            width: 300px; height: 300px;
+            top: 40%; left: 42%;
+            background: radial-gradient(circle, rgba(240,192,64,.07) 0%, transparent 65%);
+            animation: nebulaDrift 22s ease-in-out infinite 3s;
+        }
+
+        /* ── HERO TITLE LETTER ANIMATION ── */
+        .hero-name-letter {
+            display: inline-block;
+            opacity: 0;
+            animation: letterDrop .65s cubic-bezier(.22,1,.36,1) forwards;
+        }
+
+        /* ── HERO EYEBROW scan effect ── */
+        .hero-eyebrow {
+            overflow: hidden;
+        }
+        .hero-eyebrow::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 60%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(240,192,64,.25), transparent);
+            animation: scanLine 3s ease-in-out infinite 1s;
+            pointer-events: none;
+        }
+
+        /* ── COSMOS DIVIDER ── */
+        .cosmos-divider {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            overflow: visible;
+        }
+        .cosmos-divider-line {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(240,192,64,.2), transparent);
+        }
+        .cosmos-divider-center {
+            position: relative;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 1.5rem;
+        }
+        .cosmos-divider-center::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            border: 1px solid rgba(240,192,64,.15);
+            animation: glyphSpin 20s linear infinite;
+        }
+        .cosmos-divider-center::after {
+            content: '';
+            position: absolute;
+            inset: 8px;
+            border-radius: 50%;
+            border: 1px dashed rgba(240,192,64,.1);
+            animation: glyphSpin 12s linear infinite reverse;
+        }
+        .cosmos-divider-glyph {
+            font-size: .9rem;
+            color: rgba(240,192,64,.6);
+            position: relative;
+            z-index: 1;
+            animation: constellationFade 3s ease-in-out infinite;
+        }
+        .cosmos-divider-dots {
+            display: flex;
+            gap: .5rem;
+            align-items: center;
+        }
+        .cosmos-divider-dot {
+            width: 3px; height: 3px;
+            border-radius: 50%;
+            background: rgba(240,192,64,.35);
+        }
+        .cosmos-divider-dot:nth-child(2) {
+            width: 5px; height: 5px;
+            animation: dotPulse 2s ease-in-out infinite;
+        }
+        .cosmos-divider-dot:nth-child(4) {
+            animation: dotPulse 2s ease-in-out infinite .5s;
+        }
+
+        /* ── STATS ── */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .stat-card {
+            animation: borderBreath 5s ease-in-out infinite;
+        }
+        .stat-card:nth-child(2) { animation-delay: 1.2s; }
+        .stat-card:nth-child(3) { animation-delay: 2.4s; }
+        .stat-card:nth-child(4) { animation-delay: 3.6s; }
+
+        /* ── INTRO CARDS ── */
+        .intro-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .intro-card {
+            background: rgba(13,10,46,.72);
+            border: 1px solid rgba(240,192,64,.1);
+            border-radius: 16px;
+            padding: 2.5rem 2rem;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(14px);
+            transition: border-color .35s, transform .35s, box-shadow .35s;
+        }
+
+        /* Top shimmer bar */
+        .intro-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(240,192,64,.7), transparent);
+            transform: scaleX(0);
+            transition: transform .4s;
+        }
+
+        /* Hover shimmer sweep */
+        .intro-card::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -120%;
+            width: 55%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(240,192,64,.055), transparent);
+            transform: skewX(-15deg);
+            pointer-events: none;
+        }
+
+        .intro-card:hover {
+            border-color: rgba(240,192,64,.45);
+            transform: translateY(-10px);
+            box-shadow: 0 0 50px rgba(240,192,64,.12), 0 24px 70px rgba(0,0,0,.55);
+        }
+        .intro-card:hover::before { transform: scaleX(1); }
+        .intro-card:hover::after  { animation: shimmerSweep .75s ease forwards; }
+
+        .card-icon-wrap {
+            width: 54px; height: 54px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, rgba(123,47,255,.3), rgba(240,192,64,.15));
+            border: 1px solid rgba(240,192,64,.2);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.6rem;
+            margin-bottom: 1.5rem;
+            transition: transform .3s, box-shadow .3s;
+        }
+        .intro-card:hover .card-icon-wrap {
+            transform: scale(1.1) rotate(-5deg);
+            box-shadow: 0 0 20px rgba(240,192,64,.25);
+        }
+
+        .intro-card h3 {
+            font-size: 1rem;
+            margin-bottom: .75rem;
+            color: #f5f0ff;
+        }
+
+        .intro-card p {
+            font-family: 'Crimson Text', serif;
+            font-size: 1rem;
+            color: #a89fc0;
+            line-height: 1.85;
+        }
+
+        /* ── QUOTE SECTION ── */
+        .quote-section {
+            background: rgba(7,5,15,.65);
+            border-top: 1px solid rgba(240,192,64,.08);
+            border-bottom: 1px solid rgba(240,192,64,.08);
+            padding: 5rem 2rem;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        /* Ambient quote bg orb */
+        .quote-section::before {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px; height: 400px;
+            background: radial-gradient(ellipse, rgba(123,47,255,.07) 0%, transparent 65%);
+            pointer-events: none;
+        }
+
+        .quote-marks-wrap {
+            position: relative;
+            display: inline-block;
+            max-width: 760px;
+        }
+        .quote-giant-open,
+        .quote-giant-close {
+            font-family: 'Crimson Text', serif;
+            font-size: 7rem;
+            line-height: 0.8;
+            user-select: none;
+            position: absolute;
+            animation: quoteGlow 4s ease-in-out infinite;
+        }
+        .quote-giant-open {
+            color: rgba(240,192,64,.15);
+            top: -1.5rem;
+            left: -2rem;
+        }
+        .quote-giant-close {
+            color: rgba(0,212,255,.1);
+            bottom: -3rem;
+            right: -2rem;
+            animation-delay: 2s;
+        }
+
+        .quote-text {
+            font-family: 'Crimson Text', serif;
+            font-style: italic;
+            font-size: clamp(1.3rem, 2.5vw, 1.9rem);
+            color: #d0c8e8;
+            line-height: 1.7;
+            max-width: 700px;
+            margin: 0 auto 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .quote-attr {
+            font-family: 'Cinzel', serif;
+            font-size: .68rem;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            color: #f0c040;
+            opacity: .7;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ── PROJECT CARDS ── */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .project-card {
+            background: rgba(13,10,46,.72);
+            border: 1px solid rgba(240,192,64,.1);
+            border-radius: 16px;
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            transition: border-color .35s, transform .35s, box-shadow .35s;
+            backdrop-filter: blur(14px);
+            position: relative;
+        }
+
+        .project-card::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -120%;
+            width: 55%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(240,192,64,.05), transparent);
+            transform: skewX(-15deg);
+            pointer-events: none;
+        }
+
+        .project-card:hover {
+            border-color: rgba(240,192,64,.5);
+            transform: translateY(-10px);
+            box-shadow: 0 0 50px rgba(240,192,64,.15), 0 24px 70px rgba(0,0,0,.55);
+        }
+        .project-card:hover::after { animation: shimmerSweep .75s ease forwards; }
+
+        .project-thumb {
+            height: 160px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, rgba(123,47,255,.28), rgba(240,192,64,.12), rgba(0,212,255,.1));
+            background-size: 300% 300%;
+            animation: gradientThumb 6s ease infinite;
+        }
+
+        .project-card:nth-child(2) .project-thumb {
+            background: linear-gradient(135deg, rgba(0,212,255,.22), rgba(123,47,255,.18), rgba(240,192,64,.1));
+            background-size: 300% 300%;
+            animation: gradientThumb 8s ease infinite reverse;
+        }
+        .project-card:nth-child(3) .project-thumb {
+            background: linear-gradient(135deg, rgba(196,30,58,.18), rgba(240,192,64,.15), rgba(123,47,255,.15));
+            background-size: 300% 300%;
+            animation: gradientThumb 7s ease infinite 1s;
+        }
+
+        .project-thumb::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(240,192,64,.3), transparent);
+        }
+
+        .project-thumb-icon {
+            position: relative;
+            z-index: 1;
+            filter: drop-shadow(0 0 20px rgba(240,192,64,.5));
+            transition: transform .3s, filter .3s;
+        }
+        .project-card:hover .project-thumb-icon {
+            transform: scale(1.15) rotate(-8deg);
+            filter: drop-shadow(0 0 35px rgba(240,192,64,.8));
+        }
+
+        .project-body { padding: 1.75rem; flex: 1; }
+
+        .project-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            color: #f5f0ff;
+            margin-bottom: .75rem;
+        }
+
+        .project-desc {
+            font-family: 'Crimson Text', serif;
+            font-size: .95rem;
+            color: #a89fc0;
+            line-height: 1.75;
+            margin-bottom: 1.25rem;
+        }
+
+        /* ── CTA AURORA BOX ── */
+        .cta-aurora-wrap {
+            position: relative;
+            padding: 3px;
+            border-radius: 27px;
+            background: linear-gradient(135deg, #f0c040, #7b2fff, #00d4ff, #f0c040);
+            background-size: 300% 300%;
+            animation: auroraShift 5s linear infinite;
+        }
+
+        .cta-box {
+            background: linear-gradient(135deg, rgba(13,10,46,.97), rgba(7,5,15,.98));
+            border: none !important;
+            border-radius: 24px;
+            padding: 5rem 3rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-box::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: radial-gradient(ellipse at 50% 0%, rgba(123,47,255,.2) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        /* Diagonal constellation lines in CTA */
+        .cta-box::after {
+            content: '';
+            position: absolute;
+            top: -50%; right: -20%;
+            width: 400px; height: 400px;
+            background: radial-gradient(circle, rgba(0,212,255,.05) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .cta-box h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 1rem;
+            color: #f5f0ff;
+            position: relative;
+        }
+        .cta-box p {
+            font-family: 'Crimson Text', serif;
+            font-size: 1.1rem;
+            color: #a89fc0;
+            margin-bottom: 2.5rem;
+            max-width: 540px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.85;
+            position: relative;
+        }
+        .cta-box .hero-cta { position: relative; justify-content: center; }
+
+        /* ── PAGE SECTIONS ── */
+        .page-section {
+            position: relative;
+            z-index: 1;
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-strip {
+            position: relative;
+            z-index: 1;
+            padding: 4rem 2rem;
+            background: rgba(7,5,15,.4);
+            border-top: 1px solid rgba(240,192,64,.07);
+            border-bottom: 1px solid rgba(240,192,64,.07);
+        }
+
+        .section-hd {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-hd .eyebrow {
+            font-family: 'Fira Code', monospace;
+            font-size: .65rem;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            color: #f0c040;
+            margin-bottom: .75rem;
+        }
+
+        .section-hd h2 {
+            font-size: clamp(1.8rem, 3vw, 2.6rem);
+            margin-bottom: 1rem;
+        }
+
+        .section-hd p {
+            font-family: 'Crimson Text', serif;
+            color: #a89fc0;
+            max-width: 560px;
+            margin: 0 auto;
+            font-size: 1.05rem;
+            line-height: 1.85;
+        }
+
+        /* ── REVEAL ON SCROLL ── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity .8s cubic-bezier(.22,1,.36,1), transform .8s cubic-bezier(.22,1,.36,1);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal-delay-1 { transition-delay: .1s; }
+        .reveal-delay-2 { transition-delay: .2s; }
+        .reveal-delay-3 { transition-delay: .3s; }
+        .reveal-delay-4 { transition-delay: .4s; }
+        .reveal-delay-5 { transition-delay: .5s; }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 1024px) {
+            .intro-grid    { grid-template-columns: repeat(2, 1fr); }
+            .projects-grid { grid-template-columns: repeat(2, 1fr); }
+            .stats-grid    { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            .intro-grid    { grid-template-columns: 1fr; }
+            .projects-grid { grid-template-columns: 1fr; }
+            .stats-grid    { grid-template-columns: 1fr 1fr; gap: 1rem; }
+            .page-section  { padding: 4rem 1.5rem; }
+            .cta-box       { padding: 3rem 1.5rem; }
+            .cosmos-divider { display: none; }
+            .quote-giant-open, .quote-giant-close { display: none; }
+            .hero-nebula { display: none; }
+        }
+
+        @media (max-width: 480px) {
+            .stats-grid { gap: .75rem; }
         }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="nav">
-        <div class="nav-container">
-            <a href="index.html" class="nav-brand">AB</a>
-            <ul class="nav-links">
-                <li><a href="index.html" class="active">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="projects/index.html">Projects</a></li>
-                <li><a href="blog/index.html">Blog</a></li>
-                <li><a href="links.html">Links</a></li>
-            </ul>
-        </div>
-    </nav>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-background"></div>
-        <div class="hero-content">
-            <div class="hero-label">System Thinker & Developer</div>
-            <h1>
-                Hi, I'm <span class="hero-gradient-text">Annisa Baizan</span>
-            </h1>
-            <p class="hero-subtitle">Analytical Optimizer | Evidence-Based Builder</p>
-            <p class="hero-description">
-                Lulusan komputer dengan pendekatan sistematis dalam problem-solving. 
-                Membangun solusi berbasis data dengan framework thinking dan analytical rigor. 
-                Fokus pada clarity, accuracy, dan optimization.
+<!-- ══════════════ NAVIGATION ══════════════ -->
+<nav class="nav">
+    <div class="nav-container">
+        <a href="index.html" class="nav-brand">AB</a>
+        <ul class="nav-links">
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="projects/index.html">Projects</a></li>
+            <li><a href="blog/index.html">Blog</a></li>
+            <li><a href="links.html">Links</a></li>
+        </ul>
+        <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</nav>
+
+<!-- Mobile overlay nav -->
+<div class="nav-mobile-overlay" id="nav-mobile-overlay">
+    <div class="overlay-divider"></div>
+    <a href="index.html" class="active">Home</a>
+    <a href="about.html">About</a>
+    <a href="projects/index.html">Projects</a>
+    <a href="blog/index.html">Blog</a>
+    <a href="links.html">Links</a>
+    <div class="overlay-divider"></div>
+</div>
+
+<!-- ══════════════ HERO ══════════════ -->
+<section class="hero">
+    <div class="hero-background"></div>
+
+    <!-- Ambient nebula orbs -->
+    <div class="hero-nebula hero-nebula-1"></div>
+    <div class="hero-nebula hero-nebula-2"></div>
+    <div class="hero-nebula hero-nebula-3"></div>
+
+    <!-- Left: text -->
+    <div class="hero-text" data-animate>
+        <div class="hero-eyebrow">✦ Full-Stack Developer &amp; Systems Builder ✦</div>
+        <h1>
+            Hi, I'm<br>
+            <span class="hero-gradient-text" id="hero-name">Annisa Baizan</span>
+        </h1>
+        <p class="hero-subtitle" id="hero-subtitle">Health Informatics · Institutional Systems · Analytical Builder</p>
+        <p class="hero-description" data-animate data-delay="2">
+            D3 Computer Engineering graduate, continuing S1 Computer Science at BINUS.
+            Civil servant by day, full-stack developer by necessity —
+            building real systems for health informatics, clinical decision support,
+            and institutional software. Systematic by default, not by effort.
+        </p>
+        <div class="hero-cta" data-animate data-delay="3">
+            <a href="projects/index.html" class="btn btn-primary btn-glow">⚗️ View Projects</a>
+            <a href="about.html" class="btn btn-secondary">📜 About Me</a>
+        </div>
+    </div>
+
+    <!-- Right: 3D sphere + orbital decoration -->
+    <div class="hero-visual" data-animate data-delay="2">
+        <div class="orbital-system">
+            <div class="orbital-ring or-1"><span class="orbital-dot od-gold"></span></div>
+            <div class="orbital-ring or-2">
+                <span class="orbital-dot od-cyan"></span>
+                <span class="orbital-dot od-cyan-2"></span>
+            </div>
+            <div class="orbital-ring or-3"><span class="orbital-dot od-purple"></span></div>
+        </div>
+        <div class="magic-sphere-wrap">
+            <div class="magic-sphere">
+                <div class="sphere-core">AB</div>
+                <div class="sphere-ring r1"></div>
+                <div class="sphere-ring r2"></div>
+                <div class="sphere-ring r3"></div>
+            </div>
+        </div>
+        <span class="sphere-rune" style="top:-10%;left:50%;animation-delay:0s;">⚡</span>
+        <span class="sphere-rune" style="top:50%;right:-8%;animation-delay:1.5s;">✦</span>
+        <span class="sphere-rune" style="bottom:-5%;left:50%;animation-delay:3s;">◈</span>
+        <span class="sphere-rune" style="top:50%;left:-8%;animation-delay:2s;">✧</span>
+    </div>
+
+    <div class="scroll-indicator"></div>
+</section>
+
+<!-- ══════════════ TECH STRIP ══════════════ -->
+<div class="tech-strip">
+    <div class="tech-strip-track">
+        <span class="ts-item">Laravel</span><span class="ts-sep">✦</span>
+        <span class="ts-item">PHP</span><span class="ts-sep">✦</span>
+        <span class="ts-item">Vue.js</span><span class="ts-sep">✦</span>
+        <span class="ts-item">MySQL</span><span class="ts-sep">✦</span>
+        <span class="ts-item">Python</span><span class="ts-sep">✦</span>
+        <span class="ts-item">Flask</span><span class="ts-sep">✦</span>
+        <span class="ts-item">FastAPI</span><span class="ts-sep">✦</span>
+        <span class="ts-item">Bootstrap</span><span class="ts-sep">✦</span>
+        <span class="ts-item">CodeIgniter</span><span class="ts-sep">✦</span>
+        <span class="ts-item">React</span><span class="ts-sep">✦</span>
+        <span class="ts-item">VB.NET</span><span class="ts-sep">✦</span>
+        <span class="ts-item">Docker</span><span class="ts-sep">✦</span>
+        <span class="ts-item">WordPress</span><span class="ts-sep">✦</span>
+        <span class="ts-item">Laravel</span><span class="ts-sep">✦</span>
+        <span class="ts-item">PHP</span><span class="ts-sep">✦</span>
+        <span class="ts-item">Vue.js</span><span class="ts-sep">✦</span>
+        <span class="ts-item">MySQL</span><span class="ts-sep">✦</span>
+        <span class="ts-item">Python</span><span class="ts-sep">✦</span>
+        <span class="ts-item">Flask</span><span class="ts-sep">✦</span>
+        <span class="ts-item">FastAPI</span><span class="ts-sep">✦</span>
+        <span class="ts-item">Bootstrap</span><span class="ts-sep">✦</span>
+        <span class="ts-item">CodeIgniter</span><span class="ts-sep">✦</span>
+        <span class="ts-item">React</span><span class="ts-sep">✦</span>
+        <span class="ts-item">VB.NET</span><span class="ts-sep">✦</span>
+        <span class="ts-item">Docker</span><span class="ts-sep">✦</span>
+        <span class="ts-item">WordPress</span><span class="ts-sep">✦</span>
+    </div>
+</div>
+
+<!-- ══════════════ STATS ══════════════ -->
+<div class="section-strip">
+    <div class="stats-grid">
+        <div class="stat-card reveal" data-animate>
+            <span class="stat-number" data-count="12" data-suffix="+">0+</span>
+            <span class="stat-label">Full-Stack Systems</span>
+        </div>
+        <div class="stat-card reveal reveal-delay-1" data-animate data-delay="1">
+            <span class="stat-number" data-count="6" data-suffix="+">0+</span>
+            <span class="stat-label">Tools &amp; Scripts</span>
+        </div>
+        <div class="stat-card reveal reveal-delay-2" data-animate data-delay="2">
+            <span class="stat-number" data-count="3" data-suffix="+">0+</span>
+            <span class="stat-label">Years Building</span>
+        </div>
+        <div class="stat-card reveal reveal-delay-3" data-animate data-delay="3">
+            <span class="stat-number" data-count="1" data-suffix="∞">0∞</span>
+            <span class="stat-label">Always Learning</span>
+        </div>
+    </div>
+</div>
+
+<!-- Constellation Divider -->
+<div class="cosmos-divider" style="padding: 2rem 4rem;">
+    <div class="cosmos-divider-dots">
+        <div class="cosmos-divider-dot"></div>
+        <div class="cosmos-divider-dot"></div>
+        <div class="cosmos-divider-dot"></div>
+    </div>
+    <div class="cosmos-divider-line"></div>
+    <div class="cosmos-divider-center">
+        <span class="cosmos-divider-glyph">✦</span>
+    </div>
+    <div class="cosmos-divider-line"></div>
+    <div class="cosmos-divider-dots">
+        <div class="cosmos-divider-dot"></div>
+        <div class="cosmos-divider-dot"></div>
+        <div class="cosmos-divider-dot"></div>
+    </div>
+</div>
+
+<!-- ══════════════ INTRODUCTION ══════════════ -->
+<section class="page-section">
+    <div class="section-hd reveal" data-animate>
+        <div class="eyebrow">✦ Introduction ✦</div>
+        <h2>Builder. Thinker. Both at Once.</h2>
+        <p>Full-stack systems in the morning, philosophy and psychology at night. The same brain that designs database schemas reads about attachment theory.</p>
+    </div>
+
+    <div class="intro-grid">
+        <div class="intro-card reveal reveal-delay-1" data-animate data-delay="1">
+            <div class="card-icon-wrap">🏥</div>
+            <h3>Health Informatics Focus</h3>
+            <p>Half the portfolio is healthcare — dental records, clinical decision support, patient data, accessibility tools. Not accidental. Building for health means building where errors have real consequences.</p>
+        </div>
+        <div class="intro-card reveal reveal-delay-2" data-animate data-delay="2">
+            <div class="card-icon-wrap">🧩</div>
+            <h3>Systematic by Default</h3>
+            <p>Separating known from inferred from unknown isn't a learned technique — it's a default mode. Framework thinking applied to every layer: architecture, debugging, and understanding why something actually breaks.</p>
+        </div>
+        <div class="intro-card reveal reveal-delay-3" data-animate data-delay="3">
+            <div class="card-icon-wrap">🔥</div>
+            <h3>Doesn't Stop Until It Works</h3>
+            <p>If committed, it's all-in. Hours deep, edge cases accumulating, problem still unsolved — that's a starting condition, not a stopping one. Dedication shows in shipped systems, not motivation quotes.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════ QUOTE ══════════════ -->
+<div class="quote-section" data-parallax="0.15">
+    <div class="quote-marks-wrap">
+        <span class="quote-giant-open">"</span>
+        <div class="quote-text reveal" data-animate>
+            "All models are wrong, but some are useful."
+        </div>
+        <div class="quote-attr reveal reveal-delay-1" data-animate data-delay="1">— George Box</div>
+        <span class="quote-giant-close">"</span>
+    </div>
+</div>
+
+<!-- Constellation Divider -->
+<div class="cosmos-divider" style="padding: 2rem 4rem;">
+    <div class="cosmos-divider-line"></div>
+    <div class="cosmos-divider-center">
+        <span class="cosmos-divider-glyph">◈</span>
+    </div>
+    <div class="cosmos-divider-line"></div>
+</div>
+
+<!-- ══════════════ FEATURED PROJECTS ══════════════ -->
+<section class="page-section">
+    <div class="section-hd reveal" data-animate>
+        <div class="eyebrow">✦ Featured Work ✦</div>
+        <h2>Selected Projects</h2>
+        <p>Full-stack systems built for health institutions, government, and enterprise — designed to be used, not just demonstrated.</p>
+    </div>
+
+    <div class="projects-grid">
+        <a href="projects/simkesgi/index.html" class="project-card reveal reveal-delay-1" data-animate data-delay="1">
+            <div class="project-thumb">
+                <span class="project-thumb-icon">🦷</span>
+            </div>
+            <div class="project-body">
+                <h3 class="project-title">SIMKESGI</h3>
+                <p class="project-desc">Dental Health Information Management System for Poltekkes Kemenkes Palembang. Patient records, treatment data, role-based access, and automated dental health statistics reporting.</p>
+                <div class="tags">
+                    <span class="tag">Laravel</span>
+                    <span class="tag">PHP</span>
+                    <span class="tag">Vue.js</span>
+                    <span class="tag">MySQL</span>
+                </div>
+            </div>
+        </a>
+
+        <a href="projects/workplaceeval/index.html" class="project-card reveal reveal-delay-2" data-animate data-delay="2">
+            <div class="project-thumb">
+                <span class="project-thumb-icon">📊</span>
+            </div>
+            <div class="project-body">
+                <h3 class="project-title">WorkPlaceEval</h3>
+                <p class="project-desc">Comprehensive HR evaluation system for multi-company management. Competency assessment, attendance tracking, and performance reporting with a dual-backend architecture.</p>
+                <div class="tags">
+                    <span class="tag">Laravel 10</span>
+                    <span class="tag">PHP 8.1</span>
+                    <span class="tag">Bootstrap 5</span>
+                    <span class="tag">MySQL</span>
+                </div>
+            </div>
+        </a>
+
+        <a href="projects/calriskdentistry/index.html" class="project-card reveal reveal-delay-3" data-animate data-delay="3">
+            <div class="project-thumb">
+                <span class="project-thumb-icon">🔬</span>
+            </div>
+            <div class="project-body">
+                <h3 class="project-title">CalRiskDentistry</h3>
+                <p class="project-desc">Evidence-based Clinical Decision Support System for dental calculus and caries risk stratification. Clinical scoring algorithms, patient risk profiling, and a structured medical knowledge base.</p>
+                <div class="tags">
+                    <span class="tag">PHP</span>
+                    <span class="tag">JavaScript</span>
+                    <span class="tag">CDSS</span>
+                    <span class="tag">Clinical Scoring</span>
+                </div>
+            </div>
+        </a>
+    </div>
+</section>
+
+<!-- ══════════════ CTA ══════════════ -->
+<section class="page-section">
+    <div class="cta-aurora-wrap reveal" data-animate>
+        <div class="cta-box">
+            <h2>Let's Build Something That Matters</h2>
+            <p>
+                Open to collaboration on health informatics, institutional systems, or anything
+                where analytical thinking meets real-world constraints.
+                If you're building something with purpose — reach out.
             </p>
             <div class="hero-cta">
-                <a href="projects/index.html" class="btn btn-primary">View Projects</a>
-                <a href="about.html" class="btn btn-secondary">About Me</a>
+                <a href="links.html" class="btn btn-primary btn-glow">✉ Get in Touch</a>
+                <a href="blog/index.html" class="btn btn-secondary">📖 Read Blog</a>
             </div>
         </div>
-        <div class="scroll-indicator"></div>
-    </section>
+    </div>
+</section>
 
-    <!-- About Preview Section -->
-    <section class="section">
-        <div class="section-header">
-            <div class="section-label">Introduction</div>
-            <h2 class="section-title">The Systematic Skeptic</h2>
-            <p class="section-description">
-                Berpikir dalam sistem, framework, dan struktur. Menghargai kejujuran intelektual lebih dari kenyamanan.
-            </p>
+<!-- ══════════════ FOOTER ══════════════ -->
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-links">
+            <a href="about.html">About</a>
+            <a href="projects/index.html">Projects</a>
+            <a href="blog/index.html">Blog</a>
+            <a href="links.html">Contact</a>
         </div>
+        <div style="color:rgba(240,192,64,.2);letter-spacing:1em;font-size:.5rem;margin:1rem 0;">✦ ✦ ✦</div>
+        <p style="color:#5a5070;font-size:.85rem;">&copy; 2026 Annisa Baizan — Built with analytical precision &amp; a touch of magic</p>
+    </div>
+</footer>
 
-        <div class="grid grid-auto">
-            <div class="card">
-                <div class="card-icon">🎯</div>
-                <h3 class="card-title">Analytical Rigor</h3>
-                <p class="card-content">
-                    Framework thinking dengan pendekatan evidence-based. Membangun solusi berdasarkan data dan analisis sistematis, 
-                    bukan asumsi atau idealisme kosong.
-                </p>
-            </div>
+<!-- ══════════════ CANVAS + SCRIPTS ══════════════ -->
+<canvas id="star-canvas"></canvas>
 
-            <div class="card">
-                <div class="card-icon">⚙️</div>
-                <h3 class="card-title">Systems Thinking</h3>
-                <p class="card-content">
-                    Melihat masalah sebagai sistem yang saling terkait. Identifikasi bottleneck, 
-                    optimization goals, dan failure modes untuk mencapai solusi yang efektif.
-                </p>
-            </div>
+<script src="assets/js/main.js"></script>
+<script src="assets/js/stars.js"></script>
+<script src="assets/js/cursor.js"></script>
+<script src="assets/js/effects.js"></script>
+<script src="assets/js/music-player.js"></script>
 
-            <div class="card">
-                <div class="card-icon">🧠</div>
-                <h3 class="card-title">Meta-Cognitive Awareness</h3>
-                <p class="card-content">
-                    Sadar akan keterbatasan pengetahuan sendiri dan aktif mencari blind spots. 
-                    Self-reflection oriented dengan standar epistemik tinggi.
-                </p>
-            </div>
-        </div>
-    </section>
+<script>
+/* ── HERO NAME LETTER-BY-LETTER REVEAL ── */
+(function() {
+    const nameEl = document.getElementById('hero-name');
+    if (!nameEl) return;
+    const text = nameEl.textContent.trim();
+    nameEl.textContent = '';
+    text.split('').forEach((ch, i) => {
+        const span = document.createElement('span');
+        span.className = 'hero-name-letter';
+        span.textContent = ch === ' ' ? '\u00A0' : ch;
+        span.style.animationDelay = (0.6 + i * 0.065) + 's';
+        nameEl.appendChild(span);
+    });
+})();
 
-    <!-- Featured Projects Section -->
-    <section class="section">
-        <div class="section-header">
-            <div class="section-label">Featured Work</div>
-            <h2 class="section-title">Selected Projects</h2>
-            <p class="section-description">
-                Implementasi sistem berbasis web dengan fokus pada efficiency, accuracy, dan user experience.
-            </p>
-        </div>
+/* ── SCROLL REVEAL via IntersectionObserver ── */
+(function() {
+    const els = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window)) {
+        els.forEach(el => el.classList.add('visible'));
+        return;
+    }
+    const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+            if (e.isIntersecting) {
+                e.target.classList.add('visible');
+                io.unobserve(e.target);
+            }
+        });
+    }, { threshold: 0.12 });
+    els.forEach(el => io.observe(el));
+})();
+</script>
 
-        <div class="grid grid-auto-lg">
-            <a href="projects/simkesgi/index.html" class="card card-clickable">
-                <div class="card-image">📊</div>
-                <div>
-                    <h3 class="card-title">SIMKESGI</h3>
-                    <p class="card-content">
-                        Sistem Informasi Manajemen Kesehatan Gigi berbasis web untuk optimasi pelayanan kesehatan gigi di puskesmas.
-                    </p>
-                    <div class="tags" style="margin-top: 1.5rem;">
-                        <span class="tag">React</span>
-                        <span class="tag">TypeScript</span>
-                        <span class="tag">FastAPI</span>
-                        <span class="tag">PostgreSQL</span>
-                    </div>
-                </div>
-            </a>
-
-            <a href="projects/workplaceeval/index.html" class="card card-clickable">
-                <div class="card-image">📈</div>
-                <div>
-                    <h3 class="card-title">Workplace Evaluation System</h3>
-                    <p class="card-content">
-                        Platform evaluasi kinerja karyawan dengan analytics dan reporting system yang comprehensive.
-                    </p>
-                    <div class="tags" style="margin-top: 1.5rem;">
-                        <span class="tag">React</span>
-                        <span class="tag">Vite</span>
-                        <span class="tag">Python</span>
-                        <span class="tag">Flask</span>
-                    </div>
-                </div>
-            </a>
-
-            <a href="projects/index.html" class="card card-clickable">
-                <div class="card-image">💼</div>
-                <div>
-                    <h3 class="card-title">More Projects</h3>
-                    <p class="card-content">
-                        Eksplorasi lebih banyak project dan eksperimen dalam pengembangan sistem berbasis web.
-                    </p>
-                    <div class="tags" style="margin-top: 1.5rem;">
-                        <span class="tag">View All</span>
-                    </div>
-                </div>
-            </a>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="section">
-        <div class="card" style="background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(6, 182, 212, 0.1)); text-align: center; padding: 4rem 2rem;">
-            <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Interested in Collaboration?</h2>
-            <p style="font-size: 1.2rem; color: var(--text-secondary); margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto;">
-                Terbuka untuk diskusi tentang sistem thinking, web development, atau project collaboration.
-            </p>
-            <div class="hero-cta">
-                <a href="links.html" class="btn btn-primary">Get in Touch</a>
-                <a href="blog/index.html" class="btn btn-secondary">Read Blog</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-links">
-                <a href="about.html">About</a>
-                <a href="projects/index.html">Projects</a>
-                <a href="blog/index.html">Blog</a>
-                <a href="labs/index.html">Labs</a>
-                <a href="links.html">Contact</a>
-            </div>
-            <p>&copy; 2026 Annisa Baizan. Built with analytical precision.</p>
-        </div>
-    </footer>
 </body>
 </html>

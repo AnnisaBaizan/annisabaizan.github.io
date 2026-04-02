@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EqualSmile — Annisa Baizan</title>
+  <meta name="description" content="EqualSmile — Voice-guided web navigation tool for visually impaired users to access dental health information and services.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Fira+Code:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../../assets/css/reset.css">
+  <link rel="stylesheet" href="../../assets/css/theme.css">
+  <link rel="stylesheet" href="../../assets/css/components.css">
+  <link rel="stylesheet" href="../../assets/css/galaxy.css">
+
+  <style>
+    :root { --accent: #f48fb1; }
+    body { cursor: none; background: #07050f; }
+    .lp-hero { padding: 120px 40px 80px; }
+    .lp-hero-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+    .lp-badge { display: inline-block; padding: 6px 16px; border: 1px solid var(--accent); border-radius: 100px; color: var(--accent); font-family: 'Fira Code', monospace; font-size: 0.72rem; letter-spacing: 0.1em; margin-bottom: 20px; background: color-mix(in srgb, var(--accent) 10%, transparent); }
+    .lp-title { font-family: 'Cinzel', serif; font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 700; color: #f5f0ff; letter-spacing: 0.05em; margin-bottom: 16px; line-height: 1.1; }
+    .lp-title span { color: var(--accent); }
+    .lp-subtitle { font-family: 'Crimson Text', serif; font-size: 1.1rem; color: #a89fc0; line-height: 1.8; margin-bottom: 28px; max-width: 480px; }
+    .lp-meta { display: flex; flex-wrap: wrap; gap: 20px; margin-bottom: 32px; }
+    .lp-meta-item { font-family: 'Fira Code', monospace; font-size: 0.78rem; color: #a89fc0; }
+    .lp-meta-label { color: var(--accent); margin-right: 6px; }
+    .lp-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+    .lp-btn-primary { padding: 12px 28px; background: var(--accent); color: #07050f; border-radius: 8px; font-family: 'Cinzel', serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-decoration: none; transition: 0.2s; opacity: 0.5; cursor: not-allowed; }
+    .lp-btn-ghost { padding: 12px 28px; border: 1px solid var(--accent); color: var(--accent); border-radius: 8px; font-family: 'Cinzel', serif; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.06em; text-decoration: none; transition: 0.2s; }
+    .lp-btn-ghost:hover { background: color-mix(in srgb, var(--accent) 12%, transparent); }
+    .lp-mockup { background: rgba(13,10,46,0.7); border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent); border-radius: 20px; padding: 24px; backdrop-filter: blur(16px); box-shadow: 0 0 60px color-mix(in srgb, var(--accent) 15%, transparent); }
+    .lp-mockup-bar { display: flex; gap: 6px; margin-bottom: 20px; }
+    .lp-mockup-bar span { width: 12px; height: 12px; border-radius: 50%; background: rgba(255,255,255,0.15); }
+    .lp-mockup-bar span:first-child { background: #c41e3a; }
+    .lp-mockup-bar span:nth-child(2) { background: #f0c040; }
+    .lp-mockup-bar span:last-child { background: var(--accent); }
+    .lp-mockup-content { min-height: 200px; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 16px; }
+    .lp-stat { text-align: center; }
+    .lp-stat-num { font-family: 'Fira Code', monospace; font-size: 1.4rem; font-weight: 500; color: var(--accent); display: block; }
+    .lp-stat-label { font-family: 'Crimson Text', serif; font-size: 0.85rem; color: #a89fc0; }
+    .lp-stats-row { display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; }
+    .lp-section { padding: 80px 40px; }
+    .lp-section-inner { max-width: 1200px; margin: 0 auto; }
+    .lp-section-title { font-family: 'Cinzel', serif; font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 700; color: #f5f0ff; margin-bottom: 12px; letter-spacing: 0.04em; }
+    .lp-section-title::after { content: ''; display: block; width: 60px; height: 3px; background: var(--accent); border-radius: 2px; margin-top: 10px; }
+    .lp-section-sub { font-family: 'Crimson Text', serif; font-size: 1.05rem; color: #a89fc0; margin-bottom: 48px; max-width: 600px; }
+    .lp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+    .lp-card { background: rgba(13,10,46,0.6); border: 1px solid rgba(240,192,64,0.1); border-radius: 16px; padding: 28px; backdrop-filter: blur(12px); transition: 0.3s; }
+    .lp-card:hover { border-color: color-mix(in srgb, var(--accent) 40%, transparent); box-shadow: 0 0 30px color-mix(in srgb, var(--accent) 10%, transparent); transform: translateY(-3px); }
+    .lp-card-icon { font-size: 2rem; margin-bottom: 12px; }
+    .lp-card-title { font-family: 'Cinzel', serif; font-size: 1rem; font-weight: 700; color: #f5f0ff; margin-bottom: 8px; }
+    .lp-card-text { font-family: 'Crimson Text', serif; font-size: 0.95rem; color: #a89fc0; line-height: 1.7; }
+    .lp-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+    .lp-tag { padding: 4px 12px; background: color-mix(in srgb, var(--accent) 12%, transparent); border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent); border-radius: 100px; font-family: 'Fira Code', monospace; font-size: 0.68rem; color: var(--accent); letter-spacing: 0.04em; }
+    .lp-arch { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+    .lp-arch-block { background: rgba(13,10,46,0.5); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; padding: 20px; }
+    .lp-arch-block-title { font-family: 'Fira Code', monospace; font-size: 0.72rem; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 12px; }
+    .lp-arch-block ul { list-style: none; }
+    .lp-arch-block li { font-family: 'Crimson Text', serif; font-size: 0.9rem; color: #a89fc0; padding: 4px 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
+    .lp-footer { padding: 40px; text-align: center; border-top: 1px solid rgba(240,192,64,0.08); }
+    .lp-footer p { font-family: 'Fira Code', monospace; font-size: 0.75rem; color: #a89fc0; }
+    .lp-footer a { color: var(--accent); text-decoration: none; }
+    .section-alt { background: rgba(13,10,46,0.3); }
+    .wip-banner { background: color-mix(in srgb, var(--accent) 8%, transparent); border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent); border-radius: 12px; padding: 16px 24px; font-family: 'Fira Code', monospace; font-size: 0.78rem; color: var(--accent); margin-bottom: 48px; display: flex; align-items: center; gap: 10px; }
+    @media (max-width: 768px) {
+      .lp-hero-inner { grid-template-columns: 1fr; }
+      .lp-hero-right { display: none; }
+      .lp-section { padding: 60px 20px; }
+      .lp-hero { padding: 100px 20px 60px; }
+    }
+    .lp-link-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+    .lp-link-card { background: rgba(13,10,46,0.5); border: 1px solid rgba(240,192,64,0.12); border-radius: 12px; padding: 18px 22px; text-decoration: none; display: flex; align-items: center; gap: 14px; transition: 0.2s; }
+    .lp-link-card:hover { border-color: color-mix(in srgb, var(--accent) 50%, transparent); transform: translateX(4px); box-shadow: 0 0 20px color-mix(in srgb, var(--accent) 10%, transparent); }
+    .lp-link-icon { font-size: 1.4rem; flex-shrink: 0; }
+    .lp-link-title { font-family: "Cinzel", serif; font-size: 0.82rem; font-weight: 600; color: #f5f0ff; margin-bottom: 3px; }
+    .lp-link-desc { font-family: "Crimson Text", serif; font-size: 0.82rem; color: #a89fc0; line-height: 1.4; }
+    .lp-link-arrow { margin-left: auto; color: var(--accent); font-size: 1rem; flex-shrink: 0; }
+    .lp-res-group { font-family: "Fira Code", monospace; font-size: 0.68rem; color: var(--accent); text-transform: uppercase; letter-spacing: 0.14em; opacity: 0.65; margin: 28px 0 10px; }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-container">
+      <a href="../../index.html" class="nav-brand">AB</a>
+      <ul class="nav-links">
+        <li><a href="../../index.html">Home</a></li>
+        <li><a href="../../about.html">About</a></li>
+        <li><a href="../index.html" class="active">Projects</a></li>
+        <li><a href="../../blog/index.html">Blog</a></li>
+        <li><a href="../../links.html">Links</a></li>
+      </ul>
+      <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  <div class="nav-mobile-overlay" id="nav-mobile-overlay">
+    <div class="overlay-divider"></div>
+    <a href="../../index.html">Home</a>
+    <a href="../../about.html">About</a>
+    <a href="../index.html" class="active">Projects</a>
+    <a href="../../blog/index.html">Blog</a>
+    <a href="../../links.html">Links</a>
+    <div class="overlay-divider"></div>
+  </div>
+
+  <!-- Hero -->
+  <section class="lp-hero">
+    <div class="lp-hero-inner">
+      <div class="lp-hero-left">
+        <span class="lp-badge">Accessibility &middot; Dental Health</span>
+        <h1 class="lp-title">Equal<span>Smile</span></h1>
+        <p class="lp-subtitle">A voice-guided web navigation tool making dental health information and services fully accessible to blind and low-vision users — through audio guidance, screen reader optimization, and keyboard-only navigation.</p>
+        <div class="lp-meta">
+          <span class="lp-meta-item"><span class="lp-meta-label">Status</span> In Development</span>
+          <span class="lp-meta-item"><span class="lp-meta-label">Year</span> 2024–2025</span>
+          <span class="lp-meta-item"><span class="lp-meta-label">Role</span> Developer</span>
+        </div>
+        <div class="lp-btns">
+          <span class="lp-btn-primary" title="Demo coming soon">Demo Coming Soon</span>
+          <a href="../index.html" class="lp-btn-ghost">← Back to Projects</a>
+        </div>
+      </div>
+      <div class="lp-hero-right">
+        <div class="lp-mockup">
+          <div class="lp-mockup-bar"><span></span><span></span><span></span></div>
+          <div class="lp-mockup-content">
+            <div style="font-size: 3.5rem; line-height:1;">♿</div>
+            <div style="font-family: 'Fira Code', monospace; font-size: 1rem; color: #f48fb1; letter-spacing: 0.06em;">Voice Guided</div>
+            <div class="lp-stats-row">
+              <div class="lp-stat">
+                <span class="lp-stat-num" style="font-size:1rem">ARIA</span>
+                <span class="lp-stat-label">Compliant</span>
+              </div>
+              <div class="lp-stat">
+                <span class="lp-stat-num" style="font-size:1rem">TTS</span>
+                <span class="lp-stat-label">Enabled</span>
+              </div>
+            </div>
+            <div style="padding: 8px 16px; background: rgba(244,143,177,0.08); border: 1px solid rgba(244,143,177,0.2); border-radius: 8px; font-family: 'Fira Code', monospace; font-size: 0.7rem; color: #f48fb1;">
+              Screen Reader Ready
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mission -->
+  <section class="lp-section section-alt">
+    <div class="lp-section-inner">
+      <h2 class="lp-section-title">The Mission</h2>
+      <p class="lp-section-sub">Dental health information should be accessible to everyone — including the estimated 285 million visually impaired people worldwide who face barriers navigating standard web interfaces.</p>
+      <div class="wip-banner">🚧 This project is currently under active development. Demo and documentation will be available soon.</div>
+      <div class="lp-arch">
+        <div class="lp-arch-block">
+          <div class="lp-arch-block-title">The Problem</div>
+          <ul>
+            <li>Dental health sites lack accessibility</li>
+            <li>Screen readers often fail on complex UIs</li>
+            <li>No audio guidance for navigation</li>
+            <li>Forms inaccessible without mouse</li>
+            <li>Low-contrast designs for low-vision</li>
+          </ul>
+        </div>
+        <div class="lp-arch-block">
+          <div class="lp-arch-block-title">EqualSmile's Approach</div>
+          <ul>
+            <li>Full Web Speech API voice guidance</li>
+            <li>Semantic HTML + ARIA labels</li>
+            <li>Keyboard-only navigation support</li>
+            <li>High contrast configurable display</li>
+            <li>Dental health content focus</li>
+          </ul>
+        </div>
+        <div class="lp-arch-block">
+          <div class="lp-arch-block-title">Target Users</div>
+          <ul>
+            <li>Blind users relying on screen readers</li>
+            <li>Low-vision users needing contrast</li>
+            <li>Motor-impaired keyboard-only users</li>
+            <li>Dental patients seeking information</li>
+            <li>Caregivers assisting patients</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="lp-section">
+    <div class="lp-section-inner">
+      <h2 class="lp-section-title">Key Features</h2>
+      <p class="lp-section-sub">Purpose-built accessibility features ensuring every interaction is navigable without sight.</p>
+      <div class="lp-grid">
+        <div class="lp-card" style="transform-style: preserve-3d">
+          <div class="lp-card-icon">🔊</div>
+          <div class="lp-card-title">Voice Navigation</div>
+          <div class="lp-card-text">Audio guidance walks users through all interface elements, announcing options, reading content, and confirming actions via Web Speech API.</div>
+        </div>
+        <div class="lp-card" style="transform-style: preserve-3d">
+          <div class="lp-card-icon">♿</div>
+          <div class="lp-card-title">Screen Reader Optimized</div>
+          <div class="lp-card-text">Full ARIA label coverage, semantic HTML throughout, and focus management ensuring compatibility with NVDA, JAWS, and VoiceOver.</div>
+        </div>
+        <div class="lp-card" style="transform-style: preserve-3d">
+          <div class="lp-card-icon">🌗</div>
+          <div class="lp-card-title">High Contrast Mode</div>
+          <div class="lp-card-text">Configurable visual display with multiple high-contrast themes for users with varying degrees of low vision.</div>
+        </div>
+        <div class="lp-card" style="transform-style: preserve-3d">
+          <div class="lp-card-icon">💬</div>
+          <div class="lp-card-title">Text-to-Speech</div>
+          <div class="lp-card-text">All content is automatically read aloud. Users can control speech rate, volume, and voice selection from an accessible preferences panel.</div>
+        </div>
+        <div class="lp-card" style="transform-style: preserve-3d">
+          <div class="lp-card-icon">⌨️</div>
+          <div class="lp-card-title">Keyboard-Only Navigation</div>
+          <div class="lp-card-text">Every feature accessible via keyboard shortcuts. Logical tab order and skip-navigation links minimize effort to reach main content.</div>
+        </div>
+        <div class="lp-card" style="transform-style: preserve-3d">
+          <div class="lp-card-icon">🦷</div>
+          <div class="lp-card-title">Dental Health Focus</div>
+          <div class="lp-card-text">Accessible dental health information, appointment guidance, and oral care instructions — content designed for comprehension by all users.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tech Stack -->
+  <section class="lp-section section-alt">
+    <div class="lp-section-inner">
+      <h2 class="lp-section-title">Technology Stack</h2>
+      <p class="lp-section-sub">Built with web standards and progressive enhancement — no frameworks required for core accessibility.</p>
+      <div class="lp-tags">
+        <span class="lp-tag">Laravel 9</span>
+        <span class="lp-tag">PHP 8.0</span>
+        <span class="lp-tag">Vue 3</span>
+        <span class="lp-tag">MySQL</span>
+        <span class="lp-tag">Bootstrap 5</span>
+        <span class="lp-tag">Laravel Sanctum</span>
+        <span class="lp-tag">WCAG 2.1</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Resources & Links -->
+  <section class="lp-section section-alt">
+    <div class="lp-section-inner">
+      <h2 class="lp-section-title">Resources &amp; Links</h2>
+      <p class="lp-section-sub">Dokumentasi, presentasi, dan demo interaktif untuk EqualSmile.</p>
+
+      <p class="lp-res-group">Presentations</p>
+      <div class="lp-link-grid">
+        <a href="presentations/5W1H.html" class="lp-link-card">
+          <span class="lp-link-icon">&#128203;</span>
+          <div><div class="lp-link-title">Analisis 5W1H</div><div class="lp-link-desc">Latar belakang, masalah, tujuan, dan solusi inovasi</div></div>
+          <span class="lp-link-arrow">&#8594;</span>
+        </a>
+        <a href="presentations/teknis-internal.html" class="lp-link-card">
+          <span class="lp-link-icon">&#128295;</span>
+          <div><div class="lp-link-title">Teknis Internal</div><div class="lp-link-desc">Detail teknis untuk tim internal dan stakeholder</div></div>
+          <span class="lp-link-arrow">&#8594;</span>
+        </a>
+        <a href="presentations/teknis-eksternal.html" class="lp-link-card">
+          <span class="lp-link-icon">&#128225;</span>
+          <div><div class="lp-link-title">Teknis Eksternal</div><div class="lp-link-desc">Overview teknis untuk audiens dan evaluator eksternal</div></div>
+          <span class="lp-link-arrow">&#8594;</span>
+        </a>
+        <a href="presentations/institutional-showcase.html" class="lp-link-card">
+          <span class="lp-link-icon">&#127963;</span>
+          <div><div class="lp-link-title">Institutional Showcase</div><div class="lp-link-desc">Presentasi showcase untuk pimpinan dan institusi</div></div>
+          <span class="lp-link-arrow">&#8594;</span>
+        </a>
+        <a href="presentations/technical-design.html" class="lp-link-card">
+          <span class="lp-link-icon">&#128220;</span>
+          <div><div class="lp-link-title">Technical Design</div><div class="lp-link-desc">Arsitektur sistem, ERD, dan spesifikasi teknis</div></div>
+          <span class="lp-link-arrow">&#8594;</span>
+        </a>
+      </div>
+
+      <p class="lp-res-group">Demo &amp; Diagrams</p>
+      <div class="lp-link-grid">
+        <a href="demo/matriks-before-after.html" class="lp-link-card">
+          <span class="lp-link-icon">&#128202;</span>
+          <div><div class="lp-link-title">Matriks Before-After</div><div class="lp-link-desc">Perbandingan kondisi sebelum dan sesudah implementasi</div></div>
+          <span class="lp-link-arrow">&#8594;</span>
+        </a>
+        <a href="demo/flowchart-sistem.html" class="lp-link-card">
+          <span class="lp-link-icon">&#128256;</span>
+          <div><div class="lp-link-title">Flowchart Sistem</div><div class="lp-link-desc">Diagram alur proses dan arsitektur sistem</div></div>
+          <span class="lp-link-arrow">&#8594;</span>
+        </a>
+        <a href="demo/code-review.html" class="lp-link-card">
+          <span class="lp-link-icon">&#128187;</span>
+          <div><div class="lp-link-title">Code Review</div><div class="lp-link-desc">Tinjauan kode sumber dan dokumentasi teknis</div></div>
+          <span class="lp-link-arrow">&#8594;</span>
+        </a>
+      </div>
+
+      <p class="lp-res-group">Dokumentasi</p>
+      <div class="lp-link-grid">
+        <a href="docs/TOR-KAK-inovasi.pdf" class="lp-link-card">
+          <span class="lp-link-icon">&#128209;</span>
+          <div><div class="lp-link-title">TOR / KAK Inovasi</div><div class="lp-link-desc">Terms of Reference dan Kerangka Acuan Kegiatan</div></div>
+          <span class="lp-link-arrow">&#8594;</span>
+        </a>
+        <a href="docs/SOP-inovasi.pdf" class="lp-link-card">
+          <span class="lp-link-icon">&#128203;</span>
+          <div><div class="lp-link-title">SOP Inovasi</div><div class="lp-link-desc">Standard Operating Procedure administrasi sistem</div></div>
+          <span class="lp-link-arrow">&#8594;</span>
+        </a>
+        <a href="docs/buku-panduan.pdf" class="lp-link-card">
+          <span class="lp-link-icon">&#128214;</span>
+          <div><div class="lp-link-title">Buku Panduan</div><div class="lp-link-desc">Panduan lengkap penggunaan sistem</div></div>
+          <span class="lp-link-arrow">&#8594;</span>
+        </a>
+        <a href="docs/bukti-pemanfaatan.pdf" class="lp-link-card">
+          <span class="lp-link-icon">&#9989;</span>
+          <div><div class="lp-link-title">Bukti Pemanfaatan</div><div class="lp-link-desc">Dokumentasi bukti penggunaan dan pemanfaatan sistem</div></div>
+          <span class="lp-link-arrow">&#8594;</span>
+        </a>
+        <a href="docs/evaluasi-inovasi.pdf" class="lp-link-card">
+          <span class="lp-link-icon">&#128202;</span>
+          <div><div class="lp-link-title">Evaluasi Inovasi</div><div class="lp-link-desc">Evaluasi dan penilaian dampak inovasi</div></div>
+          <span class="lp-link-arrow">&#8594;</span>
+        </a>
+        <a href="docs/surat-pernyataan-kepala-satker.pdf" class="lp-link-card">
+          <span class="lp-link-icon">&#128220;</span>
+          <div><div class="lp-link-title">Surat Pernyataan Kepala Satker</div><div class="lp-link-desc">Surat pernyataan resmi dari kepala satuan kerja</div></div>
+          <span class="lp-link-arrow">&#8594;</span>
+        </a>
+        <a href="docs/executive-summary.pdf" class="lp-link-card">
+          <span class="lp-link-icon">&#128196;</span>
+          <div><div class="lp-link-title">Executive Summary</div><div class="lp-link-desc">Ringkasan eksekutif inovasi untuk pimpinan</div></div>
+          <span class="lp-link-arrow">&#8594;</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="lp-footer">
+    <p>EqualSmile &mdash; Built by <a href="../../about.html">Annisa Baizan</a> &middot; Accessibility &middot; Dental Health &middot; In Development</p>
+  </footer>
+
+  <canvas id="star-canvas"></canvas>
+
+  <script src="../../assets/js/stars.js"></script>
+  <script src="../../assets/js/cursor.js"></script>
+  <script src="../../assets/js/music-player.js"></script>
+  <script src="../../assets/js/effects.js"></script>
+  <script src="../../assets/js/main.js"></script>
+</body>
+</html>

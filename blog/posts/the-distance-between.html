@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Distance Between | Annisa Baizan</title>
+    <meta name="description" content="Three letters. One feeling. Written at different distances from the same truth.">
+
+    <!-- Global Styles -->
+    <link rel="stylesheet" href="../../assets/css/reset.css">
+    <link rel="stylesheet" href="../../assets/css/theme.css">
+    <link rel="stylesheet" href="../../assets/css/components.css">
+
+    <!-- Blog-specific Styles -->
+    <link rel="stylesheet" href="../assets/blog.css">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* ── Triptych-specific styles ───────────────────────────── */
+
+        /* Voice label strip above each triptych block */
+        .triptych-voices {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 0;
+            margin: 3rem 0 0;
+            border-radius: 12px 12px 0 0;
+            overflow: hidden;
+            border: 1px solid var(--border, #e5e7eb);
+            border-bottom: none;
+        }
+
+        .voice-label {
+            padding: 0.65rem 1rem;
+            text-align: center;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #fff;
+        }
+
+        .voice-label.v1 { background: #6b7280; }
+        .voice-label.v2 { background: #9ca3af; }
+        .voice-label.v3 { background: #374151; }
+
+        /* The three-column triptych block */
+        .triptych {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 0;
+            border: 1px solid var(--border, #e5e7eb);
+            border-top: none;
+            border-radius: 0 0 12px 12px;
+            overflow: hidden;
+            margin-bottom: 3rem;
+        }
+
+        .triptych-panel {
+            padding: 1.5rem 1.25rem;
+            font-size: 0.88rem;
+            line-height: 1.75;
+            color: var(--text-primary, #111827);
+            position: relative;
+        }
+
+        .triptych-panel.v1 {
+            background: #f9fafb;
+            border-right: 1px solid var(--border, #e5e7eb);
+        }
+
+        .triptych-panel.v2 {
+            background: #f3f4f6;
+            border-right: 1px solid var(--border, #e5e7eb);
+        }
+
+        .triptych-panel.v3 {
+            background: #fff;
+        }
+
+        .triptych-panel p {
+            margin: 0 0 0.85rem;
+        }
+
+        .triptych-panel p:last-child {
+            margin-bottom: 0;
+        }
+
+        .triptych-panel em {
+            font-style: italic;
+            color: var(--text-secondary, #4b5563);
+        }
+
+        /* Emotion tag — subtle chip showing the arc */
+        .triptych-tag {
+            display: inline-block;
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 0.2rem 0.55rem;
+            border-radius: 20px;
+            margin-bottom: 0.9rem;
+        }
+
+        .triptych-tag.raw     { background: #fee2e2; color: #991b1b; }
+        .triptych-tag.naming  { background: #fef3c7; color: #92400e; }
+        .triptych-tag.peace   { background: #d1fae5; color: #065f46; }
+
+        /* Theme intro — sits above the three columns */
+        .theme-intro {
+            margin: 2.5rem 0 0;
+        }
+
+        .theme-intro h2 {
+            /* inherits blog h2 styles */
+        }
+
+        /* Collapse hint on mobile */
+        @media (max-width: 768px) {
+            .triptych-voices,
+            .triptych {
+                grid-template-columns: 1fr;
+                border-radius: 12px;
+            }
+
+            .triptych-voices {
+                border-radius: 12px 12px 0 0;
+                border-bottom: none;
+            }
+
+            .triptych-panel.v1,
+            .triptych-panel.v2 {
+                border-right: none;
+                border-bottom: 1px solid var(--border, #e5e7eb);
+            }
+
+            .voice-label {
+                display: none;
+            }
+
+            .triptych-voices {
+                display: none;
+            }
+
+            .triptych {
+                border-top: 1px solid var(--border, #e5e7eb);
+                border-radius: 12px;
+            }
+
+            .triptych-panel {
+                border-bottom: 1px solid var(--border, #e5e7eb);
+            }
+
+            .triptych-panel:last-child {
+                border-bottom: none;
+            }
+
+            .triptych-tag {
+                display: inline-block;
+                margin-bottom: 0.75rem;
+            }
+        }
+
+        /* Legend */
+        .triptych-legend {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+            flex-wrap: wrap;
+            margin: 2rem 0 0.5rem;
+            padding: 1rem 1.25rem;
+            background: var(--surface, #f9fafb);
+            border-radius: 10px;
+            border: 1px solid var(--border, #e5e7eb);
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.78rem;
+            color: var(--text-secondary, #4b5563);
+        }
+
+        .legend-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .legend-dot.v1 { background: #6b7280; }
+        .legend-dot.v2 { background: #9ca3af; }
+        .legend-dot.v3 { background: #374151; }
+
+        /* Poem triptych variant */
+        .triptych-panel.poem-panel {
+            font-style: italic;
+            font-size: 0.85rem;
+            line-height: 2;
+            color: var(--text-secondary, #4b5563);
+        }
+
+        .triptych-panel.poem-panel p {
+            margin: 0;
+            line-height: 1.9;
+        }
+
+        /* Final note block */
+        .final-note {
+            margin-top: 3rem;
+            padding: 2rem;
+            border-left: 3px solid #374151;
+            background: #f9fafb;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .final-note p {
+            margin: 0 0 0.75rem;
+            font-size: 0.9rem;
+            line-height: 1.8;
+            color: var(--text-primary, #111827);
+        }
+
+        .final-note p:last-child { margin-bottom: 0; }
+    </style>
+</head>
+<body>
+    <!-- Reading Progress Bar -->
+    <div class="reading-progress" id="readingProgress"></div>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="../../index.html" class="nav-brand">AB</a>
+            <ul class="nav-links">
+                <li><a href="../../index.html">Home</a></li>
+                <li><a href="../../about.html">About</a></li>
+                <li><a href="../../projects/">Projects</a></li>
+                <li><a href="../index.html" class="active">Blog</a></li>
+                <li><a href="../../links.html">Links</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="blog-container">
+
+        <!-- Table of Contents Sidebar -->
+        <aside class="blog-sidebar">
+            <nav class="toc">
+                <h3 class="toc-title">Contents</h3>
+                <ul class="toc-list">
+                    <li><a href="#beginning">I. The Beginning</a></li>
+                    <li><a href="#weight">II. The Weight of Small Things</a></li>
+                    <li><a href="#landing">III. The Place You Land</a></li>
+                    <li><a href="#transformation">IV. The Quiet Transformation</a></li>
+                    <li><a href="#return">V. The Return to Self</a></li>
+                    <li><a href="#poem">VI. A Poem Without Answers</a></li>
+                    <li><a href="#letting-go">VII. Letting Go</a></li>
+                    <li><a href="#remains">VIII. What Remains</a></li>
+                    <li><a href="#epilogue">Epilogue</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Post Content -->
+        <article class="blog-content">
+
+            <!-- Breadcrumb -->
+            <div class="breadcrumb">
+                <a href="../../index.html">Home</a>
+                <span>/</span>
+                <a href="../index.html">Blog</a>
+                <span>/</span>
+                <span>The Distance Between</span>
+            </div>
+
+            <!-- Post Header -->
+            <header class="post-header">
+                <div class="post-category">Personal Essay · Triptych</div>
+                <h1 class="post-title">The Distance Between</h1>
+                <p class="post-subtitle">Letting go and staying — three letters, one feeling, written at different distances from the same truth</p>
+                <div class="post-meta">
+                    <span class="post-meta-item">📅 February 2026</span>
+                    <span class="post-meta-item">⏱️ 10 min read</span>
+                    <span class="post-meta-item">🏷️ Attachment, Letting Go, Growth</span>
+                </div>
+            </header>
+
+            <!-- Post Body -->
+            <div class="post-body">
+
+                <!-- Opening Quote -->
+                <div class="quote-callout">
+                    <p>Listen twice: first to what's being said, second to who said it.</p>
+                    <cite>John Sherman Cooper</cite>
+                </div>
+
+                <p>Some feelings don't arrive as a single letter. They arrive as three — written at different distances from the same truth, in the same handwriting, but with a different kind of steadiness each time.</p>
+
+                <p>This is not a story that moves in a straight line. It spirals. The same scenes return, the same person, the same ache — but each time, the one writing has grown a little more capable of holding it.</p>
+
+                <p>Read each column as a different moment in the same journey. The same theme, three distances from it.</p>
+
+                <!-- Legend -->
+                <div class="triptych-legend">
+                    <div class="legend-item">
+                        <div class="legend-dot v1"></div>
+                        <span><strong>Letter I</strong> — still inside the feeling</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-dot v2"></div>
+                        <span><strong>Letter II</strong> — beginning to understand it</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-dot v3"></div>
+                        <span><strong>Letter III</strong> — made peace with it</span>
+                    </div>
+                </div>
+
+                <div class="ornament">✦ ✦ ✦</div>
+
+
+                <!-- ═══════════════════════════════════════════ -->
+                <!-- SECTION I -->
+                <!-- ═══════════════════════════════════════════ -->
+                <div class="theme-intro">
+                    <h2 id="beginning">I. The Beginning of Wondering</h2>
+                    <p>There was no single moment. Only an accumulation — explanations, patience beneath sharp words, a brightness they never noticed in themselves. Somewhere in that accumulation, they became something unnamed.</p>
+                </div>
+
+                <div class="triptych-voices">
+                    <div class="voice-label v1">Letter I</div>
+                    <div class="voice-label v2">Letter II</div>
+                    <div class="voice-label v3">Letter III</div>
+                </div>
+                <div class="triptych">
+                    <div class="triptych-panel v1">
+                        <span class="triptych-tag raw">raw</span>
+                        <p>And somewhere along the way, without permission, you became something I cannot name.</p>
+                        <p>I knew I wasn't someone special to you. I accepted it with a quiet smile, as if humor could soften the sting.</p>
+                        <p><em>Is wanting someone to be happy love? Is praying for someone's success without them ever hearing — is that love? Is that not something close to love?</em></p>
+                    </div>
+                    <div class="triptych-panel v2">
+                        <span class="triptych-tag naming">naming</span>
+                        <p>And somewhere along the way, without permission, you became something I cannot name.</p>
+                        <p>From the beginning, I knew I wasn't someone special to you. But I also saw how gently you could treat those who truly mattered. I understood that difference.</p>
+                        <p><em>Whatever name I give it, it keeps returning to you.</em></p>
+                    </div>
+                    <div class="triptych-panel v3">
+                        <span class="triptych-tag peace">peace</span>
+                        <p>And somewhere along the way, without permission, you became something I cannot name.</p>
+                        <p>I accepted it with a quiet smile. Still, my heart learned to hold you gently.</p>
+                        <p><em>I am afraid to hurt you, so I shape my words softer than I feel them. Not because I want to hide, but because I care about your peace more than my own urgency.</em></p>
+                        <p>Is that not something close to love?</p>
+                    </div>
+                </div>
+
+
+                <!-- ═══════════════════════════════════════════ -->
+                <!-- SECTION II -->
+                <!-- ═══════════════════════════════════════════ -->
+                <div class="theme-intro">
+                    <h2 id="weight">II. The Weight of Small Things</h2>
+                    <p>There is a word they use sometimes. And every time it lands, something built over years comes down. Not cruelty — just human carelessness aimed at the one place that couldn't afford to be hit.</p>
+                </div>
+
+                <div class="triptych-voices">
+                    <div class="voice-label v1">Letter I</div>
+                    <div class="voice-label v2">Letter II</div>
+                    <div class="voice-label v3">Letter III</div>
+                </div>
+                <div class="triptych">
+                    <div class="triptych-panel v1">
+                        <span class="triptych-tag raw">raw</span>
+                        <p>When frustration appears if I fail to understand, everything in me becomes quiet. I don't want to feel small next to you. I don't want to feel like a burden.</p>
+                        <p><em>Why do I still stay, despite all of this? Why does my heart refuse to leave?</em></p>
+                    </div>
+                    <div class="triptych-panel v2">
+                        <span class="triptych-tag naming">naming</span>
+                        <p>I was not born with the shield of beauty that protects so many others. I cannot change my face, so I changed my path instead. This is the only strength I've built to hold my worth.</p>
+                        <p>And when it's shattered by someone whose opinion matters — it hurts in ways I cannot explain.</p>
+                    </div>
+                    <div class="triptych-panel v3">
+                        <span class="triptych-tag peace">peace</span>
+                        <p>I do not think you are cruel. You are simply human, and my pain comes mostly from the fragile places inside me — although not everything is insecurity. Some things truly hurt.</p>
+                        <p>You once said, <em>"I expect talking to you feels calm."</em> Yet too often I feel read through shadows. That is why I whisper, not demand. That is why my words come wrapped in caution.</p>
+                    </div>
+                </div>
+
+
+                <!-- ═══════════════════════════════════════════ -->
+                <!-- SECTION III -->
+                <!-- ═══════════════════════════════════════════ -->
+                <div class="theme-intro">
+                    <h2 id="landing">III. The Place You Land</h2>
+                    <p>She was almost always there when their heart broke. The one who stayed when the world felt too heavy. And yet — never the one they stayed for.</p>
+                </div>
+
+                <div class="triptych-voices">
+                    <div class="voice-label v1">Letter I</div>
+                    <div class="voice-label v2">Letter II</div>
+                    <div class="voice-label v3">Letter III</div>
+                </div>
+                <div class="triptych">
+                    <div class="triptych-panel v1">
+                        <span class="triptych-tag raw">raw</span>
+                        <p>Maybe I am a place you land — but never the place you stay.</p>
+                        <p>Sometimes it feels like you cherish the comfort I bring more than the person I am. Sometimes I wonder if you fear losing me — but never fear hurting me.</p>
+                        <p><em>Your name is still loud in my head. Heavier by day. Louder by night.</em></p>
+                    </div>
+                    <div class="triptych-panel v2">
+                        <span class="triptych-tag naming">naming</span>
+                        <p>Maybe I am a place you land — but never the place you stay.</p>
+                        <p>That's why the jealousy comes — not because I want to control you, but because I wish our presence to each other mattered in the same measure.</p>
+                        <p>But maybe that is only my fear echoing back to me.</p>
+                    </div>
+                    <div class="triptych-panel v3">
+                        <span class="triptych-tag peace">peace</span>
+                        <p>Maybe I am a place you land — but never the place you stay.</p>
+                        <p>You are close enough to make me stay. Distant enough to never choose me.</p>
+                        <p>I see you there in silence, and I make scenarios of you here with me. Thank you for letting me see you. Thank you for this strange gift of knowing you exist.</p>
+                    </div>
+                </div>
+
+
+                <!-- ═══════════════════════════════════════════ -->
+                <!-- SECTION IV -->
+                <!-- ═══════════════════════════════════════════ -->
+                <div class="theme-intro">
+                    <h2 id="transformation">IV. The Quiet Transformation</h2>
+                    <p>Without being asked, without being chosen, their presence made her want to grow. If becoming better not to be chosen, but to meet you with dignity — is that not love?</p>
+                </div>
+
+                <div class="triptych-voices">
+                    <div class="voice-label v1">Letter I</div>
+                    <div class="voice-label v2">Letter II</div>
+                    <div class="voice-label v3">Letter III</div>
+                </div>
+                <div class="triptych">
+                    <div class="triptych-panel v1">
+                        <span class="triptych-tag raw">raw</span>
+                        <p>I am not going to lie — somewhere in my heart, there is a wish. But all the theory you told me gives the same conclusion: we will never be 1+1=11.</p>
+                        <p>I am not ready for that.</p>
+                        <p><em>And yet — I must let go of what was never mine to hold.</em></p>
+                    </div>
+                    <div class="triptych-panel v2">
+                        <span class="triptych-tag naming">naming</span>
+                        <p>I learned things I once ignored. I sharpened my mind. I tried to understand your logic, your worldview, your brilliance — so I could speak with you from a place of balance, not confusion.</p>
+                        <p><em>I am still learning you.</em></p>
+                    </div>
+                    <div class="triptych-panel v3">
+                        <span class="triptych-tag peace">peace</span>
+                        <p>You taught me patience I did not know I had. You challenged me in ways that made me uncomfortable, then grateful, then stronger.</p>
+                        <p>I am sorry if I cannot immediately understand the way you think. But one thing you must know — I am willing to understand you. We can take it slowly.</p>
+                        <p><em>I am still learning you.</em></p>
+                    </div>
+                </div>
+
+
+                <!-- ═══════════════════════════════════════════ -->
+                <!-- SECTION V -->
+                <!-- ═══════════════════════════════════════════ -->
+                <div class="theme-intro">
+                    <h2 id="return">V. The Return to Self</h2>
+                    <p>At some point, the question stopped being about them. It became: where am I in all of this? This is the moment the feeling meets its limit — and chooses not to destroy.</p>
+                </div>
+
+                <div class="triptych-voices">
+                    <div class="voice-label v1">Letter I</div>
+                    <div class="voice-label v2">Letter II</div>
+                    <div class="voice-label v3">Letter III</div>
+                </div>
+                <div class="triptych">
+                    <div class="triptych-panel v1">
+                        <span class="triptych-tag raw">raw</span>
+                        <p>I remain here, half in hope, half in resignation — holding out my hand into the empty air, wondering if you will ever reach, and fearing you never will.</p>
+                        <p><em>I cannot erase you.</em></p>
+                    </div>
+                    <div class="triptych-panel v2">
+                        <span class="triptych-tag naming">naming</span>
+                        <p>For whatever this feeling is — it should not destroy. It must never chain. With too many boundaries, it becomes detachment. But without any boundary, it becomes obsession.</p>
+                        <p>I like you, but I resent you. I can understand you, but I can never accept what you do to me.</p>
+                        <p><em>Yet still — I cannot erase you.</em></p>
+                    </div>
+                    <div class="triptych-panel v3">
+                        <span class="triptych-tag peace">peace</span>
+                        <p>I remain here, half in acceptance, half in tenderness — holding out my hand into the space between us, knowing what it can reach and what it cannot.</p>
+                        <p>I like you, but sometimes I resent you. When the only strength I have is shattered by you — I just want to cherish myself more than I cherish you.</p>
+                        <p><em>Yet still — I cannot erase you. And I do not want to.</em></p>
+                    </div>
+                </div>
+
+
+                <!-- ═══════════════════════════════════════════ -->
+                <!-- SECTION VI — POEM -->
+                <!-- ═══════════════════════════════════════════ -->
+                <div class="theme-intro">
+                    <h2 id="poem">VI. A Poem Without Answers</h2>
+                    <p>Three versions of the same poem. Watch the last line change.</p>
+                </div>
+
+                <div class="triptych-voices">
+                    <div class="voice-label v1">Letter I</div>
+                    <div class="voice-label v2">Letter II</div>
+                    <div class="voice-label v3">Letter III</div>
+                </div>
+                <div class="triptych">
+                    <div class="triptych-panel v1 poem-panel">
+                        <span class="triptych-tag raw">raw</span>
+                        <p>Whatever this is — I feel it unconditionally.</p>
+                        <p>&nbsp;</p>
+                        <p>Even when what I receive from you</p>
+                        <p>is the ache of being unseen,</p>
+                        <p>the silence that cuts too sharp.</p>
+                        <p>&nbsp;</p>
+                        <p>I sow seeds with trembling hands,</p>
+                        <p>longing that what I planted</p>
+                        <p>would bloom in sweetness.</p>
+                        <p>&nbsp;</p>
+                        <p>Yet perhaps the soil is not the same,</p>
+                        <p>perhaps our roots</p>
+                        <p><strong><em>were never meant to meet.</em></strong></p>
+                    </div>
+                    <div class="triptych-panel v2 poem-panel">
+                        <span class="triptych-tag naming">naming</span>
+                        <p>Whatever this is — I feel it unconditionally.</p>
+                        <p>&nbsp;</p>
+                        <p>Even when what I receive from you</p>
+                        <p>is the ache of being unseen,</p>
+                        <p>the silence that cuts too sharp.</p>
+                        <p>&nbsp;</p>
+                        <p>I sow seeds with trembling hands,</p>
+                        <p>longing that what I planted</p>
+                        <p>would bloom in sweetness.</p>
+                        <p>&nbsp;</p>
+                        <p>Yet perhaps the soil is not the same,</p>
+                        <p>perhaps our roots</p>
+                        <p><strong><em>were never meant to meet.</em></strong></p>
+                    </div>
+                    <div class="triptych-panel v3 poem-panel">
+                        <span class="triptych-tag peace">peace</span>
+                        <p>Whatever this is — I feel it unconditionally.</p>
+                        <p>&nbsp;</p>
+                        <p>Even when what I receive from you</p>
+                        <p>is the ache of being unseen,</p>
+                        <p>the silence that cuts too sharp.</p>
+                        <p>&nbsp;</p>
+                        <p>I sow seeds with trembling hands,</p>
+                        <p>longing that what I planted</p>
+                        <p>would bloom in sweetness.</p>
+                        <p>&nbsp;</p>
+                        <p>Yet perhaps the soil is not the same,</p>
+                        <p>perhaps our roots</p>
+                        <p><strong><em>were never meant to intertwine that way.</em></strong></p>
+                    </div>
+                </div>
+
+                <p style="font-size: 0.82rem; color: var(--text-tertiary, #9ca3af); font-style: italic; margin-top: -1.5rem; margin-bottom: 2rem;">
+                    The poem barely changes. But those last three words — <em>to meet</em> versus <em>to intertwine that way</em> — hold a whole world of difference.
+                </p>
+
+
+                <!-- ═══════════════════════════════════════════ -->
+                <!-- SECTION VII -->
+                <!-- ═══════════════════════════════════════════ -->
+                <div class="theme-intro">
+                    <h2 id="letting-go">VII. Letting Go</h2>
+                    <p>The same act — releasing something — but from three entirely different places. Watch what she holds onto change.</p>
+                </div>
+
+                <div class="triptych-voices">
+                    <div class="voice-label v1">Letter I</div>
+                    <div class="voice-label v2">Letter II</div>
+                    <div class="voice-label v3">Letter III</div>
+                </div>
+                <div class="triptych">
+                    <div class="triptych-panel v1">
+                        <span class="triptych-tag raw">raw</span>
+                        <p>Now, I don't put hope toward you anymore. But I still like you. I still care about you. Whatever this feeling is — it remains. No matter the condition.</p>
+                        <p><em>Just use it as long as it's there. Just use it until I'm going to make a new life.</em></p>
+                        <p>Maybe now, or forever — it's not my choice anymore.</p>
+                    </div>
+                    <div class="triptych-panel v2">
+                        <span class="triptych-tag naming">naming</span>
+                        <p>Thank you — for letting me feel this. For teaching me what something pure feels like.</p>
+                        <p>In another version of the world, where timing is kinder and God writes our paths side by side — perhaps I would choose you.</p>
+                        <p><em>But here, in this reality, I hold that truth lightly — not as a request, not as a hope, but as a feeling that harms no one.</em></p>
+                    </div>
+                    <div class="triptych-panel v3">
+                        <span class="triptych-tag peace">peace</span>
+                        <p><strong>This is not a goodbye.</strong></p>
+                        <p>I am simply letting go of one thing. Just one.</p>
+                        <p>The hope of being yours in that particular way — I release it. Not with bitterness, not with regret, but with acceptance.</p>
+                        <p>I do not mind losing the chance to be your lover. <strong>But I refuse to lose everything else.</strong> You are too important.</p>
+                    </div>
+                </div>
+
+
+                <!-- ═══════════════════════════════════════════ -->
+                <!-- SECTION VIII -->
+                <!-- ═══════════════════════════════════════════ -->
+                <div class="theme-intro">
+                    <h2 id="remains">VIII. What Remains</h2>
+                    <p>After releasing the hope, after the resentment, after the poem — what is left? The answer, it turns out, is everything that actually mattered.</p>
+                </div>
+
+                <div class="triptych-voices">
+                    <div class="voice-label v1">Letter I</div>
+                    <div class="voice-label v2">Letter II</div>
+                    <div class="voice-label v3">Letter III</div>
+                </div>
+                <div class="triptych">
+                    <div class="triptych-panel v1">
+                        <span class="triptych-tag raw">raw</span>
+                        <p>Too much connection to be just friends. Too complicated to be a relationship.</p>
+                        <p><em>If breaking yet choosing kindness is love — if feeling quietly while standing with dignity is love — then what is this?</em></p>
+                        <p>I still don't know. But maybe I don't need to.</p>
+                    </div>
+                    <div class="triptych-panel v2">
+                        <span class="triptych-tag naming">naming</span>
+                        <p>You are still my teacher. My mentor. My devil's advocate. My harsh guardian. My best friend. My inspiration. My mirror. My strength. My spark. My chaos and my clarity.</p>
+                        <p>Too much connection to be just friends. Too complicated to be a relationship.</p>
+                        <p><em>Of all the feelings you gave me — the best and the worst — this is the truest thing I know.</em></p>
+                    </div>
+                    <div class="triptych-panel v3">
+                        <span class="triptych-tag peace">peace</span>
+                        <p>I know I am not what you want. But maybe — just maybe — I am what you need. As a friend. As a constant. As someone who sees you, truly sees you, and chooses to stay anyway.</p>
+                        <p>Too much connection to be just strangers. Too complicated to be lovers. So we stay here, in this unnamed space.</p>
+                        <p><em>And I have made peace with it.</em></p>
+                    </div>
+                </div>
+
+                <div class="ornament">✦ ✦ ✦</div>
+
+
+                <!-- ═══════════════════════════════════════════ -->
+                <!-- EPILOGUE -->
+                <!-- ═══════════════════════════════════════════ -->
+                <section class="epilogue" id="epilogue">
+                    <h2 class="epilogue-title">Epilogue: What Changed</h2>
+
+                    <p><em>"Be imperfect. Because if I am there, it becomes ugly."</em></p>
+
+                    <p>That is what the first letter believed. By the third, she had learned something different.</p>
+
+                    <div class="final-note">
+                        <p>My worth is not measured by being chosen. My worth is not diminished by feeling something for someone who could not feel the same. My worth is in the feeling itself: pure, sincere, transformative.</p>
+                        <p>I felt. I grew. I let go of one thing without losing everything.</p>
+                        <p>And that is enough.</p>
+                    </div>
+
+                    <div class="ornament">• • •</div>
+
+                    <p>These letters were never meant to be sent. They were meant to be written — to release what needed releasing, to honor what needed honoring, to clarify what needed clarifying.</p>
+
+                    <p>The first letter closed a door it didn't know how to name. The second learned to name it. The third closed it gently, with gratitude for the dreams it held — and left every other door wide open.</p>
+
+                    <div class="ornament">• • •</div>
+
+                    <p>So what is this feeling?</p>
+
+                    <p>Perhaps one day she will find the word. Perhaps she never will. Perhaps it does not matter.</p>
+
+                    <p>What matters is that she felt it fully, honored it honestly, and chose to stay — not as someone waiting to be loved, but as someone who has already made peace with what is and what will never be.</p>
+
+                    <p><strong>She is not losing him. She is simply loving him differently.</strong></p>
+
+                    <p>And maybe that is the closest answer she will ever have.</p>
+
+                    <div class="ornament">✦ ✦ ✦</div>
+
+                    <p style="text-align: center; font-style: italic; color: var(--text-tertiary); margin-top: var(--space-12);">
+                        — To be continued, in friendship —
+                    </p>
+                </section>
+
+            </div>
+
+            <!-- Post Footer -->
+            <footer class="post-footer">
+                <div class="post-tags">
+                    <span class="tag">Attachment</span>
+                    <span class="tag tag-pink">Personal Growth</span>
+                    <span class="tag tag-green">Philosophy</span>
+                    <span class="tag tag-orange">Letting Go</span>
+                </div>
+
+                <div class="post-navigation">
+                    <a href="a-letter-that-was-never-sent.html" class="post-nav-link">
+                        <span class="post-nav-link-label">Previous Post</span>
+                        <span class="post-nav-link-title">A Letter That Was Never Sent</span>
+                    </a>
+                    <a href="meeting-halfway.html" class="post-nav-link next">
+                        <span class="post-nav-link-label">Next Post</span>
+                        <span class="post-nav-link-title">Meeting Halfway</span>
+                    </a>
+                </div>
+            </footer>
+
+        </article>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="../../about.html">About</a>
+                <a href="../../projects/">Projects</a>
+                <a href="../index.html">Blog</a>
+                <a href="../../links.html">Links</a>
+            </div>
+            <p>&copy; 2026 Annisa Baizan. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Global JavaScript -->
+    <script src="../../assets/js/main.js"></script>
+
+    <script>
+        // Reading Progress Bar
+        function updateReadingProgress() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('readingProgress').style.width = scrolled + '%';
+        }
+        window.addEventListener('scroll', updateReadingProgress);
+
+        // Active TOC highlighting
+        function updateActiveTOC() {
+            const sections = document.querySelectorAll('h2[id]');
+            const tocLinks = document.querySelectorAll('.toc-list a');
+            let currentSection = '';
+            sections.forEach(section => {
+                if (window.pageYOffset >= section.offsetTop - 150) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+            tocLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${currentSection}`) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        // Throttle helper (fallback if main.js utils not loaded)
+        const throttle = (fn, delay) => {
+            let last = 0;
+            return (...args) => {
+                const now = Date.now();
+                if (now - last >= delay) { last = now; fn(...args); }
+            };
+        };
+
+        window.addEventListener('scroll', throttle(updateActiveTOC, 100));
+        updateReadingProgress();
+        updateActiveTOC();
+    </script>
+</body>
+</html>

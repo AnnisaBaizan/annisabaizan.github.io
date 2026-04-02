@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Annisa Baizan — Ada orang yang langsung enak diajak ngobrol. Saya bukan orang itu.">
+    <title>Annisa Baizan — About</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&family=Fira+Code:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" href="assets/css/theme.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <link rel="stylesheet" href="assets/css/galaxy.css">
+
+    <style>
+        /* ════════════════════════════════════════════════
+           ABOUT V3 — PROSE-FIRST, GALAXY BACKGROUND
+           ════════════════════════════════════════════════ */
+
+        .ab-wrap {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ── OPENING ── */
+        .ab-opening {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 120px 2rem 6rem;
+        }
+
+        .ab-opening-inner {
+            max-width: 680px;
+            margin: 0 auto;
+        }
+
+        .ab-eyebrow {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.62rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: rgba(240,192,64,0.5);
+            margin-bottom: 3rem;
+        }
+
+        .ab-opening-line {
+            font-family: 'Crimson Text', serif;
+            font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+            color: #f5f0ff;
+            line-height: 1.5;
+            font-weight: 400;
+            margin-bottom: 1.5rem;
+        }
+
+        .ab-opening-line.muted {
+            color: #a89fc0;
+            font-size: clamp(1.1rem, 2vw, 1.5rem);
+        }
+
+        .ab-opening-line em {
+            font-style: italic;
+            color: #f0c040;
+        }
+
+        .ab-opening-pause {
+            display: block;
+            height: 2rem;
+        }
+
+        /* ── PROSE BODY ── */
+        .ab-body {
+            padding: 0 2rem 8rem;
+        }
+
+        .ab-chunk {
+            max-width: 680px;
+            margin: 0 auto 4rem;
+        }
+
+        .ab-p {
+            font-family: 'Crimson Text', serif;
+            font-size: 1.12rem;
+            color: #c0b8d8;
+            line-height: 1.95;
+            margin-bottom: 1.4rem;
+        }
+
+        .ab-p:last-child { margin-bottom: 0; }
+
+        .ab-p strong {
+            color: #f5f0ff;
+            font-weight: 600;
+        }
+
+        .ab-p em {
+            font-style: italic;
+            color: #d0c8e8;
+        }
+
+        /* ── PULL QUOTE ── */
+        .ab-pull {
+            margin: 3.5rem auto;
+            max-width: 680px;
+            padding: 2rem 0;
+            border-top: 1px solid rgba(240,192,64,0.15);
+            border-bottom: 1px solid rgba(240,192,64,0.15);
+        }
+
+        .ab-pull-text {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+            color: #f0c040;
+            line-height: 1.5;
+            font-weight: 400;
+            text-align: center;
+        }
+
+        .ab-pull-text em {
+            font-style: italic;
+        }
+
+        /* ── INLINE QUOTE ── */
+        .ab-inline-quotes {
+            max-width: 680px;
+            margin: 0 auto 4rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .ab-iq {
+            padding: 1.1rem 0;
+            border-bottom: 1px solid rgba(240,192,64,0.07);
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 2rem;
+            align-items: baseline;
+        }
+
+        .ab-iq:first-child { border-top: 1px solid rgba(240,192,64,0.07); }
+
+        .ab-iq-text {
+            font-family: 'Crimson Text', serif;
+            font-size: 1rem;
+            font-style: italic;
+            color: #d0c8e8;
+            line-height: 1.75;
+        }
+
+        .ab-iq-from {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.58rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: rgba(240,192,64,0.4);
+            white-space: nowrap;
+        }
+
+        /* ── SECTION MARKER ── */
+        .ab-marker {
+            max-width: 680px;
+            margin: 0 auto 2rem;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.6rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: rgba(240,192,64,0.35);
+        }
+
+        /* ── HONEST LIST ── */
+        .ab-honest-list {
+            max-width: 680px;
+            margin: 0 auto 4rem;
+            list-style: none;
+        }
+
+        .ab-honest-list li {
+            font-family: 'Crimson Text', serif;
+            font-size: 1.05rem;
+            color: #a89fc0;
+            line-height: 1.85;
+            padding: 1.25rem 0;
+            border-bottom: 1px solid rgba(240,192,64,0.07);
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .ab-honest-list li::before {
+            content: '—';
+            position: absolute;
+            left: 0;
+            color: rgba(240,192,64,0.3);
+            font-family: 'Fira Code', monospace;
+            font-size: 0.8rem;
+        }
+
+        .ab-honest-list li strong {
+            color: #d0c8e8;
+            display: block;
+            margin-bottom: 0.2rem;
+            font-family: 'Cinzel', serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        /* ── CLOSING ── */
+        .ab-closing {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 5rem 2rem 10rem;
+            text-align: center;
+        }
+
+        .ab-closing-line {
+            font-family: 'Crimson Text', serif;
+            font-size: 1.2rem;
+            color: #a89fc0;
+            line-height: 1.9;
+            margin-bottom: 1rem;
+        }
+
+        .ab-closing-line strong {
+            color: #f5f0ff;
+        }
+
+        .ab-cta-link {
+            display: inline-block;
+            margin-top: 3rem;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.72rem;
+            letter-spacing: 0.15em;
+            color: rgba(240,192,64,0.6);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(240,192,64,0.2);
+            padding-bottom: 0.2rem;
+            transition: color 0.2s, border-color 0.2s;
+        }
+
+        .ab-cta-link:hover {
+            color: #f0c040;
+            border-color: #f0c040;
+        }
+
+        /* ── FADE IN ── */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-up { opacity: 0; animation: fadeUp 0.8s ease forwards; }
+        .d1 { animation-delay: 0.1s; }
+        .d2 { animation-delay: 0.35s; }
+        .d3 { animation-delay: 0.6s; }
+        .d4 { animation-delay: 0.85s; }
+
+        [data-animate] {
+            opacity: 0;
+            transform: translateY(16px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        [data-animate].visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 768px) {
+            .ab-opening { padding: 100px 1.5rem 5rem; }
+            .ab-body { padding: 0 1.5rem 6rem; }
+            .ab-iq { grid-template-columns: 1fr; gap: 0.5rem; }
+            .ab-closing { padding: 4rem 1.5rem 7rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-brand">AB</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html" class="active">About</a></li>
+                <li><a href="projects/index.html">Projects</a></li>
+                <li><a href="blog/index.html">Blog</a></li>
+                <li><a href="links.html">Contact</a></li>
+            </ul>
+            <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="nav-mobile-overlay" id="nav-mobile-overlay">
+        <div class="overlay-divider"></div>
+        <a href="index.html">Home</a>
+        <a href="about.html" class="active">About</a>
+        <a href="projects/index.html">Projects</a>
+        <a href="blog/index.html">Blog</a>
+        <a href="links.html">Contact</a>
+        <div class="overlay-divider"></div>
+    </div>
+
+    <!-- ── OPENING ── -->
+    <section class="ab-opening">
+        <div class="ab-opening-inner">
+            <p class="ab-eyebrow fade-up d1">Annisa Baizan · Palembang · 2026</p>
+
+            <p class="ab-opening-line fade-up d2">
+                Ada orang yang langsung enak<br>diajak ngobrol pertama kali ketemu.
+            </p>
+
+            <p class="ab-opening-line muted fade-up d3">
+                Saya bukan orang itu.
+            </p>
+
+            <span class="ab-opening-pause"></span>
+
+            <p class="ab-opening-line muted fade-up d4">
+                Tapi ini bukan tentang itu —<br>
+                ini tentang <em>apa yang ada di baliknya.</em>
+            </p>
+        </div>
+    </section>
+
+    <!-- ── PROSE BODY ── -->
+    <div class="ab-body">
+
+        <!-- Kesan pertama -->
+        <div class="ab-chunk" data-animate>
+            <p class="ab-p">
+                Orang yang pertama kali ketemu saya biasanya menyimpulkan:
+                <strong>pendiam. Serius. Sulit dibaca.</strong>
+            </p>
+            <p class="ab-p">
+                Mereka tidak salah.
+            </p>
+            <p class="ab-p">
+                Yang mereka tidak tahu — di balik itu ada seseorang yang bisa habiskan
+                satu jam ngobrol tentang teori pembentukan nebula, setelah itu tanya
+                <em>"kamu sudah makan?"</em> dan genuinely menunggu jawabannya.
+            </p>
+        </div>
+
+        <!-- Pull quote: benang merah -->
+        <div class="ab-pull" data-animate>
+            <p class="ab-pull-text">
+                Tidak bisa setengah-setengah.
+            </p>
+        </div>
+
+        <!-- Core motif -->
+        <div class="ab-chunk" data-animate>
+            <p class="ab-p">
+                Satu benang merah yang mengikat semuanya — dari cara belajar, cara kerja,
+                sampai cara menjaga orang.
+            </p>
+            <p class="ab-p">
+                Kalau sudah tertarik pada sesuatu, tidak berhenti sebelum paham sampai ke akar.
+                Kalau sudah commit mengerjakan sesuatu, tidak ada namanya <em>asal jadi.</em>
+                Kalau sudah peduli — peduli sepenuhnya.
+            </p>
+            <p class="ab-p">
+                Ini yang membuat beberapa hal jadi jauh lebih mudah.
+            </p>
+            <p class="ab-p">
+                Dan beberapa hal jadi jauh lebih sulit dari yang seharusnya.
+            </p>
+        </div>
+
+        <!-- Yang jarang kelihatan -->
+        <p class="ab-marker" data-animate>✦ &nbsp; yang jarang kelihatan</p>
+
+        <div class="ab-chunk" data-animate>
+            <p class="ab-p">
+                Tidak suka menonjolkan diri. Tapi bukan berarti tidak ada apa-apa.
+            </p>
+            <p class="ab-p">
+                Bisa habiskan waktu yang tidak masuk akal untuk crafting sesuatu
+                dengan tangan sendiri. Punya pendapat soal psikologi kepribadian yang lebih
+                panjang dari yang kebanyakan orang mau dengar. Tertarik pada astronomi,
+                filsafat, dan cara kerja pikiran manusia — sekaligus, bukan bergantian.
+            </p>
+            <p class="ab-p">
+                Ada suara bagus yang hanya orang-orang tertentu yang tahu.
+                Bukan karena disembunyikan — tapi karena tidak ada yang tanya.
+            </p>
+            <p class="ab-p">
+                Dan suka masak. Benar-benar suka. Satu dari sedikit hal yang
+                tidak dianalisis terlalu banyak — hanya dinikmati.
+            </p>
+        </div>
+
+        <!-- Apa kata orang -->
+        <p class="ab-marker" data-animate>✦ &nbsp; bukan kata saya</p>
+
+        <div class="ab-inline-quotes" data-animate>
+            <div class="ab-iq">
+                <span class="ab-iq-text">"Tempat yang aman. Bisa jadi diri sendiri. Seperti dapat perlindungan keluarga secara harfiah."</span>
+                <span class="ab-iq-from">Teman dekat</span>
+            </div>
+            <div class="ab-iq">
+                <span class="ab-iq-text">"Tough but warm. Kalau sudah ada tujuan, pokoknya dia usahakan."</span>
+                <span class="ab-iq-from">Teman kuliah</span>
+            </div>
+            <div class="ab-iq">
+                <span class="ab-iq-text">"Tidak suka menonjolkan diri padahal punya banyak kemampuan."</span>
+                <span class="ab-iq-from">Teman belajar</span>
+            </div>
+            <div class="ab-iq">
+                <span class="ab-iq-text">"Kalau bantu orang, pasti tulus. Rela jelaskan berulang-ulang sampai orang benar-benar ngerti."</span>
+                <span class="ab-iq-from">Teman belajar</span>
+            </div>
+        </div>
+
+        <!-- Pull quote: tough dulu warm kemudian -->
+        <div class="ab-pull" data-animate>
+            <p class="ab-pull-text">
+                <em>"Tough but warm."</em><br>
+                <span style="font-size:0.75em; font-family:'Fira Code',monospace; color: rgba(240,192,64,0.5); letter-spacing:0.05em;">
+                    Tough dulu. Warm kemudian.<br>Urutan itu penting.
+                </span>
+            </p>
+        </div>
+
+        <!-- Jujur tentang diri sendiri -->
+        <p class="ab-marker" data-animate>✦ &nbsp; yang masih dikerjakan</p>
+
+        <div class="ab-chunk" data-animate>
+            <p class="ab-p">
+                Overthinking adalah teman lama. Bukan dalam artian filosofis yang menarik —
+                overthinking yang beneran, yang kadang bikin hal sederhana jadi lebih berat
+                dari yang seharusnya.
+            </p>
+            <p class="ab-p">
+                Standar untuk diri sendiri lebih tinggi dari yang diakui.
+                Dan kadang bocor ke orang-orang di sekitar — sesuatu yang masih terus dikalibrasi.
+            </p>
+            <p class="ab-p">
+                Susah delegasi. Lebih mudah kerjakan sendiri daripada menjelaskan
+                standar yang ada di kepala ke orang lain.
+            </p>
+            <p class="ab-p">
+                Tapi saya tahu ini. Dan itu setidaknya setengah dari perjalanan.
+            </p>
+        </div>
+
+        <!-- Konteks singkat -->
+        <p class="ab-marker" data-animate>✦ &nbsp; konteks</p>
+
+        <ul class="ab-honest-list" data-animate>
+            <li>
+                <strong>Ilmu Komputer · BINUS</strong>
+                Ditambah self-directed curriculum di luar perkuliahan — bukan casual reading, tapi systematic study. Dari CS sampai psikologi.
+            </li>
+            <li>
+                <strong>ASN · Palembang</strong>
+                Dual-track: teknologi akademis + birokrasi pemerintahan. Multi-tracking yang demanding — dijalankan bersamaan.
+            </li>
+            <li>
+                <strong>Java · PHP · Python</strong>
+                Healthcare tech, e-governance, sistem manajemen. Project dikerjakan karena mau — bukan karena harus.
+            </li>
+        </ul>
+
+        <!-- Closing -->
+        <div class="ab-closing" data-animate>
+            <p class="ab-closing-line">
+                Kalau kamu sudah baca sampai sini —
+            </p>
+            <p class="ab-closing-line">
+                <strong>kamu sudah lebih jauh dari kebanyakan orang.</strong>
+            </p>
+            <p class="ab-closing-line" style="margin-top:1.5rem; font-size:1rem; color:#7a7095;">
+                Saya bukan orang yang mudah dikenal dari permukaan.<br>
+                Tapi kalau mau invest waktu untuk itu — mungkin worth it.<br>
+                Atau setidaknya, tidak membosankan.
+            </p>
+
+            <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; margin-top:2.5rem;">
+                <a href="links.html" class="btn btn-primary btn-glow">✉ Hubungi Saya</a>
+                <a href="projects/index.html" class="btn btn-secondary">⚗️ Lihat Proyek</a>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="about.html">About</a>
+                <a href="projects/index.html">Projects</a>
+                <a href="blog/index.html">Blog</a>
+                <a href="links.html">Contact</a>
+            </div>
+            <p style="color:#7a7095;">✦ &copy; 2026 Annisa Baizan — Built with analytical precision &amp; a touch of magic ✦</p>
+        </div>
+    </footer>
+
+    <canvas id="star-canvas"></canvas>
+
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/stars.js"></script>
+    <script src="assets/js/cursor.js"></script>
+    <script src="assets/js/effects.js"></script>
+    <script src="assets/js/music-player.js"></script>
+
+    <script>
+        // Scroll-triggered fade in for data-animate elements
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.classList.add('visible');
+                    observer.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.15 });
+
+        document.querySelectorAll('[data-animate]').forEach(el => observer.observe(el));
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Three Letters, One Heart | Annisa Baizan</title>
+    
+    <link rel="stylesheet" href="../../assets/css/reset.css">
+    <link rel="stylesheet" href="../../assets/css/theme.css">
+    <link rel="stylesheet" href="../../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/blog.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        body { font-family: 'DM Sans', sans-serif; }
+        .post-body, .post-body p { font-family: 'Lora', Georgia, serif; line-height: 1.9; }
+        
+        /* Morphing text animation */
+        .morph-text {
+            display: inline;
+            transition: opacity 0.5s ease-in-out;
+        }
+        
+        .morph-text.fading {
+            opacity: 0;
+        }
+        
+        .morph-text.phase-1 { color: #ec4899; }
+        .morph-text.phase-2 { color: #f59e0b; }
+        .morph-text.phase-3 { color: #06b6d4; }
+        
+        /* Stable text stays normal */
+        .stable-para {
+            color: var(--text-primary);
+        }
+        
+        /* Controls */
+        .morph-controls {
+            position: sticky;
+            top: 90px;
+            z-index: 100;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: var(--space-6);
+            margin-bottom: var(--space-12);
+        }
+        
+        .morph-btn {
+            padding: var(--space-3) var(--space-6);
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: var(--text-sm);
+        }
+        
+        .morph-btn:hover {
+            border-color: var(--accent-cyan);
+            color: var(--accent-cyan);
+        }
+        
+        .morph-btn.active {
+            background: var(--accent-cyan);
+            color: white;
+            border-color: var(--accent-cyan);
+        }
+        
+        .phase-indicator {
+            display: inline-block;
+            padding: var(--space-2) var(--space-4);
+            border-radius: var(--radius-full);
+            font-size: var(--text-xs);
+            font-weight: bold;
+            margin-left: var(--space-4);
+        }
+        
+        .phase-indicator.p1 { background: rgba(236, 72, 153, 0.2); color: #ec4899; }
+        .phase-indicator.p2 { background: rgba(245, 158, 11, 0.2); color: #f59e0b; }
+        .phase-indicator.p3 { background: rgba(6, 182, 212, 0.2); color: #06b6d4; }
+    </style>
+</head>
+<body>
+    <div class="reading-progress" id="readingProgress"></div>
+
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="../../index.html" class="nav-brand">AB</a>
+            <ul class="nav-links">
+                <li><a href="../../index.html">Home</a></li>
+                <li><a href="../../about.html">About</a></li>
+                <li><a href="../../projects/">Projects</a></li>
+                <li><a href="../index.html" class="active">Blog</a></li>
+                <li><a href="../../links.html">Links</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="blog-container">
+        <aside class="blog-sidebar">
+            <nav class="toc">
+                <h3 class="toc-title">Contents</h3>
+                <ul class="toc-list">
+                    <li><a href="#intro">Introduction</a></li>
+                    <li><a href="#letter">The Letter</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <article class="blog-content">
+            <div class="breadcrumb">
+                <a href="../../index.html">Home</a>
+                <span>/</span>
+                <a href="../index.html">Blog</a>
+                <span>/</span>
+                <span>Three Letters, One Heart</span>
+            </div>
+
+            <header class="post-header">
+                <div class="post-category">Morphing Triptych</div>
+                <h1 class="post-title">Three Letters, One Heart</h1>
+                <p class="post-subtitle">Watch how the words transform while the truth stays constant</p>
+                <div class="post-meta">
+                    <span class="post-meta-item">📅 February 2026</span>
+                    <span class="post-meta-item">⏱️ 25 min read</span>
+                    <span class="post-meta-item">🏷️ Grief, Evolution</span>
+                </div>
+            </header>
+
+            <div class="post-body">
+                <section id="intro">
+                    <p class="lead">This is the same letter, written three times.</p>
+                    <p>Most of the text stayed the same across all three versions. Those are the truths that didn't need to change.</p>
+                    <p><strong>What changed</strong> is where the growth lives.</p>
+                    
+                    <div class="insight-box">
+                        <div class="insight-box-title">How This Works</div>
+                        <p>The text you're reading is the final version (Phase III). But some sentences were different in earlier drafts — written when I was angrier, more desperate, less accepting.</p>
+                        <p>Click "Start Morphing" below to watch those specific sentences transform. The stable text stays still. Only the parts that evolved will flicker between versions.</p>
+                        <p>It's chaotic. It's unsettling. It's exactly how grief feels.</p>
+                    </div>
+                </section>
+
+                <!-- Morph Controls -->
+                <div class="morph-controls">
+                    <button class="morph-btn" id="morphBtn" onclick="toggleMorphing()">
+                        ▶ Start Morphing
+                    </button>
+                    <span class="phase-indicator p3" id="phaseLabel">Phase III</span>
+                    <div style="margin-top: var(--space-4); font-size: var(--text-sm); color: var(--text-tertiary);">
+                        <label>Speed: 
+                            <input type="range" min="1" max="5" value="3" step="1" 
+                                   onchange="updateSpeed(this.value)" 
+                                   style="width: 100px; margin-left: var(--space-2);">
+                        </label>
+                        <span id="speedLabel" style="margin-left: var(--space-2);">Normal</span>
+                    </div>
+                </div>
+
+                <section id="letter">
+                    <!-- Letter content will be injected here by JavaScript -->
+                    <div id="letterContent"></div>
+                </section>
+
+            </div>
+
+            <footer class="post-footer">
+                <div class="post-tags">
+                    <span class="tag">Morphing Triptych</span>
+                    <span class="tag tag-pink">Grief</span>
+                    <span class="tag tag-green">Evolution</span>
+                </div>
+            </footer>
+
+        </article>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="../../about.html">About</a>
+                <a href="../../projects/">Projects</a>
+                <a href="../index.html">Blog</a>
+            </div>
+            <p>&copy; 2026 Annisa Baizan</p>
+        </div>
+    </footer>
+
+    <script src="../../assets/js/main.js"></script>
+    
+    <script>
+        // Letter content with morphing data
+        const letterData = LETTER_DATA_PLACEHOLDER;
+        
+        let isMorphing = false;
+        let currentPhase = 3;
+        let morphInterval = null;
+        let morphSpeed = 3000;
+        
+        // Render letter content
+        function renderLetter() {
+            const container = document.getElementById('letterContent');
+            container.innerHTML = letterData.map((item, i) => {
+                if (item.type === 'ornament') {
+                    return `<div class="ornament">${item.text}</div>`;
+                } else if (item.type === 'stable') {
+                    return `<p class="stable-para">${item.text}</p>`;
+                } else if (item.type === 'morph') {
+                    return `<p class="morphing-para">
+                        <span class="morph-text" id="morph-${i}"
+                              data-p1="${item.p1}" 
+                              data-p2="${item.p2}" 
+                              data-p3="${item.p3}">${item.p3}</span>
+                    </p>`;
+                } else if (item.type === 'heading') {
+                    return `<h2>${item.text}</h2>`;
+                }
+            }).join('');
+        }
+        
+        function toggleMorphing() {
+            isMorphing = !isMorphing;
+            const btn = document.getElementById('morphBtn');
+            
+            if (isMorphing) {
+                btn.textContent = '⏸ Pause Morphing';
+                btn.classList.add('active');
+                startMorphing();
+            } else {
+                btn.textContent = '▶ Start Morphing';
+                btn.classList.remove('active');
+                stopMorphing();
+            }
+        }
+        
+        function startMorphing() {
+            morphInterval = setInterval(() => {
+                morphToNextPhase();
+            }, morphSpeed);
+        }
+        
+        function stopMorphing() {
+            if (morphInterval) {
+                clearInterval(morphInterval);
+                morphInterval = null;
+            }
+        }
+        
+        function morphToNextPhase() {
+            const morphTexts = document.querySelectorAll('.morph-text');
+            
+            // Fade out
+            morphTexts.forEach(el => el.classList.add('fading'));
+            
+            setTimeout(() => {
+                currentPhase = (currentPhase % 3) + 1;
+                
+                morphTexts.forEach(el => {
+                    const newText = el.dataset[`p${currentPhase}`];
+                    if (newText) {
+                        el.textContent = newText;
+                    }
+                    el.className = `morph-text phase-${currentPhase}`;
+                });
+                
+                // Update indicator
+                const label = document.getElementById('phaseLabel');
+                const phases = ['Phase I', 'Phase II', 'Phase III'];
+                label.textContent = phases[currentPhase - 1];
+                label.className = `phase-indicator p${currentPhase}`;
+                
+                // Fade in
+                setTimeout(() => {
+                    morphTexts.forEach(el => el.classList.remove('fading'));
+                }, 50);
+            }, 500);
+        }
+        
+        function updateSpeed(val) {
+            const speeds = {
+                1: { ms: 5000, label: 'Very Slow' },
+                2: { ms: 4000, label: 'Slow' },
+                3: { ms: 3000, label: 'Normal' },
+                4: { ms: 2000, label: 'Fast' },
+                5: { ms: 1500, label: 'Very Fast' }
+            };
+            morphSpeed = speeds[val].ms;
+            document.getElementById('speedLabel').textContent = speeds[val].label;
+            
+            if (isMorphing) {
+                stopMorphing();
+                startMorphing();
+            }
+        }
+        
+        // Initialize
+        renderLetter();
+        
+        // Reading progress
+        function updateProgress() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('readingProgress').style.width = scrolled + '%';
+        }
+        window.addEventListener('scroll', updateProgress);
+    </script>
+</body>
+</html>

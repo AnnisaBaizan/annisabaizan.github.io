@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Presentasi Teknis Internal — App Pendamping</title>
+  <link rel="stylesheet" href="../../../assets/css/galaxy.css">
+  <style>
+    .ph-wrap {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 3rem 2rem;
+      gap: 1.4rem;
+    }
+    .ph-badge {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.72rem;
+      color: var(--cyan);
+      border: 1px solid rgba(0,212,255,0.3);
+      border-radius: 99px;
+      padding: 0.3rem 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+    .ph-icon { font-size: 3.5rem; filter: drop-shadow(0 0 16px var(--gold)); }
+    .ph-project { font-family: 'Cinzel', serif; font-size: 0.95rem; color: var(--text-secondary); margin: 0; }
+    .ph-title { font-family: 'Cinzel', serif; font-size: clamp(1.3rem, 4vw, 2.2rem); color: var(--gold); margin: 0; }
+    .ph-desc { font-family: 'Crimson Text', serif; font-size: 1.1rem; color: var(--text-secondary); max-width: 480px; line-height: 1.7; }
+    .ph-status {
+      display: flex; align-items: center; gap: 0.6rem;
+      font-family: 'Fira Code', monospace; font-size: 0.8rem; color: var(--text-muted);
+    }
+    .ph-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--gold); opacity: 0.5;
+      animation: ph-blink 2s ease-in-out infinite;
+    }
+    @keyframes ph-blink {
+      0%,100% { opacity: 0.5; }
+      50% { opacity: 1; box-shadow: 0 0 8px var(--gold); }
+    }
+    .ph-back {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.6rem 1.5rem;
+      border: 1px solid rgba(240,192,64,0.3);
+      border-radius: 99px;
+      color: var(--gold); text-decoration: none;
+      font-family: 'Cinzel', serif; font-size: 0.82rem;
+      transition: all 0.3s;
+    }
+    .ph-back:hover {
+      background: rgba(240,192,64,0.1);
+      border-color: var(--gold);
+      box-shadow: 0 0 16px rgba(240,192,64,0.25);
+    }
+  </style>
+</head>
+<body>
+  <canvas id="star-canvas"></canvas>
+  <div class="ph-wrap">
+    <span class="ph-badge">presentations</span>
+    <div class="ph-icon">🔧</div>
+    <p class="ph-project">App Pendamping</p>
+    <h1 class="ph-title">Presentasi Teknis Internal</h1>
+    <p class="ph-desc">Detail teknis sistem untuk tim internal dan stakeholder langsung.</p>
+    <div class="ph-status">
+      <span class="ph-dot"></span>
+      Konten sedang disiapkan
+    </div>
+    <a class="ph-back" href="../index.html">&#8592; Kembali ke Project Hub</a>
+  </div>
+  <script src="../../../assets/js/stars.js"></script>
+  <script src="../../../assets/js/cursor.js"></script>
+</body>
+</html>
