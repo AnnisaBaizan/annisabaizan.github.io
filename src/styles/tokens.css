@@ -1,0 +1,127 @@
+/* Design tokens — font files loaded via next/font in app/layout.tsx (no render-blocking @import). */
+
+:root {
+  --bg-dark:     #05030d;
+  --bg-card:     rgba(12, 8, 40, 0.72);
+  --bg-elevated: rgba(18, 12, 52, 0.85);
+  --bg-overlay:  rgba(5, 3, 13, 0.93);
+
+  --text-primary:   #f5f0ff;
+  --text-secondary: #a89fc0;
+  --text-tertiary:  #7a7095;
+  --text-muted:     #5a5070;
+
+  --gold:        #f0c040;
+  --gold-light:  #ffd700;
+  --gold-dark:   #b8860b;
+  --purple:      #7b2fff;
+  --purple-light:#a855f7;
+  --cyan:        #00d4ff;
+  --cyan-dark:   #0099cc;
+  --crimson:     #c41e3a;
+  --magenta:     #e040fb;
+
+  --accent-blue:      #7b2fff;
+  --accent-cyan:      #f0c040;
+  --accent-blue-dark: #5a1fd8;
+  --accent-cyan-dark: #b8860b;
+  --accent-pink:      #c41e3a;
+  --accent-purple:    #a855f7;
+  --accent-green:     #10b981;
+  --accent-orange:    #f0c040;
+
+  --border-color:  rgba(240, 192, 64, 0.12);
+  --border-light:  rgba(240, 192, 64, 0.28);
+  --border-accent: #f0c040;
+
+  --success: #10b981;
+  --warning: #f59e0b;
+  --error:   #ef4444;
+  --info:    #06b6d4;
+
+  --gradient-primary: linear-gradient(135deg, #f0c040, #00d4ff);
+  --gradient-hover:   linear-gradient(135deg, #b8860b, #0099cc);
+  --gradient-bg:
+    radial-gradient(ellipse at 20% 50%, rgba(123, 47, 255, 0.14) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(0, 212, 255, 0.09) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 80%, rgba(196, 30, 58, 0.07) 0%, transparent 50%);
+
+  --shadow-sm:         0 1px 2px 0 rgba(0,0,0,0.05);
+  --shadow-md:         0 4px 6px -1px rgba(0,0,0,0.1);
+  --shadow-lg:         0 10px 15px -3px rgba(0,0,0,0.1);
+  --shadow-xl:         0 20px 25px -5px rgba(0,0,0,0.1);
+  --shadow-2xl:        0 25px 50px -12px rgba(0,0,0,0.25);
+  --shadow-glow:       0 0 20px rgba(240,192,64,0.35);
+  --shadow-glow-hover: 0 10px 40px rgba(240,192,64,0.55);
+
+  --font-primary: var(--font-crimson), Georgia, serif;
+  --font-heading: var(--font-cinzel), "Times New Roman", serif;
+  --font-mono:    var(--font-fira), "Monaco", "Courier New", monospace;
+  --font-display: var(--font-cinzel), serif;
+  --font-body:    var(--font-crimson), Georgia, serif;
+
+  --text-xs:   0.75rem;
+  --text-sm:   0.875rem;
+  --text-base: 1rem;
+  --text-lg:   1.125rem;
+  --text-xl:   1.25rem;
+  --text-2xl:  1.5rem;
+  --text-3xl:  1.875rem;
+  --text-4xl:  2.25rem;
+  --text-5xl:  3rem;
+  --text-6xl:  3.75rem;
+  --text-7xl:  4.5rem;
+
+  --font-light:     300;
+  --font-normal:    400;
+  --font-medium:    500;
+  --font-semibold:  600;
+  --font-bold:      700;
+  --font-extrabold: 800;
+
+  --leading-none:    1;
+  --leading-tight:   1.25;
+  --leading-snug:    1.375;
+  --leading-normal:  1.5;
+  --leading-relaxed: 1.625;
+  --leading-loose:   2;
+
+  --space-1:  0.25rem;
+  --space-2:  0.5rem;
+  --space-3:  0.75rem;
+  --space-4:  1rem;
+  --space-5:  1.25rem;
+  --space-6:  1.5rem;
+  --space-8:  2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+
+  --radius-sm:   4px;
+  --radius-md:   8px;
+  --radius-lg:   12px;
+  --radius-xl:   16px;
+  --radius-2xl:  20px;
+  --radius-full: 9999px;
+
+  --transition-fast: 150ms ease-in-out;
+  --transition-base: 300ms ease-in-out;
+  --transition-slow: 500ms ease-in-out;
+
+  --z-base:           1;
+  --z-dropdown:       100;
+  --z-sticky:         200;
+  --z-fixed:          300;
+  --z-modal-backdrop: 400;
+  --z-modal:          500;
+  --z-popover:        600;
+  --z-tooltip:        700;
+
+  --container-sm:  640px;
+  --container-md:  768px;
+  --container-lg:  1024px;
+  --container-xl:  1200px;
+  --container-2xl: 1400px;
+}
